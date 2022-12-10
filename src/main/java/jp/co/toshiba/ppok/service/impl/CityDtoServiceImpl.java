@@ -15,9 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -56,10 +54,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
         final LambdaQueryWrapper<City> queryWrapper = Wrappers.lambdaQuery(new City());
         queryWrapper.eq(name != null, City::getName, name);
         final Long count = cityMapper.selectCount(queryWrapper);
-        if (count >= 1) {
-            return true;
-        }
-        return false;
+        return count >= 1;
     }
 
     /**
@@ -119,17 +114,22 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
     @Override
     public void updateCityInfo(CityDto cityDto) {
         final City city = new City();
+        final Nation country = new Nation();
         BeanUtils.copyProperties(cityDto, city, "nation", "continent");
         final String nationName = cityDto.getNation();
         final LambdaQueryWrapper<Nation> queryWrapper = Wrappers.lambdaQuery(new Nation());
         queryWrapper.eq(Nation::getName, nationName);
         final Nation nation = nationMapper.selectOne(queryWrapper);
         if (nation != null) {
-            city.setCountryCode(nation.getCode());
+            if (cityDto.getContinent().equals(nation.getContinent())) {
+                city.setCountryCode(nation.getCode());
+            } else {
+                throw new CustomException("Cannot change the continent that the country located on.");
+            }
         } else {
-            final Nation country = new Nation();
             country.setCode(nationName.substring(0, 3).toUpperCase());
             country.setName(nationName);
+            country.setContinent(cityDto.getContinent());
             nationMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
