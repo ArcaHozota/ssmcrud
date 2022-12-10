@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- MyBatis Generator Configurations -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- Set the configuration of JDBC. -->
+        <jdbcConnection
+                driverClass="oracle.jdbc.driver.OracleDriver"
+                connectionURL="jdbc:oracle:thin:@localhost:1521:XEPDB1"
+                userId="oraclect"
+                password="oraclect"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- Set the location of bean files. -->
+        <javaModelGenerator targetPackage="jp.co.toshiba.ppok.entity" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- Set the location of the SQL mapping files. -->
+        <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- Set the location of DAO interfaces -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="jp.co.toshiba.ppok.mapper" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- Set the configurations of tables' generation. -->
+        <table tableName="WORLD_CITY" domainObjectName="City"/>
+        <table tableName="WORLD_COUNTRY" domainObjectName="Nation"/>
+    </context>
+</generatorConfiguration>

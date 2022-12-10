@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- The configuration file of Spring Framework -->
+    <context:component-scan base-package="com.atdaiwa">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!-- ★Set the dataSource and transaction. -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="pooledDataSource"
+          class="com.zaxxer.hikari.HikariDataSource">
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maximumPoolSize" value="${maxActive}"/>
+        <property name="maxLifetime" value="${maxWait}"/>
+    </bean>
+    <!-- ★Set the configuration of integration with MyBatisPlus. -->
+    <bean id="sqlSessionFactory"
+          class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <!-- Set the location of MyBatis config. -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="pooledDataSource"/>
+        <!-- Set the location of mapping files. -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="configuration">
+            <bean class="com.baomidou.mybatisplus.core.MybatisConfiguration">
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+            </bean>
+        </property>
+        <property name="globalConfig">
+            <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+                <property name="dbConfig">
+                    <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig$DbConfig">
+                        <property name="idType" value="AUTO"/>
+                        <property name="tablePrefix" value="WORLD_"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <!-- Set the Scanner to put MyBatis in IOC beans. -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.atdaiwa.mapper"/>
+    </bean>
+    <!-- ★Set the configuration of the transaction controller. -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="pooledDataSource"/>
+    </bean>
+    <!-- Put the transactions with annotation into AOP. -->
+    <aop:config>
+        <!-- The expression of pointcuts -->
+        <aop:pointcut id="txPoint"
+                      expression="execution(* com.atdaiwa.service..*(..))"/>
+        <!-- Set the configuration of transaction enhancer. -->
+        <aop:advisor advice-ref="txAdvisor" pointcut-ref="txPoint"/>
+    </aop:config>
+    <!-- Set the transaction enhancer. -->
+    <tx:advice id="txAdvisor">
+        <tx:attributes>
+            <!-- All methods -->
+            <tx:method name="*"/>
+            <!-- All methods with prefix get- are query methods. -->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>

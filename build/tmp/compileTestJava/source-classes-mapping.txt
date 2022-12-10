@@ -1,0 +1,2 @@
+jp/co/toshiba/ppok/test/MBGTest.java
+ jp.co.toshiba.ppok.test.MBGTest
