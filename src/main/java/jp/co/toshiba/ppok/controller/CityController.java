@@ -2,15 +2,22 @@ package jp.co.toshiba.ppok.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
+import jakarta.validation.Valid;
+import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.utils.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Center Terminal Controller
@@ -38,26 +45,26 @@ public class CityController {
         return RestMsg.success().add("pageInfo", pageInfo);
     }
 
-//    /**
-//     * Save the inputed messages.
-//     *
-//     * @param city the input message of cities;
-//     * @return Message.success();
-//     */
-//    @PostMapping(value = "/city")
-//    public Message saveCityInfos(@Valid City city, BindingResult result) {
-//        Map<String, Object> map = new HashMap<>();
-//        if (result.hasErrors()) {
-//            List<FieldError> fieldErrors = result.getFieldErrors();
-//            for (FieldError fieldError : fieldErrors) {
-//                map.put(fieldError.getField(), fieldError.getDefaultMessage());
-//            }
-//            return Message.failure().add("errorFields", map);
-//        } else {
-//            cityService.insert(city);
-//            return Message.success();
-//        }
-//    }
+    /**
+     * Save the inputted messages.
+     *
+     * @param cityDto the input message of cities;
+     * @return Message.success();
+     */
+    @PostMapping(value = "/city")
+    public RestMsg saveCityInfos(@Valid CityDto cityDto, BindingResult result) {
+        Map<String, Object> map = new HashMap<>();
+        if (result.hasErrors()) {
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                map.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return RestMsg.failure().add("errorFields", map);
+        } else {
+            cityDtoService.saveCityInfo(cityDto);
+            return RestMsg.success();
+        }
+    }
 //
 //    /**
 //     * Check the input city name already existed or not.
