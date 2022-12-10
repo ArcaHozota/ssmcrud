@@ -259,8 +259,7 @@
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
-        $.each(result.extend.pageInfo.navigatepageNums, function (index,
-                                                                  item) {
+        $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
             var numsLi = $("<li></li>").append($("<a></a>").append(item));
             if (result.extend.pageInfo.pageNum === item) {
                 numsLi.addClass("active");
