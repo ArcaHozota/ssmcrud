@@ -136,7 +136,13 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
         cityMapper.updateById(city);
     }
 
+    /**
+     * Delete city info by id.
+     *
+     * @param id city id
+     */
     @Override
     public void deleteCityInfo(Long id) {
+        cityMapper.deleteById(id);
     }
 }
