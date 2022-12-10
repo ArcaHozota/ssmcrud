@@ -38,6 +38,7 @@ public interface CityDtoService extends IService<CityDto> {
 
     /**
      * Delete city info by id.
+     *
      * @param id city id
      */
     void deleteCityInfo(Long id);
