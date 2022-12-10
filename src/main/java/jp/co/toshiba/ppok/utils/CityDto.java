@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.utils;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 /**
@@ -13,6 +14,7 @@ public class CityDto {
 
     private Long id;
 
+    @Pattern(regexp = "^[a-zA-Z_-]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.")
     private String name;
 
     private String continent;

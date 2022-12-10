@@ -63,24 +63,23 @@ public class CityController {
             return RestMsg.success();
         }
     }
-//
-//    /**
-//     * Check the input city name already existed or not.
-//     */
-//    @GetMapping(value = "/checklist")
-//    public Message checkCityName(@RequestParam("cityName") String cityName) {
-//        final String regex = "^[a-zA-Z_-]{4,17}$";
-//        if (cityName.matches(regex)) {
-//            if (cityService.selectCount(null) == 0) {
-//                // wrong
-//                return Message.success();
-//            } else {
-//                return Message.failure().add("validatedMsg", "City name is duplicate.");
-//            }
-//        } else {
-//            return Message.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
-//        }
-//    }
+
+    /**
+     * Check the input city name already existed or not.
+     */
+    @GetMapping(value = "/checklist")
+    public RestMsg checkCityName(@RequestParam("cityName") String cityName) {
+        final String regex = "^[a-zA-Z_-]{4,17}$";
+        if (cityName.matches(regex)) {
+            if (cityDtoService.checkDuplicated(cityName)) {
+                return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
+            } else {
+                return RestMsg.success();
+            }
+        } else {
+            return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
+        }
+    }
 //
 //    /**
 //     * Search the selected city's name.
