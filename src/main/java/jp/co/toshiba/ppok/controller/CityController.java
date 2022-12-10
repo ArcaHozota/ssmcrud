@@ -1,6 +1,7 @@
 package jp.co.toshiba.ppok.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.utils.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Center Terminal Controller
@@ -29,9 +31,10 @@ public class CityController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
-        Page<CityDto> pageInfo = new Page<>(pageNum, pageSize);
-        cityDtoService.page(pageInfo);
+    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        PageMethod.startPage(pageNum,12);
+        List<CityDto> list = cityDtoService.getAll();
+        PageInfo<CityDto> pageInfo = new PageInfo<>(list,7);
         return RestMsg.success().add("pageInfo", pageInfo);
     }
 
