@@ -302,7 +302,7 @@
 
     //Analyze the input name is duplicate or not.
     $("#cityName_input").change(function () {
-        var cityName = this.value;
+        const cityName = this.value;
         $.ajax({
             url: app_path + "/checklist",
             data: "cityName=" + cityName,
