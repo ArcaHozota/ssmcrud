@@ -31,7 +31,7 @@
     <!-- Data -->
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-hover" id="cities_table">
+            <table class="table table-hover" id="cityTable">
                 <thead>
                 <tr>
                     <th class="text-center">ID</th>
@@ -68,27 +68,34 @@
                         <label for="cityName_input" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control" id="cityName_input"
-                                   placeholder="Name of the city"> <span class="help-block"></span>
+                                   placeholder="Name of the city">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Continent</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="continent"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Nation</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="countryCode"></select>
+                            <select class="form-control" name="nation"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="district_input" class="col-sm-2 control-label">District</label>
+                        <label for="districtInput" class="col-sm-2 control-label">District</label>
                         <div class="col-sm-10">
-                            <input type="text" name="district" class="form-control" id="district_input"
-                                   placeholder="The district which the city belongs to"> <span
-                                class="help-block"></span>
+                            <input type="text" name="district" class="form-control" id="districtInput"
+                                   placeholder="The district which the city belongs to">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="population_input" class="col-sm-2 control-label">Population</label>
+                        <label for="populationInput" class="col-sm-2 control-label">Population</label>
                         <div class="col-sm-10">
-                            <input type="text" name="population" class="form-control" id="population_input"
+                            <input type="text" name="population" class="form-control" id="populationInput"
                                    placeholder="Example:usa, bra, nld.etc">
                             <span class="help-block"></span>
                         </div>
@@ -127,7 +134,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="district_input" class="col-sm-2 control-label">District</label>
+                        <label for="districtInput" class="col-sm-2 control-label">District</label>
                         <div class="col-sm-10">
                             <input type="text" name="district" class="form-control" id="district_edit"
                                    placeholder="The district which the city belongs to">
@@ -135,7 +142,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="population_input" class="col-sm-2 control-label">Population</label>
+                        <label for="populationInput" class="col-sm-2 control-label">Population</label>
                         <div class="col-sm-10">
                             <input type="text" name="population" class="form-control" id="population_edit"
                                    placeholder="Example:usa, bra, nld.etc">
@@ -171,51 +178,41 @@
             data: "pageNum=" + pageNum,
             type: "GET",
             success: function (result) {
-                build_cities_table(result);
-                build_page_infos(result);
-                build_page_navi(result);
+                buildCityTable(result);
+                buildPageInfos(result);
+                buildPageNavi(result);
             }
         })
     }
 
     //Analyze and display the data.
-    function build_cities_table(result) {
+    function buildCityTable(result) {
         //Emptying the former table.
-        $("#cities_table tbody").empty();
-        var cities = result.extend.pageInfo.list;
+        $("#cityTable tbody").empty();
+        let cities = result.extend.pageInfo.list;
         $.each(cities, function (index, item) {
-            var idTd = $("<td class='text-center'></td>").append(item.id);
-            var nameTd = $("<td class='text-center'></td>").append(
-                item.name);
-            var countryNameTd = $("<td class='text-center'></td>").append(
-                item.nations.nationName);
-            var districtTd = $("<td class='text-center'></td>").append(
-                item.district);
-            var populationTd = $("<td class='text-center'></td>").append(
-                item.population);
-            var editBtn = $("<button></button>").addClass(
-                "btn btn-info btn-sm edit_btn").append(
-                $("<span></span>").addClass(
-                    "glyphicon glyphicon-pencil")).append(" Edit");
+            let idTd = $("<td class='text-center'></td>").append(item.id);
+            let nameTd = $("<td class='text-center'></td>").append(item.name);
+            let continentTd = $("<td class='text-center'></td>").append(item.continent);
+            let nationTd = $("<td class='text-center'></td>").append(item.nation);
+            let districtTd = $("<td class='text-center'></td>").append(item.district);
+            let populationTd = $("<td class='text-center'></td>").append(item.population);
+            let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append(" Edit");
             editBtn.attr("edit-id", item.id);
-            var deleteBtn = $("<button></button>").addClass(
-                "btn btn-danger btn-sm delete_btn").append(
-                $("<span></span>")
-                    .addClass("glyphicon glyphicon-trash")).append(
-                " Delete");
+            let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" Delete");
             deleteBtn.attr("delete-id", item.id);
-            var btnTd = $("<td class='text-center'></td>").append(editBtn)
-                .append(" ").append(deleteBtn);
-            $("<tr></tr>").append(idTd).append(nameTd)
-                .append(countryNameTd).append(districtTd).append(
-                populationTd).append(btnTd).appendTo(
-                "#cities_table tbody");
+            let btnTd = $("<td class='text-center'></td>").append(editBtn).append(" ").append(deleteBtn);
+            $("<tr></tr>").append(idTd).append(nameTd).append(continentTd)
+                .append(nationTd).append(districtTd).append(populationTd)
+                .append(btnTd).appendTo("#cityTable tbody");
         });
     }
 
     //Analyze and display the page infos.
-    function build_page_infos(result) {
-        var pageInfos = $("#page_infos");
+    function buildPageInfos(result) {
+        const pageInfos = $("#page_infos");
         pageInfos.empty();
         pageInfos.append("The " + result.extend.pageInfo.pageNum
             + " page in " + result.extend.pageInfo.pages + " pages, "
@@ -225,7 +222,7 @@
     }
 
     //Analyze and display the navigated pages.
-    function build_page_navi(result) {
+    function buildPageNavi(result) {
         $("#page_navigation").empty();
         var ul = $("<ul></ul>").addClass("pagination");
         var firstPageLi = $("<li></li>").append(
@@ -320,35 +317,35 @@
 
     //Click, save and check the input data format.
     $("#cityInfos_save_btn").click(function () {
-        var inputDistrict = $("#district_input").val();
-        var inputPopulation = $("#population_input").val();
+        var inputDistrict = $("#districtInput").val();
+        var inputPopulation = $("#populationInput").val();
         var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
         var regularPopulation = /^[0-9]{4,18}$/;
         if ($(this).attr("ajax-va") === "error") {
             return false;
         } else if (!regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_input", "error",
+            show_validate_msg("#districtInput", "error",
                 "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#population_input", "error",
+            show_validate_msg("#populationInput", "error",
                 "Population should be in 4~18 numbers.");
             return false;
         } else if (!regularDistrict.test(inputDistrict)
             && regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_input", "error",
+            show_validate_msg("#districtInput", "error",
                 "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#population_input",
+            show_validate_msg("#populationInput",
                 "success", "√");
             return false;
         } else if (regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_input", "success", "√");
-            show_validate_msg("#population_input", "error",
+            show_validate_msg("#districtInput", "success", "√");
+            show_validate_msg("#populationInput", "error",
                 "Population should be in 4~18 numbers.");
             return false;
         } else {
-            show_validate_msg("#district_input", "success", "√");
-            show_validate_msg("#population_input", "success", "√");
+            show_validate_msg("#districtInput", "success", "√");
+            show_validate_msg("#populationInput", "success", "√");
             //Send an ajax request to commit save options.
             $.ajax({
                 url: app_path + "/city",
