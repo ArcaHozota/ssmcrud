@@ -3,7 +3,6 @@ package jp.co.toshiba.ppok.controller;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
 import jakarta.validation.Valid;
-import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.utils.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
@@ -31,7 +30,6 @@ public class CityController {
     @Resource
     private CityDtoService cityDtoService;
 
-
     /**
      * Retrieve the city data.
      *
@@ -39,9 +37,9 @@ public class CityController {
      */
     @GetMapping(value = "/city")
     public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        PageMethod.startPage(pageNum,12);
+        PageMethod.startPage(pageNum, 12);
         List<CityDto> list = cityDtoService.getAll();
-        PageInfo<CityDto> pageInfo = new PageInfo<>(list,7);
+        PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
         return RestMsg.success().add("pageInfo", pageInfo);
     }
 
