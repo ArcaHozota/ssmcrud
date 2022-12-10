@@ -1,7 +1,11 @@
 package jp.co.toshiba.ppok.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jp.co.toshiba.ppok.service.CityDtoService;
+import jp.co.toshiba.ppok.utils.CityDto;
+import jp.co.toshiba.ppok.utils.RestMsg;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,11 +29,9 @@ public class CityController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    public Message getCities(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        PageMethod.startPage(pageNum, 10);
-        List<City> citiesList = cityService.getAll();
-        PageInfo<City> pages = new PageInfo<>(citiesList, 7);
-        return Message.success().add("pageInfo", pages);
+    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") Long pageNum, @RequestParam("pageSize") Long pageSize) {
+        Page<CityDto> list = Page.of(pageNum, pageSize);
+        return RestMsg.success().add("pageInfo", list);
     }
 
     /**

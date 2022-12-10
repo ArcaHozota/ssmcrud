@@ -8,12 +8,12 @@ import java.util.Map;
  *
  * @author Administrator
  */
-public class Message {
+public class RestMsg {
 
     /**
      * status code
      */
-    private int code;
+    private Integer code;
 
     /**
      * the message of status
@@ -25,15 +25,15 @@ public class Message {
      */
     private Map<String, Object> extend = new HashMap<>();
 
-    public static Message success() {
-        Message result = new Message();
+    public static RestMsg success() {
+        RestMsg result = new RestMsg();
         result.setCode(200);
         result.setReturnMsg("Retrieve success.");
         return result;
     }
 
-    public static Message failure() {
-        Message result = new Message();
+    public static RestMsg failure() {
+        RestMsg result = new RestMsg();
         result.setCode(400);
         result.setReturnMsg("Retrieve failed.");
         return result;
@@ -45,7 +45,7 @@ public class Message {
      * @param value
      * @return
      */
-    public Message add(String key, Object value) {
+    public RestMsg add(String key, Object value) {
         this.getExtend().put(key, value);
         return this;
     }
