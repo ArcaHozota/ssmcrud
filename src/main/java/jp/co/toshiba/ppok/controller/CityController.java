@@ -51,7 +51,7 @@ public class CityController {
      */
     @PostMapping(value = "/city")
     public RestMsg saveCityInfos(@Valid CityDto cityDto, BindingResult result) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(5);
         if (result.hasErrors()) {
             List<FieldError> fieldErrors = result.getFieldErrors();
             for (FieldError fieldError : fieldErrors) {
@@ -80,10 +80,10 @@ public class CityController {
             return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
         }
     }
-//
-//    /**
-//     * Search the selected city's name.
-//     */
+
+    /**
+     * Search the selected city's name.
+     */
 //    @GetMapping(value = "/city/{id}")
 //    public Message getCityName(@PathVariable("id") Integer id) {
 //        City cities = cityService.selectById(id);
