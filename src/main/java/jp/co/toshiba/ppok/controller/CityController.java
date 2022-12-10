@@ -8,10 +8,7 @@ import jp.co.toshiba.ppok.utils.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -84,11 +81,11 @@ public class CityController {
     /**
      * Search the selected city's name.
      */
-//    @GetMapping(value = "/city/{id}")
-//    public Message getCityName(@PathVariable("id") Integer id) {
-//        City cities = cityService.selectById(id);
-//        return Message.success().add("citiesSelected", cities);
-//    }
+    @GetMapping(value = "/city/{id}")
+    public RestMsg getCityName(@PathVariable("id") Long id) {
+        CityDto cities = cityDtoService.getCityInfo(id);
+        return RestMsg.success().add("citySelected", cities);
+    }
 //
 //    /**
 //     * Save the input changed city info.
