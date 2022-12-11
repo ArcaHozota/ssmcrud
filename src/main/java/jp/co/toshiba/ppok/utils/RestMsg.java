@@ -53,6 +53,12 @@ public class RestMsg {
     }
 
     /**
+     * no args constructor
+     */
+    public RestMsg() {
+    }
+
+    /**
      * add values with messages
      *
      * @param key   the name pattern of value
