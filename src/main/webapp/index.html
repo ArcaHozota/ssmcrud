@@ -23,7 +23,7 @@
     <!-- Button -->
     <div class="row">
         <div class="col-lg-2 col-lg-offset-10">
-            <button class="btn btn-success" id="cityAdd_modal_btn">
+            <button class="btn btn-success" id="cityAddModalBtn">
                 <span class="glyphicon glyphicon-pawn"></span>CityInfo+
             </button>
         </div>
@@ -49,8 +49,8 @@
     </div>
     <!-- Info of the navigated pages -->
     <div class="row">
-        <div class="col-lg-5" id="page_infos"></div>
-        <div class="col-lg-7" id="page_navigation"></div>
+        <div class="col-lg-5" id="pageInfos"></div>
+        <div class="col-lg-7" id="pageNavi"></div>
     </div>
 </div>
 <!-- Modal for inputting city info -->
@@ -66,30 +66,34 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="cityName_input" class="col-sm-2 control-label">Name</label>
+                        <label for="nameInput" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="cityName_input"
+                            <input type="text" name="name" class="form-control" id="nameInput"
                                    placeholder="Name of the city">
                             <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Continent</label>
+                        <label for="continentInput" class="col-sm-2 control-label">Continent</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="continent"></select>
+                            <input type="text" name="continent" class="form-control" id="continentInput"
+                                   placeholder="The continent which the city located on.">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Nation</label>
+                        <label for="nationInput" class="col-sm-2 control-label">Nation</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="nation"></select>
+                            <input type="text" name="nation" class="form-control" id="nationInput"
+                                   placeholder="Name of city's nation.">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="districtInput" class="col-sm-2 control-label">District</label>
                         <div class="col-sm-10">
                             <input type="text" name="district" class="form-control" id="districtInput"
-                                   placeholder="The district which the city belongs to">
+                                   placeholder="The district which the city belongs to.">
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -97,7 +101,7 @@
                         <label for="populationInput" class="col-sm-2 control-label">Population</label>
                         <div class="col-sm-10">
                             <input type="text" name="population" class="form-control" id="populationInput"
-                                   placeholder="Example:usa, bra, nld.etc">
+                                   placeholder="Example: usa, bra, nld.etc">
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -105,7 +109,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="cityInfos_save_btn">Save</button>
+                <button type="button" class="btn btn-primary" id="cityInfoSaveBtn">Save</button>
             </div>
         </div>
     </div>
@@ -123,29 +127,35 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="displayed_city_name" class="col-sm-2 control-label">Name</label>
+                        <label for="displayedCityName" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static" id="displayed_city_name"></p>
+                            <p class="form-control-static" id="displayedCityName"></p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Nation</label>
+                        <label for="continentEdit" class="col-sm-2 control-label">Continent</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="countryCode"></select>
+                            <select id="continentEdit" class="form-control" name="continent"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="districtInput" class="col-sm-2 control-label">District</label>
+                        <label for="nationEdit" class="col-sm-2 control-label">Nation</label>
+                        <div class="col-sm-5">
+                            <select id="nationEdit" class="form-control" name="nation"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="districtEdit" class="col-sm-2 control-label">District</label>
                         <div class="col-sm-10">
-                            <input type="text" name="district" class="form-control" id="district_edit"
+                            <input type="text" name="district" class="form-control" id="districtEdit"
                                    placeholder="The district which the city belongs to">
                             <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="populationInput" class="col-sm-2 control-label">Population</label>
+                        <label for="populationEdit" class="col-sm-2 control-label">Population</label>
                         <div class="col-sm-10">
-                            <input type="text" name="population" class="form-control" id="population_edit"
+                            <input type="text" name="population" class="form-control" id="populationEdit"
                                    placeholder="Example:usa, bra, nld.etc">
                             <span class="help-block"></span>
                         </div>
@@ -154,7 +164,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="cityInfos_change_btn">Save changes</button>
+                <button type="button" class="btn btn-primary" id="cityInfoChangeBtn">Save changes</button>
             </div>
         </div>
     </div>
@@ -163,19 +173,19 @@
 
     const pathName = window.document.location.pathname;
 
-    const app_path = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    const appliPath = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 
     let totalRecord, currentPage;
 
     //After the page load, send the ajax request to get page infos.
     $(function () {
-        to_selected_page(1);
+        toSelectedPg(1);
     });
 
     //Transfer to clicked page numbers.
-    function to_selected_page(pageNum) {
+    function toSelectedPg(pageNum) {
         $.ajax({
-            url: app_path + "/city",
+            url: appliPath + "/city",
             data: "pageNum=" + pageNum,
             type: "GET",
             success: function (result) {
@@ -213,7 +223,7 @@
 
     //Analyze and display the page infos.
     function buildPageInfos(result) {
-        const pageInfos = $("#page_infos");
+        const pageInfos = $("#pageInfos");
         pageInfos.empty();
         pageInfos.append("The " + result.extend.pageInfo.pageNum
             + " page in " + result.extend.pageInfo.pages + " pages, "
@@ -224,36 +234,34 @@
 
     //Analyze and display the navigated pages.
     function buildPageNavi(result) {
-        $("#page_navigation").empty();
-        var ul = $("<ul></ul>").addClass("pagination");
-        var firstPageLi = $("<li></li>").append(
-            $("<a></a>").append("First Page").attr("href", "#"));
-        var previousPageLi = $("<li></li>").append(
-            $("<a></a>").append("&laquo;"));
+        $("#pageNavi").empty();
+        let ul = $("<ul></ul>").addClass("pagination");
+        let firstPageLi = $("<li></li>").append($("<a></a>").append("First Page").attr("href", "#"));
+        let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
         if (!result.extend.pageInfo.hasPreviousPage) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
         } else {
             firstPageLi.click(function () {
-                to_selected_page(1);
+                toSelectedPg(1);
             });
             previousPageLi.click(function () {
-                to_selected_page(result.extend.pageInfo.pageNum - 1);
+                toSelectedPg(result.extend.pageInfo.pageNum - 1);
             });
         }
-        var nextPageLi = $("<li></li>").append(
+        let nextPageLi = $("<li></li>").append(
             $("<a></a>").append("&raquo;"));
-        var lastPageLi = $("<li></li>").append(
+        let lastPageLi = $("<li></li>").append(
             $("<a></a>").append("Last Page").attr("href", "#"));
         if (!result.extend.pageInfo.hasNextPage) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                to_selected_page(result.extend.pageInfo.pageNum + 1);
+                toSelectedPg(result.extend.pageInfo.pageNum + 1);
             });
             lastPageLi.click(function () {
-                to_selected_page(result.extend.pageInfo.pages);
+                toSelectedPg(result.extend.pageInfo.pages);
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
@@ -263,61 +271,61 @@
                 numsLi.addClass("active");
             }
             numsLi.click(function () {
-                to_selected_page(item);
+                toSelectedPg(item);
             });
             ul.append(numsLi);
         });
         ul.append(nextPageLi).append(lastPageLi);
-        var navElement = $("<nav></nav>").append(ul);
-        navElement.appendTo("#page_navigation");
+        let navElement = $("<nav></nav>").append(ul);
+        navElement.appendTo("#pageNavi");
     }
 
     //Add click function to the input modal.
-    $("#cityAdd_modal_btn").click(function () {
-        form_reset("#cityAddModal form");
-        get_nation_name("#cityAddModal select");
+    $("#cityAddModalBtn").click(function () {
+        formReset("#cityAddModal form");
+        // get_nation_name("#cityAddModal select");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
     });
 
-    //Get the nation name.
-    function get_nation_name(element) {
-        $(element).empty();
-        $.ajax({
-            url: app_path + "/nations",
-            type: "GET",
-            success: function (result) {
-                $.each(result.extend.nations, function () {
-                    var optionElement = $("<option></option>").append(
-                        this.nationName).attr("value", this.code);
-                    optionElement.appendTo(element);
-                });
-            }
-        });
-    }
+    // //Get the nation name.
+    // function get_nation_name(element) {
+    //     $(element).empty();
+    //     $.ajax({
+    //         url: appliPath + "/nations",
+    //         type: "GET",
+    //         success: function (result) {
+    //             $.each(result.extend.nations, function () {
+    //                 var optionElement = $("<option></option>").append(
+    //                     this.nationName).attr("value", this.code);
+    //                 optionElement.appendTo(element);
+    //             });
+    //         }
+    //     });
+    // }
 
     //Analyze the input name is duplicate or not.
-    $("#cityName_input").change(function () {
+    $("#nameInput").change(function () {
         const cityName = this.value;
         $.ajax({
-            url: app_path + "/checklist",
+            url: appliPath + "/checklist",
             data: "cityName=" + cityName,
             type: "GET",
             success: function (result) {
                 if (result.code === 200) {
-                    show_validate_msg("#cityName_input", "success", "");
-                    $("#cityInfos_save_btn").attr("ajax-va", "success");
+                    showValidationMsg("#nameInput", "success", "");
+                    $("#cityInfoSaveBtn").attr("ajax-va", "success");
                 } else {
-                    show_validate_msg("#cityName_input", "error", result.extend.validatedMsg);
-                    $("#cityInfos_save_btn").attr("ajax-va", "error");
+                    showValidationMsg("#nameInput", "error", result.extend.validatedMsg);
+                    $("#cityInfoSaveBtn").attr("ajax-va", "error");
                 }
             }
         });
     });
 
     //Click, save and check the input data format.
-    $("#cityInfos_save_btn").click(function () {
+    $("#cityInfoSaveBtn").click(function () {
         var inputDistrict = $("#districtInput").val();
         var inputPopulation = $("#populationInput").val();
         var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
@@ -326,40 +334,34 @@
             return false;
         } else if (!regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#districtInput", "error",
-                "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#populationInput", "error",
-                "Population should be in 4~18 numbers.");
+            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
+            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
             return false;
         } else if (!regularDistrict.test(inputDistrict)
             && regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#districtInput", "error",
-                "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#populationInput",
-                "success", "√");
+            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
+            showValidationMsg("#populationInput", "success", "√");
             return false;
         } else if (regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#districtInput", "success", "√");
-            show_validate_msg("#populationInput", "error",
-                "Population should be in 4~18 numbers.");
+            showValidationMsg("#districtInput", "success", "√");
+            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
             return false;
         } else {
-            show_validate_msg("#districtInput", "success", "√");
-            show_validate_msg("#populationInput", "success", "√");
+            showValidationMsg("#districtInput", "success", "√");
+            showValidationMsg("#populationInput", "success", "√");
             //Send an ajax request to commit save options.
             $.ajax({
-                url: app_path + "/city",
+                url: appliPath + "/city",
                 type: "POST",
                 data: $("#cityAddModal form").serialize(),
                 success: function (result) {
                     if (result.code === 200) {
                         $("#cityAddModal").modal('hide');
                         //To last page.
-                        to_selected_page(totalRecord);
+                        toSelectedPg(totalRecord);
                     } else if (undefined !== result.extend.errorFields.name) {
-                        show_validate_msg("#cityName_input", "error",
-                            result.extend.errorFields.name);
+                        showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
                     }
                 }
             });
@@ -368,10 +370,10 @@
 
     //Add click function to the edit modal.
     $(document).on("click", ".edit_btn", function () {
-        form_reset("#cityEditModal form");
-        get_nation_name("#cityEditModal select");
+        formReset("#cityEditModal form");
+        // get_nation_name("#cityEditModal select");
         getCityInfo($(this).attr("edit-id"));
-        $("#cityInfos_change_btn").attr("edit-id", $(this).attr("edit-id"));
+        $("#cityInfoChangeBtn").attr("edit-id", $(this).attr("edit-id"));
         $("#cityEditModal").modal({
             backdrop: "static"
         });
@@ -380,54 +382,51 @@
     //Get the selected city infos.
     function getCityInfo(id) {
         $.ajax({
-            url: app_path + "/city/" + id,
+            url: appliPath + "/city/" + id,
             type: "GET",
             success: function (result) {
                 const cityData = result.extend.citySelected;
-                $("#displayed_city_name").text(cityData.name);
-                $("#district_edit").val(cityData.district);
-                $("#population_edit").val(cityData.population);
-                $("#cityEditModal select").val([cityData.countryCode]);
+                $("#displayedCityName").text(cityData.name);
+                $("#continentEdit").val([cityData.continent]);
+                $("#nationEdit").val([cityData.nation]);
+                $("#districtEdit").val(cityData.district);
+                $("#populationEdit").val(cityData.population);
             }
         });
     }
 
     //Submit the change of city infos.
-    $("#cityInfos_change_btn").click(function () {
-        var inputDistrict = $("#district_edit").val();
-        var inputPopulation = $("#population_edit").val();
+    $("#cityInfoChangeBtn").click(function () {
+        var inputDistrict = $("#districtEdit").val();
+        var inputPopulation = $("#populationEdit").val();
         var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
         var regularPopulation = /^[0-9]{4,18}$/;
         var editId = $(this).attr("edit-id");
         if (!regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_edit", "error",
-                "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#population_edit", "error",
-                "Population should be in 4~18 numbers.");
+            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
+            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
             return false;
         } else if (!regularDistrict.test(inputDistrict)
             && regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_edit", "error",
-                "Districts' name should be in 2~33 Latin alphabets.");
-            show_validate_msg("#population_edit", "success", "√");
+            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
+            showValidationMsg("#populationEdit", "success", "√");
             return false;
         } else if (regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            show_validate_msg("#district_edit", "success", "√");
-            show_validate_msg("#population_edit", "error",
-                "Population should be in 4~18 numbers.");
+            showValidationMsg("#districtEdit", "success", "√");
+            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
             return false;
         } else {
-            show_validate_msg("#district_edit", "success", "√");
-            show_validate_msg("#population_edit", "success", "√");
+            showValidationMsg("#districtEdit", "success", "√");
+            showValidationMsg("#populationEdit", "success", "√");
             $.ajax({
-                url: app_path + "/city/" + editId,
+                url: appliPath + "/city/" + editId,
                 type: "PUT",
                 data: $("#cityEditModal form").serialize(),
-                success: function (result) {
+                success: function () {
                     $("#cityEditModal").modal('hide');
-                    to_selected_page(currentPage);
+                    toSelectedPg(currentPage);
                 }
             });
         }
@@ -440,24 +439,24 @@
         if (confirm("Ready to delete the infos of "
             + cityName + ", is it right?")) {
             $.ajax({
-                url: app_path + "/city/" + cityId,
+                url: appliPath + "/city/" + cityId,
                 type: "DELETE",
-                success: function (result) {
-                    to_selected_page(currentPage);
+                success: function () {
+                    toSelectedPg(currentPage);
                 }
             });
         }
     });
 
     //Reset the modal form.
-    function form_reset(element) {
+    function formReset(element) {
         $(element)[0].reset();
         $(element).find("*").removeClass("has-error has-success");
         $(element).find(".help-block").text("");
     }
 
     //Add status color to the modal form input rows.
-    function show_validate_msg(element, status, msg) {
+    function showValidationMsg(element, status, msg) {
         $(element).parent().removeClass("has-success has-error");
         $(element).next("span").text("");
         if (status === "success") {
