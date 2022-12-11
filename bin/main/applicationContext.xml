@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- The configuration file of Spring Framework -->
-    <context:component-scan base-package="com.atdaiwa">
+    <context:component-scan base-package="jp.co.toshiba.ppok">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!-- ★Set the dataSource and transaction. -->
@@ -49,7 +49,7 @@
     </bean>
     <!-- Set the Scanner to put MyBatis in IOC beans. -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.atdaiwa.mapper"/>
+        <property name="basePackage" value="jp.co.toshiba.ppok.mapper"/>
     </bean>
     <!-- ★Set the configuration of the transaction controller. -->
     <bean id="transactionManager"
@@ -59,8 +59,7 @@
     <!-- Put the transactions with annotation into AOP. -->
     <aop:config>
         <!-- The expression of pointcuts -->
-        <aop:pointcut id="txPoint"
-                      expression="execution(* com.atdaiwa.service..*(..))"/>
+        <aop:pointcut id="txPoint" expression="execution(* jp.co.toshiba.ppok.service..*(..))"/>
         <!-- Set the configuration of transaction enhancer. -->
         <aop:advisor advice-ref="txAdvisor" pointcut-ref="txPoint"/>
     </aop:config>

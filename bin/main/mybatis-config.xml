@@ -10,9 +10,9 @@
         <package name="jp.co.toshiba.ppok.entity"/>
     </typeAliases>
     <plugins>
-        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
-            <property name="@page" value="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor"/>
-            <property name="page:dbType" value="oracle"/>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="oracle"/>
+            <property name="reasonable" value="true"/>
         </plugin>
     </plugins>
 </configuration>
