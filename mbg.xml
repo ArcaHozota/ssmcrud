@@ -8,7 +8,7 @@
         <!-- Set the configuration of JDBC. -->
         <jdbcConnection
                 driverClass="oracle.jdbc.driver.OracleDriver"
-                connectionURL="jdbc:oracle:thin:@localhost:1521:XEPDB1"
+                connectionURL="jdbc:oracle:thin:@//localhost:1521/XEPDB1"
                 userId="oraclect"
                 password="oraclect"/>
         <javaTypeResolver>
