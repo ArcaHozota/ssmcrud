@@ -5,16 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -29,7 +23,7 @@ import jp.co.toshiba.ppok.utils.RestMsg;
  *
  * @author Administrator
  */
-@RestController
+@Controller
 public class CityController {
 
     @Autowired
@@ -41,6 +35,7 @@ public class CityController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
+    @ResponseBody
     public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
         PageMethod.startPage(pageNum, 12);
         final List<CityDto> list = cityDtoService.getAll();
@@ -55,6 +50,7 @@ public class CityController {
      * @return RestMsg.success();
      */
     @PostMapping(value = "/city")
+    @ResponseBody
     public RestMsg saveCityInfos(@Valid final CityDto cityDto, final BindingResult result) {
         final Map<String, Object> map = new HashMap<>(5);
         if (result.hasErrors()) {
@@ -76,6 +72,7 @@ public class CityController {
      * @return RestMsg.success()
      */
     @GetMapping(value = "/checklist")
+    @ResponseBody
     public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
         final String regex = "^[a-zA-Z_-]{4,17}$";
         if (cityName.matches(regex)) {
@@ -96,6 +93,7 @@ public class CityController {
      * @return RestMsg.success().add(data)
      */
     @GetMapping(value = "/city/{id}")
+    @ResponseBody
     public RestMsg getCityName(@PathVariable("id") final Long id) {
         final CityDto city = cityDtoService.getCityInfo(id);
         return RestMsg.success().add("citySelected", city);
@@ -108,6 +106,7 @@ public class CityController {
      * @return RestMsg.success()
      */
     @PutMapping(value = "/city/{id}")
+    @ResponseBody
     public RestMsg saveCityChanges(@RequestBody final CityDto cityDto) {
         cityDtoService.updateCityInfo(cityDto);
         return RestMsg.success();
@@ -120,6 +119,7 @@ public class CityController {
      * @return RestMsg.success()
      */
     @DeleteMapping(value = "/city/{id}")
+    @ResponseBody
     public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
         cityDtoService.deleteCityInfo(id);
         return RestMsg.success();
