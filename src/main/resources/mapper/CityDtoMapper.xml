@@ -18,12 +18,12 @@
 		</association>
 	</resultMap>
 	<select id="selectByCityView" resultMap="ResultMap">
-		select distinct ID
+		SELECT DISTINCT ID
 		, NAME
 		, CONTINENT
 		, NATION
 		, DISTRICT
 		, POPULATION
-		from WORLD_CITY_VIEW
+		FROM WORLD_CITY_VIEW
 	</select>
 </mapper>
