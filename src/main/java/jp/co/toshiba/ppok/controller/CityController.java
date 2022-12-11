@@ -8,9 +8,12 @@ import javax.annotation.Resource;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,10 +50,10 @@ public class CityController {
 	}
 
 	/**
-	 * Save the inputted messages.
+	 * Save the input messages.
 	 *
-	 * @param cityDto the input message of cities;
-	 * @return Message.success();
+	 * @param cityDto the input message of cities
+	 * @return RestMsg.success();
 	 */
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfos(@Valid final CityDto cityDto, final BindingResult result) {
@@ -69,6 +72,9 @@ public class CityController {
 
 	/**
 	 * Check the input city name already existed or not.
+	 *
+	 * @param cityName the input name
+	 * @return RestMsg.success()
 	 */
 	@GetMapping(value = "/checklist")
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
@@ -86,28 +92,37 @@ public class CityController {
 
 	/**
 	 * Search the selected city's name.
+	 *
+	 * @param id the ID of city
+	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityName(@PathVariable("id") final Long id) {
-		final CityDto cities = cityDtoService.getCityInfo(id);
-		return RestMsg.success().add("citySelected", cities);
+		final CityDto city = cityDtoService.getCityInfo(id);
+		return RestMsg.success().add("citySelected", city);
 	}
-//
-//    /**
-//     * Save the input changed city info.
-//     */
-//    @PutMapping(value = "/city/{id}")
-//    public Message saveCityChanges(@RequestBody City city) {
-//        cityService.updateById(city);
-//        return Message.success();
-//    }
-//
-//    /**
-//     * Delete the selected city info.
-//     */
-//    @DeleteMapping(value = "/city/{id}")
-//    public Message deleteCityInfo(@PathVariable("id") Integer id) {
-//        cityService.deleteById(id);
-//        return Message.success();
-//    }
+
+	/**
+	 * Update city info.
+	 *
+	 * @param cityDto the input message of cities
+	 * @return RestMsg.success()
+	 */
+	@PutMapping(value = "/city/{id}")
+	public RestMsg saveCityChanges(@RequestBody final CityDto cityDto) {
+		cityDtoService.updateCityInfo(cityDto);
+		return RestMsg.success();
+	}
+
+	/**
+	 * Delete the selected city info.
+	 *
+	 * @param id the ID of city
+	 * @return RestMsg.success()
+	 */
+	@DeleteMapping(value = "/city/{id}")
+	public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
+		cityDtoService.deleteCityInfo(id);
+		return RestMsg.success();
+	}
 }
