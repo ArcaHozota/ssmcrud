@@ -6,51 +6,61 @@ import java.util.Map;
 import lombok.Data;
 
 /**
- * The common class of JSON Data response.
+ * The common class of JSON-data response.
  *
  * @author Administrator
  */
 @Data
 public class RestMsg {
 
-	/**
-	 * status code
-	 */
-	private Integer code;
+    /**
+     * status code
+     */
+    private Integer code;
 
-	/**
-	 * the message of status
-	 */
-	private String message;
+    /**
+     * the message of status
+     */
+    private String message;
 
-	/**
-	 * data returned to browsers
-	 */
-	private final Map<String, Object> extend = new HashMap<>();
+    /**
+     * data returned to browsers
+     */
+    private final Map<String, Object> extend = new HashMap<>();
 
-	public static RestMsg success() {
-		final RestMsg result = new RestMsg();
-		result.setCode(200);
-		result.setMessage("Retrieve success.");
-		return result;
-	}
+    /**
+     * retrieve successfully
+     *
+     * @return result including data
+     */
+    public static RestMsg success() {
+        final RestMsg result = new RestMsg();
+        result.setCode(200);
+        result.setMessage("Retrieve success.");
+        return result;
+    }
 
-	public static RestMsg failure() {
-		final RestMsg result = new RestMsg();
-		result.setCode(400);
-		result.setMessage("Retrieve failed.");
-		return result;
-	}
+    /**
+     * retrieve failed
+     *
+     * @return result including error message
+     */
+    public static RestMsg failure() {
+        final RestMsg result = new RestMsg();
+        result.setCode(400);
+        result.setMessage("Retrieve failed.");
+        return result;
+    }
 
-	/**
-	 * add values with messages.
-	 *
-	 * @param key
-	 * @param value
-	 * @return
-	 */
-	public RestMsg add(final String key, final Object value) {
-		this.getExtend().put(key, value);
-		return this;
-	}
+    /**
+     * add values with messages
+     *
+     * @param key   the name pattern of value
+     * @param value value
+     * @return RestMsg
+     */
+    public RestMsg add(final String key, final Object value) {
+        this.getExtend().put(key, value);
+        return this;
+    }
 }
