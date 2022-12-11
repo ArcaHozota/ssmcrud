@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- The configuration file of Spring Framework -->
-    <context:component-scan base-package="com.atdaiwa">
+    <context:component-scan base-package="jp.co.toshiba.ppok">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!-- ★Set the dataSource and transaction. -->
@@ -31,11 +31,6 @@
         <property name="dataSource" ref="pooledDataSource"/>
         <!-- Set the location of mapping files. -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
-        <property name="configuration">
-            <bean class="com.baomidou.mybatisplus.core.MybatisConfiguration">
-                <property name="mapUnderscoreToCamelCase" value="true"/>
-            </bean>
-        </property>
         <property name="globalConfig">
             <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig">
                 <property name="dbConfig">
@@ -49,7 +44,7 @@
     </bean>
     <!-- Set the Scanner to put MyBatis in IOC beans. -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.atdaiwa.mapper"/>
+        <property name="basePackage" value="jp.co.toshiba.ppok.mapper"/>
     </bean>
     <!-- ★Set the configuration of the transaction controller. -->
     <bean id="transactionManager"
