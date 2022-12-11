@@ -12,16 +12,16 @@ import lombok.Data;
 @Data
 public class CityDto {
 
-    private Long id;
+	private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z_-]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.")
-    private String name;
+	@Pattern(regexp = "^[a-zA-Z_-]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.")
+	private String name;
 
-    private String continent;
+	private String continent;
 
-    private String nation;
+	private String nation;
 
-    private String district;
+	private String district;
 
-    private Long population;
+	private Long population;
 }

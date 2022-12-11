@@ -1,2 +1,0 @@
-jp/co/toshiba/ppok/utils/Message.java
- jp.co.toshiba.ppok.utils.Message

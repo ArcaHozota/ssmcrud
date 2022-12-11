@@ -3,74 +3,54 @@ package jp.co.toshiba.ppok.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Data;
+
 /**
- * the common return class of JSON data
+ * The common class of JSON Data response.
  *
  * @author Administrator
  */
+@Data
 public class RestMsg {
 
-    /**
-     * status code
-     */
-    private Integer code;
+	/**
+	 * status code
+	 */
+	private Integer code;
 
-    /**
-     * the message of status
-     */
-    private String returnMsg;
+	/**
+	 * the message of status
+	 */
+	private String message;
 
-    /**
-     * data returned to browsers
-     */
-    private Map<String, Object> extend = new HashMap<>();
+	/**
+	 * data returned to browsers
+	 */
+	private final Map<String, Object> extend = new HashMap<>();
 
-    public static RestMsg success() {
-        RestMsg result = new RestMsg();
-        result.setCode(200);
-        result.setReturnMsg("Retrieve success.");
-        return result;
-    }
+	public static RestMsg success() {
+		final RestMsg result = new RestMsg();
+		result.setCode(200);
+		result.setMessage("Retrieve success.");
+		return result;
+	}
 
-    public static RestMsg failure() {
-        RestMsg result = new RestMsg();
-        result.setCode(400);
-        result.setReturnMsg("Retrieve failed.");
-        return result;
-    }
+	public static RestMsg failure() {
+		final RestMsg result = new RestMsg();
+		result.setCode(400);
+		result.setMessage("Retrieve failed.");
+		return result;
+	}
 
-    /**
-     * add values with messages.
-     * @param key
-     * @param value
-     * @return
-     */
-    public RestMsg add(String key, Object value) {
-        this.getExtend().put(key, value);
-        return this;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getReturnMsg() {
-        return returnMsg;
-    }
-
-    public void setReturnMsg(String message) {
-        this.returnMsg = message;
-    }
-
-    public Map<String, Object> getExtend() {
-        return extend;
-    }
-
-    public void setExtend(Map<String, Object> extend) {
-        this.extend = extend;
-    }
+	/**
+	 * add values with messages.
+	 *
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public RestMsg add(final String key, final Object value) {
+		this.getExtend().put(key, value);
+		return this;
+	}
 }
