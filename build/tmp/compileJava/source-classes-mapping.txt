@@ -1,7 +1,7 @@
 jp/co/toshiba/ppok/utils/RestMsg.java
  jp.co.toshiba.ppok.utils.RestMsg
-jp/co/toshiba/ppok/controller/CityController.java
- jp.co.toshiba.ppok.controller.CityController
+jp/co/toshiba/ppok/service/CityDtoService.java
+ jp.co.toshiba.ppok.service.CityDtoService
 jp/co/toshiba/ppok/utils/CustomException.java
  jp.co.toshiba.ppok.utils.CustomException
 jp/co/toshiba/ppok/entity/City.java
@@ -20,5 +20,5 @@ jp/co/toshiba/ppok/service/impl/CityDtoServiceImpl.java
  jp.co.toshiba.ppok.service.impl.CityDtoServiceImpl
 jp/co/toshiba/ppok/entity/Nation.java
  jp.co.toshiba.ppok.entity.Nation
-jp/co/toshiba/ppok/service/CityDtoService.java
- jp.co.toshiba.ppok.service.CityDtoService
+jp/co/toshiba/ppok/controller/CityController.java
+ jp.co.toshiba.ppok.controller.CityController
