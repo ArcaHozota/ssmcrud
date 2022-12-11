@@ -36,7 +36,7 @@ public class RestMsg {
     public static RestMsg success() {
         final RestMsg result = new RestMsg();
         result.setCode(200);
-        result.setMessage("Retrieve success");
+        result.setMessage("Retrieve success.");
         return result;
     }
 
@@ -48,7 +48,7 @@ public class RestMsg {
     public static RestMsg failure() {
         final RestMsg result = new RestMsg();
         result.setCode(400);
-        result.setMessage("Retrieve failed");
+        result.setMessage("Retrieve failed.");
         return result;
     }
 

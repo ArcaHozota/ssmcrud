@@ -11,10 +11,10 @@
     </appender>
     <!-- 設置全局日誌級別。日志級別按順序分別是：DEBUG、INFO、WARN、ERROR -->
     <!-- 指定任何一个日誌級別都只打印當前級別和後面級別的日誌； -->
-    <root level="DEBUG">
+    <root level="INFO">
         <!-- 指定打印日誌的appender，這裡通過“STDOUT”引用了前面配置的appender -->
         <appender-ref ref="STDOUT"/>
     </root>
     <!-- 根据特殊需求指定局部日誌級別 -->
-    <logger name="com.atdaiwa.crowd.mapper" level="DEBUG"/>
+    <logger name="jp.co.toshiba.ppok.mapper" level="DEBUG"/>
 </configuration>

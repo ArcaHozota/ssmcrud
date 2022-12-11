@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -18,6 +17,8 @@ import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.utils.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
+import javax.annotation.Resource;
+
 /**
  * Center Terminal Controller Handle the retrieve and update requests.
  *
@@ -26,7 +27,7 @@ import jp.co.toshiba.ppok.utils.RestMsg;
 @Controller
 public class CityController {
 
-    @Autowired
+    @Resource
     private CityDtoService cityDtoService;
 
     /**
