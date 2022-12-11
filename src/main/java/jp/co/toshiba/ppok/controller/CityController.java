@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ import javax.annotation.Resource;
  *
  * @author Administrator
  */
-@Controller
+@RestController
 public class CityController {
 
     @Resource
@@ -36,12 +35,23 @@ public class CityController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    @ResponseBody
     public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-        PageMethod.startPage(pageNum, 12);
+        PageMethod.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
         final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
         return RestMsg.success().add("pageInfo", pageInfo);
+    }
+
+    /**
+     * Search the selected city's name.
+     *
+     * @param id the ID of city
+     * @return RestMsg.success().add(data)
+     */
+    @GetMapping(value = "/city/{id}")
+    public RestMsg getCityInfo(@PathVariable("id") final Long id) {
+        final CityDto city = cityDtoService.getCityInfo(id);
+        return RestMsg.success().add("citySelected", city);
     }
 
     /**
@@ -51,7 +61,6 @@ public class CityController {
      * @return RestMsg.success();
      */
     @PostMapping(value = "/city")
-    @ResponseBody
     public RestMsg saveCityInfos(@Valid final CityDto cityDto, final BindingResult result) {
         final Map<String, Object> map = new HashMap<>(5);
         if (result.hasErrors()) {
@@ -67,48 +76,13 @@ public class CityController {
     }
 
     /**
-     * Check the input city name already existed or not.
-     *
-     * @param cityName the input name
-     * @return RestMsg.success()
-     */
-    @GetMapping(value = "/checklist")
-    @ResponseBody
-    public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
-        final String regex = "^[a-zA-Z_-]{4,17}$";
-        if (cityName.matches(regex)) {
-            if (cityDtoService.checkDuplicated(cityName)) {
-                return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
-            } else {
-                return RestMsg.success();
-            }
-        } else {
-            return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
-        }
-    }
-
-    /**
-     * Search the selected city's name.
-     *
-     * @param id the ID of city
-     * @return RestMsg.success().add(data)
-     */
-    @GetMapping(value = "/city/{id}")
-    @ResponseBody
-    public RestMsg getCityName(@PathVariable("id") final Long id) {
-        final CityDto city = cityDtoService.getCityInfo(id);
-        return RestMsg.success().add("citySelected", city);
-    }
-
-    /**
      * Update city info.
      *
      * @param cityDto the input message of cities
      * @return RestMsg.success()
      */
     @PutMapping(value = "/city/{id}")
-    @ResponseBody
-    public RestMsg saveCityChanges(@RequestBody final CityDto cityDto) {
+    public RestMsg updateCityInfo(@RequestBody final CityDto cityDto) {
         cityDtoService.updateCityInfo(cityDto);
         return RestMsg.success();
     }
@@ -120,9 +94,28 @@ public class CityController {
      * @return RestMsg.success()
      */
     @DeleteMapping(value = "/city/{id}")
-    @ResponseBody
     public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
         cityDtoService.deleteCityInfo(id);
         return RestMsg.success();
+    }
+
+    /**
+     * Check the input city name already existed or not.
+     *
+     * @param cityName the input name
+     * @return RestMsg.success()
+     */
+    @GetMapping(value = "/checklist")
+    public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
+        final String regex = "^[a-zA-Z_-]{4,17}$";
+        if (cityName.matches(regex)) {
+            if (cityDtoService.checkDuplicated(cityName)) {
+                return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
+            } else {
+                return RestMsg.success();
+            }
+        } else {
+            return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
+        }
     }
 }
