@@ -9,7 +9,7 @@
     <!-- The configuration file of the utilized SpringMVC -->
     <context:component-scan base-package="jp.co.toshiba.ppok" use-default-filters="false">
         <!-- Scanning the controllers only. -->
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
     </context:component-scan>
     <!-- Set the view resolver. -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
