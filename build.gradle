@@ -19,15 +19,15 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation 'org.springframework:spring-context:5.3.19'
+    implementation 'org.springframework:spring-context:5.3.14'
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
-    implementation 'org.springframework:spring-webmvc:5.3.19'
+    implementation 'org.springframework:spring-webmvc:5.3.14'
     // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
-    implementation 'org.springframework:spring-jdbc:5.3.19'
+    implementation 'org.springframework:spring-jdbc:5.3.14'
     // https://mvnrepository.com/artifact/org.springframework/spring-aspects
-    implementation 'org.springframework:spring-aspects:5.3.19'
+    implementation 'org.springframework:spring-aspects:5.3.14'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
-    testImplementation 'org.springframework:spring-test:5.3.19'
+    testImplementation 'org.springframework:spring-test:5.3.14'
     // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
     implementation 'com.baomidou:mybatis-plus:3.4.3.4'
     // https://mvnrepository.com/artifact/org.mybatis/mybatis
