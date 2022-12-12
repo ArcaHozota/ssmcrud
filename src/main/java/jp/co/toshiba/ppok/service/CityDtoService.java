@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import jp.co.toshiba.ppok.utils.CityDto;
+import jp.co.toshiba.ppok.entity.CityDto;
 
 public interface CityDtoService extends IService<CityDto> {
 

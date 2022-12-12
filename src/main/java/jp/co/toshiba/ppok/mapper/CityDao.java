@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import jp.co.toshiba.ppok.utils.CityDto;
+import jp.co.toshiba.ppok.entity.CityDto;
 
 @Mapper
 public interface CityDao extends BaseMapper<CityDto> {

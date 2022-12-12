@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityDao">
-	<resultMap id="ResultMap" type="jp.co.toshiba.ppok.utils.CityDto">
+	<resultMap id="ResultMap" type="jp.co.toshiba.ppok.entity.CityDto">
 		<id column="ID" jdbcType="NUMERIC" property="id" />
 		<result column="NAME" jdbcType="NCHAR" property="name" />
 		<result column="CONTINENT" jdbcType="NCHAR" property="continent" />
@@ -11,11 +11,12 @@
 	</resultMap>
 	<select id="selectByCityView" resultMap="ResultMap">
 		SELECT DISTINCT ID
-		, NAME
-		, CONTINENT
-		, NATION
-		, DISTRICT
-		, POPULATION
+					  , NAME
+					  , CONTINENT
+					  , NATION
+					  , DISTRICT
+					  , POPULATION
 		FROM WORLD_CITY_VIEW
+		ORDER BY ID ASC
 	</select>
 </mapper>

@@ -17,7 +17,7 @@ import jp.co.toshiba.ppok.mapper.CityDao;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.NationMapper;
 import jp.co.toshiba.ppok.service.CityDtoService;
-import jp.co.toshiba.ppok.utils.CityDto;
+import jp.co.toshiba.ppok.entity.CityDto;
 import jp.co.toshiba.ppok.utils.CustomException;
 
 /**
