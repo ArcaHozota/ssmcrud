@@ -28,5 +28,6 @@ replay_pid*
 .settings
 target
 build
+bin
 .idea
 *.iml
