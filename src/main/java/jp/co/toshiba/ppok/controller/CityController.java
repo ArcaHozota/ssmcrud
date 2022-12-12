@@ -122,9 +122,9 @@ public class CityController {
     /**
      * @return RestMsg.success().add(data)
      */
-    @GetMapping(value = "/nations")
+    @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
         final List<CityDto> list = cityDtoService.getContinents();
-        return RestMsg.success().add("nations", list);
+        return RestMsg.success().add("continents", list);
     }
 }
