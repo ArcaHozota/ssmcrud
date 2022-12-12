@@ -75,11 +75,9 @@
                     </div>
                     <div class="form-group">
                         <label for="continentInput" class="col-sm-2 control-label">Continent</label>
-                        <div class="col-sm-5">
-                            <input type="text" name="continent" class="form-control" id="continentInput"
-                                   placeholder="The continent which the city located on.">
-                            <span class="help-block"></span>
-                        </div>
+                        <<div class="col-sm-5">
+                        <select id="continentInput" class="form-control" name="continent"></select>
+                    </div>
                     </div>
                     <div class="form-group">
                         <label for="nationInput" class="col-sm-2 control-label">Nation</label>
@@ -280,7 +278,7 @@
     //Add click function to the input modal.
     $("#cityAddModalBtn").click(function () {
         formReset("#cityAddModal form");
-        getNations("#cityAddModal select");
+        getNations("#continentInput");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
@@ -294,9 +292,9 @@
             type: "GET",
             success: function (result) {
                 $.each(result.extend.nations, function () {
-                    let optionElement = $("<option></option>").append(
-                        this.nationName).attr("value", this.code);
-                    optionElement.appendTo(element);
+                    let optionElement01 = $("<option></option>")
+                        .append(this.continent).attr("value", this.continent);
+                    optionElement01.appendTo(element);
                 });
             }
         });
