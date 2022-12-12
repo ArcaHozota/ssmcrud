@@ -19,15 +19,15 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation 'org.springframework:spring-context:5.3.14'
+    implementation 'org.springframework:spring-context:5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
-    implementation 'org.springframework:spring-webmvc:5.3.14'
+    implementation 'org.springframework:spring-webmvc:5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
-    implementation 'org.springframework:spring-jdbc:5.3.14'
+    implementation 'org.springframework:spring-jdbc:5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-aspects
-    implementation 'org.springframework:spring-aspects:5.3.14'
+    implementation 'org.springframework:spring-aspects:5.3.19'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
-    testImplementation 'org.springframework:spring-test:5.3.14'
+    testImplementation 'org.springframework:spring-test:5.3.19'
     // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
     implementation 'com.baomidou:mybatis-plus:3.4.3.4'
     // https://mvnrepository.com/artifact/org.mybatis/mybatis
@@ -47,7 +47,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
     implementation 'org.hibernate.validator:hibernate-validator:7.0.3.Final'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.1'
     // https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j
     implementation 'org.slf4j:jul-to-slf4j:1.7.36'
     // https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
@@ -57,7 +57,7 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation 'ch.qos.logback:logback-classic:1.2.10'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok:1.18.12'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
@@ -65,7 +65,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 
