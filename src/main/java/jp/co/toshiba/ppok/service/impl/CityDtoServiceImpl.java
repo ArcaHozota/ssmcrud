@@ -46,13 +46,24 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
     }
 
     /**
-     * Search nations & continents of cities.
+     * Search continents of cities located on.
      *
      * @return List<CityDto>
      */
     @Override
     public List<CityDto> getContinents() {
         return cityDao.selectContinents();
+    }
+
+    /**
+     * Search nation's name of cities.
+     *
+     * @param continent name of continent which the nation located on.
+     * @return List<CityDto>
+     */
+    @Override
+    public List<CityDto> selectNations(String continent) {
+        return cityDao.selectNations(continent);
     }
 
     /**

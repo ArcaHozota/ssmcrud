@@ -28,7 +28,8 @@ public interface CityDao extends BaseMapper<CityDto> {
 	/**
 	 * Search nation's name of cities.
 	 *
+	 * @param continent name of continent which the nation located on.
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectNations();
+	List<CityDto> selectNations(String continent);
 }

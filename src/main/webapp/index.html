@@ -221,7 +221,7 @@
 
     //Analyze and display the page infos.
     function buildPageInfos(result) {
-        const pageInfos = $("#pageInfos");
+        let pageInfos = $("#pageInfos");
         pageInfos.empty();
         pageInfos.append("The " + result.extend.pageInfo.pageNum
             + " page in " + result.extend.pageInfo.pages + " pages, "
@@ -305,8 +305,10 @@
     //Get the name of nation.
     function getNation(element) {
         $(element).empty();
+        let contValue = $("#continentInput").val();
         $.ajax({
             url: pathdeApp + "/nations",
+            data: "continent=" + contValue,
             type: "GET",
             success: function (result) {
                 $.each(result.extend.nations, function () {

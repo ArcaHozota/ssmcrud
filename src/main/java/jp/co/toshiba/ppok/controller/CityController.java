@@ -120,11 +120,24 @@ public class CityController {
     }
 
     /**
+     * Get list of continents.
+     *
      * @return RestMsg.success().add(data)
      */
     @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
         final List<CityDto> list = cityDtoService.getContinents();
+        return RestMsg.success().add("continents", list);
+    }
+
+    /**
+     * Get list of nations.
+     *
+     * @return RestMsg.success().add(data)
+     */
+    @GetMapping(value = "/nations")
+    public RestMsg getListOfNations(@RequestParam("continent") final String continent) {
+        final List<CityDto> list = cityDtoService.getNations(continent);
         return RestMsg.success().add("continents", list);
     }
 }
