@@ -16,6 +16,13 @@ public interface CityDtoService extends IService<CityDto> {
 	List<CityDto> getAll();
 
 	/**
+	 * Search nations & continents of cities.
+	 *
+	 * @return List<CityDto>
+	 */
+	List<CityDto> getNationsAndContinents();
+
+	/**
 	 * Search city info by id.
 	 *
 	 * @param id city id

@@ -14,7 +14,14 @@ public interface CityDao extends BaseMapper<CityDto> {
 	/**
 	 * Search the cities in wcv.
 	 *
-	 * @return List<City>
+	 * @return List<CityDto>
 	 */
 	List<CityDto> selectByCityView();
+
+	/**
+	 * Search nation & continents of cities.
+	 *
+	 * @return List<CityDto>
+	 */
+	List<CityDto> selectNationAndContinents();
 }

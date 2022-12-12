@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityDao">
-	<resultMap id="ResultMap" type="jp.co.toshiba.ppok.entity.CityDto">
-		<id column="ID" jdbcType="NUMERIC" property="id" />
-		<result column="NAME" jdbcType="NCHAR" property="name" />
-		<result column="CONTINENT" jdbcType="NCHAR" property="continent" />
-		<result column="NATION" jdbcType="NCHAR" property="nation" />
-		<result column="DISTRICT" jdbcType="NCHAR" property="district" />
-		<result column="POPULATION" jdbcType="NUMERIC" property="population" />
-	</resultMap>
-	<select id="selectByCityView" resultMap="ResultMap">
-		SELECT DISTINCT ID
-					  , NAME
-					  , CONTINENT
-					  , NATION
-					  , DISTRICT
-					  , POPULATION
-		FROM WORLD_CITY_VIEW
-		ORDER BY ID ASC
-	</select>
+    <resultMap id="ResultMap" type="jp.co.toshiba.ppok.entity.CityDto">
+        <id column="ID" jdbcType="NUMERIC" property="id"/>
+        <result column="NAME" jdbcType="NCHAR" property="name"/>
+        <result column="CONTINENT" jdbcType="NCHAR" property="continent"/>
+        <result column="NATION" jdbcType="NCHAR" property="nation"/>
+        <result column="DISTRICT" jdbcType="NCHAR" property="district"/>
+        <result column="POPULATION" jdbcType="NUMERIC" property="population"/>
+    </resultMap>
+    <select id="selectByCityView" resultMap="ResultMap">
+        select distinct ID
+                      , NAME
+                      , CONTINENT
+                      , NATION
+                      , DISTRICT
+                      , POPULATION
+        from WORLD_CITY_VIEW
+        order by ID asc
+    </select>
+    <select id="selectNationAndContinents" resultMap="ResultMap">
+        select distinct NATION, CONTINENT
+        from WORLD_CITY_VIEW
+    </select>
 </mapper>
