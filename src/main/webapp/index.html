@@ -173,7 +173,7 @@
 
     const pathName = window.document.location.pathname;
 
-    const appliPath = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    const pathdeApp = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 
     let totalRecord, currentPage;
 
@@ -185,7 +185,7 @@
     //Transfer to clicked page numbers.
     function toSelectedPg(pageNum) {
         $.ajax({
-            url: appliPath + "/city",
+            url: pathdeApp + "/city",
             data: "pageNum=" + pageNum,
             type: "GET",
             success: function (result) {
@@ -215,9 +215,8 @@
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" Delete");
             deleteBtn.attr("delete-id", item.id);
             let btnTd = $("<td class='text-center'></td>").append(editBtn).append(" ").append(deleteBtn);
-            $("<tr></tr>").append(idTd).append(nameTd).append(continentTd)
-                .append(nationTd).append(districtTd).append(populationTd)
-                .append(btnTd).appendTo("#cityTable tbody");
+            $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
+                .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTable tbody");
         });
     }
 
@@ -249,10 +248,8 @@
                 toSelectedPg(result.extend.pageInfo.pageNum - 1);
             });
         }
-        let nextPageLi = $("<li></li>").append(
-            $("<a></a>").append("&raquo;"));
-        let lastPageLi = $("<li></li>").append(
-            $("<a></a>").append("Last Page").attr("href", "#"));
+        let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+        let lastPageLi = $("<li></li>").append($("<a></a>").append("Last Page").attr("href", "#"));
         if (!result.extend.pageInfo.hasNextPage) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
@@ -283,33 +280,33 @@
     //Add click function to the input modal.
     $("#cityAddModalBtn").click(function () {
         formReset("#cityAddModal form");
-        // get_nation_name("#cityAddModal select");
+        getNation("#cityAddModal select");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
     });
 
-    // //Get the nation name.
-    // function get_nation_name(element) {
-    //     $(element).empty();
-    //     $.ajax({
-    //         url: appliPath + "/nations",
-    //         type: "GET",
-    //         success: function (result) {
-    //             $.each(result.extend.nations, function () {
-    //                 var optionElement = $("<option></option>").append(
-    //                     this.nationName).attr("value", this.code);
-    //                 optionElement.appendTo(element);
-    //             });
-    //         }
-    //     });
-    // }
+    //Get the name of nation & continent.
+    function getNation(element) {
+        $(element).empty();
+        $.ajax({
+            url: pathdeApp + "/nations",
+            type: "GET",
+            success: function (result) {
+                $.each(result.extend.nations, function () {
+                    var optionElement = $("<option></option>").append(
+                        this.nationName).attr("value", this.code);
+                    optionElement.appendTo(element);
+                });
+            }
+        });
+    }
 
     //Analyze the input name is duplicate or not.
     $("#nameInput").change(function () {
         const cityName = this.value;
         $.ajax({
-            url: appliPath + "/checklist",
+            url: pathdeApp + "/checklist",
             data: "cityName=" + cityName,
             type: "GET",
             success: function (result) {
@@ -352,7 +349,7 @@
             showValidationMsg("#populationInput", "success", "√");
             //Send an ajax request to commit save options.
             $.ajax({
-                url: appliPath + "/city",
+                url: pathdeApp + "/city",
                 type: "POST",
                 data: $("#cityAddModal form").serialize(),
                 success: function (result) {
@@ -382,7 +379,7 @@
     //Get the selected city infos.
     function getCityInfo(id) {
         $.ajax({
-            url: appliPath + "/city/" + id,
+            url: pathdeApp + "/city/" + id,
             type: "GET",
             success: function (result) {
                 const cityData = result.extend.citySelected;
@@ -421,7 +418,7 @@
             showValidationMsg("#districtEdit", "success", "√");
             showValidationMsg("#populationEdit", "success", "√");
             $.ajax({
-                url: appliPath + "/city/" + editId,
+                url: pathdeApp + "/city/" + editId,
                 type: "PUT",
                 data: $("#cityEditModal form").serialize(),
                 success: function () {
@@ -439,7 +436,7 @@
         if (confirm("Ready to delete the infos of "
             + cityName + ", is it right?")) {
             $.ajax({
-                url: appliPath + "/city/" + cityId,
+                url: pathdeApp + "/city/" + cityId,
                 type: "DELETE",
                 success: function () {
                     toSelectedPg(currentPage);

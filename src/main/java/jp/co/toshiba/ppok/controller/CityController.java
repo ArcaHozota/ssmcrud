@@ -58,7 +58,7 @@ public class CityController {
      * Save the input messages.
      *
      * @param cityDto the input message of cities
-     * @return RestMsg.success();
+     * @return RestMsg.success()
      */
     @PostMapping(value = "/city")
     public RestMsg saveCityInfos(@Valid final CityDto cityDto, final BindingResult result) {
@@ -117,5 +117,13 @@ public class CityController {
         } else {
             return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
         }
+    }
+
+    /**
+     * @return RestMsg.success().add(data)
+     */
+    @GetMapping(value = "/nations")
+    public RestMsg getContinentAndNationList() {
+        return null;
     }
 }
