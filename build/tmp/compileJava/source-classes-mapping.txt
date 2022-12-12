@@ -10,12 +10,12 @@ jp/co/toshiba/ppok/entity/Nation.java
  jp.co.toshiba.ppok.entity.Nation
 jp/co/toshiba/ppok/mapper/NationMapper.java
  jp.co.toshiba.ppok.mapper.NationMapper
-jp/co/toshiba/ppok/mapper/CityDao.java
- jp.co.toshiba.ppok.mapper.CityDao
-jp/co/toshiba/ppok/controller/CityController.java
- jp.co.toshiba.ppok.controller.CityController
 jp/co/toshiba/ppok/entity/CityDto.java
  jp.co.toshiba.ppok.entity.CityDto
+jp/co/toshiba/ppok/controller/CityController.java
+ jp.co.toshiba.ppok.controller.CityController
+jp/co/toshiba/ppok/mapper/CityDao.java
+ jp.co.toshiba.ppok.mapper.CityDao
 jp/co/toshiba/ppok/service/impl/CityDtoServiceImpl.java
  jp.co.toshiba.ppok.service.impl.CityDtoServiceImpl
 jp/co/toshiba/ppok/service/CityDtoService.java

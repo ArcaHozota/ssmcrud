@@ -23,5 +23,5 @@ public interface CityDao extends BaseMapper<CityDto> {
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectNationAndContinents();
+	List<CityDto> selectContinents();
 }

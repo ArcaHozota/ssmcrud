@@ -278,14 +278,14 @@
     //Add click function to the input modal.
     $("#cityAddModalBtn").click(function () {
         formReset("#cityAddModal form");
-        getNations("#continentInput");
+        getContinent("#continentInput");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
     });
 
     //Get the name of nation & continent.
-    function getNations(element) {
+    function getContinent(element) {
         $(element).empty();
         $.ajax({
             url: pathdeApp + "/nations",

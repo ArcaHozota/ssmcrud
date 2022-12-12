@@ -19,8 +19,8 @@
         from WORLD_CITY_VIEW
         order by ID asc
     </select>
-    <select id="selectNationAndContinents" resultMap="ResultMap">
-        select distinct NATION, CONTINENT
+    <select id="selectContinents" resultMap="ResultMap">
+        select distinct CONTINENT
         from WORLD_CITY_VIEW
     </select>
 </mapper>

@@ -20,7 +20,7 @@ public interface CityDtoService extends IService<CityDto> {
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> getNationsAndContinents();
+	List<CityDto> getContinents();
 
 	/**
 	 * Search city info by id.
