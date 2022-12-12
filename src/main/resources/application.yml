@@ -1,0 +1,26 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: grssmcrud
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: oracle
+    password: oracle
+    hikari:
+      maximum-pool-size: 30
+  output:
+    ansi:
+      enabled: ALWAYS
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: AUTO
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath:mapper/*.xml
