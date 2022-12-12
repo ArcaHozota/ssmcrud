@@ -62,7 +62,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
      * @return List<CityDto>
      */
     @Override
-    public List<CityDto> selectNations(String continent) {
+    public List<CityDto> getNations(final String continent) {
         return cityDao.selectNations(continent);
     }
 

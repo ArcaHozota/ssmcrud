@@ -28,7 +28,7 @@ public interface CityDtoService extends IService<CityDto> {
 	 * @param continent name of continent which the nation located on.
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectNations(String continent);
+	List<CityDto> getNations(String continent);
 
 	/**
 	 * Search city info by id.
