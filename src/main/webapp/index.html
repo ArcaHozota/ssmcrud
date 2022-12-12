@@ -234,7 +234,7 @@
         $("#pageNavi").empty();
         let ul = $("<ul></ul>").addClass("pagination");
         let firstPageLi = $("<li></li>").append($("<a></a>").append("First Page").attr("href", "#"));
-        let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
+        let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
         if (!result.extend.pageInfo.hasPreviousPage) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
@@ -246,7 +246,7 @@
                 toSelectedPg(result.extend.pageInfo.pageNum - 1);
             });
         }
-        let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+        let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
         let lastPageLi = $("<li></li>").append($("<a></a>").append("Last Page").attr("href", "#"));
         if (!result.extend.pageInfo.hasNextPage) {
             nextPageLi.addClass("disabled");
@@ -261,7 +261,7 @@
         }
         ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
-            var numsLi = $("<li></li>").append($("<a></a>").append(item));
+            let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
             if (result.extend.pageInfo.pageNum === item) {
                 numsLi.addClass("active");
             }
@@ -288,13 +288,13 @@
     function getContinent(element) {
         $(element).empty();
         $.ajax({
-            url: pathdeApp + "/nations",
+            url: pathdeApp + "/continents",
             type: "GET",
             success: function (result) {
-                $.each(result.extend.nations, function () {
-                    let optionElement01 = $("<option></option>")
+                $.each(result.extend.continents, function () {
+                    let optionElement = $("<option></option>")
                         .append(this.continent).attr("value", this.continent);
-                    optionElement01.appendTo(element);
+                    optionElement.appendTo(element);
                 });
             }
         });
@@ -380,7 +380,7 @@
             url: pathdeApp + "/city/" + id,
             type: "GET",
             success: function (result) {
-                const cityData = result.extend.citySelected;
+                let cityData = result.extend.citySelected;
                 $("#displayedCityName").text(cityData.name);
                 $("#continentEdit").val([cityData.continent]);
                 $("#nationEdit").val([cityData.nation]);
