@@ -1,40 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
-    <!-- The configuration file of Spring Framework -->
-    <context:component-scan base-package="jp.co.toshiba.ppok">
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
-    </context:component-scan>
-    <!-- Set the Scanner to put MyBatis in IOC beans. -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="jp.co.toshiba.ppok.mapper"/>
-    </bean>
-    <!-- ★Set the configuration of the transaction controller. -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="pooledDataSource"/>
-    </bean>
-    <!-- Put the transactions with annotation into AOP. -->
-    <aop:config>
-        <!-- The expression of pointcuts -->
-        <aop:pointcut id="txPoint" expression="execution(* jp.co.toshiba.ppok.service..*(..))"/>
-        <!-- Set the configuration of transaction enhancer. -->
-        <aop:advisor advice-ref="txAdvisor" pointcut-ref="txPoint"/>
-    </aop:config>
-    <!-- Set the transaction enhancer. -->
-    <tx:advice id="txAdvisor">
-        <tx:attributes>
-            <!-- All methods -->
-            <tx:method name="*"/>
-            <!-- All methods with prefix get- are query methods. -->
-            <tx:method name="get*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
-</beans>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xmlns:aop="http://www.springframework.org/schema/aop"-->
+<!--       xmlns:tx="http://www.springframework.org/schema/tx"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd-->
+<!--       http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd-->
+<!--       http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">-->
+<!--    &lt;!&ndash; The configuration file of Spring Framework &ndash;&gt;-->
+<!--    <context:component-scan base-package="jp.co.toshiba.ppok">-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>-->
+<!--    </context:component-scan>-->
+<!--    &lt;!&ndash; Set the Scanner to put MyBatis in IOC beans. &ndash;&gt;-->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="basePackage" value="jp.co.toshiba.ppok.mapper"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; ★Set the configuration of the transaction controller. &ndash;&gt;-->
+<!--    <bean id="transactionManager"-->
+<!--          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="pooledDataSource"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; Put the transactions with annotation into AOP. &ndash;&gt;-->
+<!--    <aop:config>-->
+<!--        &lt;!&ndash; The expression of pointcuts &ndash;&gt;-->
+<!--        <aop:pointcut id="txPoint" expression="execution(* jp.co.toshiba.ppok.service..*(..))"/>-->
+<!--        &lt;!&ndash; Set the configuration of transaction enhancer. &ndash;&gt;-->
+<!--        <aop:advisor advice-ref="txAdvisor" pointcut-ref="txPoint"/>-->
+<!--    </aop:config>-->
+<!--    &lt;!&ndash; Set the transaction enhancer. &ndash;&gt;-->
+<!--    <tx:advice id="txAdvisor">-->
+<!--        <tx:attributes>-->
+<!--            &lt;!&ndash; All methods &ndash;&gt;-->
+<!--            <tx:method name="*"/>-->
+<!--            &lt;!&ndash; All methods with prefix get- are query methods. &ndash;&gt;-->
+<!--            <tx:method name="get*" read-only="true"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+<!--</beans>-->
