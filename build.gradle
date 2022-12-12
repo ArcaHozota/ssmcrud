@@ -47,7 +47,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
     implementation 'org.hibernate.validator:hibernate-validator:7.0.3.Final'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
     // https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j
     implementation 'org.slf4j:jul-to-slf4j:1.7.36'
     // https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
