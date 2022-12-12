@@ -19,6 +19,12 @@
         from WORLD_CITY_VIEW
         order by ID asc
     </select>
+    <select id="selectNations" resultMap="ResultMap">
+        select distinct NATION
+        from WORLD_CITY_VIEW
+        where
+            CONTINENT = #{continent}
+    </select>
     <select id="selectContinents" resultMap="ResultMap">
         select distinct CONTINENT
         from WORLD_CITY_VIEW

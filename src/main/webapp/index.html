@@ -75,9 +75,10 @@
                     </div>
                     <div class="form-group">
                         <label for="continentInput" class="col-sm-2 control-label">Continent</label>
-                        <<div class="col-sm-5">
-                        <select id="continentInput" class="form-control" name="continent"></select>
-                    </div>
+                        <
+                        <div class="col-sm-5">
+                            <select id="continentInput" class="form-control" name="continent"></select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="nationInput" class="col-sm-2 control-label">Nation</label>
@@ -279,12 +280,13 @@
     $("#cityAddModalBtn").click(function () {
         formReset("#cityAddModal form");
         getContinent("#continentInput");
+        getNation("#nationInput");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
     });
 
-    //Get the name of nation & continent.
+    //Get the name of continent.
     function getContinent(element) {
         $(element).empty();
         $.ajax({
@@ -294,6 +296,22 @@
                 $.each(result.extend.continents, function () {
                     let optionElement = $("<option></option>")
                         .append(this.continent).attr("value", this.continent);
+                    optionElement.appendTo(element);
+                });
+            }
+        });
+    }
+
+    //Get the name of nation.
+    function getNation(element) {
+        $(element).empty();
+        $.ajax({
+            url: pathdeApp + "/nations",
+            type: "GET",
+            success: function (result) {
+                $.each(result.extend.nations, function () {
+                    let optionElement = $("<option></option>")
+                        .append(this.nation).attr("value", this.nation);
                     optionElement.appendTo(element);
                 });
             }
