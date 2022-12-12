@@ -40,7 +40,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("静的リソースのマッピングが開始しました。");
-        registry.addResourceHandler("/mapper/**").addResourceLocations("classpath:/mapper/");
+//        registry.addResourceHandler("/mapper/**").addResourceLocations("classpath:/mapper/");
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
     }
