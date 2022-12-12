@@ -24,7 +24,6 @@ import javax.annotation.Resource;
  * @author Administrator
  */
 @RestController
-@RequestMapping("/index.html")
 public class CityController {
 
     @Resource
