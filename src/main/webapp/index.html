@@ -280,21 +280,21 @@
     //Add click function to the input modal.
     $("#cityAddModalBtn").click(function () {
         formReset("#cityAddModal form");
-        getNation("#cityAddModal select");
+        getNations("#cityAddModal select");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
     });
 
     //Get the name of nation & continent.
-    function getNation(element) {
+    function getNations(element) {
         $(element).empty();
         $.ajax({
             url: pathdeApp + "/nations",
             type: "GET",
             success: function (result) {
                 $.each(result.extend.nations, function () {
-                    var optionElement = $("<option></option>").append(
+                    let optionElement = $("<option></option>").append(
                         this.nationName).attr("value", this.code);
                     optionElement.appendTo(element);
                 });
