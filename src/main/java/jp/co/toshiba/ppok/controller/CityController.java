@@ -136,7 +136,7 @@ public class CityController {
      * @return RestMsg.success().add(data)
      */
     @GetMapping(value = "/nations")
-    public RestMsg getListOfNations(@RequestParam("continent") final String continent) {
+    public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
         final List<CityDto> list = cityDtoService.getNations(continent);
         return RestMsg.success().add("nations", list);
     }

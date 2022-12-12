@@ -173,6 +173,8 @@
 
     let totalRecord, currentPage;
 
+    let continentVal;
+
     //After the page load, send the ajax request to get page infos.
     $(function () {
         toSelectedPg(1);
@@ -302,10 +304,11 @@
     //Get the name of nation.
     function getNation(element) {
         $(element).empty();
-        let contValue = $("#continentInput").val();
+        let options = $("#continentInput option:selected");
+        continentVal = options.text();
         $.ajax({
             url: pathdeApp + "/nations",
-            data: "continent=" + contValue,
+            data: "continentVal=" + continentVal,
             type: "GET",
             success: function (result) {
                 $.each(result.extend.nations, function () {
