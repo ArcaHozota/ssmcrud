@@ -13,7 +13,7 @@ import com.github.pagehelper.page.PageMethod;
 
 import jakarta.validation.Valid;
 import jp.co.toshiba.ppok.service.CityDtoService;
-import jp.co.toshiba.ppok.utils.CityDto;
+import jp.co.toshiba.ppok.entity.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 import javax.annotation.Resource;
