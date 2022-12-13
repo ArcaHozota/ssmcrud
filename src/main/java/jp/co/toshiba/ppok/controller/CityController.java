@@ -52,7 +52,7 @@ public class CityController {
      */
     @GetMapping(value = "/city")
     public ModelAndView getCityInfo(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-        PageMethod.startPage(pageNum, 15);
+        PageMethod.startPage(pageNum, 17);
         final List<CityDto> list = cityDtoService.getAll();
         final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
         ModelAndView mav = new ModelAndView("cities");
