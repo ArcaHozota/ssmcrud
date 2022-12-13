@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CityList</title>
+    <title th:text="${title}">Default Title</title>
     <!--import the jQuery framework-->
     <script type="text/javascript" src="../static/jquery/jQuery-3.6.0.min.js"></script>
     <!--import the bootstrap framework-->
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap.css}">
     <script type="text/javascript" src="../static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
