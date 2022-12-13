@@ -64,10 +64,10 @@
         <div class="col-lg-7">
             <ul class="pagination">
                 <li th:id="firstpage">
-                    <a th:action="@{/gradle/city?pageNum=1}">最初のページ</a>
+                    <a th:href="@{/gradle/city?pageNum=1}">最初のページへ</a>
                 </li>
                 <li th:id="lastpage">
-                    <a th:action="@{/gradle/city/{pageNum}(pageNum=${pageInfo.total})}">最初のページ</a>
+                    <a th:href="@{/gradle/city?pageNum=${pageInfo.total}}">最後のページへ</a>
                 </li>
             </ul>
         </div>
