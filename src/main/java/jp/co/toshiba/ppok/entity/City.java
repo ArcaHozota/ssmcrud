@@ -5,8 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
+/**
+ * @author Administrator
+ */
 @Data
-public class City {
+public class City implements Serializable {
 
 	/**
 	 * This field corresponds to the database column WORLD_CITY.ID

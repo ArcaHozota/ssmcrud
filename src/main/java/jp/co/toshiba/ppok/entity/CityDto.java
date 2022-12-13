@@ -3,6 +3,8 @@ package jp.co.toshiba.ppok.entity;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * dto of the view of world cities
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  */
 
 @Data
-public class CityDto {
+public class CityDto implements Serializable {
 
 	/**
 	 * This field corresponds to the database column WORLD_CITY_VIEW.ID

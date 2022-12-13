@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class Nation {
+public class Nation implements Serializable {
 
     /**
      * This field corresponds to the database column WORLD_COUNTRY.CODE
