@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.entity.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -23,23 +25,40 @@ import javax.annotation.Resource;
  *
  * @author Administrator
  */
-@RestController
+@Controller
+@RequestMapping("/gradle")
 public class CityController {
 
     @Resource
     private CityDtoService cityDtoService;
 
+//    /**
+//     * Retrieve the city data.
+//     *
+//     * @return page(JSON)
+//     */
+//    @GetMapping(value = "/city")
+//    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
+//        PageMethod.startPage(pageNum, 15);
+//        final List<CityDto> list = cityDtoService.getAll();
+//        final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
+//        return RestMsg.success().add("pageInfo", pageInfo);
+//    }
+
     /**
      * Retrieve the city data.
      *
-     * @return page(JSON)
+     * @return modelAndView
      */
     @GetMapping(value = "/city")
-    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
+    public ModelAndView getCityInfo(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
         PageMethod.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
         final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
-        return RestMsg.success().add("pageInfo", pageInfo);
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("title", "CityList");
+        mav.addObject("pageInfo", pageInfo);
+        return mav;
     }
 
     /**
