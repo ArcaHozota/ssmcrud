@@ -59,7 +59,7 @@
     </div>
     <!-- Info of the navigated pages -->
     <div class="row">
-        <div class="col-lg-5" id="pageInfos"></div>
+        <div class="col-lg-5" th:text="The ${pageInfo.pageNum} page in ${pageInfo.pages} pages, ${pageInfo.total} records found."></div>
         <div class="col-lg-7" id="pageNavi"></div>
     </div>
 </div>
