@@ -55,7 +55,7 @@ public class CityController {
         PageMethod.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
         final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
-        ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("cities");
         mav.addObject("title", "CityList");
         mav.addObject("pageInfo", pageInfo);
         return mav;
