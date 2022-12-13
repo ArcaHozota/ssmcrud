@@ -44,7 +44,16 @@
                     <th class="text-center">Operation</th>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr th:each="pg:${pageInfo.getList()}">
+                        <td th:text="${pg.id}" class='text-center'></td>
+                        <td th:text="${pg.name}" class='text-center'></td>
+                        <td th:text="${pg.continent}" class='text-center'></td>
+                        <td th:text="${pg.nation}" class='text-center'></td>
+                        <td th:text="${pg.district}" class='text-center'></td>
+                        <td th:text="${pg.population}" class='text-center'></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
