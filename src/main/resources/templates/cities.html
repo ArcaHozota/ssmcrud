@@ -70,10 +70,10 @@
                     <a>&laquo</a>
                 </li>
                 <li th:id="nextpg">
-                    <a>&raquo</a>
+                    <a th:href="@{'/gradle/city?pageNum='+${pageInfo.pageNum+1}}">&raquo</a>
                 </li>
                 <li th:id="lastpage">
-                    <a th:href="@{/gradle/city?pageNum=${pageInfo.total}}">最後のページへ</a>
+                    <a th:href="@{'/gradle/city?pageNum='+${pageInfo.total}}">最後のページへ</a>
                 </li>
             </ul>
         </div>
