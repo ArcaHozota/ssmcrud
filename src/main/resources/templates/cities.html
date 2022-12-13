@@ -18,7 +18,7 @@
     <!-- Title -->
     <div class="row">
         <div class="col-lg-12">
-            <h1>List of world cities</h1>
+            <h1>グローバル都市一覧</h1>
         </div>
     </div>
     <!-- Button -->
@@ -59,8 +59,18 @@
     </div>
     <!-- Info of the navigated pages -->
     <div class="row">
-        <div class="col-lg-5" th:text="|The ${pageInfo.pageNum} page in ${pageInfo.pages} pages, ${pageInfo.total} records found.|"></div>
-        <div class="col-lg-7" id="pageNavi"></div>
+        <div class="col-lg-5"
+             th:text="|The ${pageInfo.pageNum} page in ${pageInfo.pages} pages, ${pageInfo.total} records found.|"></div>
+        <div class="col-lg-7">
+            <ul class="pagination">
+                <li th:id="firstpage">
+                    <a th:action="@{/gradle/city?pageNum=1}">最初のページ</a>
+                </li>
+                <li th:id="lastpage">
+                    <a th:action="@{/gradle/city/{pageNum}(pageNum=${pageInfo.total})}">最初のページ</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <!-- Modal for inputting city info -->
