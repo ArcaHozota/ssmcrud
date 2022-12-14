@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.pagehelper.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -28,7 +27,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/gradle")
-public class CityController {
+public class CentreController {
 
     @Resource
     private CityDtoService cityDtoService;
