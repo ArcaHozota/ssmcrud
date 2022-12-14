@@ -67,7 +67,7 @@
                     <a th:href="@{/gradle/city?pageNum=1}">最初のページへ</a>
                 </li>
                 <li th:id="prepg">
-                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.prePage}}">&laquo</a>
+                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.pageNum == 1 ? 1 : ${pageInfo.prePage}}}">&laquo</a>
                 </li>
                 <li th:id="numberpg" th:class="active">
                     <a></a>
