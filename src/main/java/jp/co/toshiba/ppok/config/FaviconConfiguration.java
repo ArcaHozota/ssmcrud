@@ -8,6 +8,9 @@ import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import java.util.Collections;
 
+/**
+ * @author Administrator
+ */
 @Configuration
 public class FaviconConfiguration {
 
@@ -15,8 +18,7 @@ public class FaviconConfiguration {
     public SimpleUrlHandlerMapping customFaviconHandlerMapping() {
         SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
         mapping.setOrder(Integer.MIN_VALUE);
-        mapping.setUrlMap(Collections.singletonMap(
-                "/static/favicon.ico", faviconRequestHandler()));
+        mapping.setUrlMap(Collections.singletonMap("/favicon.ico", faviconRequestHandler()));
         return mapping;
     }
 
