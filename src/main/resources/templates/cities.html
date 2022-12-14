@@ -69,6 +69,9 @@
                 <li th:id="prepg">
                     <a th:href="@{'/gradle/city?pageNum='+${pageInfo.pageNum - 1}}">&laquo</a>
                 </li>
+                <li th:id="numberpg" th:class="active">
+                    <a></a>
+                </li>
                 <li th:id="nextpg">
                     <a th:href="@{'/gradle/city?pageNum='+${pageInfo.pageNum + 1}}">&raquo</a>
                 </li>
