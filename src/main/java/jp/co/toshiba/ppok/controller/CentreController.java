@@ -52,9 +52,9 @@ public class CentreController {
      */
     @GetMapping(value = "/city")
     public ModelAndView getCityInfo(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-        PageMethod.startPage(pageNum, 18);
+        PageMethod.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
-        final PageInfo<CityDto> pageInfo = PageInfo.of(list, 5);
+        final PageInfo<CityDto> pageInfo = PageInfo.of(list, 7);
         ModelAndView mav = new ModelAndView("cities");
         mav.addObject("title", "CityList");
         final int totalPages = pageInfo.getPages();
