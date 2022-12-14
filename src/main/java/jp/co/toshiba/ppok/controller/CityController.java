@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -54,9 +55,16 @@ public class CityController {
     public ModelAndView getCityInfo(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
         PageMethod.startPage(pageNum, 18);
         final List<CityDto> list = cityDtoService.getAll();
-        final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
+        final PageInfo<CityDto> pageInfo = PageInfo.of(list, 7);
         ModelAndView mav = new ModelAndView("cities");
         mav.addObject("title", "CityList");
+        final int totalPages = pageInfo.getPages();
+        if (pageNum == 1) {
+            final int prePage = 1;
+            pageInfo.setPrePage(prePage);
+        } else if (pageNum == totalPages) {
+            pageInfo.setNextPage(totalPages);
+        }
         mav.addObject("pageInfo", pageInfo);
         return mav;
     }
