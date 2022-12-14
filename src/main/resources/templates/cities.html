@@ -62,7 +62,7 @@
         <div class="col-lg-5"
              th:text="|The ${pageInfo.pageNum} page in ${pageInfo.pages} pages, ${pageInfo.total} records found.|"></div>
         <div class="col-lg-7">
-            <ul class="pagination" th:each="navipg:${pageInfo.getNavigatepageNums()}">
+            <ul class="pagination">
                 <li th:id="firstpage">
                     <a th:href="@{/gradle/city?pageNum=1}">最初のページへ</a>
                 </li>
@@ -70,19 +70,19 @@
                     <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.prePage}}">&laquo</a>
                 </li>
                 <li th:id="numberpg1">
-                    <a th:text="${navipg[0]}" th:href="@{'/gradle/city?pageNum='+ ${navipg[0]}}"></a>
+                    <a th:text="${pageInfo.navigatepageNums[0]}" th:href="@{'/gradle/city?pageNum='+ ${pageInfo.navigatepageNums[0]}}"></a>
                 </li>
                 <li th:id="numberpg2">
-                    <a th:text="${navipg[1]}" th:href="@{'/gradle/city?pageNum='+ ${navipg[1]}}"></a>
+                    <a th:text="${pageInfo.navigatepageNums[1]}" th:href="@{'/gradle/city?pageNum='+ ${pageInfo.navigatepageNums[1]}}"></a>
                 </li>
                 <li th:id="numberpg3">
-                    <a th:text="${navipg[2]}" th:href="@{'/gradle/city?pageNum='+ ${navipg[2]}}"></a>
+                    <a th:text="${pageInfo.navigatepageNums[2]}" th:href="@{'/gradle/city?pageNum='+ ${pageInfo.navigatepageNums[2]}}"></a>
                 </li>
                 <li th:id="numberpg4">
-                    <a th:text="${navipg[3]}" th:href="@{'/gradle/city?pageNum='+ ${navipg[3]}}"></a>
+                    <a th:text="${pageInfo.navigatepageNums[3]}" th:href="@{'/gradle/city?pageNum='+ ${pageInfo.navigatepageNums[3]}}"></a>
                 </li>
                 <li th:id="numberpg5">
-                    <a th:text="${navipg[4]}" th:href="@{'/gradle/city?pageNum='+ ${navipg[4]}}"></a>
+                    <a th:text="${pageInfo.navigatepageNums[4]}" th:href="@{'/gradle/city?pageNum='+ ${pageInfo.navigatepageNums[4]}}"></a>
                 </li>
                 <li th:id="nextpg">
                     <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.nextPage}}">&raquo</a>
