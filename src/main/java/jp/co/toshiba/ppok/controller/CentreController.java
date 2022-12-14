@@ -113,17 +113,17 @@ public class CentreController {
         return RestMsg.success();
     }
 
-    /**
-     * Delete the selected city info.
-     *
-     * @param id the ID of city
-     * @return RestMsg.success()
-     */
-    @DeleteMapping(value = "/city/{id}")
-    public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
-        cityDtoService.deleteCityInfo(id);
-        return RestMsg.success();
-    }
+//    /**
+//     * Delete the selected city info.
+//     *
+//     * @param id the ID of city
+//     * @return RestMsg.success()
+//     */
+//    @DeleteMapping(value = "/city/{id}")
+//    public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
+//        cityDtoService.deleteCityInfo(id);
+//        return RestMsg.success();
+//    }
 
     /**
      * Check the input city name already existed or not.
