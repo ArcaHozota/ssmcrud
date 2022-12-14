@@ -67,13 +67,13 @@
                     <a th:href="@{/gradle/city?pageNum=1}">最初のページへ</a>
                 </li>
                 <li th:id="prepg">
-                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.pageNum le 1 ? 1 : (${pageInfo.pageNum}-1)}}">&laquo</a>
+                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.prePage}}">&laquo</a>
                 </li>
                 <li th:id="numberpg" th:class="active">
                     <a></a>
                 </li>
                 <li th:id="nextpg">
-                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.pageNum + 1}}">&raquo</a>
+                    <a th:href="@{'/gradle/city?pageNum='+ ${pageInfo.nextPage}}">&raquo</a>
                 </li>
                 <li th:id="lastpage">
                     <a th:href="@{'/gradle/city?pageNum='+${pageInfo.pages}}">最後のページへ</a>
