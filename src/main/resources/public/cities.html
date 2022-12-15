@@ -270,10 +270,10 @@
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                toSelectedPg(currentPage + 1);
+                toSelectedPg(currentPage + 1, searchName);
             });
             lastPageLi.click(function () {
-                toSelectedPg(totalPages);
+                toSelectedPg(totalPages, searchName);
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
@@ -283,7 +283,7 @@
                 numsLi.attr("href", "#").addClass("active");
             }
             numsLi.click(function () {
-                toSelectedPg(item);
+                toSelectedPg(item, searchName);
             });
             ul.append(numsLi);
         });
