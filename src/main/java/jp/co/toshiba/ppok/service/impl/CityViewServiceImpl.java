@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.Nation;
+import jp.co.toshiba.ppok.entity.Country;
 import jp.co.toshiba.ppok.mapper.CityDao;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.NationMapper;
@@ -92,7 +92,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
         final City city = cityMapper.selectById(id);
         BeanUtils.copyProperties(city, cityView, "countryCode", "isDeleted");
         final String countryCode = city.getCountryCode();
-        final Nation nation = nationMapper.selectById(countryCode);
+        final Country nation = nationMapper.selectById(countryCode);
         cityView.setContinent(nation.getContinent());
         cityView.setNation(nation.getName());
         return cityView;
@@ -106,12 +106,12 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void saveCityInfo(final CityView cityView) {
         final City city = new City();
-        final Nation country = new Nation();
+        final Country country = new Country();
         BeanUtils.copyProperties(cityView, city, "nation", "continent");
         final String nationName = cityView.getNation();
-        final LambdaQueryWrapper<Nation> queryWrapper = Wrappers.lambdaQuery(new Nation());
-        queryWrapper.eq(Nation::getName, nationName);
-        final Nation nation = nationMapper.selectOne(queryWrapper);
+        final LambdaQueryWrapper<Country> queryWrapper = Wrappers.lambdaQuery(new Country());
+        queryWrapper.eq(Country::getName, nationName);
+        final Country nation = nationMapper.selectOne(queryWrapper);
         if (nation != null) {
             if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());
@@ -137,12 +137,12 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void updateCityInfo(final CityView cityView) {
         final City city = new City();
-        final Nation country = new Nation();
+        final Country country = new Country();
         BeanUtils.copyProperties(cityView, city, "nation", "continent");
         final String nationName = cityView.getNation();
-        final LambdaQueryWrapper<Nation> queryWrapper = Wrappers.lambdaQuery(new Nation());
-        queryWrapper.eq(Nation::getName, nationName);
-        final Nation nation = nationMapper.selectOne(queryWrapper);
+        final LambdaQueryWrapper<Country> queryWrapper = Wrappers.lambdaQuery(new Country());
+        queryWrapper.eq(Country::getName, nationName);
+        final Country nation = nationMapper.selectOne(queryWrapper);
         if (nation != null) {
             if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class Nation implements Serializable {
+public class Country implements Serializable {
 
     /**
      * This field corresponds to the database column WORLD_COUNTRY.CODE
