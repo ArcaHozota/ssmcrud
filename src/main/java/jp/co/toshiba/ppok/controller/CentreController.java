@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CentreController {
      */
     @GetMapping(value = "/city")
     public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-        PageMethod.startPage(pageNum, 15);
+        PageHelper.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
         final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
         return RestMsg.success().add("pageInfo", pageInfo);

@@ -27,6 +27,3 @@ mybatis-plus:
       table-prefix: WORLD_
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: jp.co.toshiba.ppok.entity
-pagehelper:
-  helper-dialect: oracle
-  reasonable: true
