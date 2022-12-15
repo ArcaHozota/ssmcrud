@@ -1,5 +1,11 @@
 package jp.co.toshiba.ppok.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * MyBatisPlus Pagination
  *
@@ -9,7 +15,7 @@ package jp.co.toshiba.ppok.config;
 public class MyBatisPlusConfig {
 
     /**
-     * 分頁插件屬性設置；
+     * configuration for MBPlus intercepter
      *
      * @return mybatisPlusInterceptor
      */
@@ -17,7 +23,7 @@ public class MyBatisPlusConfig {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         final MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         final PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor();
-        innerInterceptor.setDbType(DbType.POSTGRE_SQL);
+        innerInterceptor.setDbType(DbType.ORACLE);
         innerInterceptor.setOverflow(true);
         mybatisPlusInterceptor.addInnerInterceptor(innerInterceptor);
         return mybatisPlusInterceptor;
