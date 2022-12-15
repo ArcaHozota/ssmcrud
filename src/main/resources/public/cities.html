@@ -32,7 +32,7 @@
                            type="text" placeholder="検索条件を入力してください">
                 </div>
             </div>
-            <button id="searchBtn" type="button" class="btn btn-info">
+            <button id="searchBtn" type="button" class="btn btn-warning">
                 <span class="glyphicon glyphicon-search"></span>検索
             </button>
         </form>
@@ -188,9 +188,15 @@
     let searchName;
 
     //After the page load, send the ajax request to get page infos.
-    $(function () {
+    $(document).ready(function () {
+        getKeyword();
         toSelectedPg(1, searchName);
     });
+
+    //Get the searchName in text.
+    function getKeyword(){
+        searchName = $("#keywordInput").val();
+    }
 
     //Transfer to clicked page numbers.
     function toSelectedPg(pageNum, name) {
@@ -243,7 +249,6 @@
         pageInfos.append("The " + currentPage
             + " page in " + totalPages + " pages, "
             + totalRecord + " records found.");
-        searchName = $("#keywordInput").val();
     }
 
     //Analyze and display the navigated pages.
