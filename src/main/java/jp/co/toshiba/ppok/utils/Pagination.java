@@ -34,18 +34,6 @@ public class Pagination<T> extends Page<T> {
     }
 
     /**
-     * 靜態構造方法
-     *
-     * @param currentPage 當前頁
-     * @param pageSize    頁面大小
-     * @param <T>         汎型
-     * @return 分頁
-     */
-    public static <T> Pagination<T> of(long currentPage, long pageSize) {
-        return of(currentPage, pageSize);
-    }
-
-    /**
      * 根據導航條頁碼數量進行基本計算
      *
      * @param naviPages 導航條頁碼數量
