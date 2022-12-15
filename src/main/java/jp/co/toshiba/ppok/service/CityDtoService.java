@@ -4,23 +4,23 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import jp.co.toshiba.ppok.entity.CityDto;
+import jp.co.toshiba.ppok.entity.CityView;
 
-public interface CityDtoService extends IService<CityDto> {
+public interface CityDtoService extends IService<CityView> {
 
 	/**
 	 * Search the cities in wcv.
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> getAll();
+	List<CityView> getAll();
 
 	/**
 	 * Search continents of cities located on.
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> getContinents();
+	List<CityView> getContinents();
 
 	/**
 	 * Search nation's name of cities.
@@ -28,7 +28,7 @@ public interface CityDtoService extends IService<CityDto> {
 	 * @param continent name of continent which the nation located on.
 	 * @return List<CityDto>
 	 */
-	List<CityDto> getNations(String continent);
+	List<CityView> getNations(String continent);
 
 	/**
 	 * Search city info by id.
@@ -36,21 +36,21 @@ public interface CityDtoService extends IService<CityDto> {
 	 * @param id city id
 	 * @return List<CityDto>
 	 */
-	CityDto getCityInfo(Long id);
+	CityView getCityInfo(Long id);
 
 	/**
 	 * Save city info.
 	 *
-	 * @param cityDto city info
+	 * @param cityView city info
 	 */
-	void saveCityInfo(CityDto cityDto);
+	void saveCityInfo(CityView cityView);
 
 	/**
 	 * Update city info.
 	 *
-	 * @param cityDto city info
+	 * @param cityView city info
 	 */
-	void updateCityInfo(CityDto cityDto);
+	void updateCityInfo(CityView cityView);
 
 	/**
 	 * Delete city info by id.

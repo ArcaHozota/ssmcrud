@@ -6,24 +6,24 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import jp.co.toshiba.ppok.entity.CityDto;
+import jp.co.toshiba.ppok.entity.CityView;
 
 @Mapper
-public interface CityDao extends BaseMapper<CityDto> {
+public interface CityDao extends BaseMapper<CityView> {
 
 	/**
 	 * Search the cities in wcv.
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectByCityView();
+	List<CityView> selectByCityView();
 
 	/**
 	 * Search continents of cities located on.
 	 *
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectContinents();
+	List<CityView> selectContinents();
 
 	/**
 	 * Search nation's name of cities.
@@ -31,5 +31,5 @@ public interface CityDao extends BaseMapper<CityDto> {
 	 * @param continent name of continent which the nation located on.
 	 * @return List<CityDto>
 	 */
-	List<CityDto> selectNations(String continent);
+	List<CityView> selectNations(String continent);
 }

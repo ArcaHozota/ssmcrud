@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import jp.co.toshiba.ppok.service.CityDtoService;
-import jp.co.toshiba.ppok.entity.CityDto;
+import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 import javax.annotation.Resource;
@@ -41,13 +41,13 @@ public class CentreController {
     public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
                              @RequestParam("name") final String name) {
         // 聲明分頁構造器；
-        final Page<CityDto> pageInfo = Page.of(pageNum, 15);
+        final Page<CityView> pageInfo = Page.of(pageNum, 15);
         // 聲明條件構造器；
-        final LambdaQueryWrapper<CityDto> queryWrapper = Wrappers.lambdaQuery(new CityDto());
+        final LambdaQueryWrapper<CityView> queryWrapper = Wrappers.lambdaQuery(new CityView());
         // 添加過濾條件；
-        queryWrapper.like(StringUtils.isNotEmpty(name), CityDto::getName, name);
+        queryWrapper.like(StringUtils.isNotEmpty(name), CityView::getName, name);
         // 添加排序條件；
-        queryWrapper.orderByAsc(CityDto::getId);
+        queryWrapper.orderByAsc(CityView::getId);
         // 執行查詢；
         cityDtoService.page(pageInfo, queryWrapper);
         return RestMsg.success().add("pageInfo", pageInfo);
@@ -61,18 +61,18 @@ public class CentreController {
      */
     @GetMapping(value = "/city/{id}")
     public RestMsg getCityInfo(@PathVariable("id") final Long id) {
-        final CityDto city = cityDtoService.getCityInfo(id);
+        final CityView city = cityDtoService.getCityInfo(id);
         return RestMsg.success().add("citySelected", city);
     }
 
     /**
      * Save the input messages.
      *
-     * @param cityDto the input message of cities
+     * @param cityView the input message of cities
      * @return RestMsg.success()
      */
     @PostMapping(value = "/city")
-    public RestMsg saveCityInfos(@Valid final CityDto cityDto, final BindingResult result) {
+    public RestMsg saveCityInfos(@Valid final CityView cityView, final BindingResult result) {
         final Map<String, Object> map = new HashMap<>(5);
         if (result.hasErrors()) {
             final List<FieldError> fieldErrors = result.getFieldErrors();
@@ -81,7 +81,7 @@ public class CentreController {
             }
             return RestMsg.failure().add("errorFields", map);
         } else {
-            cityDtoService.saveCityInfo(cityDto);
+            cityDtoService.saveCityInfo(cityView);
             return RestMsg.success();
         }
     }
@@ -89,12 +89,12 @@ public class CentreController {
     /**
      * Update city info.
      *
-     * @param cityDto the input message of cities
+     * @param cityView the input message of cities
      * @return RestMsg.success()
      */
     @PutMapping(value = "/city/{id}")
-    public RestMsg updateCityInfo(@RequestBody final CityDto cityDto) {
-        cityDtoService.updateCityInfo(cityDto);
+    public RestMsg updateCityInfo(@RequestBody final CityView cityView) {
+        cityDtoService.updateCityInfo(cityView);
         return RestMsg.success();
     }
 
@@ -137,7 +137,7 @@ public class CentreController {
      */
     @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
-        final List<CityDto> list = cityDtoService.getContinents();
+        final List<CityView> list = cityDtoService.getContinents();
         return RestMsg.success().add("continents", list);
     }
 
@@ -148,7 +148,7 @@ public class CentreController {
      */
     @GetMapping(value = "/nations")
     public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-        final List<CityDto> list = cityDtoService.getNations(continent);
+        final List<CityView> list = cityDtoService.getNations(continent);
         return RestMsg.success().add("nations", list);
     }
 }

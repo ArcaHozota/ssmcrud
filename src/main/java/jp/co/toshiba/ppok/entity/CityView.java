@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 
 @Data
-public class CityDto implements Serializable {
+public class CityView implements Serializable {
 
 	/**
 	 * This field corresponds to the database column WORLD_CITY_VIEW.ID

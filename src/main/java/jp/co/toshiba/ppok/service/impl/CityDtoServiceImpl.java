@@ -17,14 +17,14 @@ import jp.co.toshiba.ppok.mapper.CityDao;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.NationMapper;
 import jp.co.toshiba.ppok.service.CityDtoService;
-import jp.co.toshiba.ppok.entity.CityDto;
+import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.CustomException;
 
 /**
  * @author Administrator
  */
 @Service
-public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements CityDtoService {
+public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityView> implements CityDtoService {
 
     @Resource
     private CityDao cityDao;
@@ -41,7 +41,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
      * @return List<City>
      */
     @Override
-    public List<CityDto> getAll() {
+    public List<CityView> getAll() {
         return cityDao.selectByCityView();
     }
 
@@ -51,7 +51,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
      * @return List<CityDto>
      */
     @Override
-    public List<CityDto> getContinents() {
+    public List<CityView> getContinents() {
         return cityDao.selectContinents();
     }
 
@@ -62,7 +62,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
      * @return List<CityDto>
      */
     @Override
-    public List<CityDto> getNations(final String continent) {
+    public List<CityView> getNations(final String continent) {
         return cityDao.selectNations(continent);
     }
 
@@ -87,33 +87,33 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
      * @return CityDto
      */
     @Override
-    public CityDto getCityInfo(final Long id) {
-        final CityDto cityDto = new CityDto();
+    public CityView getCityInfo(final Long id) {
+        final CityView cityView = new CityView();
         final City city = cityMapper.selectById(id);
-        BeanUtils.copyProperties(city, cityDto, "countryCode", "isDeleted");
+        BeanUtils.copyProperties(city, cityView, "countryCode", "isDeleted");
         final String countryCode = city.getCountryCode();
         final Nation nation = nationMapper.selectById(countryCode);
-        cityDto.setContinent(nation.getContinent());
-        cityDto.setNation(nation.getName());
-        return cityDto;
+        cityView.setContinent(nation.getContinent());
+        cityView.setNation(nation.getName());
+        return cityView;
     }
 
     /**
      * Save city info.
      *
-     * @param cityDto city info
+     * @param cityView city info
      */
     @Override
-    public void saveCityInfo(final CityDto cityDto) {
+    public void saveCityInfo(final CityView cityView) {
         final City city = new City();
         final Nation country = new Nation();
-        BeanUtils.copyProperties(cityDto, city, "nation", "continent");
-        final String nationName = cityDto.getNation();
+        BeanUtils.copyProperties(cityView, city, "nation", "continent");
+        final String nationName = cityView.getNation();
         final LambdaQueryWrapper<Nation> queryWrapper = Wrappers.lambdaQuery(new Nation());
         queryWrapper.eq(Nation::getName, nationName);
         final Nation nation = nationMapper.selectOne(queryWrapper);
         if (nation != null) {
-            if (cityDto.getContinent().equals(nation.getContinent())) {
+            if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());
             } else {
                 throw new CustomException("Cannot change the continent that the country located on.");
@@ -121,7 +121,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
         } else {
             country.setCode(nationName.substring(0, 3).toUpperCase());
             country.setName(nationName);
-            country.setContinent(cityDto.getContinent());
+            country.setContinent(cityView.getContinent());
             nationMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
@@ -132,19 +132,19 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
     /**
      * Update city info.
      *
-     * @param cityDto city info
+     * @param cityView city info
      */
     @Override
-    public void updateCityInfo(final CityDto cityDto) {
+    public void updateCityInfo(final CityView cityView) {
         final City city = new City();
         final Nation country = new Nation();
-        BeanUtils.copyProperties(cityDto, city, "nation", "continent");
-        final String nationName = cityDto.getNation();
+        BeanUtils.copyProperties(cityView, city, "nation", "continent");
+        final String nationName = cityView.getNation();
         final LambdaQueryWrapper<Nation> queryWrapper = Wrappers.lambdaQuery(new Nation());
         queryWrapper.eq(Nation::getName, nationName);
         final Nation nation = nationMapper.selectOne(queryWrapper);
         if (nation != null) {
-            if (cityDto.getContinent().equals(nation.getContinent())) {
+            if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());
             } else {
                 throw new CustomException("Cannot change the continent that the country located on.");
@@ -152,7 +152,7 @@ public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityDto> implements
         } else {
             country.setCode(nationName.substring(0, 3).toUpperCase());
             country.setName(nationName);
-            country.setContinent(cityDto.getContinent());
+            country.setContinent(cityView.getContinent());
             nationMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
