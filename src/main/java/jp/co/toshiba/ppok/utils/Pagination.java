@@ -42,18 +42,13 @@ public class Pagination<T> extends Page<T> {
      * @param naviPages 導航條頁碼數量
      */
     private void calcByNaviPages(int naviPages) {
+        // 設置導航條頁碼數量；
         setNaviPages(naviPages);
-        // 計算總頁數；
-        calcTotalPages();
+        // 設置總頁數；
+        int pages = (int) super.getPages();
+        setTotalPages(pages);
         //计算导航页
         calcNaviPageNum();
-    }
-
-    /**
-     * 計算總頁數
-     */
-    private void calcTotalPages() {
-        this.totalPages = (int) super.getPages();
     }
 
     /**
