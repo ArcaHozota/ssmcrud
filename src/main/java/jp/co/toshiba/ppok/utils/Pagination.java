@@ -1,10 +1,12 @@
 package jp.co.toshiba.ppok.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.Data;
 
 /**
  * @author Administrator
  */
+@Data
 public class Pagination<T> extends Page<T> {
 
     /**
@@ -21,6 +23,15 @@ public class Pagination<T> extends Page<T> {
      * 分頁導航條頁數集合
      */
     protected int[] naviPageNum;
+
+    /**
+     * 是否有前一頁面
+     */
+    private boolean hasPreviousPage = false;
+    /**
+     * 是否有後一頁面
+     */
+    private boolean hasNextPage = false;
 
     /**
      * 唯一構造器
@@ -43,6 +54,8 @@ public class Pagination<T> extends Page<T> {
         this.setNaviPages(naviPages);
         //计算导航页
         this.calcNaviPageNum();
+        //判定页面边界
+        this.discernPageBoundary();
     }
 
     /**
@@ -82,27 +95,11 @@ public class Pagination<T> extends Page<T> {
         }
     }
 
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
-
-    public int getNaviPages() {
-        return naviPages;
-    }
-
-    public void setNaviPages(int naviPages) {
-        this.naviPages = naviPages;
-    }
-
-    public int[] getNaviPageNum() {
-        return naviPageNum;
-    }
-
-    public void setNaviPageNum(int[] naviPageNum) {
-        this.naviPageNum = naviPageNum;
+    /**
+     * 判定页面边界
+     */
+    private void discernPageBoundary() {
+        hasPreviousPage = current > 1;
+        hasNextPage = current < totalPages;
     }
 }
