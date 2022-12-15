@@ -27,8 +27,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools:2.6.14'
     // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.3.4'
-    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter
-    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
     // https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
     implementation 'org.mybatis.generator:mybatis-generator-core:1.3.7'
     // https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8
