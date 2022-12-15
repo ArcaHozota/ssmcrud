@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import jp.co.toshiba.ppok.entity.CityView;
 
-public interface CityDtoService extends IService<CityView> {
+/**
+ * @author Administrator
+ */
+public interface CityViewService extends IService<CityView> {
 
 	/**
 	 * Search the cities in wcv.

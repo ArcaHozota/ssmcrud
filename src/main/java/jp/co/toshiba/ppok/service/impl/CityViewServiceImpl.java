@@ -16,7 +16,7 @@ import jp.co.toshiba.ppok.entity.Nation;
 import jp.co.toshiba.ppok.mapper.CityDao;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.NationMapper;
-import jp.co.toshiba.ppok.service.CityDtoService;
+import jp.co.toshiba.ppok.service.CityViewService;
 import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.CustomException;
 
@@ -24,7 +24,7 @@ import jp.co.toshiba.ppok.utils.CustomException;
  * @author Administrator
  */
 @Service
-public class CityDtoServiceImpl extends ServiceImpl<CityDao, CityView> implements CityDtoService {
+public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implements CityViewService {
 
     @Resource
     private CityDao cityDao;
