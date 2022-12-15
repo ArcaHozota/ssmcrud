@@ -27,11 +27,11 @@ public class Pagination<T> extends Page<T> {
     /**
      * 是否有前一頁面
      */
-    private boolean hasPreviousPage = false;
+    private boolean hasPrevious = false;
     /**
      * 是否有後一頁面
      */
-    private boolean hasNextPage = false;
+    private boolean hasNext = false;
 
     /**
      * 唯一構造器
@@ -99,7 +99,8 @@ public class Pagination<T> extends Page<T> {
      * 判定页面边界
      */
     private void discernPageBoundary() {
-        hasPreviousPage = current > 1;
-        hasNextPage = current < totalPages;
+        this.hasPrevious = current > 1;
+        final long totalPgs = this.totalPages;
+        this.hasNext = current < totalPgs;
     }
 }
