@@ -143,9 +143,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="continentEdit" class="col-sm-2 control-label">大陸</label>
+                        <label for="continentName" class="col-sm-2 control-label">大陸</label>
                         <div class="col-sm-5">
-                            <select id="continentEdit" class="form-control" name="continent"></select>
+                            <p class="form-control-static" id="continentName"></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -396,7 +396,7 @@
                     if (result.code === 200) {
                         $("#cityAddModal").modal('hide');
                         //To last page.
-                        toSelectedPg(totalRecord);
+                        toSelectedPg(totalRecord, searchName);
                     } else if (undefined !== result.extend.errorFields.name) {
                         showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
                     }
