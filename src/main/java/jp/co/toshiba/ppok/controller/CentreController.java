@@ -26,46 +26,23 @@ import javax.annotation.Resource;
  * @author Administrator
  */
 @Controller
-@RequestMapping("/gradle")
+@RequestMapping("/grssmcrud")
 public class CentreController {
 
     @Resource
     private CityDtoService cityDtoService;
 
-//    /**
-//     * Retrieve the city data.
-//     *
-//     * @return page(JSON)
-//     */
-//    @GetMapping(value = "/city")
-//    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-//        PageMethod.startPage(pageNum, 15);
-//        final List<CityDto> list = cityDtoService.getAll();
-//        final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
-//        return RestMsg.success().add("pageInfo", pageInfo);
-//    }
-
     /**
      * Retrieve the city data.
      *
-     * @return modelAndView
+     * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    public ModelAndView getCityInfo(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
+    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
         PageMethod.startPage(pageNum, 15);
         final List<CityDto> list = cityDtoService.getAll();
-        final PageInfo<CityDto> pageInfo = PageInfo.of(list, 7);
-        ModelAndView mav = new ModelAndView("cities");
-        mav.addObject("title", "CityList");
-        final int totalPages = pageInfo.getPages();
-        if (pageNum == 1) {
-            final int prePage = 1;
-            pageInfo.setPrePage(prePage);
-        } else if (pageNum == totalPages) {
-            pageInfo.setNextPage(totalPages);
-        }
-        mav.addObject("pageInfo", pageInfo);
-        return mav;
+        final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
+        return RestMsg.success().add("pageInfo", pageInfo);
     }
 
     /**
@@ -113,17 +90,17 @@ public class CentreController {
         return RestMsg.success();
     }
 
-//    /**
-//     * Delete the selected city info.
-//     *
-//     * @param id the ID of city
-//     * @return RestMsg.success()
-//     */
-//    @DeleteMapping(value = "/city/{id}")
-//    public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
-//        cityDtoService.deleteCityInfo(id);
-//        return RestMsg.success();
-//    }
+    /**
+     * Delete the selected city info.
+     *
+     * @param id the ID of city
+     * @return RestMsg.success()
+     */
+    @DeleteMapping(value = "/city/{id}")
+    public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
+        cityDtoService.deleteCityInfo(id);
+        return RestMsg.success();
+    }
 
     /**
      * Check the input city name already existed or not.
