@@ -12,6 +12,6 @@ public class ForwardController {
 
     @RequestMapping("/grssmcrud/city")
     public void index(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/public/cities.html");
+        response.sendRedirect("/static/cities.html");
     }
 }
