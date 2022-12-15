@@ -199,7 +199,7 @@
         //Emptying the former table.
         $("#cityTable tbody").empty();
         let cities = result.extend.pageInfo.list;
-        $.each(cities, function (index, item) {
+        $.each(index, function (index, item) {
             let idTd = $("<td class='text-center'></td>").append(item.id);
             let nameTd = $("<td class='text-center'></td>").append(item.name);
             let continentTd = $("<td class='text-center'></td>").append(item.continent);
