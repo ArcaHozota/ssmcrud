@@ -46,8 +46,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/bootstrap/**").addResourceLocations("classpath:/static/bootstrap/");
     }
 
-//    @Override
-//    protected void addViewControllers(ViewControllerRegistry viewControllerRegistry){
-//        viewControllerRegistry.addViewController("/grssmcrud/city").setViewName("forward:cities.html");
-//    }
+    @Override
+    protected void addViewControllers(ViewControllerRegistry viewControllerRegistry){
+        viewControllerRegistry.addViewController("/").setViewName("forward:cities.html");
+    }
 }
