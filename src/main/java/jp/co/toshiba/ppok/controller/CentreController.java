@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import jakarta.validation.Valid;
 import jp.co.toshiba.ppok.service.CityDtoService;
 import jp.co.toshiba.ppok.entity.CityDto;
 import jp.co.toshiba.ppok.utils.RestMsg;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -25,7 +23,7 @@ import javax.annotation.Resource;
  *
  * @author Administrator
  */
-@Controller
+@RestController
 @RequestMapping("/grssmcrud")
 public class CentreController {
 
