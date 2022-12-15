@@ -142,8 +142,8 @@ public class CentreController {
      */
     @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
-        final List<CityView> list = cityDtoService.getContinents();
-        return RestMsg.success().add("continents", list);
+        final List<CityView> cnlist = cityDtoService.getContinents();
+        return RestMsg.success().add("continents", cnlist);
     }
 
     /**
