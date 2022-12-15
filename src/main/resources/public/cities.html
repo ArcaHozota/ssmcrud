@@ -189,7 +189,6 @@
 
     //After the page load, send the ajax request to get page infos.
     $(function () {
-        searchName = $("#keywordInput").val();
         toSelectedPg(1, searchName);
     });
 
@@ -244,6 +243,7 @@
         pageInfos.append("The " + currentPage
             + " page in " + totalPages + " pages, "
             + totalRecord + " records found.");
+        searchName = $("#keywordInput").val();
     }
 
     //Analyze and display the navigated pages.
@@ -257,10 +257,10 @@
             previousPageLi.addClass("disabled");
         } else {
             firstPageLi.click(function () {
-                toSelectedPg(1);
+                toSelectedPg(1, searchName);
             });
             previousPageLi.click(function () {
-                toSelectedPg(currentPage - 1);
+                toSelectedPg(currentPage - 1, searchName);
             });
         }
         let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
