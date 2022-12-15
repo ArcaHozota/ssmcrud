@@ -63,7 +63,7 @@
     </div>
     <!-- Info of the navigated pages -->
     <div class="row">
-        <div id="pageInfo" class="col-lg-5"></div>
+        <div id="pageInfos" class="col-lg-5"></div>
         <div id="pageNavi" class="col-lg-7"></div>
     </div>
 </div>
@@ -196,7 +196,10 @@
     function toSelectedPg(pageNum) {
         $.ajax({
             url: pathdeApp + "/city",
-            data: "pageNum=" + pageNum,
+            data: {
+                "pageNum": pageNum,
+                "name": name
+            },
             type: "GET",
             success: function (result) {
                 buildCityTable(result);
@@ -210,7 +213,7 @@
     function buildCityTable(result) {
         //Emptying the former table.
         $("#cityTableBody").empty();
-        let index = result.extend.pageInfo.list;
+        let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
             let idTd = $("<td class='text-center'></td>").append(item.id);
             let nameTd = $("<td class='text-center'></td>").append(item.name);
@@ -234,10 +237,10 @@
     function buildPageInfos(result) {
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
-        pageInfos.append("The " + result.extend.pageInfo.pageNum
-            + " page in " + result.extend.pageInfo.pages + " pages, "
+        pageInfos.append("The " + result.extend.pageInfo.current
+            + " page in " + result.extend.pageInfo.getPages + " pages, "
             + result.extend.pageInfo.total + " records found.");
-        currentPage = result.extend.pageInfo.pageNum;
+        currentPage = result.extend.pageInfo.current;
         totalRecord = result.extend.pageInfo.total;
     }
 
@@ -245,9 +248,9 @@
     function buildPageNavi(result) {
         $("#pageNavi").empty();
         let ul = $("<ul></ul>").addClass("pagination");
-        let firstPageLi = $("<li></li>").append($("<a></a>").append("First Page").attr("href", "#"));
+        let firstPageLi = $("<li></li>").append($("<a></a>").append("最初のページへ").attr("href", "#"));
         let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
-        if (!result.extend.pageInfo.hasPreviousPage) {
+        if (!result.extend.pageInfo.hasPrevious) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
         } else {
@@ -255,17 +258,17 @@
                 toSelectedPg(1);
             });
             previousPageLi.click(function () {
-                toSelectedPg(result.extend.pageInfo.prePage);
+                toSelectedPg(result.extend.pageInfo.current - 1);
             });
         }
         let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
-        let lastPageLi = $("<li></li>").append($("<a></a>").append("Last Page").attr("href", "#"));
-        if (!result.extend.pageInfo.hasNextPage) {
+        let lastPageLi = $("<li></li>").append($("<a></a>").append("最後のページへ").attr("href", "#"));
+        if (!result.extend.pageInfo.hasNext) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                toSelectedPg(result.extend.pageInfo.nextPage);
+                toSelectedPg(result.extend.pageInfo.current + 1);
             });
             lastPageLi.click(function () {
                 toSelectedPg(result.extend.pageInfo.pages);
@@ -274,8 +277,8 @@
         ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
             let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
-            if (result.extend.pageInfo.pageNum === item) {
-                numsLi.addClass("active");
+            if (result.extend.pageInfo.current === item) {
+                numsLi.attr("href", "#").addClass("active");
             }
             numsLi.click(function () {
                 toSelectedPg(item);

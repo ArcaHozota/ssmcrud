@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 
 import jakarta.validation.Valid;
 import jp.co.toshiba.ppok.service.CityDtoService;
@@ -37,10 +38,18 @@ public class CentreController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum) {
-        PageHelper.startPage(pageNum, 15);
-        final List<CityDto> list = cityDtoService.getAll();
-        final PageInfo<CityDto> pageInfo = new PageInfo<>(list, 7);
+    public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
+                             @RequestParam("name") final String name) {
+        // 聲明分頁構造器；
+        final Page<CityDto> pageInfo = Page.of(pageNum, 15);
+        // 聲明條件構造器；
+        final LambdaQueryWrapper<CityDto> queryWrapper = Wrappers.lambdaQuery(new CityDto());
+        // 添加過濾條件；
+        queryWrapper.like(StringUtils.isNotEmpty(name), CityDto::getName, name);
+        // 添加排序條件；
+        queryWrapper.orderByAsc(CityDto::getId);
+        // 執行查詢；
+        cityDtoService.page(pageInfo, queryWrapper);
         return RestMsg.success().add("pageInfo", pageInfo);
     }
 
