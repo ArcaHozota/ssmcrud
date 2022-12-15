@@ -189,14 +189,8 @@
 
     //After the page load, send the ajax request to get page infos.
     $(document).ready(function () {
-        getKeyword();
         toSelectedPg(1, searchName);
     });
-
-    //Get the searchName in text.
-    function getKeyword(){
-        searchName = $("#keywordInput").val();
-    }
 
     //Transfer to clicked page numbers.
     function toSelectedPg(pageNum, name) {
@@ -298,12 +292,12 @@
     }
 
     //Add click function to search btn.
-    $("#searchBtn").click(function () {
+    $("#searchBtn").on('click', function () {
         toSelectedPg(currentPage, searchName);
     });
 
     //Add click function to the input modal.
-    $("#cityAddModalBtn").click(function () {
+    $("#cityAddModalBtn").on('click', function () {
         formReset("#cityAddModal form");
         getContinent("#continentInput");
         getNation("#nationInput");
