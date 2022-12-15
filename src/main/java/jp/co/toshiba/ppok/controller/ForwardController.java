@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Administrator
+ */
 @Controller
 public class ForwardController {
 
-    @RequestMapping("/grssmcrud/city")
+    @RequestMapping("/index")
     public void index(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/static/cities.html");
+        response.sendRedirect("/grssmcrud/cities");
     }
 }
