@@ -185,7 +185,7 @@
 
     let totalRecord, currentPage;
 
-    let continentVal;
+    let totalPages;
 
     //After the page load, send the ajax request to get page infos.
     $(function () {
@@ -237,13 +237,12 @@
     function buildPageInfos(result) {
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
-        let currentPage = result.extend.pageInfo.current;
-        let totalPages = result.extend.pageInfo.getPages;
+        currentPage = result.extend.pageInfo.current;
+        totalPages = result.extend.pageInfo.getPages;
+        totalRecord = result.extend.pageInfo.total;
         pageInfos.append("The " + currentPage
             + " page in " + totalPages + " pages, "
-            + result.extend.pageInfo.total + " records found.");
-        currentPage = result.extend.pageInfo.current;
-        totalRecord = result.extend.pageInfo.total;
+            + totalRecord + " records found.");
     }
 
     //Analyze and display the navigated pages.
@@ -260,7 +259,7 @@
                 toSelectedPg(1);
             });
             previousPageLi.click(function () {
-                toSelectedPg(result.extend.pageInfo.current - 1);
+                toSelectedPg(currentPage - 1);
             });
         }
         let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
@@ -270,10 +269,10 @@
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                toSelectedPg(result.extend.pageInfo.current + 1);
+                toSelectedPg(currentPage + 1);
             });
             lastPageLi.click(function () {
-                toSelectedPg(result.extend.pageInfo.pages);
+                toSelectedPg(totalPages);
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
