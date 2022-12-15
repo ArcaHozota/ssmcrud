@@ -193,7 +193,7 @@
     });
 
     //Transfer to clicked page numbers.
-    function toSelectedPg(pageNum) {
+    function toSelectedPg(pageNum, name) {
         $.ajax({
             url: pathdeApp + "/city",
             data: {
@@ -290,6 +290,12 @@
         let navElement = $("<nav></nav>").append(ul);
         navElement.appendTo("#pageNavi");
     }
+
+    //Add click function to search btn.
+    $("#searchBtn").click(function () {
+        let searchName = $("#keywordInput").text().trim();
+        toSelectedPg(currentPage, searchName);
+    });
 
     //Add click function to the input modal.
     $("#cityAddModalBtn").click(function () {
