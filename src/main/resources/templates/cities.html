@@ -25,8 +25,7 @@
     <!-- Button -->
     <div class="row">
         <div class="col-lg-2 col-lg-offset-10">
-            <button class="btn btn-success" id="cityAddModalBtn" data-toggle="modal"
-                    data-target="#cityAddModal">
+            <button class="btn btn-success" id="cityAddModalBtn">
                 <span class="glyphicon glyphicon-pawn"></span>情報追加
             </button>
         </div>
@@ -46,25 +45,7 @@
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="pg:${pageInfo.getList()}">
-                    <td th:text="${pg.id}" class='text-center'></td>
-                    <td th:text="${pg.name}" class='text-center'></td>
-                    <td th:text="${pg.continent}" class='text-center'></td>
-                    <td th:text="${pg.nation}" class='text-center'></td>
-                    <td th:text="${pg.district}" class='text-center'></td>
-                    <td th:text="${pg.population}" class='text-center'></td>
-                    <td class='text-center'>
-                        <button id="editBtn" class="btn btn-info btn-sm edit_btn" data-toggle="modal"
-                                data-target="#cityEditModal">
-                            <span class="glyphicon glyphicon-pencil"></span>編集
-                        </button>
-                        <button id="deleteBtn" class="btn btn-danger btn-sm delete_btn">
-                            <span class="glyphicon glyphicon-trash"></span>削除
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -225,321 +206,321 @@
 </div>
 <script type="text/javascript">
 
-    //    const pathName = window.document.location.pathname;
-    //
-    //    const pathdeApp = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-    //
-    //    let totalRecord, currentPage;
-    //
-    //    let continentVal;
-    //
-    //    //After the page load, send the ajax request to get page infos.
-    //    $(function () {
-    //        toSelectedPg(1);
-    //    });
-    //
-    //    //Transfer to clicked page numbers.
-    //    function toSelectedPg(pageNum) {
-    //        $.ajax({
-    //            url: pathdeApp + "/city",
-    //            data: "pageNum=" + pageNum,
-    //            type: "GET",
-    //            success: function (result) {
-    //                buildCityTable(result);
-    //                buildPageInfos(result);
-    //                buildPageNavi(result);
-    //            }
-    //        })
-    //    }
-    //
-    //    //Analyze and display the data.
-    //    function buildCityTable(result) {
-    //        //Emptying the former table.
-    //        $("#cityTable tbody").empty();
-    //        let cities = result.extend.pageInfo.list;
-    //        $.each(cities, function (index, item) {
-    //            let idTd = $("<td class='text-center'></td>").append(item.id);
-    //            let nameTd = $("<td class='text-center'></td>").append(item.name);
-    //            let continentTd = $("<td class='text-center'></td>").append(item.continent);
-    //            let nationTd = $("<td class='text-center'></td>").append(item.nation);
-    //            let districtTd = $("<td class='text-center'></td>").append(item.district);
-    //            let populationTd = $("<td class='text-center'></td>").append(item.population);
-    //            let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
-    //                .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append(" Edit");
-    //            editBtn.attr("edit-id", item.id);
-    //            let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
-    //                .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" Delete");
-    //            deleteBtn.attr("delete-id", item.id);
-    //            let btnTd = $("<td class='text-center'></td>").append(editBtn).append(" ").append(deleteBtn);
-    //            $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
-    //                .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTable tbody");
-    //        });
-    //    }
-    //
-    //    //Analyze and display the page infos.
-    //    function buildPageInfos(result) {
-    //        let pageInfos = $("#pageInfos");
-    //        pageInfos.empty();
-    //        pageInfos.append("The " + result.extend.pageInfo.pageNum
-    //            + " page in " + result.extend.pageInfo.pages + " pages, "
-    //            + result.extend.pageInfo.total + " records found.");
-    //        currentPage = result.extend.pageInfo.pageNum;
-    //        totalRecord = result.extend.pageInfo.total;
-    //    }
-    //
-    //    //Analyze and display the navigated pages.
-    //    function buildPageNavi(result) {
-    //        $("#pageNavi").empty();
-    //        let ul = $("<ul></ul>").addClass("pagination");
-    //        let firstPageLi = $("<li></li>").append($("<a></a>").append("First Page").attr("href", "#"));
-    //        let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
-    //        if (!result.extend.pageInfo.hasPreviousPage) {
-    //            firstPageLi.addClass("disabled");
-    //            previousPageLi.addClass("disabled");
-    //        } else {
-    //            firstPageLi.click(function () {
-    //                toSelectedPg(1);
-    //            });
-    //            previousPageLi.click(function () {
-    //                toSelectedPg(result.extend.pageInfo.pageNum - 1);
-    //            });
-    //        }
-    //        let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
-    //        let lastPageLi = $("<li></li>").append($("<a></a>").append("Last Page").attr("href", "#"));
-    //        if (!result.extend.pageInfo.hasNextPage) {
-    //            nextPageLi.addClass("disabled");
-    //            lastPageLi.addClass("disabled");
-    //        } else {
-    //            nextPageLi.click(function () {
-    //                toSelectedPg(result.extend.pageInfo.pageNum + 1);
-    //            });
-    //            lastPageLi.click(function () {
-    //                toSelectedPg(result.extend.pageInfo.pages);
-    //            });
-    //        }
-    //        ul.append(firstPageLi).append(previousPageLi);
-    //        $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
-    //            let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
-    //            if (result.extend.pageInfo.pageNum === item) {
-    //                numsLi.addClass("active");
-    //            }
-    //            numsLi.click(function () {
-    //                toSelectedPg(item);
-    //            });
-    //            ul.append(numsLi);
-    //        });
-    //        ul.append(nextPageLi).append(lastPageLi);
-    //        let navElement = $("<nav></nav>").append(ul);
-    //        navElement.appendTo("#pageNavi");
-    //    }
-    //
-    //    //Add click function to the input modal.
-    //    $("#cityAddModalBtn").click(function () {
-    //        formReset("#cityAddModal form");
-    //        getContinent("#continentInput");
-    //        getNation("#nationInput");
-    //        $("#cityAddModal").modal({
-    //            backdrop: "static"
-    //        });
-    //    });
-    //
-    //    //Get the name of continent.
-    //    function getContinent(element) {
-    //        $(element).empty();
-    //        $.ajax({
-    //            url: pathdeApp + "/continents",
-    //            type: "GET",
-    //            success: function (result) {
-    //                $.each(result.extend.continents, function () {
-    //                    let optionElement = $("<option></option>")
-    //                        .append(this.continent).attr("value", this.continent);
-    //                    optionElement.appendTo(element);
-    //                });
-    //            }
-    //        });
-    //    }
-    //
-    //    //Get the name of nation.
-    //    function getNation(element) {
-    //        $(element).empty();
-    //        let options = $("#continentInput option:selected");
-    //        continentVal = options.text();
-    //        $.ajax({
-    //            url: pathdeApp + "/nations",
-    //            data: "continentVal=" + continentVal,
-    //            type: "GET",
-    //            success: function (result) {
-    //                $.each(result.extend.nations, function () {
-    //                    let optionElement = $("<option></option>")
-    //                        .append(this.nation).attr("value", this.nation);
-    //                    optionElement.appendTo(element);
-    //                });
-    //            }
-    //        });
-    //    }
-    //
-    //    //Analyze the input name is duplicate or not.
-    //    $("#nameInput").change(function () {
-    //        const cityName = this.value;
-    //        $.ajax({
-    //            url: pathdeApp + "/checklist",
-    //            data: "cityName=" + cityName,
-    //            type: "GET",
-    //            success: function (result) {
-    //                if (result.code === 200) {
-    //                    showValidationMsg("#nameInput", "success", "");
-    //                    $("#cityInfoSaveBtn").attr("ajax-va", "success");
-    //                } else {
-    //                    showValidationMsg("#nameInput", "error", result.extend.validatedMsg);
-    //                    $("#cityInfoSaveBtn").attr("ajax-va", "error");
-    //                }
-    //            }
-    //        });
-    //    });
-    //
-    //    //Click, save and check the input data format.
-    //    $("#cityInfoSaveBtn").click(function () {
-    //        var inputDistrict = $("#districtInput").val();
-    //        var inputPopulation = $("#populationInput").val();
-    //        var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
-    //        var regularPopulation = /^[0-9]{4,18}$/;
-    //        if ($(this).attr("ajax-va") === "error") {
-    //            return false;
-    //        } else if (!regularDistrict.test(inputDistrict)
-    //            && !regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
-    //            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
-    //            return false;
-    //        } else if (!regularDistrict.test(inputDistrict)
-    //            && regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
-    //            showValidationMsg("#populationInput", "success", "√");
-    //            return false;
-    //        } else if (regularDistrict.test(inputDistrict)
-    //            && !regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtInput", "success", "√");
-    //            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
-    //            return false;
-    //        } else {
-    //            showValidationMsg("#districtInput", "success", "√");
-    //            showValidationMsg("#populationInput", "success", "√");
-    //            //Send an ajax request to commit save options.
-    //            $.ajax({
-    //                url: pathdeApp + "/city",
-    //                type: "POST",
-    //                data: $("#cityAddModal form").serialize(),
-    //                success: function (result) {
-    //                    if (result.code === 200) {
-    //                        $("#cityAddModal").modal('hide');
-    //                        //To last page.
-    //                        toSelectedPg(totalRecord);
-    //                    } else if (undefined !== result.extend.errorFields.name) {
-    //                        showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
-    //                    }
-    //                }
-    //            });
-    //        }
-    //    });
-    //
-    //    //Add click function to the edit modal.
-    //    $(document).on("click", ".edit_btn", function () {
-    //        formReset("#cityEditModal form");
-    //        // get_nation_name("#cityEditModal select");
-    //        getCityInfo($(this).attr("edit-id"));
-    //        $("#cityInfoChangeBtn").attr("edit-id", $(this).attr("edit-id"));
-    //        $("#cityEditModal").modal({
-    //            backdrop: "static"
-    //        });
-    //    });
-    //
-    //    //Get the selected city infos.
-    //    function getCityInfo(id) {
-    //        $.ajax({
-    //            url: pathdeApp + "/city/" + id,
-    //            type: "GET",
-    //            success: function (result) {
-    //                let cityData = result.extend.citySelected;
-    //                $("#displayedCityName").text(cityData.name);
-    //                $("#continentEdit").val([cityData.continent]);
-    //                $("#nationEdit").val([cityData.nation]);
-    //                $("#districtEdit").val(cityData.district);
-    //                $("#populationEdit").val(cityData.population);
-    //            }
-    //        });
-    //    }
-    //
-    //    //Submit the change of city infos.
-    //    $("#cityInfoChangeBtn").click(function () {
-    //        var inputDistrict = $("#districtEdit").val();
-    //        var inputPopulation = $("#populationEdit").val();
-    //        var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
-    //        var regularPopulation = /^[0-9]{4,18}$/;
-    //        var editId = $(this).attr("edit-id");
-    //        if (!regularDistrict.test(inputDistrict)
-    //            && !regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
-    //            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
-    //            return false;
-    //        } else if (!regularDistrict.test(inputDistrict)
-    //            && regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
-    //            showValidationMsg("#populationEdit", "success", "√");
-    //            return false;
-    //        } else if (regularDistrict.test(inputDistrict)
-    //            && !regularPopulation.test(inputPopulation)) {
-    //            showValidationMsg("#districtEdit", "success", "√");
-    //            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
-    //            return false;
-    //        } else {
-    //            showValidationMsg("#districtEdit", "success", "√");
-    //            showValidationMsg("#populationEdit", "success", "√");
-    //            $.ajax({
-    //                url: pathdeApp + "/city/" + editId,
-    //                type: "PUT",
-    //                data: $("#cityEditModal form").serialize(),
-    //                success: function () {
-    //                    $("#cityEditModal").modal('hide');
-    //                    toSelectedPg(currentPage);
-    //                }
-    //            });
-    //        }
-    //    });
-    //
-    //    //Add click function to the delete modal.
-    //    $(document).on("click", ".delete_btn", function () {
-    //        var cityName = $(this).parents("tr").find("td:eq(1)").text();
-    //        var cityId = $(this).attr("delete-id");
-    //        if (confirm("Ready to delete the infos of "
-    //            + cityName + ", is it right?")) {
-    //            $.ajax({
-    //                url: pathdeApp + "/city/" + cityId,
-    //                type: "DELETE",
-    //                success: function () {
-    //                    toSelectedPg(currentPage);
-    //                }
-    //            });
-    //        }
-    //    });
-    //
-    //    //Reset the modal form.
-    //    function formReset(element) {
-    //        $(element)[0].reset();
-    //        $(element).find("*").removeClass("has-error has-success");
-    //        $(element).find(".help-block").text("");
-    //    }
-    //
-    //    //Add status color to the modal form input rows.
-    //    function showValidationMsg(element, status, msg) {
-    //        $(element).parent().removeClass("has-success has-error");
-    //        $(element).next("span").text("");
-    //        if (status === "success") {
-    //            $(element).parent().addClass("has-success");
-    //            $(element).next("span").text(msg);
-    //        } else if (status === "error") {
-    //            $(element).parent().addClass("has-error");
-    //            $(element).next("span").text(msg);
-    //        }
-    //    }
+       const pathName = window.document.location.pathname;
+
+       const pathdeApp = "grssmcrud";
+
+       let totalRecord, currentPage;
+
+       let continentVal;
+
+       //After the page load, send the ajax request to get page infos.
+       $(function () {
+           toSelectedPg(1);
+       });
+
+       //Transfer to clicked page numbers.
+       function toSelectedPg(pageNum) {
+           $.ajax({
+               url: pathdeApp + "/city",
+               data: "pageNum=" + pageNum,
+               type: "GET",
+               success: function (result) {
+                   buildCityTable(result);
+                   buildPageInfos(result);
+                   buildPageNavi(result);
+               }
+           })
+       }
+
+       //Analyze and display the data.
+       function buildCityTable(result) {
+           //Emptying the former table.
+           $("#cityTable tbody").empty();
+           let cities = result.extend.pageInfo.list;
+           $.each(cities, function (index, item) {
+               let idTd = $("<td class='text-center'></td>").append(item.id);
+               let nameTd = $("<td class='text-center'></td>").append(item.name);
+               let continentTd = $("<td class='text-center'></td>").append(item.continent);
+               let nationTd = $("<td class='text-center'></td>").append(item.nation);
+               let districtTd = $("<td class='text-center'></td>").append(item.district);
+               let populationTd = $("<td class='text-center'></td>").append(item.population);
+               let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
+                   .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append(" Edit");
+               editBtn.attr("edit-id", item.id);
+               let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
+                   .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append(" Delete");
+               deleteBtn.attr("delete-id", item.id);
+               let btnTd = $("<td class='text-center'></td>").append(editBtn).append(" ").append(deleteBtn);
+               $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
+                   .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTable tbody");
+           });
+       }
+
+       //Analyze and display the page infos.
+       function buildPageInfos(result) {
+           let pageInfos = $("#pageInfos");
+           pageInfos.empty();
+           pageInfos.append("The " + result.extend.pageInfo.pageNum
+               + " page in " + result.extend.pageInfo.pages + " pages, "
+               + result.extend.pageInfo.total + " records found.");
+           currentPage = result.extend.pageInfo.pageNum;
+           totalRecord = result.extend.pageInfo.total;
+       }
+
+       //Analyze and display the navigated pages.
+       function buildPageNavi(result) {
+           $("#pageNavi").empty();
+           let ul = $("<ul></ul>").addClass("pagination");
+           let firstPageLi = $("<li></li>").append($("<a></a>").append("First Page").attr("href", "#"));
+           let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
+           if (!result.extend.pageInfo.hasPreviousPage) {
+               firstPageLi.addClass("disabled");
+               previousPageLi.addClass("disabled");
+           } else {
+               firstPageLi.click(function () {
+                   toSelectedPg(1);
+               });
+               previousPageLi.click(function () {
+                   toSelectedPg(result.extend.pageInfo.pageNum - 1);
+               });
+           }
+           let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
+           let lastPageLi = $("<li></li>").append($("<a></a>").append("Last Page").attr("href", "#"));
+           if (!result.extend.pageInfo.hasNextPage) {
+               nextPageLi.addClass("disabled");
+               lastPageLi.addClass("disabled");
+           } else {
+               nextPageLi.click(function () {
+                   toSelectedPg(result.extend.pageInfo.pageNum + 1);
+               });
+               lastPageLi.click(function () {
+                   toSelectedPg(result.extend.pageInfo.pages);
+               });
+           }
+           ul.append(firstPageLi).append(previousPageLi);
+           $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
+               let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
+               if (result.extend.pageInfo.pageNum === item) {
+                   numsLi.addClass("active");
+               }
+               numsLi.click(function () {
+                   toSelectedPg(item);
+               });
+               ul.append(numsLi);
+           });
+           ul.append(nextPageLi).append(lastPageLi);
+           let navElement = $("<nav></nav>").append(ul);
+           navElement.appendTo("#pageNavi");
+       }
+
+       //Add click function to the input modal.
+       $("#cityAddModalBtn").click(function () {
+           formReset("#cityAddModal form");
+           getContinent("#continentInput");
+           getNation("#nationInput");
+           $("#cityAddModal").modal({
+               backdrop: "static"
+           });
+       });
+
+       //Get the name of continent.
+       function getContinent(element) {
+           $(element).empty();
+           $.ajax({
+               url: pathdeApp + "/continents",
+               type: "GET",
+               success: function (result) {
+                   $.each(result.extend.continents, function () {
+                       let optionElement = $("<option></option>")
+                           .append(this.continent).attr("value", this.continent);
+                       optionElement.appendTo(element);
+                   });
+               }
+           });
+       }
+
+       //Get the name of nation.
+       function getNation(element) {
+           $(element).empty();
+           let options = $("#continentInput option:selected");
+           continentVal = options.text();
+           $.ajax({
+               url: pathdeApp + "/nations",
+               data: "continentVal=" + continentVal,
+               type: "GET",
+               success: function (result) {
+                   $.each(result.extend.nations, function () {
+                       let optionElement = $("<option></option>")
+                           .append(this.nation).attr("value", this.nation);
+                       optionElement.appendTo(element);
+                   });
+               }
+           });
+       }
+
+       //Analyze the input name is duplicate or not.
+       $("#nameInput").change(function () {
+           const cityName = this.value;
+           $.ajax({
+               url: pathdeApp + "/checklist",
+               data: "cityName=" + cityName,
+               type: "GET",
+               success: function (result) {
+                   if (result.code === 200) {
+                       showValidationMsg("#nameInput", "success", "");
+                       $("#cityInfoSaveBtn").attr("ajax-va", "success");
+                   } else {
+                       showValidationMsg("#nameInput", "error", result.extend.validatedMsg);
+                       $("#cityInfoSaveBtn").attr("ajax-va", "error");
+                   }
+               }
+           });
+       });
+
+       //Click, save and check the input data format.
+       $("#cityInfoSaveBtn").click(function () {
+           var inputDistrict = $("#districtInput").val();
+           var inputPopulation = $("#populationInput").val();
+           var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
+           var regularPopulation = /^[0-9]{4,18}$/;
+           if ($(this).attr("ajax-va") === "error") {
+               return false;
+           } else if (!regularDistrict.test(inputDistrict)
+               && !regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
+               showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
+               return false;
+           } else if (!regularDistrict.test(inputDistrict)
+               && regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
+               showValidationMsg("#populationInput", "success", "√");
+               return false;
+           } else if (regularDistrict.test(inputDistrict)
+               && !regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtInput", "success", "√");
+               showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
+               return false;
+           } else {
+               showValidationMsg("#districtInput", "success", "√");
+               showValidationMsg("#populationInput", "success", "√");
+               //Send an ajax request to commit save options.
+               $.ajax({
+                   url: pathdeApp + "/city",
+                   type: "POST",
+                   data: $("#cityAddModal form").serialize(),
+                   success: function (result) {
+                       if (result.code === 200) {
+                           $("#cityAddModal").modal('hide');
+                           //To last page.
+                           toSelectedPg(totalRecord);
+                       } else if (undefined !== result.extend.errorFields.name) {
+                           showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
+                       }
+                   }
+               });
+           }
+       });
+
+       //Add click function to the edit modal.
+       $(document).on("click", ".edit_btn", function () {
+           formReset("#cityEditModal form");
+           // get_nation_name("#cityEditModal select");
+           getCityInfo($(this).attr("edit-id"));
+           $("#cityInfoChangeBtn").attr("edit-id", $(this).attr("edit-id"));
+           $("#cityEditModal").modal({
+               backdrop: "static"
+           });
+       });
+
+       //Get the selected city infos.
+       function getCityInfo(id) {
+           $.ajax({
+               url: pathdeApp + "/city/" + id,
+               type: "GET",
+               success: function (result) {
+                   let cityData = result.extend.citySelected;
+                   $("#displayedCityName").text(cityData.name);
+                   $("#continentEdit").val([cityData.continent]);
+                   $("#nationEdit").val([cityData.nation]);
+                   $("#districtEdit").val(cityData.district);
+                   $("#populationEdit").val(cityData.population);
+               }
+           });
+       }
+
+       //Submit the change of city infos.
+       $("#cityInfoChangeBtn").click(function () {
+           var inputDistrict = $("#districtEdit").val();
+           var inputPopulation = $("#populationEdit").val();
+           var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
+           var regularPopulation = /^[0-9]{4,18}$/;
+           var editId = $(this).attr("edit-id");
+           if (!regularDistrict.test(inputDistrict)
+               && !regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
+               showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
+               return false;
+           } else if (!regularDistrict.test(inputDistrict)
+               && regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
+               showValidationMsg("#populationEdit", "success", "√");
+               return false;
+           } else if (regularDistrict.test(inputDistrict)
+               && !regularPopulation.test(inputPopulation)) {
+               showValidationMsg("#districtEdit", "success", "√");
+               showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
+               return false;
+           } else {
+               showValidationMsg("#districtEdit", "success", "√");
+               showValidationMsg("#populationEdit", "success", "√");
+               $.ajax({
+                   url: pathdeApp + "/city/" + editId,
+                   type: "PUT",
+                   data: $("#cityEditModal form").serialize(),
+                   success: function () {
+                       $("#cityEditModal").modal('hide');
+                       toSelectedPg(currentPage);
+                   }
+               });
+           }
+       });
+
+       //Add click function to the delete modal.
+       $(document).on("click", ".delete_btn", function () {
+           var cityName = $(this).parents("tr").find("td:eq(1)").text();
+           var cityId = $(this).attr("delete-id");
+           if (confirm("Ready to delete the infos of "
+               + cityName + ", is it right?")) {
+               $.ajax({
+                   url: pathdeApp + "/city/" + cityId,
+                   type: "DELETE",
+                   success: function () {
+                       toSelectedPg(currentPage);
+                   }
+               });
+           }
+       });
+
+       //Reset the modal form.
+       function formReset(element) {
+           $(element)[0].reset();
+           $(element).find("*").removeClass("has-error has-success");
+           $(element).find(".help-block").text("");
+       }
+
+       //Add status color to the modal form input rows.
+       function showValidationMsg(element, status, msg) {
+           $(element).parent().removeClass("has-success has-error");
+           $(element).next("span").text("");
+           if (status === "success") {
+               $(element).parent().addClass("has-success");
+               $(element).next("span").text(msg);
+           } else if (status === "error") {
+               $(element).parent().addClass("has-error");
+               $(element).next("span").text(msg);
+           }
+       }
 </script>
 </body>
 </html>
