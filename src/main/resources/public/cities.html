@@ -183,13 +183,14 @@
 
     const pathdeApp = "grssmcrud";
 
-    let totalRecord, currentPage;
+    let totalRecord, totalPages, currentPage;
 
-    let totalPages;
+    let searchName;
 
     //After the page load, send the ajax request to get page infos.
     $(function () {
-        toSelectedPg(1);
+        searchName = $("#searchBtn").val();
+        toSelectedPg(1, searchName);
     });
 
     //Transfer to clicked page numbers.
@@ -293,7 +294,6 @@
 
     //Add click function to search btn.
     $("#searchBtn").click(function () {
-        let searchName = $("#keywordInput").text().trim();
         toSelectedPg(currentPage, searchName);
     });
 
