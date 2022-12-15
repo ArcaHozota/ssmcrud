@@ -424,7 +424,7 @@
             success: function (result) {
                 let cityData = result.extend.citySelected;
                 $("#displayedCityName").text(cityData.name);
-                $("#continentEdit").val([cityData.continent]);
+                $("#continentName").text(cityData.continent);
                 $("#nationEdit").val([cityData.nation]);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
