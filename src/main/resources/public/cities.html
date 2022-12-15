@@ -276,7 +276,7 @@
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
-        $.each(totalPages, function (index, item) {
+        $.each(result.extend.pageInfo.naviPageNum, function (index, item) {
             let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
                 numsLi.attr("href", "#").addClass("active");
