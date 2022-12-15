@@ -238,7 +238,7 @@
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
         let currentPage = result.extend.pageInfo.current;
-        let totalPages = result.extend.pageInfo.getPages();
+        let totalPages = result.extend.pageInfo.getPages;
         pageInfos.append("The " + currentPage
             + " page in " + totalPages + " pages, "
             + result.extend.pageInfo.total + " records found.");
