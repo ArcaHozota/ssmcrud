@@ -24,6 +24,18 @@
     </div>
     <!-- Button -->
     <div class="row">
+        <form class="form-inline" role="form" style="float: left;">
+            <div class="form-group has-feedback">
+                <div class="input-group">
+                    <div class="input-group-addon">検索条件</div>
+                    <input id="keywordInput" class="form-control has-success"
+                           type="text" placeholder="検索条件を入力してください">
+                </div>
+            </div>
+            <button id="searchBtn" type="button" class="btn btn-info">
+                <i class="glyphicon glyphicon-search"></i>検索
+            </button>
+        </form>
         <div class="col-lg-2 col-lg-offset-10">
             <button class="btn btn-success" id="cityAddModalBtn">
                 <span class="glyphicon glyphicon-pawn"></span>情報追加
@@ -199,7 +211,7 @@
         //Emptying the former table.
         $("#cityTable tbody").empty();
         let cities = result.extend.pageInfo.list;
-        $.each(index, function (index, item) {
+        $.each(function (item) {
             let idTd = $("<td class='text-center'></td>").append(item.id);
             let nameTd = $("<td class='text-center'></td>").append(item.name);
             let continentTd = $("<td class='text-center'></td>").append(item.continent);
