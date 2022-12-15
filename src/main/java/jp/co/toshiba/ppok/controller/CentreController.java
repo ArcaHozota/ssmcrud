@@ -42,7 +42,7 @@ public class CentreController {
     public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
                              @RequestParam("name") final String name) {
         // 聲明分頁構造器；
-        final Pagination<CityView> pageInfo = Pagination.of(pageNum, 15);
+        final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 15);
         // 聲明條件構造器；
         final LambdaQueryWrapper<CityView> queryWrapper = Wrappers.lambdaQuery(new CityView());
         // 添加過濾條件；
