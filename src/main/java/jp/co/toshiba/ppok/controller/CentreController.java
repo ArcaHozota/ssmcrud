@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jp.co.toshiba.ppok.utils.Pagination;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -41,7 +42,7 @@ public class CentreController {
     public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
                              @RequestParam("name") final String name) {
         // 聲明分頁構造器；
-        final Page<CityView> pageInfo = Page.of(pageNum, 15);
+        final Pagination<CityView> pageInfo = Pagination.of(pageNum, 15);
         // 聲明條件構造器；
         final LambdaQueryWrapper<CityView> queryWrapper = Wrappers.lambdaQuery(new CityView());
         // 添加過濾條件；
@@ -50,6 +51,11 @@ public class CentreController {
         queryWrapper.orderByAsc(CityView::getId);
         // 執行查詢；
         cityDtoService.page(pageInfo, queryWrapper);
+        // 設置總頁數；
+        final int totalPage = (int) pageInfo.getPages();
+        pageInfo.setTotalPages(totalPage);
+        // 設置分頁導航條頁碼數量；
+        pageInfo.calcByNaviPages(7);
         return RestMsg.success().add("pageInfo", pageInfo);
     }
 
