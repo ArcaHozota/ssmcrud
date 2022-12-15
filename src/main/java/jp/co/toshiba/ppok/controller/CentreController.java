@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * @author Administrator
  */
 @RestController
-@RequestMapping("/gradle")
+@RequestMapping("/grssmcrud")
 public class CentreController {
 
     @Resource
