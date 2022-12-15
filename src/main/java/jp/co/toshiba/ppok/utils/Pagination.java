@@ -27,13 +27,22 @@ public class Pagination<T> extends Page<T> {
      *
      * @param currentPage 當前頁
      * @param pageSize    頁面大小
-     * @param naviPages   導航條頁碼數量
      */
-    public Pagination(int currentPage, int pageSize, int naviPages) {
+    public Pagination(int currentPage, int pageSize) {
         super.current = currentPage;
         super.size = pageSize;
-        this.naviPages = naviPages;
-        calcByNaviPages(naviPages);
+    }
+
+    /**
+     * 靜態構造方法
+     *
+     * @param currentPage 當前頁
+     * @param pageSize    頁面大小
+     * @param <T>         汎型
+     * @return 分頁
+     */
+    public static <T> Pagination<T> of(long currentPage, long pageSize) {
+        return of(currentPage, pageSize);
     }
 
     /**
@@ -41,14 +50,11 @@ public class Pagination<T> extends Page<T> {
      *
      * @param naviPages 導航條頁碼數量
      */
-    private void calcByNaviPages(int naviPages) {
+    public void calcByNaviPages(int naviPages) {
         // 設置導航條頁碼數量；
-        setNaviPages(naviPages);
-        // 設置總頁數；
-        int pages = (int) super.getPages();
-        setTotalPages(pages);
+        this.setNaviPages(naviPages);
         //计算导航页
-        calcNaviPageNum();
+        this.calcNaviPageNum();
     }
 
     /**
