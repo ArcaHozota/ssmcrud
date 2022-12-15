@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jp.co.toshiba.ppok.utils.Pagination;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -40,7 +39,7 @@ public class CentreController {
      */
     @GetMapping(value = "/city")
     public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
-                             @RequestParam("name") final String name) {
+                             @RequestParam(value = "name",defaultValue = "") final String name) {
         // 聲明分頁構造器；
         final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 15);
         // 聲明條件構造器；
