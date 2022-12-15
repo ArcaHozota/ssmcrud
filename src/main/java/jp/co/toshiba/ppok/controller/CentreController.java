@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import jakarta.validation.Valid;
-import jp.co.toshiba.ppok.service.CityDtoService;
+import jp.co.toshiba.ppok.service.CityViewService;
 import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
@@ -30,7 +30,7 @@ import javax.annotation.Resource;
 public class CentreController {
 
     @Resource
-    private CityDtoService cityDtoService;
+    private CityViewService cityViewService;
 
     /**
      * Retrieve the city data.
@@ -49,7 +49,7 @@ public class CentreController {
         // 添加排序條件；
         queryWrapper.orderByAsc(CityView::getId);
         // 執行查詢；
-        cityDtoService.page(pageInfo, queryWrapper);
+        this.cityViewService.page(pageInfo, queryWrapper);
         // 設置總頁數；
         final int totalPage = (int) pageInfo.getPages();
         pageInfo.setTotalPages(totalPage);
@@ -66,7 +66,7 @@ public class CentreController {
      */
     @GetMapping(value = "/city/{id}")
     public RestMsg getCityInfo(@PathVariable("id") final Long id) {
-        final CityView city = cityDtoService.getCityInfo(id);
+        final CityView city = cityViewService.getCityInfo(id);
         return RestMsg.success().add("citySelected", city);
     }
 
@@ -86,7 +86,7 @@ public class CentreController {
             }
             return RestMsg.failure().add("errorFields", map);
         } else {
-            cityDtoService.saveCityInfo(cityView);
+            cityViewService.saveCityInfo(cityView);
             return RestMsg.success();
         }
     }
@@ -99,7 +99,7 @@ public class CentreController {
      */
     @PutMapping(value = "/city/{id}")
     public RestMsg updateCityInfo(@RequestBody final CityView cityView) {
-        cityDtoService.updateCityInfo(cityView);
+        cityViewService.updateCityInfo(cityView);
         return RestMsg.success();
     }
 
@@ -111,7 +111,7 @@ public class CentreController {
      */
     @DeleteMapping(value = "/city/{id}")
     public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
-        cityDtoService.deleteCityInfo(id);
+        cityViewService.deleteCityInfo(id);
         return RestMsg.success();
     }
 
@@ -125,7 +125,7 @@ public class CentreController {
     public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
         final String regex = "^[a-zA-Z_-]{4,17}$";
         if (cityName.matches(regex)) {
-            if (cityDtoService.checkDuplicated(cityName)) {
+            if (cityViewService.checkDuplicated(cityName)) {
                 return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
             } else {
                 return RestMsg.success();
@@ -142,7 +142,7 @@ public class CentreController {
      */
     @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
-        final List<CityView> cnlist = cityDtoService.getContinents();
+        final List<CityView> cnlist = cityViewService.getContinents();
         return RestMsg.success().add("continents", cnlist);
     }
 
@@ -153,7 +153,7 @@ public class CentreController {
      */
     @GetMapping(value = "/nations")
     public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-        final List<CityView> list = cityDtoService.getNations(continent);
+        final List<CityView> list = cityViewService.getNations(continent);
         return RestMsg.success().add("nations", list);
     }
 }
