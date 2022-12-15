@@ -38,8 +38,8 @@ public class CentreController {
      * @return page(JSON)
      */
     @GetMapping(value = "/city")
-    public RestMsg getCities(@RequestParam(value = "pageNum") final Integer pageNum,
-                             @RequestParam(value = "name",defaultValue = "") final String name) {
+    public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
+                             @RequestParam(value = "name", defaultValue = "") final String name) {
         // 聲明分頁構造器；
         final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 15);
         // 聲明條件構造器；
