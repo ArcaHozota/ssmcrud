@@ -292,6 +292,7 @@
 
     //Add click function to search btn.
     $("#searchBtn").on('click', function () {
+        searchName = $("#keywordInput").val();
         toSelectedPg(currentPage, searchName);
     });
 
