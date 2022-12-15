@@ -7,7 +7,7 @@
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!-- Set the configuration of JDBC. -->
         <jdbcConnection
-                driverClass="oracle.jdbc.driver.OracleDriver"
+                driverClass="oracle.jdbc.OracleDriver"
                 connectionURL="jdbc:oracle:thin:@//localhost:1521/XEPDB1"
                 userId="oraclect"
                 password="oraclect"/>
