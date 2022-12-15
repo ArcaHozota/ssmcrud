@@ -238,7 +238,7 @@
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
         currentPage = result.extend.pageInfo.current;
-        totalPages = result.extend.pageInfo.getPages;
+        totalPages = result.extend.pageInfo.totalPages;
         totalRecord = result.extend.pageInfo.total;
         pageInfos.append("The " + currentPage
             + " page in " + totalPages + " pages, "
@@ -276,9 +276,9 @@
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
-        $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
+        $.each(totalPages, function (index, item) {
             let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
-            if (result.extend.pageInfo.current === item) {
+            if (currentPage === item) {
                 numsLi.attr("href", "#").addClass("active");
             }
             numsLi.click(function () {
