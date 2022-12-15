@@ -2,6 +2,7 @@ package jp.co.toshiba.ppok.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -46,8 +47,4 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/bootstrap/**").addResourceLocations("classpath:/static/bootstrap/");
     }
 
-    @Override
-    protected void addViewControllers(ViewControllerRegistry viewControllerRegistry){
-        viewControllerRegistry.addViewController("/").setViewName("forward:cities.html");
-    }
 }
