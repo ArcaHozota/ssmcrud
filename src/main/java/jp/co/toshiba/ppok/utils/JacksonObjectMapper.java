@@ -1,4 +1,4 @@
-package jp.co.toshiba.ppok.config;
+package jp.co.toshiba.ppok.utils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
