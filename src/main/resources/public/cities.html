@@ -353,10 +353,10 @@
 
     //Click, save and check the input data format.
     $("#cityInfoSaveBtn").click(function () {
-        var inputDistrict = $("#districtInput").val();
-        var inputPopulation = $("#populationInput").val();
-        var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
-        var regularPopulation = /^[0-9]{4,18}$/;
+        let inputDistrict = $("#districtInput").val();
+        let inputPopulation = $("#populationInput").val();
+        let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
+        let regularPopulation = /^[0-9]{4,18}$/;
         if ($(this).attr("ajax-va") === "error") {
             return false;
         } else if (!regularDistrict.test(inputDistrict)
@@ -424,11 +424,11 @@
 
     //Submit the change of city infos.
     $("#cityInfoChangeBtn").click(function () {
-        var inputDistrict = $("#districtEdit").val();
-        var inputPopulation = $("#populationEdit").val();
-        var regularDistrict = /^[a-zA-Z_-]{2,33}$/;
-        var regularPopulation = /^[0-9]{4,18}$/;
-        var editId = $(this).attr("editId");
+        let inputDistrict = $("#districtEdit").val();
+        let inputPopulation = $("#populationEdit").val();
+        let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
+        let regularPopulation = /^[0-9]{4,18}$/;
+        let editId = $(this).attr("editId");
         if (!regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
             showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
@@ -461,9 +461,9 @@
 
     //Add click function to the delete modal.
     $(document).on("click", ".delete_btn", function () {
-        var cityName = $(this).parents("tr").find("td:eq(1)").text();
-        var cityId = $(this).attr("deleteId");
-        if (confirm("この" + cityName + "都市の情報を削除する、よろしいでしょうか。")) {
+        let cityName = $(this).parents("tr").find("td:eq(1)").text().trim();
+        let cityId = $(this).attr("deleteId");
+        if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
             $.ajax({
                 url: pathdeApp + "/city/" + cityId,
                 type: "DELETE",
