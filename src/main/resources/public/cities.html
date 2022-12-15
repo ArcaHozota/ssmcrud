@@ -185,10 +185,11 @@
 
     let totalRecord, totalPages, currentPage;
 
-    let searchName = $("#keywordInput").val();
+    let searchName;
 
     //After the page load, send the ajax request to get page infos.
     $(function () {
+        searchName = $("#keywordInput").val();
         toSelectedPg(1, searchName);
     });
 
