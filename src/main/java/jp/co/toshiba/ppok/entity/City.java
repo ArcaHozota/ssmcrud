@@ -1,11 +1,11 @@
 package jp.co.toshiba.ppok.entity;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author Administrator

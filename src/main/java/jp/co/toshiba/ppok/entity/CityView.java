@@ -1,9 +1,9 @@
 package jp.co.toshiba.ppok.entity;
 
+import java.io.Serializable;
+
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * dto of the view of world cities
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 public class CityView implements Serializable {
 
-	private static final long serialVersionUID = -863534569423043863L;
+	private static final long serialVersionUID = 6678964783710878220L;
 
 	/**
 	 * This field corresponds to the database column WORLD_CITY_VIEW.ID
