@@ -69,7 +69,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
     public boolean checkDuplicated(final String name) {
         final LambdaQueryWrapper<City> queryWrapper = Wrappers.lambdaQuery(new City());
         queryWrapper.eq(name != null, City::getName, name);
-        final Long count = cityMapper.selectCount(queryWrapper);
+        final Long count = this.cityMapper.selectCount(queryWrapper);
         return count >= 1;
     }
 
@@ -82,10 +82,10 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
     @Override
     public CityView getCityInfo(final Long id) {
         final CityView cityView = new CityView();
-        final City city = cityMapper.selectById(id);
+        final City city = this.cityMapper.selectById(id);
         BeanUtils.copyProperties(city, cityView, "countryCode", "isDeleted");
         final String countryCode = city.getCountryCode();
-        final Country nation = countryMapper.selectById(countryCode);
+        final Country nation = this.countryMapper.selectById(countryCode);
         cityView.setContinent(nation.getContinent());
         cityView.setNation(nation.getName());
         return cityView;
@@ -101,7 +101,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
         final City city = new City();
         this.insertCommon(cityView, city);
         city.setIsDeleted(0);
-        cityMapper.insert(city);
+        this.cityMapper.insert(city);
     }
 
     /**
@@ -113,8 +113,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
     public void updateCityInfo(final CityView cityView) {
         final City city = new City();
         this.insertCommon(cityView, city);
-        System.out.println(city);
-        cityMapper.updateById(city);
+        this.cityMapper.updateById(city);
     }
 
     /**
@@ -139,7 +138,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
         final String nationName = cityView.getNation();
         final LambdaQueryWrapper<Country> queryWrapper = Wrappers.lambdaQuery(new Country());
         queryWrapper.eq(Country::getName, nationName);
-        final Country nation = countryMapper.selectOne(queryWrapper);
+        final Country nation = this.countryMapper.selectOne(queryWrapper);
         if (nation != null) {
             if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());
@@ -150,7 +149,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
             country.setCode(nationName.substring(0, 3).toUpperCase());
             country.setName(nationName);
             country.setContinent(cityView.getContinent());
-            countryMapper.insert(country);
+            this.countryMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
     }

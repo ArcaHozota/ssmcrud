@@ -29,6 +29,6 @@
         </javaClientGenerator>
         <!-- Set the configurations of tables' generation. -->
         <table tableName="WORLD_CITY" domainObjectName="City"/>
-        <table tableName="WORLD_COUNTRY" domainObjectName="Nation"/>
+        <table tableName="WORLD_COUNTRY" domainObjectName="Country"/>
     </context>
 </generatorConfiguration>

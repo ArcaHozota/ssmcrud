@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Data
 public class CityView implements Serializable {
 
+	private static final long serialVersionUID = -863534569423043863L;
+
 	/**
 	 * This field corresponds to the database column WORLD_CITY_VIEW.ID
 	 */

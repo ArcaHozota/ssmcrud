@@ -64,32 +64,32 @@ public class Pagination<T> extends Page<T> {
     private void calcNaviPageNum() {
         int currentPage = (int) current;
         //当总页数小于或等于导航页码数时
-        if (totalPages <= naviPages) {
-            naviPageNum = new int[totalPages];
-            for (int i = 0; i < totalPages; i++) {
-                naviPageNum[i] = i + 1;
+        if (this.totalPages <= this.naviPages) {
+            this.naviPageNum = new int[totalPages];
+            for (int i = 0; i < this.totalPages; i++) {
+                this.naviPageNum[i] = i + 1;
             }
         } else {
             //当总页数大于导航页码数时
-            naviPageNum = new int[naviPages];
+            this.naviPageNum = new int[naviPages];
             int startNum = currentPage - naviPages / 2;
             int endNum = currentPage + naviPages / 2;
             if (startNum < 1) {
                 startNum = 1;
                 //(最前pageSize页
-                for (int i = 0; i < naviPages; i++) {
-                    naviPageNum[i] = startNum++;
+                for (int i = 0; i < this.naviPages; i++) {
+                    this.naviPageNum[i] = startNum++;
                 }
-            } else if (endNum > totalPages) {
+            } else if (endNum > this.totalPages) {
                 endNum = totalPages;
                 //最后pageSize页
-                for (int i = naviPages - 1; i >= 0; i--) {
-                    naviPageNum[i] = endNum--;
+                for (int i = this.naviPages - 1; i >= 0; i--) {
+                    this.naviPageNum[i] = endNum--;
                 }
             } else {
                 //所有中间页
-                for (int i = 0; i < naviPages; i++) {
-                    naviPageNum[i] = startNum++;
+                for (int i = 0; i < this.naviPages; i++) {
+                    this.naviPageNum[i] = startNum++;
                 }
             }
         }
@@ -99,8 +99,8 @@ public class Pagination<T> extends Page<T> {
      * 判定页面边界
      */
     private void discernPageBoundary() {
-        this.hasPrevious = current > 1;
+        this.hasPrevious = super.current > 1;
         final long totalPgs = this.totalPages;
-        this.hasNext = current < totalPgs;
+        this.hasNext = super.current < totalPgs;
     }
 }

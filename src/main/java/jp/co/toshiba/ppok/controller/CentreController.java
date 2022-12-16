@@ -1,6 +1,5 @@
 package jp.co.toshiba.ppok.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +87,7 @@ public class CentreController {
             }
             return RestMsg.failure().add("errorFields", map);
         } else {
-            cityViewService.saveCityInfo(cityView);
+            this.cityViewService.saveCityInfo(cityView);
             return RestMsg.success();
         }
     }
@@ -101,7 +100,7 @@ public class CentreController {
      */
     @PutMapping(value = "/city/{id}")
     public RestMsg updateCityInfo(@RequestBody final CityView cityView) {
-        cityViewService.updateCityInfo(cityView);
+        this.cityViewService.updateCityInfo(cityView);
         return RestMsg.success();
     }
 
@@ -113,7 +112,7 @@ public class CentreController {
      */
     @DeleteMapping(value = "/city/{id}")
     public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
-        cityViewService.deleteCityInfo(id);
+        this.cityViewService.deleteCityInfo(id);
         return RestMsg.success();
     }
 
@@ -127,7 +126,7 @@ public class CentreController {
     public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
         final String regex = "^[a-zA-Z_-]{4,17}$";
         if (cityName.matches(regex)) {
-            if (cityViewService.checkDuplicated(cityName)) {
+            if (this.cityViewService.checkDuplicated(cityName)) {
                 return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
             } else {
                 return RestMsg.success();
@@ -144,7 +143,7 @@ public class CentreController {
      */
     @GetMapping(value = "/continents")
     public RestMsg getListOfContinents() {
-        final List<CityView> cnlist = cityViewService.getContinents();
+        final List<CityView> cnlist = this.cityViewService.getContinents();
         return RestMsg.success().add("continents", cnlist);
     }
 
@@ -155,7 +154,7 @@ public class CentreController {
      */
     @GetMapping(value = "/nations")
     public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-        final List<CityView> list = cityViewService.getNations(continent);
+        final List<CityView> list = this.cityViewService.getNations(continent);
         return RestMsg.success().add("nations", list);
     }
 

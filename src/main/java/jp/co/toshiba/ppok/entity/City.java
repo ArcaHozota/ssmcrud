@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class City implements Serializable {
 
+	private static final long serialVersionUID = 1815689293387304425L;
+
 	/**
 	 * This field corresponds to the database column WORLD_CITY.ID
 	 */

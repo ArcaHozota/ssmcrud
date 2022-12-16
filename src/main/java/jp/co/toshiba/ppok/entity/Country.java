@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Data
 public class Country implements Serializable {
 
+    private static final long serialVersionUID = -437505450837045511L;
+
     /**
      * This field corresponds to the database column WORLD_COUNTRY.CODE
      */
