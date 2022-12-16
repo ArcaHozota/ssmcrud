@@ -387,7 +387,6 @@
     //Add click function to the edit modal.
     $(document).on("click", ".edit_btn", function () {
         formReset("#cityEditModal form");
-        // get_nation_name("#cityEditModal select");
         getCityInfo($(this).attr("editId"));
         $("#cityInfoChangeBtn").attr("editId", $(this).attr("editId"));
         $("#cityEditModal").modal({
@@ -457,7 +456,13 @@
             $.ajax({
                 url: pathdeApp + "/city/" + editId,
                 type: "PUT",
-                data: $("#cityEditModal form").serialize(),
+                data: {
+                    "name": $("#displayedCityName").text(),
+                    "continent": $("#continentName").text(),
+                    "nation": $("#nationEdit option:selected").val(),
+                    "district": inputDistrict,
+                    "population": inputPopulation
+                },
                 success: function () {
                     $("#cityEditModal").modal('hide');
                     toSelectedPg(currentPage, searchName);
