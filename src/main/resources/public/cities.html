@@ -327,6 +327,23 @@
         });
     }
 
+    //Get the name of nation.
+    function getNations(element, continentVal) {
+        $(element).empty();
+        $.ajax({
+            url: pathdeApp + "/nations",
+            data: "continentVal=" + continentVal,
+            type: "GET",
+            success: function (result) {
+                $.each(result.extend.nations, function () {
+                    let optionElement = $("<option></option>")
+                        .append(this.nation).attr("value", this.nation);
+                    optionElement.appendTo(element);
+                });
+            }
+        });
+    }
+
     //Analyze the input name is duplicate or not.
     $("#nameInput").change(function () {
         const cityName = this.value;
@@ -412,20 +429,20 @@
                 vector.text(cityData.continent);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
-                getNations("#nationEdit", vector.text());
+                getNationsById("#nationEdit", id);
             }
         });
     }
 
     //Get the name of nation.
-    function getNations(element, continentVal) {
+    function getNationsById(element, id) {
         $(element).empty();
         $.ajax({
             url: pathdeApp + "/nations",
-            data: "continentVal=" + continentVal,
+            data: "byId=" + id,
             type: "GET",
             success: function (result) {
-                $.each(result.extend.nations, function () {
+                $.each(result.extend.nationsWithName, function () {
                     let optionElement = $("<option></option>")
                         .append(this.nation).attr("value", this.nation);
                     optionElement.appendTo(element);

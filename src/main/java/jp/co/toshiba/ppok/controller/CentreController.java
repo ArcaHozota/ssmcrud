@@ -165,15 +165,15 @@ public class CentreController {
      */
     @GetMapping(value = "/nations")
     public RestMsg getListOfNationsById(@RequestParam("byId") final Long id) {
-        final List<String> list = new ArrayList<>();
+        final List<CityView> list = new ArrayList<>();
         final CityView cityInfo = this.cityViewService.getCityInfo(id);
+        list.add(cityInfo);
         final String nationName = cityInfo.getNation();
-        list.add(nationName);
         final String continent = cityInfo.getContinent();
         final List<CityView> nationsList = this.cityViewService.getNations(continent);
         nationsList.forEach(item ->{
             if (!nationName.equals(item.getNation())) {
-                list.add(item.getNation());
+                list.add(item);
             }
         });
         return RestMsg.success().add("nationsWithName", list);
