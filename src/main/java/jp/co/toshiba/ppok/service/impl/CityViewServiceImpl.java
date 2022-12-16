@@ -110,6 +110,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     public void updateCityInfo(final CityView cityView) {
         final City city = new City();
         this.insertCommon(cityView, city);
+        System.out.println(city);
         cityMapper.updateById(city);
     }
 
