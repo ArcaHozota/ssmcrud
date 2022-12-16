@@ -7,5 +7,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import jp.co.toshiba.ppok.entity.Country;
 
 @Mapper
-public interface NationMapper extends BaseMapper<Country> {
+public interface CountryMapper extends BaseMapper<Country> {
 }

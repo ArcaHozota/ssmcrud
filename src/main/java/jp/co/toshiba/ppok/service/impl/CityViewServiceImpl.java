@@ -15,7 +15,7 @@ import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.Country;
 import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
-import jp.co.toshiba.ppok.mapper.NationMapper;
+import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.service.CityViewService;
 import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.CustomException;
@@ -33,7 +33,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
     private CityMapper cityMapper;
 
     @Resource
-    private NationMapper nationMapper;
+    private CountryMapper countryMapper;
 
     /**
      * Search continents of cities located on.
@@ -82,7 +82,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
         final City city = cityMapper.selectById(id);
         BeanUtils.copyProperties(city, cityView, "countryCode", "isDeleted");
         final String countryCode = city.getCountryCode();
-        final Country nation = nationMapper.selectById(countryCode);
+        final Country nation = countryMapper.selectById(countryCode);
         cityView.setContinent(nation.getContinent());
         cityView.setNation(nation.getName());
         return cityView;
@@ -136,7 +136,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
         final String nationName = cityView.getNation();
         final LambdaQueryWrapper<Country> queryWrapper = Wrappers.lambdaQuery(new Country());
         queryWrapper.eq(Country::getName, nationName);
-        final Country nation = nationMapper.selectOne(queryWrapper);
+        final Country nation = countryMapper.selectOne(queryWrapper);
         if (nation != null) {
             if (cityView.getContinent().equals(nation.getContinent())) {
                 city.setCountryCode(nation.getCode());
@@ -147,7 +147,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> i
             country.setCode(nationName.substring(0, 3).toUpperCase());
             country.setName(nationName);
             country.setContinent(cityView.getContinent());
-            nationMapper.insert(country);
+            countryMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
     }
