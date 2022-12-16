@@ -96,25 +96,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void saveCityInfo(final CityView cityView) {
         final City city = new City();
-        final Country country = new Country();
-        BeanUtils.copyProperties(cityView, city, "nation", "continent");
-        final String nationName = cityView.getNation();
-        final LambdaQueryWrapper<Country> queryWrapper = Wrappers.lambdaQuery(new Country());
-        queryWrapper.eq(Country::getName, nationName);
-        final Country nation = nationMapper.selectOne(queryWrapper);
-        if (nation != null) {
-            if (cityView.getContinent().equals(nation.getContinent())) {
-                city.setCountryCode(nation.getCode());
-            } else {
-                throw new CustomException("Cannot change the continent that the country located on.");
-            }
-        } else {
-            country.setCode(nationName.substring(0, 3).toUpperCase());
-            country.setName(nationName);
-            country.setContinent(cityView.getContinent());
-            nationMapper.insert(country);
-            city.setCountryCode(country.getCode());
-        }
+        insertCommon(cityView, city);
         city.setIsDeleted(0);
         cityMapper.insert(city);
     }
@@ -127,6 +109,21 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void updateCityInfo(final CityView cityView) {
         final City city = new City();
+        insertCommon(cityView, city);
+        cityMapper.updateById(city);
+    }
+
+    /**
+     * Delete city info by id.
+     *
+     * @param id city id
+     */
+    @Override
+    public void deleteCityInfo(final Long id) {
+        cityMapper.deleteById(id);
+    }
+
+    private void insertCommon(CityView cityView, City city) {
         final Country country = new Country();
         BeanUtils.copyProperties(cityView, city, "nation", "continent");
         final String nationName = cityView.getNation();
@@ -146,16 +143,5 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
             nationMapper.insert(country);
             city.setCountryCode(country.getCode());
         }
-        cityMapper.updateById(city);
-    }
-
-    /**
-     * Delete city info by id.
-     *
-     * @param id city id
-     */
-    @Override
-    public void deleteCityInfo(final Long id) {
-        cityMapper.deleteById(id);
     }
 }
