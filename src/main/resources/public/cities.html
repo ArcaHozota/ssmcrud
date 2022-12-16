@@ -406,15 +406,14 @@
                 $("#continentName").text(cityData.continent);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
-                getNations("#nationEdit");
+                getNations("#nationEdit", $("#continentName").text());
             }
         });
     }
 
     //Get the name of nation.
-    function getNations(element) {
+    function getNations(element, continentVal) {
         $(element).empty();
-        let continentVal = $("#continentName").text();
         $.ajax({
             url: pathdeApp + "/nations",
             data: "continentVal=" + continentVal,
