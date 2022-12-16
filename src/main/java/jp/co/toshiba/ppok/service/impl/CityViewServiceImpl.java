@@ -124,6 +124,12 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
         cityMapper.deleteById(id);
     }
 
+    /**
+     * 共通の業務挿入処理
+     *
+     * @param cityView 都市ビューエンティティ
+     * @param city     都市エンティティ
+     */
     private void insertCommon(CityView cityView, City city) {
         final Country country = new Country();
         BeanUtils.copyProperties(cityView, city, "nation", "continent");
