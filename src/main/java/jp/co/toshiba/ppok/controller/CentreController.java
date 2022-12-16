@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import jp.co.toshiba.ppok.utils.Pagination;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -165,17 +166,18 @@ public class CentreController {
      */
     @GetMapping(value = "/nations/{id}")
     public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
-        final List<CityView> list = new ArrayList<>();
+        final List<String> list = Lists.newArrayList();
         final CityView cityInfo = this.cityViewService.getCityInfo(id);
-        list.add(cityInfo);
         final String nationName = cityInfo.getNation();
+        list.add(nationName);
         final String continent = cityInfo.getContinent();
         final List<CityView> nationsList = this.cityViewService.getNations(continent);
-        nationsList.forEach(item ->{
+        nationsList.forEach(item -> {
             if (!nationName.equals(item.getNation())) {
-                list.add(item);
+                list.add(item.getNation());
             }
         });
+        list.forEach(System.out::println);
         return RestMsg.success().add("nationsWithName", list);
     }
 }
