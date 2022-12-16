@@ -12,13 +12,6 @@ import jp.co.toshiba.ppok.entity.CityView;
 public interface CityViewService extends IService<CityView> {
 
 	/**
-	 * Search the cities in wcv.
-	 *
-	 * @return List<CityDto>
-	 */
-	List<CityView> getAll();
-
-	/**
 	 * Search continents of cities located on.
 	 *
 	 * @return List<CityDto>

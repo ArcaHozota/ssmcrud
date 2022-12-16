@@ -36,16 +36,6 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     private NationMapper nationMapper;
 
     /**
-     * Search the cities in wcv.
-     *
-     * @return List<City>
-     */
-    @Override
-    public List<CityView> getAll() {
-        return cityDao.selectByCityView();
-    }
-
-    /**
      * Search continents of cities located on.
      *
      * @return List<CityDto>
