@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,5 +156,26 @@ public class CentreController {
     public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
         final List<CityView> list = cityViewService.getNations(continent);
         return RestMsg.success().add("nations", list);
+    }
+
+    /**
+     * Get list of nations.
+     *
+     * @return RestMsg.success().add(data)
+     */
+    @GetMapping(value = "/nations")
+    public RestMsg getListOfNationsById(@RequestParam("byId") final Long id) {
+        final List<String> list = new ArrayList<>();
+        final CityView cityInfo = this.cityViewService.getCityInfo(id);
+        final String nationName = cityInfo.getNation();
+        list.add(nationName);
+        final String continent = cityInfo.getContinent();
+        final List<CityView> nationsList = this.cityViewService.getNations(continent);
+        nationsList.forEach(item ->{
+            if (!nationName.equals(item.getNation())) {
+                list.add(item.getNation());
+            }
+        });
+        return RestMsg.success().add("nationsWithName", list);
     }
 }
