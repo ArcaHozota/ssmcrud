@@ -163,8 +163,8 @@ public class CentreController {
      *
      * @return RestMsg.success().add(data)
      */
-    @GetMapping(value = "/nations")
-    public RestMsg getListOfNationsById(@RequestParam("byId") final Long id) {
+    @GetMapping(value = "/nations/{id}")
+    public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
         final List<CityView> list = new ArrayList<>();
         final CityView cityInfo = this.cityViewService.getCityInfo(id);
         list.add(cityInfo);

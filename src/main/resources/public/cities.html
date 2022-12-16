@@ -438,8 +438,7 @@
     function getNationsById(element, id) {
         $(element).empty();
         $.ajax({
-            url: pathdeApp + "/nations",
-            data: "byId=" + id,
+            url: pathdeApp + "/nations" + id,
             type: "GET",
             success: function (result) {
                 $.each(result.extend.nationsWithName, function () {
