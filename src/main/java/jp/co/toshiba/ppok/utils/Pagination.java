@@ -3,11 +3,16 @@ package jp.co.toshiba.ppok.utils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 簡單分頁實現類
+ *
  * @author Administrator
+ * @date 2022-12-14
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Pagination<T> extends Page<T> {
 
 	private static final long serialVersionUID = -632683959739832581L;
