@@ -31,6 +31,8 @@ dependencies {
     implementation 'org.mybatis.generator:mybatis-generator-core:1.3.7'
     // https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8
     implementation 'com.oracle.database.jdbc:ojdbc8:18.15.0.0'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation 'com.google.guava:guava:31.1-jre'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
