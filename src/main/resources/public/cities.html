@@ -457,7 +457,7 @@
                 url: pathdeApp + "/city/" + editId,
                 type: "PUT",
                 data: {
-                    "id": $(this).attr("editId"),
+                    "id": editId,
                     "name": $("#displayedCityName").text(),
                     "continent": $("#continentName").text(),
                     "nation": $("#nationEdit option:selected").val(),
