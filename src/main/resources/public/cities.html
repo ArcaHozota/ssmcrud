@@ -414,7 +414,7 @@
     //Get the name of nation.
     function getNations(element) {
         $(element).empty();
-        let continentVal = $("#continentName").val();
+        let continentVal = $("#continentName").text();
         $.ajax({
             url: pathdeApp + "/nations",
             data: "continentVal=" + continentVal,
