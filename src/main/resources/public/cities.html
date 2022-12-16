@@ -361,7 +361,7 @@
     });
 
     //Click, save and check the input data format.
-    $("#cityInfoSaveBtn").click(function () {
+    $("#cityInfoSaveBtn").on('click', function () {
         let inputDistrict = $("#districtInput").val();
         let inputPopulation = $("#populationInput").val();
         let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
@@ -432,7 +432,7 @@
     }
 
     //Submit the change of city infos.
-    $("#cityInfoChangeBtn").click(function () {
+    $("#cityInfoChangeBtn").on('click', function () {
         let inputDistrict = $("#districtEdit").val();
         let inputPopulation = $("#populationEdit").val();
         let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
