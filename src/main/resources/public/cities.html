@@ -456,6 +456,7 @@
             $.ajax({
                 url: pathdeApp + "/city/" + editId,
                 type: "PUT",
+                contentType: "application/json;charset=UTF-8",
                 data: {
                     "id": editId,
                     "name": $("#displayedCityName").text(),
