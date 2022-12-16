@@ -12,13 +12,6 @@ import jp.co.toshiba.ppok.entity.CityView;
 public interface CityDao extends BaseMapper<CityView> {
 
 	/**
-	 * Search the cities in wcv.
-	 *
-	 * @return List<CityDto>
-	 */
-	List<CityView> selectByCityView();
-
-	/**
 	 * Search continents of cities located on.
 	 *
 	 * @return List<CityDto>
