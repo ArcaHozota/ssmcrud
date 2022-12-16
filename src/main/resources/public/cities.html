@@ -397,16 +397,17 @@
 
     //Get the selected city infos.
     function getCityInfo(id) {
+        let vector = $("#continentName");
         $.ajax({
             url: pathdeApp + "/city/" + id,
             type: "GET",
             success: function (result) {
                 let cityData = result.extend.citySelected;
                 $("#displayedCityName").text(cityData.name);
-                $("#continentName").text(cityData.continent);
+                vector.text(cityData.continent);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
-                getNations("#nationEdit", $("#continentName").text());
+                getNations("#nationEdit", vector.text());
             }
         });
     }
