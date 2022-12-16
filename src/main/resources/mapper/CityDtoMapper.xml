@@ -18,6 +18,6 @@
         select distinct NATION
         from WORLD_CITY_VIEW
         where CONTINENT = #{continent,jdbcType=NCHAR}
-        order by CODE asc
+        order by NATION asc
     </select>
 </mapper>
