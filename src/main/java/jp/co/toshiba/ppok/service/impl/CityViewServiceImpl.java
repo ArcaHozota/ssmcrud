@@ -21,7 +21,10 @@ import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.utils.CustomException;
 
 /**
+ * 業務処理ロジック
+ *
  * @author Administrator
+ * @date 2022-12-16
  */
 @Service
 public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> implements CityViewService {
