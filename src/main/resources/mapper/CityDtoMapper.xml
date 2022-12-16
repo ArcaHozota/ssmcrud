@@ -12,6 +12,7 @@
     <select id="selectContinents" resultMap="ResultMap">
         select distinct CONTINENT
         from WORLD_CITY_VIEW
+        order by CONTINENT asc
     </select>
     <select id="selectNations" parameterType="java.lang.String" resultMap="ResultMap">
         select distinct NATION
