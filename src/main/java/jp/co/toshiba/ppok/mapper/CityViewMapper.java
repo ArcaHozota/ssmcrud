@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import jp.co.toshiba.ppok.entity.CityView;
 
+/**
+ * @author Administrator
+ */
 @Mapper
 public interface CityViewMapper extends BaseMapper<CityView> {
 
