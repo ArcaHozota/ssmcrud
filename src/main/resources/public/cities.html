@@ -300,7 +300,6 @@
     $("#cityAddModalBtn").on('click', function () {
         formReset("#cityAddModal form");
         getContinent("#continentInput");
-        getNation("#nationInput");
         $("#cityAddModal").modal({
             backdrop: "static"
         });
@@ -326,7 +325,7 @@
     function getNation(element) {
         $(element).empty();
         let options = $("#continentInput option:selected");
-        continentVal = options.val();
+        let continentVal = options.val();
         $.ajax({
             url: pathdeApp + "/nations",
             data: "continentVal=" + continentVal,
