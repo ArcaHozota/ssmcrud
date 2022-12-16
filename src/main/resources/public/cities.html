@@ -305,6 +305,12 @@
         });
     });
 
+    //Add click function to select of continent.
+    $("#continentInput").on('change', function () {
+        let continentVal = $("#continentInput option:selected").val();
+        getNations($("#nationInput"), continentVal);
+    })
+
     //Get the name of continent.
     function getContinent(element) {
         $(element).empty();
