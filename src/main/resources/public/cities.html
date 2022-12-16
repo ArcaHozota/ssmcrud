@@ -460,13 +460,7 @@
             type: "PUT",
             contentType: "application/json;charset=UTF-8",
             dataType: 'JSON',
-            data: {
-                "name": $("#displayedCityName").text(),
-                "continent": $("#continentName").text(),
-                "nation": $("#nationEdit option:selected").val().toString(),
-                "district": inputDistrict,
-                "population": inputPopulation
-            },
+            data: $("#cityEditModal form").serialize(),
             success: function () {
                 $("#cityEditModal").modal('hide');
                 toSelectedPg(currentPage, searchName);
