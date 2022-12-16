@@ -177,7 +177,6 @@ public class CentreController {
                 list.add(item.getNation());
             }
         });
-        list.forEach(System.out::println);
         return RestMsg.success().add("nationsWithName", list);
     }
 }
