@@ -96,7 +96,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void saveCityInfo(final CityView cityView) {
         final City city = new City();
-        insertCommon(cityView, city);
+        this.insertCommon(cityView, city);
         city.setIsDeleted(0);
         cityMapper.insert(city);
     }
@@ -109,7 +109,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
     @Override
     public void updateCityInfo(final CityView cityView) {
         final City city = new City();
-        insertCommon(cityView, city);
+        this.insertCommon(cityView, city);
         cityMapper.updateById(city);
     }
 
