@@ -458,11 +458,9 @@
                 type: "PUT",
                 contentType: "application/json;charset=UTF-8",
                 data: {
-                    "name": $("#displayedCityName").text(),
-                    "continent": $("#continentName").text(),
-                    "nation": $("#nationEdit option:selected").val(),
                     "district": inputDistrict,
-                    "population": inputPopulation
+                    "population": inputPopulation,
+                    "nation": $("#nationEdit option:selected").val()
                 },
                 success: function () {
                     $("#cityEditModal").modal('hide');
