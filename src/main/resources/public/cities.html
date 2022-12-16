@@ -429,7 +429,7 @@
     }
 
     //Submit the change of city infos.
-    $("#cityInfoChangeBtn").on('click', function () {
+    $("#cityInfoChangeBtn").click(function () {
         let inputDistrict = $("#districtEdit").val().trim();
         let inputPopulation = $("#populationEdit").val().trim();
         let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
@@ -440,34 +440,38 @@
             showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
             showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
             return false;
-        } else if (!regularDistrict.test(inputDistrict)
+        }
+        if (!regularDistrict.test(inputDistrict)
             && regularPopulation.test(inputPopulation)) {
             showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
             showValidationMsg("#populationEdit", "success", "√");
             return false;
-        } else if (regularDistrict.test(inputDistrict)
+        }
+        if (regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
             showValidationMsg("#districtEdit", "success", "√");
             showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
             return false;
-        } else {
-            showValidationMsg("#districtEdit", "success", "√");
-            showValidationMsg("#populationEdit", "success", "√");
-            $.ajax({
-                url: pathdeApp + "/city/" + editId,
-                type: "PUT",
-                contentType: "application/json;charset=UTF-8",
-                data: {
-                    "district": inputDistrict,
-                    "population": inputPopulation,
-                    "nation": $("#nationEdit option:selected").val()
-                },
-                success: function () {
-                    $("#cityEditModal").modal('hide');
-                    toSelectedPg(currentPage, searchName);
-                }
-            });
         }
+        showValidationMsg("#districtEdit", "success", "√");
+        showValidationMsg("#populationEdit", "success", "√");
+        $.ajax({
+            url: pathdeApp + "/city/" + editId,
+            type: "PUT",
+            contentType: "application/json;charset=UTF-8",
+            dataType: 'JSON',
+            data: {
+                "name": $("#displayedCityName").text(),
+                "continent": $("#continentName").text(),
+                "nation": $("#nationEdit option:selected"),
+                "district": inputDistrict,
+                "population": inputPopulation
+            },
+            success: function () {
+                $("#cityEditModal").modal('hide');
+                toSelectedPg(currentPage, searchName);
+            }
+        });
     });
 
     //Add click function to the delete modal.
