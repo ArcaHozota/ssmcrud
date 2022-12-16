@@ -443,7 +443,7 @@
             success: function (result) {
                 $.each(result.extend.nationsWithName, function () {
                     let optionElement = $("<option></option>")
-                        .append(this.val()).attr("value", this.val());
+                        .append(this).attr("value", this);
                     optionElement.appendTo(element);
                 });
             }
