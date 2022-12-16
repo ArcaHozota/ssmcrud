@@ -326,7 +326,7 @@
     function getNation(element) {
         $(element).empty();
         let options = $("#continentInput option:selected");
-        continentVal = options.text();
+        continentVal = options.val();
         $.ajax({
             url: pathdeApp + "/nations",
             data: "continentVal=" + continentVal,
