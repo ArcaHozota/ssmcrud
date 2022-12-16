@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.Country;
-import jp.co.toshiba.ppok.mapper.CityDao;
+import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.NationMapper;
 import jp.co.toshiba.ppok.service.CityViewService;
@@ -24,10 +24,10 @@ import jp.co.toshiba.ppok.utils.CustomException;
  * @author Administrator
  */
 @Service
-public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implements CityViewService {
+public class CityViewServiceImpl extends ServiceImpl<CityViewMapper, CityView> implements CityViewService {
 
     @Resource
-    private CityDao cityDao;
+    private CityViewMapper cityViewMapper;
 
     @Resource
     private CityMapper cityMapper;
@@ -42,7 +42,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
      */
     @Override
     public List<CityView> getContinents() {
-        return cityDao.selectContinents();
+        return cityViewMapper.selectContinents();
     }
 
     /**
@@ -53,7 +53,7 @@ public class CityViewServiceImpl extends ServiceImpl<CityDao, CityView> implemen
      */
     @Override
     public List<CityView> getNations(final String continent) {
-        return cityDao.selectNations(continent);
+        return cityViewMapper.selectNations(continent);
     }
 
     /**

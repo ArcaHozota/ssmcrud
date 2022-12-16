@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import jp.co.toshiba.ppok.entity.CityView;
 
 @Mapper
-public interface CityDao extends BaseMapper<CityView> {
+public interface CityViewMapper extends BaseMapper<CityView> {
 
 	/**
 	 * Search continents of cities located on.
