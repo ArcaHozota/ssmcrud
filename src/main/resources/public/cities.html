@@ -431,8 +431,8 @@
 
     //Submit the change of city infos.
     $("#cityInfoChangeBtn").on('click', function () {
-        let inputDistrict = $("#districtEdit").val();
-        let inputPopulation = $("#populationEdit").val();
+        let inputDistrict = $("#districtEdit").val().trim();
+        let inputPopulation = $("#populationEdit").val().trim();
         let regularDistrict = /^[a-zA-Z_-]{2,33}$/;
         let regularPopulation = /^[0-9]{4,18}$/;
         let editId = $(this).attr("editId");
@@ -460,7 +460,7 @@
                 data: $("#cityEditModal form").serialize(),
                 success: function () {
                     $("#cityEditModal").modal('hide');
-                    toSelectedPg(currentPage);
+                    toSelectedPg(currentPage, searchName);
                 }
             });
         }
