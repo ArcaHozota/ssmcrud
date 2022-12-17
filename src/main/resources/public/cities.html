@@ -274,7 +274,7 @@
                 toSelectedPg(totalPages, searchName);
             });
         }
-        ul.append(firstPageLi).append(previousPageLi);
+        (firstPageLi |> ul.append).append(previousPageLi);
         $.each(result.extend.pageInfo.naviPageNum, function (index, item) {
             let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
@@ -285,7 +285,7 @@
             });
             ul.append(numsLi);
         });
-        ul.append(nextPageLi).append(lastPageLi);
+        (nextPageLi |> ul.append).append(lastPageLi);
         let navElement = $("<nav></nav>").append(ul);
         navElement.appendTo("#pageNavi");
     }
