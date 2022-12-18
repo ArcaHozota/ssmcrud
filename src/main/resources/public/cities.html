@@ -48,13 +48,13 @@
             <table id="cityTable" class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="text-center">都市ID</th>
-                    <th class="text-center">都市名</th>
-                    <th class="text-center">大陸</th>
-                    <th class="text-center">国家</th>
-                    <th class="text-center">地域</th>
-                    <th class="text-center">人口数量</th>
-                    <th class="text-center">操作</th>
+                    <th class="text-center" style="width:80px;">都市ID</th>
+                    <th class="text-center" style="width:180px;">都市名</th>
+                    <th class="text-center" style="width:100px;">大陸</th>
+                    <th class="text-center" style="width:100px;">国家</th>
+                    <th class="text-center" style="width:120px;">地域</th>
+                    <th class="text-center" style="width:100px;">人口数量</th>
+                    <th class="text-center" style="width:150px;">操作</th>
                 </tr>
                 </thead>
                 <tbody id="cityTableBody"></tbody>
@@ -215,19 +215,19 @@
         $("#cityTableBody").empty();
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
-            let idTd = $("<td class='text-center'></td>").append(item.id);
-            let nameTd = $("<td class='text-center'></td>").append(item.name);
-            let continentTd = $("<td class='text-center'></td>").append(item.continent);
-            let nationTd = $("<td class='text-center'></td>").append(item.nation);
-            let districtTd = $("<td class='text-center'></td>").append(item.district);
-            let populationTd = $("<td class='text-center'></td>").append(item.population);
+            let idTd = $("<td class='text-center' style='width:90px;'></td>").append(item.id);
+            let nameTd = $("<td class='text-center' style='width:140px;'></td>").append(item.name);
+            let continentTd = $("<td class='text-center' style='width:120px;'></td>").append(item.continent);
+            let nationTd = $("<td class='text-center' style='width:120px;'></td>").append(item.nation);
+            let districtTd = $("<td class='text-center' style='width:140px;'></td>").append(item.district);
+            let populationTd = $("<td class='text-center' style='width:120px;'></td>").append(item.population);
             let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("編集");
             editBtn.attr("editId", item.id);
             let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("削除");
             deleteBtn.attr("deleteId", item.id);
-            let btnTd = $("<td class='text-center'></td>").append(editBtn).append(" ").append(deleteBtn);
+            let btnTd = $("<td class='text-center' style='width:150px;'></td>").append(editBtn).append(" ").append(deleteBtn);
             $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
                 .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTableBody");
         });
@@ -274,7 +274,7 @@
                 toSelectedPg(totalPages, searchName);
             });
         }
-        (firstPageLi |> ul.append).append(previousPageLi);
+        ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.naviPageNum, function (index, item) {
             let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
@@ -285,7 +285,7 @@
             });
             ul.append(numsLi);
         });
-        (nextPageLi |> ul.append).append(lastPageLi);
+        ul.append(nextPageLi).append(lastPageLi);
         let navElement = $("<nav></nav>").append(ul);
         navElement.appendTo("#pageNavi");
     }
