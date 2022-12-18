@@ -50,7 +50,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "name", defaultValue = "") final String name) {
 		// 聲明分頁構造器；
-		final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 12);
+		final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 15);
 		// 聲明條件構造器；
 		final LambdaQueryWrapper<CityView> queryWrapper = Wrappers.lambdaQuery(new CityView());
 		// 添加過濾條件；
