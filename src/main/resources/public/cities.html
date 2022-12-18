@@ -48,13 +48,13 @@
             <table id="cityTable" class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="text-center" style="width:80px;">都市ID</th>
+                    <th class="text-center" style="width:50px;">都市ID</th>
                     <th class="text-center" style="width:180px;">都市名</th>
-                    <th class="text-center" style="width:100px;">大陸</th>
+                    <th class="text-center" style="width:80px;">大陸</th>
                     <th class="text-center" style="width:100px;">国家</th>
-                    <th class="text-center" style="width:120px;">地域</th>
-                    <th class="text-center" style="width:100px;">人口数量</th>
-                    <th class="text-center" style="width:150px;">操作</th>
+                    <th class="text-center" style="width:150px;">地域</th>
+                    <th class="text-center" style="width:70px;">人口数量</th>
+                    <th class="text-center" style="width:120px;">操作</th>
                 </tr>
                 </thead>
                 <tbody id="cityTableBody"></tbody>
@@ -215,19 +215,19 @@
         $("#cityTableBody").empty();
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
-            let idTd = $("<td class='text-center' style='width:90px;'></td>").append(item.id);
-            let nameTd = $("<td class='text-center' style='width:140px;'></td>").append(item.name);
-            let continentTd = $("<td class='text-center' style='width:120px;'></td>").append(item.continent);
-            let nationTd = $("<td class='text-center' style='width:120px;'></td>").append(item.nation);
-            let districtTd = $("<td class='text-center' style='width:140px;'></td>").append(item.district);
-            let populationTd = $("<td class='text-center' style='width:120px;'></td>").append(item.population);
+            let idTd = $("<td class='text-center' style='width:50px;'></td>").append(item.id);
+            let nameTd = $("<td class='text-center' style='width:180px;'></td>").append(item.name);
+            let continentTd = $("<td class='text-center' style='width:80px;'></td>").append(item.continent);
+            let nationTd = $("<td class='text-center' style='width:100px;'></td>").append(item.nation);
+            let districtTd = $("<td class='text-center' style='width:150px;'></td>").append(item.district);
+            let populationTd = $("<td class='text-center' style='width:70px;'></td>").append(item.population);
             let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("編集");
             editBtn.attr("editId", item.id);
             let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("削除");
             deleteBtn.attr("deleteId", item.id);
-            let btnTd = $("<td class='text-center' style='width:150px;'></td>").append(editBtn).append(" ").append(deleteBtn);
+            let btnTd = $("<td class='text-center' style='width:120px;'></td>").append(editBtn).append(" ").append(deleteBtn);
             $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
                 .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTableBody");
         });
