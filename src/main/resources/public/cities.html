@@ -9,9 +9,8 @@
     <script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
     <!--import the bootstrap framework-->
     <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.css">
-    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <script type="text/javascript" src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 <!-- Build the displayed web page. -->
@@ -46,7 +45,7 @@
     <div class="row">
         <div class="col-lg-12">
             <table id="cityTable" class="table table-hover">
-                <thead>
+                <thead class="thead-dark">
                 <tr>
                     <th class="text-center" style="width:50px;">都市ID</th>
                     <th class="text-center" style="width:180px;">都市名</th>
@@ -216,26 +215,26 @@
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
             let nationName = item.nation;
-            let idTd = $("<td class='text-center' style='width:50px;'></td>").append(item.id);
-            let nameTd = $("<td class='text-center' style='width:180px;'></td>").append(item.name);
-            let continentTd = $("<td class='text-center' style='width:80px;'></td>").append(item.continent);
+            let idTd = $("<td class='text-center' style='width:50px;vertical-align:bottom;'></td>").append(item.id);
+            let nameTd = $("<td class='text-center' style='width:180px;vertical-align:bottom;'></td>").append(item.name);
+            let continentTd = $("<td class='text-center' style='width:80px;vertical-align:bottom;'></td>").append(item.continent);
             let nationTd;
             if (nationName.trim().toString().length > 12 && nationName.trim().toString().length <= 15) {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:12px;'></td>").append(nationName);
+                nationTd = $("<td class='text-center' style='width:80px;font-size:13px;vertical-align:bottom;'></td>").append(nationName);
             } else if (nationName.trim().toString().length > 15) {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:10px;'></td>").append(nationName);
+                nationTd = $("<td class='text-center' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
             } else {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:15px;'></td>").append(nationName);
+                nationTd = $("<td class='text-center' style='width:80px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
             }
-            let districtTd = $("<td class='text-center' style='width:150px;'></td>").append(item.district);
-            let populationTd = $("<td class='text-center' style='width:70px;'></td>").append(item.population);
+            let districtTd = $("<td class='text-center' style='width:150px;vertical-align:bottom;'></td>").append(item.district);
+            let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
             let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("編集");
             editBtn.attr("editId", item.id);
             let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("削除");
             deleteBtn.attr("deleteId", item.id);
-            let btnTd = $("<td class='text-center' style='width:120px;'></td>").append(editBtn).append(" ").append(deleteBtn);
+            let btnTd = $("<td class='text-center' style='width:120px;vertical-align:bottom;'></td>").append(editBtn).append(" ").append(deleteBtn);
             $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
                 .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTableBody");
         });
