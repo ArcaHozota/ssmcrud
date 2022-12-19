@@ -51,7 +51,7 @@
                     <th class="text-center" style="width:50px;">都市ID</th>
                     <th class="text-center" style="width:180px;">都市名</th>
                     <th class="text-center" style="width:80px;">大陸</th>
-                    <th class="text-center" style="width:100px;">国家</th>
+                    <th class="text-center" style="width:80px;">国家</th>
                     <th class="text-center" style="width:150px;">地域</th>
                     <th class="text-center" style="width:70px;">人口数量</th>
                     <th class="text-center" style="width:120px;">操作</th>
@@ -215,10 +215,18 @@
         $("#cityTableBody").empty();
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
+            let nationName = item.nation;
             let idTd = $("<td class='text-center' style='width:50px;'></td>").append(item.id);
             let nameTd = $("<td class='text-center' style='width:180px;'></td>").append(item.name);
             let continentTd = $("<td class='text-center' style='width:80px;'></td>").append(item.continent);
-            let nationTd = $("<td class='text-center' style='width:100px;'></td>").append(item.nation);
+            let nationTd;
+            if (nationName.trim().toString().length > 12 && nationName.trim().toString().length <= 15) {
+                nationTd = $("<td class='text-center' style='width:80px;font-size:12px;'></td>").append(nationName);
+            } else if (nationName.trim().toString().length > 15) {
+                nationTd = $("<td class='text-center' style='width:80px;font-size:10px;'></td>").append(nationName);
+            } else {
+                nationTd = $("<td class='text-center' style='width:80px;font-size:15px;'></td>").append(nationName);
+            }
             let districtTd = $("<td class='text-center' style='width:150px;'></td>").append(item.district);
             let populationTd = $("<td class='text-center' style='width:70px;'></td>").append(item.population);
             let editBtn = $("<button></button>").addClass("btn btn-info btn-sm edit_btn")
