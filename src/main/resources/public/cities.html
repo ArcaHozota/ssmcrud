@@ -9,8 +9,8 @@
     <script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
     <!--import the bootstrap framework-->
     <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap-3.4.1-dist/css/bootstrap.css">
-    <script type="text/javascript" src="../static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 <!-- Build the displayed web page. -->
@@ -24,16 +24,13 @@
     <!-- Button -->
     <div class="row">
         <form class="form-inline col-lg-7" role="form">
-            <div class="form-group has-feedback">
-                <div class="input-group">
-                    <label for="keywordInput" class="input-group-addon">検索条件</label>
-                    <input id="keywordInput" class="form-control has-success"
-                           type="text" placeholder="都市名を入力してください">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
+                <input id="keywordInput" class="form-control" type="text" placeholder="検索条件を入力してください" aria-label="Search">
             </div>
-            <button id="searchBtn" type="button" class="btn btn-warning">
-                <span class="glyphicon glyphicon-search"></span>検索
-            </button>
+            <button id="searchBtn" class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
         </form>
         <div class="col-lg-2 col-lg-offset-3">
             <button class="btn btn-success" id="cityAddModalBtn">
@@ -44,10 +41,10 @@
     <!-- Data -->
     <div class="row">
         <div class="col-lg-12">
-            <table id="cityTable" class="table table-condensed">
+            <table id="cityTable" class="table table-hover">
                 <thead>
-                <tr class="info">
-                    <th class="text-center" style="width:50px;">都市ID</th>
+                <tr class="thead-dark">
+                    <th class="text-center" style="width:70px;">都市ID</th>
                     <th class="text-center" style="width:200px;">都市名</th>
                     <th class="text-center" style="width:80px;">大陸</th>
                     <th class="text-center" style="width:80px;">国家</th>
@@ -215,7 +212,7 @@
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
             let nationName = item.nation;
-            let idTd = $("<td class='text-center' style='width:50px;vertical-align:bottom;'></td>").append(item.id.trim().toString());
+            let idTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.id.trim().toString());
             let nameTd = $("<td class='text-center' style='width:200px;vertical-align:bottom;'></td>").append(item.name.trim().toString());
             let continentTd = $("<td class='text-center' style='width:80px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
             let nationTd;
@@ -255,8 +252,8 @@
     function buildPageNavi(result) {
         $("#pageNavi").empty();
         let ul = $("<ul></ul>").addClass("pagination");
-        let firstPageLi = $("<li></li>").append($("<a></a>").append("最初のページへ").attr("href", "#"));
-        let previousPageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
+        let firstPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("最初のページへ").attr("href", "#"));
+        let previousPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
         if (!result.extend.pageInfo.hasPrevious) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
@@ -268,12 +265,13 @@
                 toSelectedPg(currentPage - 1, searchName);
             });
         }
-        let nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
-        let lastPageLi = $("<li></li>").append($("<a></a>").append("最後のページへ").attr("href", "#"));
+        let nextPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
+        let lastPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("最後のページへ").attr("href", "#"));
         if (!result.extend.pageInfo.hasNext) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
         } else {
+            lastPageLi.addClass("success");
             nextPageLi.click(function () {
                 toSelectedPg(currentPage + 1, searchName);
             });
@@ -283,7 +281,7 @@
         }
         ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.naviPageNum, function (index, item) {
-            let numsLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
+            let numsLi = $("<li class='page-item'></li>").append($("<a></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
                 numsLi.attr("href", "#").addClass("active");
             }
