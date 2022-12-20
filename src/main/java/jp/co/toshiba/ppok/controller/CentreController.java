@@ -63,7 +63,7 @@ public class CentreController {
 		final int totalPage = (int) pageInfo.getPages();
 		pageInfo.setTotalPages(totalPage);
 		// 設置分頁導航條頁碼數量；
-		pageInfo.calcByNaviPages(7);
+		pageInfo.calcByNaviPages(5);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 
