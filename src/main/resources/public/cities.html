@@ -28,7 +28,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input id="keywordInput" class="form-control" type="search" placeholder="検索条件を入力してください" aria-label="Search">
+                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください" aria-label="Search">
             </div>
             <button id="searchBtn" class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
         </form>
@@ -217,7 +217,7 @@
             let continentTd = $("<td class='text-center' style='width:80px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
             let nationTd;
             if (nationName.trim().toString().length > 12 && nationName.trim().toString().length <= 15) {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:13px;vertical-align:bottom;'></td>").append(nationName);
+                nationTd = $("<td class='text-center' style='width:80px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
             } else if (nationName.trim().toString().length > 15) {
                 nationTd = $("<td class='text-center' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
             } else {
@@ -297,7 +297,7 @@
 
     //Add click function to search btn.
     $("#searchBtn").on('click', function () {
-        searchName = $("#keywordInput").val();
+        searchName = $("#keywordInput").val().trim().toString();
         toSelectedPg(currentPage, searchName);
     });
 
