@@ -9,8 +9,8 @@
     <script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
     <!--import the bootstrap framework-->
     <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css">
-    <script type="text/javascript" src="../static/bootstrap/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 <!-- Build the displayed web page. -->
@@ -23,17 +23,22 @@
     </div>
     <!-- Button -->
     <div class="row">
-        <form class="form-inline col-lg-8" role="form">
-            <div class="input-group">
+        <form class="form-inline col-lg-7" role="form">
+            <div class="input-group has-feedback">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください"
-                       aria-label="Search">
+                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください">
             </div>
-            <button id="searchBtn" class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
+            <button id="searchBtn" class="btn btn-outline-info my-2 my-sm-0" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                     viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+                検索
+            </button>
         </form>
-        <div class="col-lg-2 col-lg-offset-2">
+        <div class="col-lg-2 offset-lg-3">
             <button class="btn btn-success" id="cityAddModalBtn">
                 <span class="glyphicon glyphicon-pawn"></span>情報追加
             </button>
@@ -217,9 +222,9 @@
             let districtName = item.district.trim().toString();
             let idTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.id.trim().toString());
             let nameTd;
-            if (cityName.length >= 15){
+            if (cityName.length >= 15) {
                 nameTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(cityName);
-            }else {
+            } else {
                 nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
             }
             let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
