@@ -252,8 +252,8 @@
     function buildPageNavi(result) {
         $("#pageNavi").empty();
         let ul = $("<ul></ul>").addClass("pagination");
-        let firstPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("最初のページへ").attr("href", "#"));
-        let previousPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
+        let firstPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("最初のページへ").attr("href", "#"));
+        let previousPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("&laquo;").attr("href", "#"));
         if (!result.extend.pageInfo.hasPrevious) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
@@ -265,8 +265,8 @@
                 toSelectedPg(currentPage - 1, searchName);
             });
         }
-        let nextPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
-        let lastPageLi = $("<li class='page-item'></li>").append($("<a></a>").append("最後のページへ").attr("href", "#"));
+        let nextPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("&raquo;").attr("href", "#"));
+        let lastPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("最後のページへ").attr("href", "#"));
         if (!result.extend.pageInfo.hasNext) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
@@ -281,7 +281,7 @@
         }
         ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.naviPageNum, function (index, item) {
-            let numsLi = $("<li class='page-item'></li>").append($("<a></a>").append(item).attr("href", "#"));
+            let numsLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
                 numsLi.attr("href", "#").addClass("active");
             }
