@@ -28,7 +28,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください" aria-label="Search">
+                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください"
+                       aria-label="Search">
             </div>
             <button id="searchBtn" class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
         </form>
@@ -45,10 +46,10 @@
                 <thead>
                 <tr class="thead-dark">
                     <th class="text-center" style="width:70px;">都市ID</th>
-                    <th class="text-center" style="width:200px;">都市名</th>
+                    <th class="text-center" style="width:120px;">都市名</th>
                     <th class="text-center" style="width:100px;">大陸</th>
-                    <th class="text-center" style="width:80px;">国家</th>
-                    <th class="text-center" style="width:150px;">地域</th>
+                    <th class="text-center" style="width:100px;">国家</th>
+                    <th class="text-center" style="width:120px;">地域</th>
                     <th class="text-center" style="width:70px;">人口数量</th>
                     <th class="text-center" style="width:120px;">操作</th>
                 </tr>
@@ -211,19 +212,31 @@
         $("#cityTableBody").empty();
         let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
-            let nationName = item.nation;
+            let cityName = item.name.trim().toString();
+            let nationName = item.nation.trim().toString();
+            let districtName = item.district.trim().toString();
             let idTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.id.trim().toString());
-            let nameTd = $("<td class='text-center' style='width:200px;vertical-align:bottom;'></td>").append(item.name.trim().toString());
-            let continentTd = $("<td class='text-center' style='width:80px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
-            let nationTd;
-            if (nationName.trim().toString().length > 12 && nationName.trim().toString().length <= 15) {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
-            } else if (nationName.trim().toString().length > 15) {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
-            } else {
-                nationTd = $("<td class='text-center' style='width:80px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
+            let nameTd;
+            if (cityName.length >= 15){
+                nameTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(cityName);
+            }else {
+                nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
             }
-            let districtTd = $("<td class='text-center' style='width:150px;vertical-align:bottom;'></td>").append(item.district.trim().toString());
+            let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
+            let nationTd;
+            if (nationName.length > 12 && nationName.length <= 15) {
+                nationTd = $("<td class='text-center' style='width:100px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
+            } else if (nationName.length > 15) {
+                nationTd = $("<td class='text-center' style='width:100px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
+            } else {
+                nationTd = $("<td class='text-center' style='width:100px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
+            }
+            let districtTd;
+            if (districtName.length >= 15) {
+                districtTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(districtName);
+            } else {
+                districtTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom'></td>").append(districtName);
+            }
             let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population.trim().toString());
             let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("編集");
