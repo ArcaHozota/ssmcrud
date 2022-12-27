@@ -1,6 +1,6 @@
 package jp.co.toshiba.ppok.repository;
 
-import jp.co.sony.ppog.entity.Nation;
+import jp.co.toshiba.ppok.entity.Nation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
