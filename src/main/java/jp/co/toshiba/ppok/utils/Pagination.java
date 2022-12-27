@@ -2,7 +2,7 @@ package jp.co.toshiba.ppok.utils;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
+
 import org.springframework.data.domain.PageImpl;
 
 
@@ -22,11 +22,6 @@ public class Pagination<T> extends PageImpl<T> {
      * 當前頁
      */
     protected int current;
-
-    /**
-     * 頁面大小
-     */
-    protected int pageSize;
 
     /**
      * 總頁數
@@ -54,17 +49,10 @@ public class Pagination<T> extends PageImpl<T> {
 
     /**
      * 唯一構造器
-     *
-     * @param currentPage 當前頁
-     * @param pageSize    頁面大小
      */
-    public Pagination<T>(List<T> content, final int currentPage, final int pageSize) {
-        this.current = currentPage;
-        this.pageSize = pageSize;
-    }
-
-    public Pagination(List<T> content) {
-        super(content);
+    public Pagination() {
+        super();
+        this.current = super.getNumber();
     }
 
     /**
@@ -122,8 +110,8 @@ public class Pagination<T> extends PageImpl<T> {
      * 判定页面边界
      */
     private void discernPageBoundary() {
-        this.hasPrevious = super.current > 1;
+        this.hasPrevious = this.current > 1;
         final long totalPgs = this.totalPages;
-        this.hasNext = super.current < totalPgs;
+        this.hasNext = this.current < totalPgs;
     }
 }
