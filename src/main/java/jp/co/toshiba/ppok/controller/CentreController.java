@@ -24,7 +24,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 
 import jakarta.validation.Valid;
-import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.service.CityViewService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;

@@ -11,14 +11,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.CityView;
-import jp.co.toshiba.ppok.entity.Country;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.service.CityViewService;
-import jp.co.toshiba.ppok.utils.CustomException;
 
 /**
  * 業務処理ロジック

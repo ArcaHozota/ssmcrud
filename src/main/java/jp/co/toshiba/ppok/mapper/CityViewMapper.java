@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import jp.co.toshiba.ppok.entity.CityView;
-
 /**
  * @author Administrator
  */

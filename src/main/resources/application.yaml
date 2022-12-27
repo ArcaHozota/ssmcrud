@@ -10,7 +10,7 @@ spring:
       username: oraclect
       password: oraclect
       max-active: 30
-      max-wait: 1500000
+      max-wait: 1200000
   jpa:
     hibernate:
       ddl-auto: update

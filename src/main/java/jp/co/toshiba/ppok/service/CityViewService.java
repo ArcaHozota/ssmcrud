@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import jp.co.toshiba.ppok.entity.CityView;
-
 /**
  * @author Administrator
  */
