@@ -6,7 +6,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.repository.CityInfoDao;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +41,7 @@ import jp.co.toshiba.ppok.utils.RestMsg;
 public class CentreController {
 
 	@Resource
-	private CityViewService cityViewService;
+	private CityInfoDao cityInfoDao;
 
 	/**
 	 * Retrieve the city data.
@@ -48,22 +51,26 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "name", defaultValue = "") final String name) {
-		// 聲明分頁構造器；
-		final Pagination<CityView> pageInfo = new Pagination<>(pageNum, 17);
-		// 聲明條件構造器；
-		final LambdaQueryWrapper<CityView> queryWrapper = Wrappers.lambdaQuery(new CityView());
-		// 添加過濾條件；
-		queryWrapper.like(StringUtils.isNotEmpty(name), CityView::getName, name);
-		// 添加排序條件；
-		queryWrapper.orderByAsc(CityView::getId);
-		// 執行查詢；
-		this.cityViewService.page(pageInfo, queryWrapper);
+		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
+		Page<CityInfo> dtoPage;
+		if (StringUtils.isNotEmpty(name)) {
+			final CityInfo cityInfo = new CityInfo();
+			cityInfo.setName(name);
+			final ExampleMatcher matcher = ExampleMatcher.matching()
+					.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
+					.withMatcher(name, ExampleMatcher.GenericPropertyMatchers.contains())
+					.withIgnorePaths("id", "continent", "nation", "district", "population");
+			final Example<CityInfo> example = Example.of(cityInfo, matcher);
+			dtoPage = this.cityInfoDao.findAll(example, pageRequest);
+		} else {
+			dtoPage = this.cityInfoDao.findAll(pageRequest);
+		}
 		// 設置總頁數；
-		final int totalPage = (int) pageInfo.getPages();
-		pageInfo.setTotalPages(totalPage);
+		final int totalPage = dtoPage.getTotalPages();
+		dtoPage.setTotalPages(totalPage);
 		// 設置分頁導航條頁碼數量；
-		pageInfo.calcByNaviPages(5);
-		return RestMsg.success().add("pageInfo", pageInfo);
+		dtoPage.calcByNaviPages(5);
+		return RestMsg.success().add("pageInfo", dtoPage);
 	}
 
 	/**
