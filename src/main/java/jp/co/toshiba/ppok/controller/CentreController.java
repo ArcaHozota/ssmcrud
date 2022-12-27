@@ -47,7 +47,7 @@ public class CentreController {
     @GetMapping(value = "/city")
     public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
                              @RequestParam(value = "name", defaultValue = "") final String name) {
-        final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
+        final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
         Page<CityInfo> dtoPage;
         if (StringUtils.isNotEmpty(name)) {
             final CityInfo cityInfo = new CityInfo();
@@ -135,7 +135,8 @@ public class CentreController {
     @GetMapping(value = "/checklist")
     public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
         final String regex = "^[a-zA-Z_-]{4,17}$";
-        if (cityName.matches(regex)) {final CityInfo cityInfo = new CityInfo();
+        if (cityName.matches(regex)) {
+            final CityInfo cityInfo = new CityInfo();
             cityInfo.setName(cityName);
             final ExampleMatcher matcher = ExampleMatcher.matching()
                     .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
@@ -196,7 +197,7 @@ public class CentreController {
         return RestMsg.success().add("nationsWithName", list);
     }
 
-    private List<CityInfo> getNations(final String continent){
+    private List<CityInfo> getNations(final String continent) {
         final CityInfo cityInfo = new CityInfo();
         cityInfo.setContinent(continent);
         final ExampleMatcher matcher = ExampleMatcher.matching()
