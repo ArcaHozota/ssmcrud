@@ -4,26 +4,21 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: oraclect
-    password: oraclect
-    hikari:
-      maximum-pool-size: 30
-      max-lifetime: 1500000
+    druid:
+      url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+      driver-class-name: oracle.jdbc.OracleDriver
+      username: oraclect
+      password: oraclect
+      max-active: 30
+      max-wait: 1500000
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database: oracle
+    show-sql: true
+    open-in-view: false
   output:
     ansi:
       enabled: ALWAYS
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  global-config:
-    db-config:
-      id-type: AUTO
-      logic-delete-field: deleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-      table-prefix: world_
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: jp.co.toshiba.ppok.entity
