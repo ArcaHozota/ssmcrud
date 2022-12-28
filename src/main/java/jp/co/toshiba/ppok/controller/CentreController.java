@@ -7,9 +7,14 @@ import java.util.Optional;
 
 import javax.annotation.Resource;
 
+import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.entity.Nation;
+import jp.co.toshiba.ppok.repository.CityDao;
 import jp.co.toshiba.ppok.repository.CityInfoDao;
+import jp.co.toshiba.ppok.repository.NationDao;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -37,7 +42,13 @@ import jp.co.toshiba.ppok.utils.RestMsg;
 public class CentreController {
 
     @Resource
+    private CityDao cityDao;
+
+    @Resource
     private CityInfoDao cityInfoDao;
+
+    @Resource
+    private NationDao nationDao;
 
     /**
      * Retrieve the city data.
@@ -105,12 +116,25 @@ public class CentreController {
     /**
      * Update city info.
      *
-     * @param cityView the input message of cities
+     * @param cityInfo the input message of cities
      * @return RestMsg.success()
      */
     @PutMapping(value = "/city/{id}")
-    public RestMsg updateCityInfo(@RequestBody final CityView cityView) {
-        this.cityViewService.updateCityInfo(cityView);
+    public RestMsg updateCityInfo(@RequestBody final CityInfo cityInfo) {
+        final City city = new City();
+        BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+        final String nationName = cityInfo.getNation();
+        final Nation nation = new Nation();
+        nation.setName(nationName);
+        final ExampleMatcher matcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
+                .withMatcher(nationName, ExampleMatcher.GenericPropertyMatchers.exact())
+                .withIgnoreCase(false);
+        final Example<Nation> example = Example.of(nation, matcher);
+        final List<Nation> nations = this.nationDao.findAll(example);
+        final String nationCode = nations.get(0).getCode();
+        city.setCountryCode(nationCode);
+        this.cityDao.saveAndFlush(city);
         return RestMsg.success();
     }
 
@@ -122,7 +146,7 @@ public class CentreController {
      */
     @DeleteMapping(value = "/city/{id}")
     public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
-        this.cityViewService.deleteCityInfo(id);
+        this.cityDao.deleteById(id);
         return RestMsg.success();
     }
 
@@ -201,7 +225,7 @@ public class CentreController {
         final CityInfo cityInfo = new CityInfo();
         cityInfo.setContinent(continent);
         final ExampleMatcher matcher = ExampleMatcher.matching()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
+                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
                 .withMatcher(continent, ExampleMatcher.GenericPropertyMatchers.exact())
                 .withIgnorePaths("id", "name", "nation", "district", "population");
         final Example<CityInfo> example = Example.of(cityInfo, matcher);
