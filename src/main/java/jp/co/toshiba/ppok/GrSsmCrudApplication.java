@@ -14,9 +14,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @Slf4j
 @SpringBootApplication
 @ServletComponentScan
-public class GrssmCrudApplication {
+public class GrSsmCrudApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GrssmCrudApplication.class,args);
+        SpringApplication.run(GrSsmCrudApplication.class,args);
         log.info("アプリは正常に起動しました!");
     }
 }
