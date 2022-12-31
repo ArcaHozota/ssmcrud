@@ -15,6 +15,6 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public void index(final HttpServletResponse response) throws IOException {
-		response.sendRedirect("/templates/index.html");
+		response.sendRedirect("/templates/cities.html");
 	}
 }
