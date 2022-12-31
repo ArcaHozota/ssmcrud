@@ -158,12 +158,12 @@ public class CentreController {
      */
     @GetMapping(value = "/checklist")
     public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
-        final String regex = "^[a-zA-Z_-]{4,17}$";
+        final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
         if (cityName.matches(regex)) {
             final CityInfo cityInfo = new CityInfo();
             cityInfo.setName(cityName);
             final ExampleMatcher matcher = ExampleMatcher.matching()
-                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
+                    .withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
                     .withMatcher(cityName, ExampleMatcher.GenericPropertyMatchers.exact())
                     .withIgnorePaths("id", "continent", "nation", "district", "population");
             final Example<CityInfo> example = Example.of(cityInfo, matcher);
