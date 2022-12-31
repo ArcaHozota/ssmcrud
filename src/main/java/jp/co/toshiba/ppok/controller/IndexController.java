@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Administrator
  */
 @Controller
-public class ForwardController {
+public class IndexController {
 
 	@RequestMapping("/index")
 	public void index(final HttpServletResponse response) throws IOException {
