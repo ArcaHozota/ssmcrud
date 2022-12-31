@@ -93,27 +93,6 @@ public class CentreController {
     }
 
     /**
-     * Save the input messages.
-     *
-     * @param cityInfo the input message of cities
-     * @return RestMsg.success()
-     */
-    @PostMapping(value = "/city")
-    public RestMsg saveCityInfos(@Valid final CityInfo cityInfo, final BindingResult result) {
-        final Map<String, Object> map = new HashMap<>(5);
-        if (result.hasErrors()) {
-            final List<FieldError> fieldErrors = result.getFieldErrors();
-            for (final FieldError fieldError : fieldErrors) {
-                map.put(fieldError.getField(), fieldError.getDefaultMessage());
-            }
-            return RestMsg.failure().add("errorFields", map);
-        } else {
-            this.cityInfoDao.save(cityInfo);
-            return RestMsg.success();
-        }
-    }
-
-    /**
      * Update city info.
      *
      * @param cityInfo the input message of cities
