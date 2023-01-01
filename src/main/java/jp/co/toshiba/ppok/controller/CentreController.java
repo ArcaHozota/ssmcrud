@@ -148,6 +148,7 @@ public class CentreController {
 		final List<Nation> nations = this.nationDao.findAll(example);
 		final String nationCode = nations.get(0).getCode();
 		city.setCountryCode(nationCode);
+		city.setIsDeleted(0);
 		this.cityDao.saveAndFlush(city);
 		return RestMsg.success();
 	}
