@@ -64,16 +64,9 @@ public class CentreController {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
 		if (ComparisonUtils.isNotEmpty(keyword)) {
-			final List<CityInfo> kyNations = this.cityInfoDao.findCityInfosByNation(keyword);
-			if (kyNations.size() != 0) {
-				final CityInfo cityInfo1 = new CityInfo();
-				cityInfo1.setNation(keyword);
-				final ExampleMatcher matcher1 = ExampleMatcher.matching()
-						.withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
-						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.exact())
-						.withIgnorePaths("id", "name", "continent", "district", "population");
-				final Example<CityInfo> example1 = Example.of(cityInfo1, matcher1);
-				dtoPage = this.cityInfoDao.findAll(example1, pageRequest01);
+			final List<CityInfo> keywordNations = this.cityInfoDao.findCityInfosByNation(keyword);
+			if (keywordNations.size() != 0) {
+				dtoPage = new PageImpl<>(keywordNations);
 			} else if (ComparisonUtils.isEqual("min(pop)", keyword)) {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
