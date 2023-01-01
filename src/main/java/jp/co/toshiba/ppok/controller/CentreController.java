@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,11 +76,13 @@ public class CentreController {
 			} else if (ComparisonUtils.isEqual("min(pop)", keyword)) {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
-				dtoPage = this.cityInfoDao.findAll(pageRequest02);
+				final List<CityInfo> minPopList = this.cityInfoDao.findAll(pageRequest02).getContent().subList(0, 10);
+				dtoPage = new PageImpl<CityInfo>(minPopList);
 			} else if (ComparisonUtils.isEqual("max(pop)", keyword)) {
 				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.DESC, "population"));
-				dtoPage = this.cityInfoDao.findAll(pageRequest03);
+				final List<CityInfo> maxPopList = this.cityInfoDao.findAll(pageRequest03).getContent().subList(0, 10);
+				dtoPage = new PageImpl<>(maxPopList);
 			} else {
 				final CityInfo cityInfo2 = new CityInfo();
 				cityInfo2.setName(keyword);
