@@ -2,6 +2,7 @@ package jp.co.toshiba.ppok.repository;
 
 import jp.co.toshiba.ppok.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,7 @@ public interface CityDao extends JpaRepository<City, Long> {
      *
      * @param id id of the selected city
      */
+    @Modifying
     @Query(value = "update City cvn set cvn.isDeleted = 1 where cvn.id =:id")
     void removeById(@Param("id") final Long id);
 }
