@@ -220,7 +220,7 @@
     function buildCityTable(result) {
         //Emptying the former table.
         $("#cityTableBody").empty();
-        let index = result.extend.pageInfo.getContent;
+        let index = result.extend.pageInfo.content;
         $.each(index, function (index, item) {
             let cityName = item.name.trim().toString();
             let nationName = item.nation.trim().toString();
