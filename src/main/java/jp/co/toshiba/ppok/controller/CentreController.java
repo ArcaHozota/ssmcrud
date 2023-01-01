@@ -212,7 +212,7 @@ public class CentreController {
 		nations.forEach(item -> {
 			nationSet.add(item.getNation());
 		});
-		return RestMsg.success().add("nationsWithName", nationSet);
+		return RestMsg.success().add("nationsAndName", nationSet);
 	}
 
 	private List<CityInfo> getNations(final String continent) {
