@@ -441,7 +441,7 @@
     });
 
     //Add click function to the edit modal.
-    $(document).on("click", ".edit_btn", function () {
+    $(document).on('click', '.edit_btn', function () {
         let editId = $(this).attr("editId");
         formReset("#cityEditModal form");
         getCityInfo(editId);
@@ -512,17 +512,17 @@
         showValidationMsg("#districtEdit", "success", "√");
         showValidationMsg("#populationEdit", "success", "√");
         $.ajax({
-            url: pathdeApp + "/city/" + editId,
-            type: "PUT",
-            contentType: "application/json;charset=UTF-8",
-            dataType: 'JSON',
+            url: pathdeApp + '/city/' + editId,
+            type: 'PUT',
+            contentType: 'application/json;charset=UTF-8',
+            dataType: 'json',
             data: JSON.stringify({
-                "id": editId,
-                "name": $("#displayedCityName").text(),
-                "continent": $("#continentName").text(),
-                "nation": $("#nationEdit option:selected").val(),
-                "district": inputDistrict,
-                "population": inputPopulation
+                'id': editId,
+                'name': $("#displayedCityName").text(),
+                'continent': $("#continentName").text(),
+                'nation': $("#nationEdit option:selected").val(),
+                'district': inputDistrict,
+                'population': inputPopulation
             }),
             success: function () {
                 $("#cityEditModal").modal('hide');
@@ -532,7 +532,7 @@
     });
 
     //Add click function to the delete modal.
-    $(document).on("click", ".delete_btn", function () {
+    $(document).on('click', '.delete_btn', function () {
         let cityName = $(this).parents("tr").find("td:eq(1)").text().trim();
         let cityId = $(this).attr("deleteId");
         if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
