@@ -379,7 +379,7 @@
 
     //Analyze the input name is duplicate or not.
     $("#nameInput").change(function () {
-        const cityName = this.value;
+        let cityName = this.value;
         $.ajax({
             url: pathdeApp + '/checklist',
             data: 'cityName=' + cityName,
@@ -426,6 +426,7 @@
             $.ajax({
                 url: pathdeApp + '/city',
                 type: 'POST',
+                dataType :'json',
                 data: $("#cityAddModal form").serialize(),
                 success: function (result) {
                     if (result.code === 200) {
