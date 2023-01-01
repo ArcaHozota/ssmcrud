@@ -64,12 +64,7 @@ public class CityInfo implements Serializable {
 	public CityInfo() {
 	}
 
-	public CityInfo(String continent) {
-		this.continent = continent;
-	}
-
-	public CityInfo(String name, String nation) {
-		this.name = name;
+	public CityInfo(String nation) {
 		this.nation = nation;
 	}
 
