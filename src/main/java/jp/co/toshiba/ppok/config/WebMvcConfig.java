@@ -24,7 +24,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      */
     @Override
     protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        log.info("拡張メッセージコンバーターの設置は完了しました。");
+        log.info("The advanced message converter configuration is complete.");
         // 創建消息轉換器對象；
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         // 設置對象轉換器，底層使用Jackson將Java對象轉為JSON；
@@ -40,7 +40,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      */
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        log.info("静的リソースのマッピングが開始しました。");
+        log.info("Static resource mapping started.");
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/public/**").addResourceLocations("classpath:/public/");
     }
