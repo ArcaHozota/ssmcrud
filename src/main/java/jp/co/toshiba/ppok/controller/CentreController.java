@@ -6,12 +6,12 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +30,7 @@ import jp.co.toshiba.ppok.entity.Nation;
 import jp.co.toshiba.ppok.repository.CityDao;
 import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
+import jp.co.toshiba.ppok.utils.ComparisonUtils;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
@@ -59,19 +60,38 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
-		Page<CityInfo> dtoPage;
-		if (StringUtils.isNotEmpty(keyword)) {
-			final CityInfo cityInfo = new CityInfo();
-			cityInfo.setName(keyword);
-			final ExampleMatcher matcher = ExampleMatcher.matching()
-					.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
-					.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
-					.withIgnorePaths("id", "continent", "nation", "district", "population");
-			final Example<CityInfo> example = Example.of(cityInfo, matcher);
-			dtoPage = this.cityInfoDao.findAll(example, pageRequest);
+		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17);
+		Page<CityInfo> dtoPage = null;
+		if (ComparisonUtils.isNotEmpty(keyword)) {
+			final CityInfo cityInfo1 = new CityInfo();
+			cityInfo1.setNation(keyword);
+			final ExampleMatcher matcher1 = ExampleMatcher.matching()
+					.withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
+					.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.exact());
+			final Example<CityInfo> example1 = Example.of(cityInfo1, matcher1);
+			final List<CityInfo> findAll = this.cityInfoDao.findAll(example1);
+			if (findAll.size() != 0) {
+				dtoPage = this.cityInfoDao.findAll(example1, pageRequest01);
+			} else if (ComparisonUtils.isEqual("min(pop)", keyword)) {
+				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
+						Sort.by(Sort.Direction.ASC, "population"));
+				dtoPage = this.cityInfoDao.findAll(pageRequest02);
+			} else if (ComparisonUtils.isEqual("max(pop)", keyword)) {
+				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
+						Sort.by(Sort.Direction.DESC, "population"));
+				dtoPage = this.cityInfoDao.findAll(pageRequest03);
+			} else {
+				final CityInfo cityInfo2 = new CityInfo();
+				cityInfo2.setName(keyword);
+				final ExampleMatcher matcher2 = ExampleMatcher.matching()
+						.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
+						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
+						.withIgnorePaths("id", "continent", "nation", "district", "population");
+				final Example<CityInfo> example2 = Example.of(cityInfo2, matcher2);
+				dtoPage = this.cityInfoDao.findAll(example2, pageRequest01);
+			}
 		} else {
-			dtoPage = this.cityInfoDao.findAll(pageRequest);
+			dtoPage = this.cityInfoDao.findAll(pageRequest01);
 		}
 		// 設置分頁；
 		final PaginationImpl<CityInfo> pageInfo = new PaginationImpl<>(dtoPage.getContent());
