@@ -1,15 +1,18 @@
 package jp.co.toshiba.ppok.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Administrator
@@ -65,13 +68,8 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return "City{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", countryCode='" + countryCode + '\'' +
-				", district='" + district + '\'' +
-				", population=" + population +
-				", isDeleted=" + isDeleted +
-				'}';
+		return "City{" + "id=" + this.id + ", name='" + this.name + '\'' + ", countryCode='" + this.countryCode + '\''
+				+ ", district='" + this.district + '\'' + ", population=" + this.population + ", isDeleted="
+				+ this.isDeleted + '}';
 	}
 }

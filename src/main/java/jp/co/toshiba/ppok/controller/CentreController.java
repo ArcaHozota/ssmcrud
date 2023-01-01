@@ -6,20 +6,12 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import com.google.common.collect.Sets;
-import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.CityInfo;
-import jp.co.toshiba.ppok.entity.Nation;
-import jp.co.toshiba.ppok.repository.CityDao;
-import jp.co.toshiba.ppok.repository.CityInfoDao;
-import jp.co.toshiba.ppok.repository.NationDao;
-import jp.co.toshiba.ppok.utils.PaginationImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.criterion.CriteriaQuery;
-import org.hibernate.criterion.Distinct;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.*;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.common.collect.Lists;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
+import jp.co.toshiba.ppok.entity.City;
+import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.entity.Nation;
+import jp.co.toshiba.ppok.repository.CityDao;
+import jp.co.toshiba.ppok.repository.CityInfoDao;
+import jp.co.toshiba.ppok.repository.NationDao;
+import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
