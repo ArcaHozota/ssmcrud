@@ -11,6 +11,7 @@ import jp.co.toshiba.ppok.entity.Nation;
 import jp.co.toshiba.ppok.repository.CityDao;
 import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
+import jp.co.toshiba.ppok.utils.PaginationImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
@@ -53,7 +54,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
-		Page<CityInfo> dtoPage;
+		PaginationImpl<CityInfo> dtoPage;
 		if (StringUtils.isNotEmpty(keyword)) {
 			final CityInfo cityInfo = new CityInfo();
 			cityInfo.setName(keyword);
@@ -62,12 +63,12 @@ public class CentreController {
 					.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
 					.withIgnorePaths("id", "continent", "nation", "district", "population");
 			final Example<CityInfo> example = Example.of(cityInfo, matcher);
-			dtoPage = this.cityInfoDao.findAll(example, pageRequest);
+			dtoPage = (PaginationImpl<CityInfo>) this.cityInfoDao.findAll(example, pageRequest);
 		} else {
-			dtoPage = this.cityInfoDao.findAll(pageRequest);
+			dtoPage = (PaginationImpl<CityInfo>) this.cityInfoDao.findAll(pageRequest);
 		}
-		// 設置總頁數；
-		final int totalPage = dtoPage.getTotalPages();
+//		// 設置總頁數；
+//		final int totalPage = dtoPage.getTotalPages();
 //		dtoPage.setTotalPages(totalPage);
 //		// 設置分頁導航條頁碼數量；
 //		dtoPage.calcByNaviPages(5);
