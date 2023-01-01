@@ -15,62 +15,141 @@ import java.util.List;
  */
 public class PaginationImpl<T> extends PageImpl<T> {
 
-    private Integer current;
+	private Integer current;
 
-    private Integer totalPg;
+	private Integer totalPg;
 
-    private Long totalRecords;
+	private Long totalRecords;
 
-    private Boolean hasPrevious;
+	private Boolean hasPrevious;
 
-    private Boolean hasNext;
+	private Boolean hasNext;
 
-    public PaginationImpl(List<T> content, Pageable pageable, long total) {
-        super(content, pageable, total);
-    }
+	protected int naviPages;
 
-    public PaginationImpl(List<T> content) {
-        super(content);
-    }
+	protected int[] navigationPgs;
 
-    public Integer getCurrent() {
-        return current;
-    }
+	public PaginationImpl(List<T> content, Pageable pageable, long total) {
+		super(content, pageable, total);
+	}
 
-    public void setCurrent(Integer current) {
-        this.current = current;
-    }
+	public PaginationImpl(List<T> content) {
+		super(content);
+	}
 
-    public Integer getTotalPg() {
-        return totalPg;
-    }
+	/**
+	 * 根據導航條頁碼數量進行基本計算
+	 *
+	 * @param naviPages 導航條頁碼數量
+	 */
+	public void calcByNaviPages(final int naviPages) {
+		// 設置導航條頁碼數量；
+		this.setNaviPages(naviPages);
+		// 计算导航页
+		this.calcnavigationPgs();
+		// 判定页面边界
+		this.discernPageBoundary();
+	}
 
-    public void setTotalPg(Integer totalPg) {
-        this.totalPg = totalPg;
-    }
+	/**
+	 * 计算导航页
+	 */
+	private void calcnavigationPgs() {
+		final int currentPage = (int) this.current;
+		// 当总页数小于或等于导航页码数时
+		if (this.totalPg <= this.naviPages) {
+			this.navigationPgs = new int[this.totalPg];
+			for (int i = 0; i < this.totalPg; i++) {
+				this.navigationPgs[i] = i + 1;
+			}
+		} else {
+			// 当总页数大于导航页码数时
+			this.navigationPgs = new int[this.naviPages];
+			int startNum = currentPage - this.naviPages / 2;
+			int endNum = currentPage + this.naviPages / 2;
+			if (startNum < 1) {
+				startNum = 1;
+				// (最前pageSize页
+				for (int i = 0; i < this.naviPages; i++) {
+					this.navigationPgs[i] = startNum++;
+				}
+			} else if (endNum > this.totalPg) {
+				endNum = this.totalPg;
+				// 最后pageSize页
+				for (int i = this.naviPages - 1; i >= 0; i--) {
+					this.navigationPgs[i] = endNum--;
+				}
+			} else {
+				// 所有中间页
+				for (int i = 0; i < this.naviPages; i++) {
+					this.navigationPgs[i] = startNum++;
+				}
+			}
+		}
+	}
 
-    public Long getTotalRecords() {
-        return totalRecords;
-    }
+	/**
+	 * 判定页面边界
+	 */
+	private void discernPageBoundary() {
+		this.hasPrevious = this.current > 1;
+		final long totalPgs = this.totalPg;
+		this.hasNext = this.current < totalPgs;
+	}
 
-    public void setTotalRecords(Long totalRecords) {
-        this.totalRecords = totalRecords;
-    }
+	public Integer getCurrent() {
+		return current;
+	}
 
-    public Boolean getHasPrevious() {
-        return hasPrevious;
-    }
+	public void setCurrent(Integer current) {
+		this.current = current;
+	}
 
-    public void setHasPrevious(Boolean hasPrevious) {
-        this.hasPrevious = hasPrevious;
-    }
+	public Integer getTotalPg() {
+		return totalPg;
+	}
 
-    public Boolean getHasNext() {
-        return hasNext;
-    }
+	public void setTotalPg(Integer totalPg) {
+		this.totalPg = totalPg;
+	}
 
-    public void setHasNext(Boolean hasNext) {
-        this.hasNext = hasNext;
-    }
+	public Long getTotalRecords() {
+		return totalRecords;
+	}
+
+	public void setTotalRecords(Long totalRecords) {
+		this.totalRecords = totalRecords;
+	}
+
+	public Boolean getHasPrevious() {
+		return hasPrevious;
+	}
+
+	public void setHasPrevious(Boolean hasPrevious) {
+		this.hasPrevious = hasPrevious;
+	}
+
+	public Boolean getHasNext() {
+		return hasNext;
+	}
+
+	public void setHasNext(Boolean hasNext) {
+		this.hasNext = hasNext;
+	}
+
+	public int getNaviPages() {
+		return naviPages;
+	}
+
+	public void setNaviPages(int naviPages) {
+		this.naviPages = naviPages;
+	}
+
+	public int[] getnavigationPgs() {
+		return navigationPgs;
+	}
+
+	public void setnavigationPgs(int[] navigationPgs) {
+		this.navigationPgs = navigationPgs;
+	}
 }
-

@@ -83,8 +83,8 @@ public class CentreController {
 		pageInfo.setHasPrevious(hasPrevious);
 		final boolean hasNext = dtoPage.hasNext();
 		pageInfo.setHasNext(hasNext);
-//		// 設置分頁導航條頁碼數量；
-//		pageInfo.calcByNaviPages(5);
+		// 設置分頁導航條頁碼數量；
+		pageInfo.calcByNaviPages(5);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 
