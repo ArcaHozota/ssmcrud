@@ -2,8 +2,6 @@ package jp.co.toshiba.ppok.utils;
 
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -145,11 +143,11 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		this.naviPages = naviPages;
 	}
 
-	public int[] getnavigationPga() {
+	public int[] getNavigationPga() {
 		return navigationPga;
 	}
 
-	public void setnavigationPga(int[] navigationPga) {
+	public void setNavigationPga(int[] navigationPga) {
 		this.navigationPga = navigationPga;
 	}
 }
