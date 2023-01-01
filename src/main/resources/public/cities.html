@@ -334,7 +334,7 @@
         formReset("#cityAddModal form");
         getContinent("#continentInput");
         $("#cityAddModal").modal({
-            backdrop: "static"
+            backdrop: 'static'
         });
     });
 
@@ -348,12 +348,12 @@
     function getContinent(element) {
         $(element).empty();
         $.ajax({
-            url: pathdeApp + "/continents",
-            type: "GET",
+            url: pathdeApp + '/continents',
+            type: 'GET',
             success: function (result) {
                 $.each(result.extend.continents, function () {
                     let optionElement = $("<option></option>")
-                        .append(this.continent).attr("value", this.continent);
+                        .append(this).attr("value", this);
                     optionElement.appendTo(element);
                 });
             }

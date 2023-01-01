@@ -2,9 +2,11 @@ package jp.co.toshiba.ppok.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import com.google.common.collect.Sets;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityInfo;
 import jp.co.toshiba.ppok.entity.Nation;
@@ -170,8 +172,12 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
+		final Set<String> cnSet = Sets.newHashSet();
 		final List<CityInfo> cnlist = this.cityInfoDao.findAll();
-		return RestMsg.success().add("continents", cnlist);
+		for (CityInfo cityInfo : cnlist) {
+			cnSet.add(cityInfo.getContinent());
+		}
+		return RestMsg.success().add("continents", cnSet);
 	}
 
 	/**
