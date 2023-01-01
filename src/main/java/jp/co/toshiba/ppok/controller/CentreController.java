@@ -51,15 +51,15 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
-			@RequestParam(value = "name", defaultValue = "") final String name) {
+			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
 		Page<CityInfo> dtoPage;
-		if (StringUtils.isNotEmpty(name)) {
+		if (StringUtils.isNotEmpty(keyword)) {
 			final CityInfo cityInfo = new CityInfo();
-			cityInfo.setName(name);
+			cityInfo.setName(keyword);
 			final ExampleMatcher matcher = ExampleMatcher.matching()
 					.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
-					.withMatcher(name, ExampleMatcher.GenericPropertyMatchers.contains())
+					.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
 					.withIgnorePaths("id", "continent", "nation", "district", "population");
 			final Example<CityInfo> example = Example.of(cityInfo, matcher);
 			dtoPage = this.cityInfoDao.findAll(example, pageRequest);
