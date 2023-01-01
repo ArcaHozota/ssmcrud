@@ -475,7 +475,7 @@
             url: pathdeApp + '/nations/' + id,
             type: 'GET',
             success: function (result) {
-                $.each(result.extend.nationsAndName, function () {
+                $.each(result.extend.nationsByName, function () {
                     let optionElement = $("<option></option>")
                         .append(this).attr("value", this);
                     optionElement.appendTo(element);

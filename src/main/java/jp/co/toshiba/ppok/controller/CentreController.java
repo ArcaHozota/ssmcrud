@@ -213,9 +213,10 @@ public class CentreController {
 		list.add(nationName);
 		final String continent = cityInfo.getContinent();
 		final List<CityInfo> nations = this.cityInfoDao.getNations(continent);
-		nations.forEach(item -> {
-			list.add(item.getNation());
-		});
-		return RestMsg.success().add("nationsAndName", list);
+//		nations.forEach(item -> {
+//			list.add(item.getNation());
+//		});
+		nations.forEach(System.out::println);
+		return RestMsg.success().add("nationsByName", list);
 	}
 }
