@@ -2,6 +2,7 @@ package jp.co.toshiba.ppok.repository;
 
 import jp.co.toshiba.ppok.entity.CityInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,5 +21,6 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 	 * 
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> findDistinctByContinentIsNotNull();
+	@Query(value = "SELECT DISTINCT WCV.CONTINENT FROM WORLD_CITY_VIEW WCV")
+	List<CityInfo> getContinents();
 }

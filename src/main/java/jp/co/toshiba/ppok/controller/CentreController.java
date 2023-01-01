@@ -175,7 +175,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
-		final List<CityInfo> cnlist = this.cityInfoDao.findDistinctByContinentIsNotNull();
+		final List<CityInfo> cnlist = this.cityInfoDao.getContinents();
 		return RestMsg.success().add("continents", cnlist);
 	}
 
