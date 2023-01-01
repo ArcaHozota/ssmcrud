@@ -77,7 +77,7 @@ public class CentreController {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
 				final List<CityInfo> minPopList = this.cityInfoDao.findAll(pageRequest02).getContent().subList(0, 10);
-				dtoPage = new PageImpl<CityInfo>(minPopList);
+				dtoPage = new PageImpl<>(minPopList);
 			} else if (ComparisonUtils.isEqual("max(pop)", keyword)) {
 				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.DESC, "population"));
