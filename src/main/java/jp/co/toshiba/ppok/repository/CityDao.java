@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * searching dao of table WORLD_CITY
@@ -22,6 +23,7 @@ public interface CityDao extends JpaRepository<City, Long> {
      * @param id id of the selected city
      */
     @Modifying
+    @Transactional
     @Query(value = "update City cvn set cvn.isDeleted = 1 where cvn.id =:id")
     void removeById(@Param("id") final Long id);
 }
