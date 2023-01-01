@@ -3,6 +3,7 @@ package jp.co.toshiba.ppok.repository;
 import jp.co.toshiba.ppok.entity.CityInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,6 +31,6 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 	 * @param continent name of continent
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct new CityInfo(cvw.nation) from CityInfo cvw where cvw.continent =: continent")
+	@Query(value = "select distinct new CityInfo(cvw.nation) from CityInfo cvw where cvw.continent =:continent")
 	List<CityInfo> getNations(final String continent);
 }
