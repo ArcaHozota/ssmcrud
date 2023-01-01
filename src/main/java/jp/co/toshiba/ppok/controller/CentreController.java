@@ -61,7 +61,7 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17);
+		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
 		if (ComparisonUtils.isNotEmpty(keyword)) {
 			final CityInfo cityInfo1 = new CityInfo();
