@@ -125,27 +125,8 @@ public class Nation implements Serializable {
 	public Nation() {
 	}
 
-	public Nation(final String code, final String name, final String continent, final String region,
-			final BigDecimal surfaceArea, final Integer independenceYear, final Long population,
-			final BigDecimal lifeExpectancy, final BigDecimal gnp, final BigDecimal gnpOld, final String localName,
-			final String governmentForm, final String headOfState, final Long capital, final String code2,
-			final Integer isDeleted) {
-		this.code = code;
+	public Nation(String name) {
 		this.name = name;
-		this.continent = continent;
-		this.region = region;
-		this.surfaceArea = surfaceArea;
-		this.independenceYear = independenceYear;
-		this.population = population;
-		this.lifeExpectancy = lifeExpectancy;
-		this.gnp = gnp;
-		this.gnpOld = gnpOld;
-		this.localName = localName;
-		this.governmentForm = governmentForm;
-		this.headOfState = headOfState;
-		this.capital = capital;
-		this.code2 = code2;
-		this.isDeleted = isDeleted;
 	}
 
 	@Override
