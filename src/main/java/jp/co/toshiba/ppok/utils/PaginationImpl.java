@@ -27,7 +27,7 @@ public class PaginationImpl<T> extends PageImpl<T> {
 
 	protected int naviPages;
 
-	protected int[] navigationPgs;
+	protected int[] navigationPga;
 
 	public PaginationImpl(List<T> content, Pageable pageable, long total) {
 		super(content, pageable, total);
@@ -46,7 +46,7 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		// 設置導航條頁碼數量；
 		this.setNaviPages(naviPages);
 		// 计算导航页
-		this.calcnavigationPgs();
+		this.calcnavigationPga();
 		// 判定页面边界
 		this.discernPageBoundary();
 	}
@@ -54,35 +54,35 @@ public class PaginationImpl<T> extends PageImpl<T> {
 	/**
 	 * 计算导航页
 	 */
-	private void calcnavigationPgs() {
+	private void calcnavigationPga() {
 		final int currentPage = (int) this.current;
 		// 当总页数小于或等于导航页码数时
 		if (this.totalPg <= this.naviPages) {
-			this.navigationPgs = new int[this.totalPg];
+			this.navigationPga = new int[this.totalPg];
 			for (int i = 0; i < this.totalPg; i++) {
-				this.navigationPgs[i] = i + 1;
+				this.navigationPga[i] = i + 1;
 			}
 		} else {
 			// 当总页数大于导航页码数时
-			this.navigationPgs = new int[this.naviPages];
+			this.navigationPga = new int[this.naviPages];
 			int startNum = currentPage - this.naviPages / 2;
 			int endNum = currentPage + this.naviPages / 2;
 			if (startNum < 1) {
 				startNum = 1;
 				// (最前pageSize页
 				for (int i = 0; i < this.naviPages; i++) {
-					this.navigationPgs[i] = startNum++;
+					this.navigationPga[i] = startNum++;
 				}
 			} else if (endNum > this.totalPg) {
 				endNum = this.totalPg;
 				// 最后pageSize页
 				for (int i = this.naviPages - 1; i >= 0; i--) {
-					this.navigationPgs[i] = endNum--;
+					this.navigationPga[i] = endNum--;
 				}
 			} else {
 				// 所有中间页
 				for (int i = 0; i < this.naviPages; i++) {
-					this.navigationPgs[i] = startNum++;
+					this.navigationPga[i] = startNum++;
 				}
 			}
 		}
@@ -145,11 +145,11 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		this.naviPages = naviPages;
 	}
 
-	public int[] getnavigationPgs() {
-		return navigationPgs;
+	public int[] getnavigationPga() {
+		return navigationPga;
 	}
 
-	public void setnavigationPgs(int[] navigationPgs) {
-		this.navigationPgs = navigationPgs;
+	public void setnavigationPga(int[] navigationPga) {
+		this.navigationPga = navigationPga;
 	}
 }
