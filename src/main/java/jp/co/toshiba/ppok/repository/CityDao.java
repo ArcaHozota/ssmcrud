@@ -20,6 +20,6 @@ public interface CityDao extends JpaRepository<City, Long> {
      *
      * @param id id of the selected city
      */
-//    @Query(value = "update City cvn set new City() where ")
+    @Query(value = "update City cvn set cvn.isDeleted = 1 where cvn.id =:id")
     void removeById(@Param("id") final Long id);
 }
