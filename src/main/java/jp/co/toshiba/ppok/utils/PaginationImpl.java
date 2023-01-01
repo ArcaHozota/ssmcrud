@@ -1,8 +1,12 @@
 package jp.co.toshiba.ppok.utils;
 
+import java.util.List;
+
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Basic {@code Page} implementation.
@@ -11,7 +15,11 @@ import java.util.List;
  * @author Oliver Gierke
  * @author Mark Paluch
  */
+@Getter
+@Setter
 public class PaginationImpl<T> extends PageImpl<T> {
+
+	private static final long serialVersionUID = -5664717729756413101L;
 
 	private Integer current;
 
@@ -27,11 +35,11 @@ public class PaginationImpl<T> extends PageImpl<T> {
 
 	protected int[] navigationPga;
 
-	public PaginationImpl(List<T> content, Pageable pageable, long total) {
+	public PaginationImpl(final List<T> content, final Pageable pageable, final long total) {
 		super(content, pageable, total);
 	}
 
-	public PaginationImpl(List<T> content) {
+	public PaginationImpl(final List<T> content) {
 		super(content);
 	}
 
@@ -53,7 +61,7 @@ public class PaginationImpl<T> extends PageImpl<T> {
 	 * 计算导航页
 	 */
 	private void calcnavigationPga() {
-		final int currentPage = (int) this.current;
+		final int currentPage = this.current;
 		// 当总页数小于或等于导航页码数时
 		if (this.totalPg <= this.naviPages) {
 			this.navigationPga = new int[this.totalPg];
@@ -95,59 +103,4 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		this.hasNext = this.current < totalPgs;
 	}
 
-	public Integer getCurrent() {
-		return current;
-	}
-
-	public void setCurrent(Integer current) {
-		this.current = current;
-	}
-
-	public Integer getTotalPg() {
-		return totalPg;
-	}
-
-	public void setTotalPg(Integer totalPg) {
-		this.totalPg = totalPg;
-	}
-
-	public Long getTotalRecords() {
-		return totalRecords;
-	}
-
-	public void setTotalRecords(Long totalRecords) {
-		this.totalRecords = totalRecords;
-	}
-
-	public Boolean getHasPrevious() {
-		return hasPrevious;
-	}
-
-	public void setHasPrevious(Boolean hasPrevious) {
-		this.hasPrevious = hasPrevious;
-	}
-
-	public Boolean getHasNext() {
-		return hasNext;
-	}
-
-	public void setHasNext(Boolean hasNext) {
-		this.hasNext = hasNext;
-	}
-
-	public int getNaviPages() {
-		return naviPages;
-	}
-
-	public void setNaviPages(int naviPages) {
-		this.naviPages = naviPages;
-	}
-
-	public int[] getNavigationPga() {
-		return navigationPga;
-	}
-
-	public void setNavigationPga(int[] navigationPga) {
-		this.navigationPga = navigationPga;
-	}
 }
