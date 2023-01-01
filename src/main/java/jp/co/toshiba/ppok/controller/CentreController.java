@@ -70,7 +70,7 @@ public class CentreController {
 		// 設置分頁；
 		final PaginationImpl<CityInfo> pageInfo = new PaginationImpl<>(dtoPage.getContent());
 		// 設置當前頁；
-		final int current = dtoPage.getNumber();
+		final int current = dtoPage.getNumber() + 1;
 		pageInfo.setCurrent(current);
 		// 設置總頁數；
 		final int totalPage = dtoPage.getTotalPages();
