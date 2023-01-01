@@ -78,6 +78,11 @@ public class CentreController {
 		// 設置總記錄數；
 		final long totalRecords = dtoPage.getTotalElements();
 		pageInfo.setTotalRecords(totalRecords);
+		// 設置是否有前後頁；
+		final boolean hasPrevious = dtoPage.hasPrevious();
+		pageInfo.setHasPrevious(hasPrevious);
+		final boolean hasNext = dtoPage.hasNext();
+		pageInfo.setHasNext(hasNext);
 //		// 設置分頁導航條頁碼數量；
 //		pageInfo.calcByNaviPages(5);
 		return RestMsg.success().add("pageInfo", pageInfo);
