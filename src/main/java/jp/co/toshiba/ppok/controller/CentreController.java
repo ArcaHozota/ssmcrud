@@ -62,7 +62,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17);
-		Page<CityInfo> dtoPage = null;
+		Page<CityInfo> dtoPage;
 		if (ComparisonUtils.isNotEmpty(keyword)) {
 			final CityInfo cityInfo1 = new CityInfo();
 			cityInfo1.setNation(keyword);
