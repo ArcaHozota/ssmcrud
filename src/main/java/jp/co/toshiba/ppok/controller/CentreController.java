@@ -190,7 +190,11 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final List<CityInfo> nationList = this.cityInfoDao.getNations(continent);
+		final List<String> nationList = Lists.newArrayList();
+		final List<CityInfo> list = this.cityInfoDao.getNations(continent);
+		list.forEach(item -> {
+			nationList.add(item.getNation());
+		});
 		return RestMsg.success().add("nations", nationList);
 	}
 
