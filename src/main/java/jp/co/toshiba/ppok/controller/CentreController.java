@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
- * Center Terminal Controller Handle the retrieve and update requests.
+ * Center Terminal Controller handle the retrieve and update requests.
  *
  * @author Administrator
  */
