@@ -1,16 +1,19 @@
 package jp.co.toshiba.ppok.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
-import org.hibernate.annotations.Proxy;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Administrator
@@ -122,10 +125,11 @@ public class Nation implements Serializable {
 	public Nation() {
 	}
 
-	public Nation(String code, String name, String continent, String region, BigDecimal surfaceArea,
-			Integer independenceYear, Long population, BigDecimal lifeExpectancy, BigDecimal gnp, BigDecimal gnpOld,
-			String localName, String governmentForm, String headOfState, Long capital, String code2,
-			Integer isDeleted) {
+	public Nation(final String code, final String name, final String continent, final String region,
+			final BigDecimal surfaceArea, final Integer independenceYear, final Long population,
+			final BigDecimal lifeExpectancy, final BigDecimal gnp, final BigDecimal gnpOld, final String localName,
+			final String governmentForm, final String headOfState, final Long capital, final String code2,
+			final Integer isDeleted) {
 		this.code = code;
 		this.name = name;
 		this.continent = continent;
@@ -146,11 +150,12 @@ public class Nation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Nation{" + "code='" + code + '\'' + ", name='" + name + '\'' + ", continent='" + continent + '\''
-				+ ", region='" + region + '\'' + ", surfaceArea=" + surfaceArea + ", independenceYear="
-				+ independenceYear + ", population=" + population + ", lifeExpectancy=" + lifeExpectancy + ", gnp="
-				+ gnp + ", gnpOld=" + gnpOld + ", localName='" + localName + '\'' + ", governmentForm='"
-				+ governmentForm + '\'' + ", headOfState='" + headOfState + '\'' + ", capital=" + capital + ", code2='"
-				+ code2 + '\'' + ", isDeleted=" + isDeleted + '}';
+		return "Nation{" + "code='" + this.code + '\'' + ", name='" + this.name + '\'' + ", continent='"
+				+ this.continent + '\'' + ", region='" + this.region + '\'' + ", surfaceArea=" + this.surfaceArea
+				+ ", independenceYear=" + this.independenceYear + ", population=" + this.population
+				+ ", lifeExpectancy=" + this.lifeExpectancy + ", gnp=" + this.gnp + ", gnpOld=" + this.gnpOld
+				+ ", localName='" + this.localName + '\'' + ", governmentForm='" + this.governmentForm + '\''
+				+ ", headOfState='" + this.headOfState + '\'' + ", capital=" + this.capital + ", code2='" + this.code2
+				+ '\'' + ", isDeleted=" + this.isDeleted + '}';
 	}
 }
