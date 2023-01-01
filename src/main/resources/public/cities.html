@@ -424,8 +424,8 @@
             showValidationMsg("#populationInput", "success", "√");
             //Send an ajax request to commit save options.
             $.ajax({
-                url: pathdeApp + "/city",
-                type: "POST",
+                url: pathdeApp + '/city',
+                type: 'POST',
                 data: $("#cityAddModal form").serialize(),
                 success: function (result) {
                     if (result.code === 200) {
