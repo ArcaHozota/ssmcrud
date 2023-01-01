@@ -64,8 +64,7 @@ public class CentreController {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
 		if (ComparisonUtils.isNotEmpty(keyword)) {
-			final List<CityInfo> keyNations = this.cityInfoDao.getCityInfosByNationNameProvieded(keyword);
-			System.out.println(keyNations.size());
+			final List<CityInfo> keyNations = this.cityInfoDao.getByNationName(keyword);
 			if (keyNations.size() != 0) {
 				dtoPage = new PageImpl<>(keyNations);
 			} else if (ComparisonUtils.isEqual("min(pop)", keyword)) {
