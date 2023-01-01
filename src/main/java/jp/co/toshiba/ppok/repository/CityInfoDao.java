@@ -18,7 +18,7 @@ import java.util.List;
 public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 
 	/**
-	 * retrieve the nation list distinct.
+	 * Retrieve the nation list distinct.
 	 * 
 	 * @param continent name of continent
 	 * @return List<CityInfo>
@@ -27,7 +27,7 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 	List<CityInfo> getNations(@Param("continent") final String continent);
 
 	/**
-	 * retrieve city infos by nation name provided.
+	 * Retrieve city infos by nation name provided.
 	 * 
 	 * @param nation name of nation
 	 * @return List<CityInfo>
