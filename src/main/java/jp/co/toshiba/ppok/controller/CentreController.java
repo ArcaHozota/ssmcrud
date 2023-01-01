@@ -17,6 +17,7 @@ import jp.co.toshiba.ppok.utils.PaginationImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -202,18 +203,16 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
-		final List<String> list = Lists.newArrayList();
+		final Set<String> nationSet = Sets.newHashSet();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		final String nationName = cityInfo.getNation();
-		list.add(nationName);
+		nationSet.add(nationName);
 		final String continent = cityInfo.getContinent();
 		final List<CityInfo> nations = this.getNations(continent);
 		nations.forEach(item -> {
-			if (!nationName.equals(item.getNation())) {
-				list.add(item.getNation());
-			}
+			nationSet.add(item.getNation());
 		});
-		return RestMsg.success().add("nationsWithName", list);
+		return RestMsg.success().add("nationsWithName", nationSet);
 	}
 
 	private List<CityInfo> getNations(final String continent) {
