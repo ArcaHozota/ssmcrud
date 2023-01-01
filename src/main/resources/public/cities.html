@@ -269,9 +269,9 @@
     function buildPageInfos(result) {
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
-        currentPage = result.extend.pageInfo.getNumber;
-        totalPages = result.extend.pageInfo.getTotalPages;
-        totalRecord = result.extend.pageInfo.total;
+        currentPage = result.extend.pageInfo.current;
+        totalPages = result.extend.pageInfo.totalPg;
+        totalRecord = result.extend.pageInfo.totalRecords;
         pageInfos.append("The " + currentPage + " page in "
             + totalPages + " pages, " + totalRecord + " records found.");
     }
