@@ -190,18 +190,8 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final Set<String> nationSet = Sets.newHashSet();
-		final CityInfo cityInfo = new CityInfo();
-		cityInfo.setContinent(continent);
-		final ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
-				.withIgnoreCase(true).withMatcher(continent, ExampleMatcher.GenericPropertyMatchers.exact())
-				.withIgnorePaths("id", "name", "nation", "district", "population");
-		final Example<CityInfo> example = Example.of(cityInfo, matcher);
-		final List<CityInfo> list = this.cityInfoDao.findAll(example);
-		list.forEach(item -> {
-			nationSet.add(item.getNation());
-		});
-		return RestMsg.success().add("nations", nationSet);
+		final List<String> nationList = this.cityInfoDao.getNations(continent);
+		return RestMsg.success().add("nations", nationList);
 	}
 
 	/**
@@ -211,16 +201,17 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
-		final List<String> list = Lists.newArrayList();
+		final List<String> nationList = Lists.newArrayList();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		final String nationName = cityInfo.getNation();
-		list.add(nationName);
+		nationList.add(nationName);
 		final String continent = cityInfo.getContinent();
-		final List<CityInfo> nations = this.cityInfoDao.getNations(continent);
-//		nations.forEach(item -> {
-//			list.add(item.getNation());
-//		});
-		nations.forEach(System.out::println);
-		return RestMsg.success().add("nationsByName", list);
+		final List<String> nations = this.cityInfoDao.getNations(continent);
+		nations.forEach(item -> {
+			if (!nationName.equals(item)) {
+				nationList.add(item);
+			}
+		});
+		return RestMsg.success().add("nationsByName", nationList);
 	}
 }
