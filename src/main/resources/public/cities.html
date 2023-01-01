@@ -353,7 +353,7 @@
             success: function (result) {
                 $.each(result.extend.continents, function () {
                     let optionElement = $("<option></option>")
-                        .append(this.continent).attr("value", this.continent);
+                        .append(this).attr("value", this);
                     optionElement.appendTo(element);
                 });
             }
