@@ -477,7 +477,7 @@
             success: function (result) {
                 $.each(result.extend.nationsByName, function () {
                     let optionElement = $("<option></option>")
-                        .append(this.nation).attr("value", this.nation);
+                        .append(this).attr("value", this);
                     optionElement.appendTo(element);
                 });
             }
