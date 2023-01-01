@@ -370,7 +370,7 @@
             success: function (result) {
                 $.each(result.extend.nations, function () {
                     let optionElement = $("<option></option>")
-                        .append(this).attr("value", this);
+                        .append(this.nation).attr("value", this.nation);
                     optionElement.appendTo(element);
                 });
             }
