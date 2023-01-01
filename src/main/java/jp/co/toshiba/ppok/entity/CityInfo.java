@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -22,6 +23,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
+@Proxy(lazy = false)
 @Table(name = "world_city_view")
 public class CityInfo implements Serializable {
 
