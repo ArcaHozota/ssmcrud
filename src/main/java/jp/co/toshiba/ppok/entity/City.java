@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Proxy(lazy = false)
-@Table(name = "world_city")
+@Table(name = "city")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1815689293387304425L;

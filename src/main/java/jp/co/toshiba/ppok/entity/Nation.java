@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Proxy(lazy = false)
-@Table(name = "world_country")
+@Table(name = "country")
 public class Nation implements Serializable {
 
 	private static final long serialVersionUID = -437505450837045511L;

@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Proxy(lazy = false)
-@Table(name = "world_city_view")
+@Table(name = "city_view")
 public class CityInfo implements Serializable {
 
 	private static final long serialVersionUID = -863534569423043863L;
