@@ -200,14 +200,14 @@
     });
 
     //Transfer to clicked page numbers.
-    function toSelectedPg(pageNum, name) {
+    function toSelectedPg(pageNum, searchName) {
         $.ajax({
-            url: pathdeApp + "/city",
+            url: pathdeApp + '/city',
             data: {
                 "pageNum": pageNum,
-                "name": name
+                "keyword": searchName
             },
-            type: "GET",
+            type: 'GET',
             success: function (result) {
                 buildCityTable(result);
                 buildPageInfos(result);
@@ -220,8 +220,8 @@
     function buildCityTable(result) {
         //Emptying the former table.
         $("#cityTableBody").empty();
-        let index = result.extend.pageInfo.records;
-        $.each(cities, function (index, item) {
+        let index = result.extend.pageInfo.getContent;
+        $.each(index, function (index, item) {
             let cityName = item.name.trim().toString();
             let nationName = item.nation.trim().toString();
             let districtName = item.district.trim().toString();
