@@ -48,10 +48,10 @@ public class CentreController {
 	private CityDao cityDao;
 
 	@Resource
-	private CityInfoDao cityInfoDao;
+	private NationDao nationDao;
 
 	@Resource
-	private NationDao nationDao;
+	private CityInfoDao cityInfoDao;
 
 	/**
 	 * Retrieve the city data.
