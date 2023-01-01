@@ -187,9 +187,11 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final Set<CityInfo> nationSet = Sets.newHashSet();
+		final Set<String> nationSet = Sets.newHashSet();
 		final List<CityInfo> list = this.getNations(continent);
-		nationSet.addAll(list);
+		list.forEach(item -> {
+			nationSet.add(item.getNation());
+		});
 		return RestMsg.success().add("nations", nationSet);
 	}
 
