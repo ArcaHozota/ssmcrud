@@ -271,7 +271,7 @@
         pageInfos.empty();
         currentPage = result.extend.pageInfo.getNumber;
         totalPages = result.extend.pageInfo.getTotalPages;
-        totalRecord = result.extend.pageInfo.getTotalElements;
+        totalRecord = result.extend.pageInfo.total;
         pageInfos.append("The " + currentPage + " page in "
             + totalPages + " pages, " + totalRecord + " records found.");
     }
