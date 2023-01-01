@@ -175,13 +175,8 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
-		final CriteriaQuery query;
-		final Set<String> cnSet = Sets.newHashSet();
-		final List<CityInfo> cnlist = this.cityInfoDao.findAll();
-		cnlist.forEach(item -> {
-			cnSet.add(item.getContinent());
-		});
-		return RestMsg.success().add("continents", cnSet);
+		final List<CityInfo> cnlist = this.cityInfoDao.findDistinctByContinentIsNotNull();
+		return RestMsg.success().add("continents", cnlist);
 	}
 
 	/**

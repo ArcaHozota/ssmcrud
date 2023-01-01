@@ -4,6 +4,8 @@ import jp.co.toshiba.ppok.entity.CityInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * searching dao of table WORLD_CITY_VIEW
  *
@@ -12,4 +14,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
+
+	/**
+	 * retrieve the continent list distinct.
+	 * 
+	 * @return List<CityInfo>
+	 */
+	List<CityInfo> findDistinctByContinentIsNotNull();
 }
