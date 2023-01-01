@@ -447,20 +447,20 @@
         getCityInfo(editId);
         $("#cityInfoChangeBtn").attr("editId", editId);
         $("#cityEditModal").modal({
-            backdrop: "static"
+            backdrop: 'static'
         });
     });
 
     //Get the selected city infos.
     function getCityInfo(id) {
-        let vector = $("#continentName");
         $.ajax({
             url: pathdeApp + '/city/' + id,
             type: 'GET',
+            dataType: 'json',
             success: function (result) {
                 let cityData = result.extend.citySelected;
-                $("#displayedCityName").text(cityData.name);
-                vector.text(cityData.continent);
+                $("#nameEdit").text(cityData.name);
+                $("#continentEdit").text(cityData.continent);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
                 getNationsById("#nationEdit", id);
