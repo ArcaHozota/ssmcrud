@@ -1,16 +1,11 @@
 package jp.co.toshiba.ppok.entity;
-
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * dto of the view of world cities
@@ -20,8 +15,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
 @Entity
 @Proxy(lazy = false)
 @Table(name = "world_city_view")
@@ -67,20 +60,29 @@ public class CityInfo implements Serializable {
     @Column(nullable = false)
     private Long population;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
-            return false;
-        }
-        CityInfo cityInfo = (CityInfo) obj;
-        return id != null && Objects.equals(id, cityInfo.id);
+    public CityInfo() {
+    }
+
+    public CityInfo(String continent) {
+        this.continent = continent;
+    }
+
+    public CityInfo(Long id, String name, String district, Long population) {
+        this.id = id;
+        this.name = name;
+        this.district = district;
+        this.population = population;
     }
 
     @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public String toString() {
+        return "CityInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", nation='" + nation + '\'' +
+                ", district='" + district + '\'' +
+                ", population=" + population +
+                '}';
     }
 }
