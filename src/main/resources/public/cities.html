@@ -517,9 +517,8 @@
             contentType: 'application/json;charset=UTF-8',
             dataType: 'json',
             data: JSON.stringify({
-                'id': editId,
-                'name': $("#displayedCityName").text(),
-                'continent': $("#continentName").text(),
+                'name': $("#nameEdit").text(),
+                'continent': $("#continentEdit").text(),
                 'nation': $("#nationEdit option:selected").val(),
                 'district': inputDistrict,
                 'population': inputPopulation
