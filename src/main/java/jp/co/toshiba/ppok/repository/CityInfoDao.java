@@ -21,6 +21,6 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 	 * 
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "SELECT DISTINCT WCV.CONTINENT AS CONTINENT FROM WORLD_CITY_VIEW WCV", nativeQuery = true)
+	@Query(value = "SELECT DISTINCT WCV.CONTINENT AS continent FROM WORLD_CITY_VIEW WCV", nativeQuery = true)
 	List<CityInfo> getContinents();
 }
