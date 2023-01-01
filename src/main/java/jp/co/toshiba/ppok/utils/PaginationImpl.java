@@ -21,6 +21,10 @@ public class PaginationImpl<T> extends PageImpl<T> {
 
     private Long totalRecords;
 
+    private Boolean hasPrevious;
+
+    private Boolean hasNext;
+
     public PaginationImpl(List<T> content, Pageable pageable, long total) {
         super(content, pageable, total);
     }
@@ -51,6 +55,22 @@ public class PaginationImpl<T> extends PageImpl<T> {
 
     public void setTotalRecords(Long totalRecords) {
         this.totalRecords = totalRecords;
+    }
+
+    public Boolean getHasPrevious() {
+        return hasPrevious;
+    }
+
+    public void setHasPrevious(Boolean hasPrevious) {
+        this.hasPrevious = hasPrevious;
+    }
+
+    public Boolean getHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(Boolean hasNext) {
+        this.hasNext = hasNext;
     }
 }
 
