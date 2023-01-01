@@ -174,9 +174,9 @@ public class CentreController {
 	public RestMsg getListOfContinents() {
 		final Set<String> cnSet = Sets.newHashSet();
 		final List<CityInfo> cnlist = this.cityInfoDao.findAll();
-		for (CityInfo cityInfo : cnlist) {
-			cnSet.add(cityInfo.getContinent());
-		}
+		cnlist.forEach(item -> {
+			cnSet.add(item.getContinent());
+		});
 		return RestMsg.success().add("continents", cnSet);
 	}
 
