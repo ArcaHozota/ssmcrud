@@ -15,6 +15,8 @@ import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.CriteriaQuery;
+import org.hibernate.criterion.Distinct;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -173,6 +175,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
+		final CriteriaQuery query;
 		final Set<String> cnSet = Sets.newHashSet();
 		final List<CityInfo> cnlist = this.cityInfoDao.findAll();
 		cnlist.forEach(item -> {
