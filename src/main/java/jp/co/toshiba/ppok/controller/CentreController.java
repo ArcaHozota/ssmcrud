@@ -54,7 +54,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
-		PaginationImpl<CityInfo> dtoPage;
+		Page<CityInfo> dtoPage;
 		if (StringUtils.isNotEmpty(keyword)) {
 			final CityInfo cityInfo = new CityInfo();
 			cityInfo.setName(keyword);
@@ -63,16 +63,24 @@ public class CentreController {
 					.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
 					.withIgnorePaths("id", "continent", "nation", "district", "population");
 			final Example<CityInfo> example = Example.of(cityInfo, matcher);
-			dtoPage = (PaginationImpl<CityInfo>) this.cityInfoDao.findAll(example, pageRequest);
+			dtoPage = this.cityInfoDao.findAll(example, pageRequest);
 		} else {
-			dtoPage = (PaginationImpl<CityInfo>) this.cityInfoDao.findAll(pageRequest);
+			dtoPage = this.cityInfoDao.findAll(pageRequest);
 		}
-//		// 設置總頁數；
-//		final int totalPage = dtoPage.getTotalPages();
-//		dtoPage.setTotalPages(totalPage);
+		// 設置分頁；
+		final PaginationImpl<CityInfo> pageInfo = new PaginationImpl<>(dtoPage.getContent());
+		// 設置當前頁；
+		final int current = dtoPage.getNumber();
+		pageInfo.setCurrent(current);
+		// 設置總頁數；
+		final int totalPage = dtoPage.getTotalPages();
+		pageInfo.setTotalPg(totalPage);
+		// 設置總記錄數；
+		final long totalRecords = dtoPage.getTotalElements();
+		pageInfo.setTotalRecords(totalRecords);
 //		// 設置分頁導航條頁碼數量；
-//		dtoPage.calcByNaviPages(5);
-		return RestMsg.success().add("pageInfo", dtoPage);
+//		pageInfo.calcByNaviPages(5);
+		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 
 	/**
