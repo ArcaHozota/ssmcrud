@@ -366,7 +366,7 @@
         $.ajax({
             url: pathdeApp + "/nations",
             data: "continentVal=" + continentVal,
-            type: "GET",
+            type: 'GET',
             success: function (result) {
                 $.each(result.extend.nations, function () {
                     let optionElement = $("<option></option>")
