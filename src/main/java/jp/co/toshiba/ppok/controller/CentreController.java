@@ -187,7 +187,13 @@ public class CentreController {
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final Set<String> nationSet = Sets.newHashSet();
-		final List<CityInfo> list = this.getNations(continent);
+		final CityInfo cityInfo = new CityInfo();
+		cityInfo.setContinent(continent);
+		final ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
+				.withIgnoreCase(true).withMatcher(continent, ExampleMatcher.GenericPropertyMatchers.exact())
+				.withIgnorePaths("id", "name", "nation", "district", "population");
+		final Example<CityInfo> example = Example.of(cityInfo, matcher);
+		final List<CityInfo> list = this.cityInfoDao.findAll(example);
 		list.forEach(item -> {
 			nationSet.add(item.getNation());
 		});
@@ -201,25 +207,15 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
-		final Set<String> nationSet = Sets.newHashSet();
+		final List<String> list = Lists.newArrayList();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		final String nationName = cityInfo.getNation();
-		nationSet.add(nationName);
+		list.add(nationName);
 		final String continent = cityInfo.getContinent();
-		final List<CityInfo> nations = this.getNations(continent);
+		final List<CityInfo> nations = this.cityInfoDao.getNations(continent);
 		nations.forEach(item -> {
-			nationSet.add(item.getNation());
+			list.add(item.getNation());
 		});
-		return RestMsg.success().add("nationsAndName", nationSet);
-	}
-
-	private List<CityInfo> getNations(final String continent) {
-		final CityInfo cityInfo = new CityInfo();
-		cityInfo.setContinent(continent);
-		final ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
-				.withIgnoreCase(true).withMatcher(continent, ExampleMatcher.GenericPropertyMatchers.exact())
-				.withIgnorePaths("id", "name", "nation", "district", "population");
-		final Example<CityInfo> example = Example.of(cityInfo, matcher);
-		return this.cityInfoDao.findAll(example);
+		return RestMsg.success().add("nationsAndName", list);
 	}
 }

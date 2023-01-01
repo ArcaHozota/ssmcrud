@@ -21,8 +21,15 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
 	 * 
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct new CityInfo(ci.continent) from CityInfo ci")
+	@Query(value = "select distinct new CityInfo(cvw.continent) from CityInfo cvw")
 	List<CityInfo> getContinents();
 
+	/**
+	 * retrieve the nation list distinct.
+	 * 
+	 * @param continent name of continent
+	 * @return List<CityInfo>
+	 */
+	@Query(value = "select distinct new CityInfo(cvw.nation) from CityInfo cvw where cvw.continent =: continent")
 	List<CityInfo> getNations(final String continent);
 }
