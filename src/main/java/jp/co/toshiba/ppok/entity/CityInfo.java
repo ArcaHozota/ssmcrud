@@ -68,11 +68,13 @@ public class CityInfo implements Serializable {
 		this.nation = nation;
 	}
 
-	public CityInfo(String name, String continent, String nation, String district) {
+	public CityInfo(Long id, String name, String continent, String nation, String district, Long population) {
+		this.id = id;
 		this.name = name;
 		this.continent = continent;
 		this.nation = nation;
 		this.district = district;
+		this.population = population;
 	}
 
 	@Override
