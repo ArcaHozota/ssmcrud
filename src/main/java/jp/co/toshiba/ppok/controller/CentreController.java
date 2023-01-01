@@ -190,7 +190,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final List<String> nationList = this.cityInfoDao.getNations(continent);
+		final List<CityInfo> nationList = this.cityInfoDao.getNations(continent);
 		return RestMsg.success().add("nations", nationList);
 	}
 
@@ -206,10 +206,10 @@ public class CentreController {
 		final String nationName = cityInfo.getNation();
 		nationList.add(nationName);
 		final String continent = cityInfo.getContinent();
-		final List<String> nations = this.cityInfoDao.getNations(continent);
+		final List<CityInfo> nations = this.cityInfoDao.getNations(continent);
 		nations.forEach(item -> {
-			if (!nationName.equals(item)) {
-				nationList.add(item);
+			if (!nationName.equals(item.getNation())) {
+				nationList.add(item.getNation());
 			}
 		});
 		return RestMsg.success().add("nationsByName", nationList);
