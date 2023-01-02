@@ -136,7 +136,7 @@ public class CentreController {
 	 * @param cityInfo the input message of cities
 	 * @return RestMsg.success()
 	 */
-	@PostMapping(value = "/city/{id}")
+	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
 		final City city = new City();
 		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
