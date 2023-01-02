@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,6 +128,25 @@ public class CentreController {
 	public RestMsg getCityInfo(@PathVariable("id") final Long id) {
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		return RestMsg.success().add("citySelected", cityInfo);
+	}
+
+	/**
+	 * Save inputted city info.
+	 *
+	 * @param cityInfo the input message of cities
+	 * @return RestMsg.success()
+	 */
+	@PostMapping(value = "/city/{id}")
+	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
+		final City city = new City();
+		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+		final String nationName = cityInfo.getNation();
+		final Nation nation = this.nationDao.getNationCode(nationName);
+		final String nationCode = nation.getCode();
+		city.setCountryCode(nationCode);
+		city.setIsDeleted(0);
+		this.cityDao.save(city);
+		return RestMsg.success();
 	}
 
 	/**
