@@ -1,12 +1,13 @@
 package jp.co.toshiba.ppok.repository;
 
-import jp.co.toshiba.ppok.entity.CityInfo;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import jp.co.toshiba.ppok.entity.CityInfo;
 
 /**
  * searching dao of table WORLD_CITY_VIEW
@@ -15,11 +16,11 @@ import java.util.List;
  * @date 2022-12-17
  */
 @Repository
-public interface CityInfoDao extends JpaRepository<CityInfo, Long> {
+public interface CityInfoDao extends JpaRepository<CityInfo, Integer> {
 
 	/**
 	 * Retrieve city infos by nation name provided.
-	 * 
+	 *
 	 * @param nation name of nation
 	 * @return List<CityInfo>
 	 */
