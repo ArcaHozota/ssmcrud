@@ -125,7 +125,7 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/city/{id}")
-	public RestMsg getCityInfo(@PathVariable("id") final Long id) {
+	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		return RestMsg.success().add("citySelected", cityInfo);
 	}
@@ -180,7 +180,7 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@DeleteMapping(value = "/city/{id}")
-	public RestMsg deleteCityInfo(@PathVariable("id") final Long id) {
+	public RestMsg deleteCityInfo(@PathVariable("id") final Integer id) {
 		this.cityDao.removeById(id);
 		return RestMsg.success();
 	}
@@ -249,7 +249,7 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/nations/{id}")
-	public RestMsg getListOfNationsById(@PathVariable("id") final Long id) {
+	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
 		final List<String> nationList = Lists.newArrayList();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
 		final String nationName = cityInfo.getNation();
