@@ -16,7 +16,6 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-@EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
