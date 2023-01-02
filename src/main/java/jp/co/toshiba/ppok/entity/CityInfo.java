@@ -1,12 +1,19 @@
 package jp.co.toshiba.ppok.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * dto of the view of world cities
@@ -28,7 +35,7 @@ public class CityInfo implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	/**
 	 * This field corresponds to the database column WORLD_CITY_VIEW.NAME
@@ -64,7 +71,8 @@ public class CityInfo implements Serializable {
 	public CityInfo() {
 	}
 
-	public CityInfo(Long id, String name, String continent, String nation, String district, Long population) {
+	public CityInfo(final Integer id, final String name, final String continent, final String nation,
+			final String district, final Long population) {
 		this.id = id;
 		this.name = name;
 		this.continent = continent;
@@ -75,7 +83,8 @@ public class CityInfo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CityInfo{" + "id=" + id + ", name='" + name + '\'' + ", continent='" + continent + '\'' + ", nation='"
-				+ nation + '\'' + ", district='" + district + '\'' + ", population=" + population + '}';
+		return "CityInfo{" + "id=" + this.id + ", name='" + this.name + '\'' + ", continent='" + this.continent + '\''
+				+ ", nation='" + this.nation + '\'' + ", district='" + this.district + '\'' + ", population="
+				+ this.population + '}';
 	}
 }

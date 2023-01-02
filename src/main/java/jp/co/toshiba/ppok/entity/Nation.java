@@ -74,7 +74,7 @@ public class Nation implements Serializable {
 	 * This field corresponds to the database column WORLD_COUNTRY.LIFE_EXPECTANCY
 	 */
 	@Column(name = "life_expectancy")
-	private BigDecimal lifeExpectancy;
+	private Integer lifeExpectancy;
 
 	/**
 	 * This field corresponds to the database column WORLD_COUNTRY.GNP
@@ -108,7 +108,7 @@ public class Nation implements Serializable {
 	/**
 	 * This field corresponds to the database column WORLD_COUNTRY.CAPITAL
 	 */
-	private Long capital;
+	private Integer capital;
 
 	/**
 	 * This field corresponds to the database column WORLD_COUNTRY.CODE2
@@ -125,11 +125,11 @@ public class Nation implements Serializable {
 	public Nation() {
 	}
 
-	public Nation(String name) {
+	public Nation(final String name) {
 		this.name = name;
 	}
 
-	public Nation(String code, String name) {
+	public Nation(final String code, final String name) {
 		this.code = code;
 		this.name = name;
 	}
