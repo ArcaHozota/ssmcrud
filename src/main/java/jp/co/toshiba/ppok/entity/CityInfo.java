@@ -64,10 +64,6 @@ public class CityInfo implements Serializable {
 	public CityInfo() {
 	}
 
-	public CityInfo(String nation) {
-		this.nation = nation;
-	}
-
 	public CityInfo(Long id, String name, String continent, String nation, String district, Long population) {
 		this.id = id;
 		this.name = name;

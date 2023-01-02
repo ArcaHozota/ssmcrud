@@ -129,6 +129,11 @@ public class Nation implements Serializable {
 		this.name = name;
 	}
 
+	public Nation(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "Nation{" + "code='" + this.code + '\'' + ", name='" + this.name + '\'' + ", continent='"

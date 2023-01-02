@@ -25,4 +25,13 @@ public interface NationDao extends JpaRepository<Nation, String> {
      */
     @Query(value = "select distinct new Nation(na.name) from Nation na where na.continent =:continent order by na.name asc")
     List<Nation> getNations(@Param("continent") final String continent);
+
+    /**
+     * Retrieve the nationcd through name.
+     *
+     * @param name name of nation
+     * @return List<CityInfo>
+     */
+    @Query(value = "select distinct new Nation(na.code,na.name) from Nation na where na.name =:name")
+    Nation getNationCode(@Param("name") final String name);
 }

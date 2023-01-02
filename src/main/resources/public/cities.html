@@ -534,7 +534,7 @@
 
     //Add click function to the delete modal.
     $(document).on('click', '.delete_btn', function () {
-        let cityName = $(this).parents("tr").find("td:eq(1)").text().trim();
+        let cityName = $(this).parents("tr").find("td:eq(0)").text().trim();
         let cityId = $(this).attr("deleteId");
         if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
             $.ajax({
