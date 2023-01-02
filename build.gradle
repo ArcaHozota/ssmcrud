@@ -38,19 +38,19 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.guava/guava
     implementation 'com.google.guava:guava:31.1-jre'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.apache.commons:commons-lang3'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
     // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
-    implementation 'org.hibernate.validator:hibernate-validator:7.0.3.Final'
+    implementation 'org.hibernate.validator:hibernate-validator'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok'
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 
