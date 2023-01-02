@@ -425,14 +425,13 @@
                 type: 'POST',
                 contentType: 'application/json;charset=UTF-8',
                 dataType :'json',
-                data: $("#cityAddModal form").serialize(),
-                // data: JSON.stringify({
-                //     'name': $("#nameInput").val().trim(),
-                //     'continent': $("#continentInput option:selected").val(),
-                //     'nation': $("#nationInput option:selected").val(),
-                //     'district': inputDistrict,
-                //     'population': inputPopulation
-                // }),
+                data: JSON.stringify({
+                    'name': $("#nameInput").val().trim(),
+                    'continent': $("#continentInput option:selected").val(),
+                    'nation': $("#nationInput option:selected").val(),
+                    'district': inputDistrict,
+                    'population': inputPopulation
+                }),
                 success: function (result) {
                     if (result.code === 200) {
                         $("#cityAddModal").modal('hide');
