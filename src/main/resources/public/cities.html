@@ -225,7 +225,7 @@
             let cityName = item.name.trim().toString();
             let nationName = item.nation.trim().toString();
             let districtName = item.district.trim().toString();
-            let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id.trim().toString());
+            let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
             let nameTd;
             if (cityName.length >= 15) {
                 nameTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(cityName);
