@@ -32,7 +32,6 @@ import jp.co.toshiba.ppok.entity.Nation;
 import jp.co.toshiba.ppok.repository.CityDao;
 import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
-import jp.co.toshiba.ppok.utils.ComparisonUtils;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
@@ -64,7 +63,7 @@ public class CentreController {
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
-		if (ComparisonUtils.isNotEmpty(keyword)) {
+		if (!keyword.isBlank()) {
 			final List<CityInfo> keyNations = this.cityInfoDao.getByNationName(keyword);
 			if (keyNations.size() != 0) {
 				final CityInfo cityInfo = new CityInfo();
@@ -74,12 +73,12 @@ public class CentreController {
 						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.exact());
 				final Example<CityInfo> example1 = Example.of(cityInfo, matcher1);
 				dtoPage = this.cityInfoDao.findAll(example1, pageRequest01);
-			} else if (ComparisonUtils.isEqual("min(pop)", keyword)) {
+			} else if ("min(pop)".equals(keyword)) {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
 				final List<CityInfo> minPopList = this.cityInfoDao.findAll(pageRequest02).getContent().subList(0, 10);
 				dtoPage = new PageImpl<>(minPopList);
-			} else if (ComparisonUtils.isEqual("max(pop)", keyword)) {
+			} else if ("max(pop)".equals(keyword)) {
 				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.DESC, "population"));
 				final List<CityInfo> maxPopList = this.cityInfoDao.findAll(pageRequest03).getContent().subList(0, 10);
