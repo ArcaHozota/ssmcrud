@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import jp.co.toshiba.ppok.utils.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -63,7 +64,7 @@ public class CentreController {
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
-		if (!keyword.isBlank()) {
+		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.getByNationName(keyword);
 			if (keyNations.size() != 0) {
 				final CityInfo cityInfo = new CityInfo();
@@ -73,12 +74,12 @@ public class CentreController {
 						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.exact());
 				final Example<CityInfo> example1 = Example.of(cityInfo, matcher1);
 				dtoPage = this.cityInfoDao.findAll(example1, pageRequest01);
-			} else if ("min(pop)".equals(keyword)) {
+			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
 				final List<CityInfo> minPopList = this.cityInfoDao.findAll(pageRequest02).getContent().subList(0, 10);
 				dtoPage = new PageImpl<>(minPopList);
-			} else if ("max(pop)".equals(keyword)) {
+			} else if (StringUtils.isEqual("max(pop)", keyword)) {
 				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.DESC, "population"));
 				final List<CityInfo> maxPopList = this.cityInfoDao.findAll(pageRequest03).getContent().subList(0, 10);
@@ -256,7 +257,7 @@ public class CentreController {
 		final String continent = cityInfo.getContinent();
 		final List<Nation> nations = this.nationDao.getNations(continent);
 		nations.forEach(item -> {
-			if (!nationName.equals(item.getName())) {
+			if (StringUtils.isNotEqual(nationName, item.getName())) {
 				nationList.add(item.getName());
 			}
 		});
