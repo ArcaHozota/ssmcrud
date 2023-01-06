@@ -63,16 +63,14 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
+		final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17);
 		Page<CityInfo> dtoPage;
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
 				dtoPage = this.cityInfoDao.getByNations(keyword, pageRequest01);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
-						Sort.by(Sort.Direction.ASC, "population"));
-				final List<CityInfo> minPopList = this.cityInfoDao.findAll(pageRequest02).getContent().subList(0, 10);
-				dtoPage = new PageImpl<>(minPopList);
+				dtoPage = this.cityInfoDao.getMinimumRanks(pageRequest02);
 			} else if (StringUtils.isEqual("max(pop)", keyword)) {
 				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.DESC, "population"));
