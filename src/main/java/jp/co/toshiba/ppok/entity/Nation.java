@@ -21,10 +21,10 @@ import lombok.Setter;
 /**
  * @author Administrator
  */
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
 @Proxy(lazy = false)
 @Table(name = "country")
 @NamedQueries({
