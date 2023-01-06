@@ -27,8 +27,7 @@ import lombok.Setter;
 @Table(name = "country")
 @NamedQueries({
 		@NamedQuery(name = "Nation.findNationCode", query = "select distinct n from Nation n where n.name = :name"),
-		@NamedQuery(name = "Nation.findNationsByCnt", query = "select distinct n from Nation n where n.continent = :continent order by n.name asc")
-})
+		@NamedQuery(name = "Nation.findNationsByCnt", query = "select distinct n from Nation n where n.continent = :continent order by n.name asc") })
 public class Nation implements Serializable {
 
 	private static final long serialVersionUID = -437505450837045511L;
@@ -128,7 +127,8 @@ public class Nation implements Serializable {
 	@Column(name = "is_deleted", nullable = false)
 	private Integer isDeleted;
 
-	public Nation() {
+	public Nation(final String continent) {
+		this.continent = continent;
 	}
 
 	@Override
