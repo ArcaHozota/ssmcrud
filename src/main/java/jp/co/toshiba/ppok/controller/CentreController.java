@@ -198,12 +198,12 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
-		final Set<String> cnSet = Sets.newHashSet();
+		final List<String> cnList = Lists.newArrayList();
 		final List<Nation> list = this.nationDao.findAllContinents();
 		list.forEach(item -> {
-			cnSet.add(item.getContinent());
+			cnList.add(item.getContinent());
 		});
-		return RestMsg.success().add("continents", cnSet);
+		return RestMsg.success().add("continents", cnList);
 	}
 
 	/**

@@ -38,6 +38,6 @@ public interface NationDao extends JpaRepository<Nation, String> {
 	 *
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
+	@Query(value = "select distinct cty.code,cty.continent from country cty", nativeQuery = true)
 	List<Nation> findAllContinents();
 }
