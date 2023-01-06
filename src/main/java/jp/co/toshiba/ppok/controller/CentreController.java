@@ -147,13 +147,8 @@ public class CentreController {
 		final City city = new City();
 		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
 		final String nationName = cityInfo.getNation();
-		final Nation nation = new Nation();
-		nation.setName(nationName);
-		final ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
-				.withMatcher(nationName, ExampleMatcher.GenericPropertyMatchers.exact()).withIgnoreCase(false);
-		final Example<Nation> example = Example.of(nation, matcher);
-		final List<Nation> nations = this.nationDao.findAll(example);
-		final String nationCode = nations.get(0).getCode();
+		final Nation nation = this.nationDao.findNationCode(nationName);
+		final String nationCode = nation.getCode();
 		city.setCountryCode(nationCode);
 		city.setIsDeleted(0);
 		this.cityDao.saveAndFlush(city);
