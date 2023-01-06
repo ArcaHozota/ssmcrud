@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 import lombok.Getter;
@@ -25,6 +26,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Proxy(lazy = false)
 @Table(name = "city_view")
@@ -74,9 +76,6 @@ public class CityInfo implements Serializable {
 	 */
 	@Column(nullable = false)
 	private Long population;
-
-	public CityInfo() {
-	}
 
 	@Override
 	public String toString() {
