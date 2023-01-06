@@ -29,7 +29,9 @@ import lombok.Setter;
 @Proxy(lazy = false)
 @Table(name = "city_view")
 @NamedQueries({
-		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation")
+		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
+		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like :nation"),
+		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation")
 })
 public class CityInfo implements Serializable {
 
