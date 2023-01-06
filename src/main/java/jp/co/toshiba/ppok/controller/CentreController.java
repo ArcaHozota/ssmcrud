@@ -62,25 +62,23 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
-		final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17);
 		Page<CityInfo> dtoPage;
+		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
-				dtoPage = this.cityInfoDao.getByNations(keyword, pageRequest01);
+				dtoPage = this.cityInfoDao.getByNations(keyword, pageRequest);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				dtoPage = this.cityInfoDao.getMinimumRanks(pageRequest02);
+				final List<CityInfo> minimumRanks = this.cityInfoDao.findMinimumRanks();
+				dtoPage = new PageImpl<>(minimumRanks);
 			} else if (StringUtils.isEqual("max(pop)", keyword)) {
-				final PageRequest pageRequest03 = PageRequest.of(pageNum - 1, 17,
-						Sort.by(Sort.Direction.DESC, "population"));
-				final List<CityInfo> maxPopList = this.cityInfoDao.findAll(pageRequest03).getContent().subList(0, 10);
-				dtoPage = new PageImpl<>(maxPopList);
+				final List<CityInfo> maximumRanks = this.cityInfoDao.findMaximumRanks();
+				dtoPage = new PageImpl<>(maximumRanks);
 			} else {
-				dtoPage = this.cityInfoDao.getByNames(keyword, pageRequest01);
+				dtoPage = this.cityInfoDao.getByNames(keyword, pageRequest);
 			}
 		} else {
-			dtoPage = this.cityInfoDao.findAll(pageRequest01);
+			dtoPage = this.cityInfoDao.findAll(pageRequest);
 		}
 		// 設置分頁；
 		final PaginationImpl<CityInfo> pageInfo = new PaginationImpl<>(dtoPage.getContent());

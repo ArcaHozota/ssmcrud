@@ -49,9 +49,14 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Integer> {
 	/**
 	 * Retrieve city infos by population ascending.
 	 * 
-	 * @param pageable page
 	 * @return Page<CityInfo>
 	 */
-	@Query(value = "select cnv from CityInfo cnv order by cnv.population limit 25")
-	Page<CityInfo> getMinimumRanks(final Pageable pageable);
+	List<CityInfo> findMinimumRanks();
+
+	/**
+	 * Retrieve city infos by population descending.
+	 *
+	 * @return Page<CityInfo>
+	 */
+	List<CityInfo> findMaximumRanks();
 }

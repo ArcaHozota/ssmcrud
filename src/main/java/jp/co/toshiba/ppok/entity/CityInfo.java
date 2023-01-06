@@ -32,6 +32,8 @@ import lombok.Setter;
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
 		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation"),
 		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%')"),
+		@NamedQuery(name = "CityInfo.findMaximumRanks", query = "select c from CityInfo c order by c.population desc limit 17"),
+		@NamedQuery(name = "CityInfo.findMinimumRanks", query = "select c from CityInfo c order by c.population limit 17")
 })
 public class CityInfo implements Serializable {
 
