@@ -199,7 +199,7 @@ public class CentreController {
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
 		final Set<String> cnSet = Sets.newHashSet();
-		final List<Nation> list = this.nationDao.findAll();
+		final List<Nation> list = this.nationDao.findAllContinents();
 		list.forEach(item -> {
 			cnSet.add(item.getContinent());
 		});

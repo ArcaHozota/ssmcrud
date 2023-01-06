@@ -17,19 +17,27 @@ import java.util.List;
 @Repository
 public interface NationDao extends JpaRepository<Nation, String> {
 
-    /**
-     * Retrieve the nation list distinct.
-     *
-     * @param continent name of continent
-     * @return List<CityInfo>
-     */
-    List<Nation> findNationsByCnt(@Param("continent") final String continent);
+	/**
+	 * Retrieve the nation list distinct.
+	 *
+	 * @param continent name of continent
+	 * @return List<CityInfo>
+	 */
+	List<Nation> findNationsByCnt(@Param("continent") final String continent);
 
-    /**
-     * Retrieve the nationcd through name.
-     *
-     * @param name name of nation
-     * @return List<CityInfo>
-     */
-    Nation findNationCode(@Param("name") final String name);
+	/**
+	 * Retrieve the nationcd through name.
+	 *
+	 * @param name name of nation
+	 * @return List<CityInfo>
+	 */
+	Nation findNationCode(@Param("name") final String name);
+
+	/**
+	 * Retrieve continent list distinct.
+	 *
+	 * @return List<CityInfo>
+	 */
+	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
+	List<Nation> findAllContinents();
 }
