@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 import lombok.Getter;
@@ -22,6 +23,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Proxy(lazy = false)
 @Table(name = "country")
