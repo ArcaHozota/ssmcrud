@@ -23,7 +23,7 @@ public interface NationDao extends JpaRepository<Nation, String> {
      * @param continent name of continent
      * @return List<CityInfo>
      */
-    List<Nation> getNationsByCnt(@Param("continent") final String continent);
+    List<Nation> findNationsByCnt(@Param("continent") final String continent);
 
     /**
      * Retrieve the nationcd through name.
@@ -31,5 +31,5 @@ public interface NationDao extends JpaRepository<Nation, String> {
      * @param name name of nation
      * @return List<CityInfo>
      */
-    Nation getNationCode(@Param("name") final String name);
+    Nation findNationCode(@Param("name") final String name);
 }

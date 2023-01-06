@@ -67,13 +67,7 @@ public class CentreController {
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
-				final CityInfo cityInfo = new CityInfo();
-				cityInfo.setNation(keyword);
-				final ExampleMatcher matcher1 = ExampleMatcher.matching()
-						.withStringMatcher(ExampleMatcher.StringMatcher.EXACT)
-						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.exact());
-				final Example<CityInfo> example1 = Example.of(cityInfo, matcher1);
-				dtoPage = this.cityInfoDao.findAll(example1, pageRequest01);
+				dtoPage = this.cityInfoDao.getByNations(keyword, pageRequest01);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final PageRequest pageRequest02 = PageRequest.of(pageNum - 1, 17,
 						Sort.by(Sort.Direction.ASC, "population"));
@@ -141,7 +135,7 @@ public class CentreController {
 		final City city = new City();
 		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
 		final String nationName = cityInfo.getNation();
-		final Nation nation = this.nationDao.getNationCode(nationName);
+		final Nation nation = this.nationDao.findNationCode(nationName);
 		final String nationCode = nation.getCode();
 		city.setCountryCode(nationCode);
 		city.setIsDeleted(0);
@@ -236,7 +230,7 @@ public class CentreController {
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final List<String> nationList = Lists.newArrayList();
-		final List<Nation> list = this.nationDao.getNationsByCnt(continent);
+		final List<Nation> list = this.nationDao.findNationsByCnt(continent);
 		list.forEach(item -> {
 			nationList.add(item.getName());
 		});
@@ -255,7 +249,7 @@ public class CentreController {
 		final String nationName = cityInfo.getNation();
 		nationList.add(nationName);
 		final String continent = cityInfo.getContinent();
-		final List<Nation> nations = this.nationDao.getNationsByCnt(continent);
+		final List<Nation> nations = this.nationDao.findNationsByCnt(continent);
 		nations.forEach(item -> {
 			if (StringUtils.isNotEqual(nationName, item.getName())) {
 				nationList.add(item.getName());
