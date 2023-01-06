@@ -26,7 +26,8 @@ import lombok.Setter;
 @Proxy(lazy = false)
 @Table(name = "country")
 @NamedQueries({
-		@NamedQuery(name = "Nation.getNationCode", query = "select distinct n from Nation n where n.name = :name")
+		@NamedQuery(name = "Nation.getNationCode", query = "select distinct n from Nation n where n.name = :name"),
+		@NamedQuery(name = "Nation.getNationsByCnt", query = "select distinct n from Nation n where n.continent = :continent order by n.name asc")
 })
 public class Nation implements Serializable {
 
@@ -128,10 +129,6 @@ public class Nation implements Serializable {
 	private Integer isDeleted;
 
 	public Nation() {
-	}
-
-	public Nation(final String name) {
-		this.name = name;
 	}
 
 	@Override

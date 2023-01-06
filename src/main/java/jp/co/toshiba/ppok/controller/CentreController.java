@@ -236,7 +236,7 @@ public class CentreController {
 	@GetMapping(value = "/nations")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final List<String> nationList = Lists.newArrayList();
-		final List<Nation> list = this.nationDao.getNations(continent);
+		final List<Nation> list = this.nationDao.getNationsByCnt(continent);
 		list.forEach(item -> {
 			nationList.add(item.getName());
 		});
@@ -255,7 +255,7 @@ public class CentreController {
 		final String nationName = cityInfo.getNation();
 		nationList.add(nationName);
 		final String continent = cityInfo.getContinent();
-		final List<Nation> nations = this.nationDao.getNations(continent);
+		final List<Nation> nations = this.nationDao.getNationsByCnt(continent);
 		nations.forEach(item -> {
 			if (StringUtils.isNotEqual(nationName, item.getName())) {
 				nationList.add(item.getName());
