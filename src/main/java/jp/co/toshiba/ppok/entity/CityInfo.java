@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
@@ -26,6 +28,9 @@ import lombok.Setter;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "city_view")
+@NamedQueries({
+		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation")
+})
 public class CityInfo implements Serializable {
 
 	private static final long serialVersionUID = -863534569423043863L;
@@ -69,16 +74,6 @@ public class CityInfo implements Serializable {
 	private Long population;
 
 	public CityInfo() {
-	}
-
-	public CityInfo(final Integer id, final String name, final String continent, final String nation,
-			final String district, final Long population) {
-		this.id = id;
-		this.name = name;
-		this.continent = continent;
-		this.nation = nation;
-		this.district = district;
-		this.population = population;
 	}
 
 	@Override

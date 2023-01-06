@@ -65,7 +65,7 @@ public class CentreController {
 		final PageRequest pageRequest01 = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
 		Page<CityInfo> dtoPage;
 		if (StringUtils.isNotEmpty(keyword)) {
-			final List<CityInfo> keyNations = this.cityInfoDao.getByNationName(keyword);
+			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
 				final CityInfo cityInfo = new CityInfo();
 				cityInfo.setNation(keyword);
