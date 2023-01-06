@@ -12,10 +12,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -23,7 +23,6 @@ import lombok.Setter;
  *
  * @author Administrator
  */
-
 @Entity
 @Getter
 @Setter
@@ -33,8 +32,7 @@ import lombok.Setter;
 @NamedQueries({
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
 		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation"),
-		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%')"),
-})
+		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%')"), })
 public class CityInfo implements Serializable {
 
 	private static final long serialVersionUID = -863534569423043863L;
