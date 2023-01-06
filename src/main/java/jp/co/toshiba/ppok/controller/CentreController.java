@@ -79,14 +79,7 @@ public class CentreController {
 				final List<CityInfo> maxPopList = this.cityInfoDao.findAll(pageRequest03).getContent().subList(0, 10);
 				dtoPage = new PageImpl<>(maxPopList);
 			} else {
-				final CityInfo cityInfo2 = new CityInfo();
-				cityInfo2.setName(keyword);
-				final ExampleMatcher matcher2 = ExampleMatcher.matching()
-						.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true)
-						.withMatcher(keyword, ExampleMatcher.GenericPropertyMatchers.contains())
-						.withIgnorePaths("id", "continent", "nation", "district", "population");
-				final Example<CityInfo> example2 = Example.of(cityInfo2, matcher2);
-				dtoPage = this.cityInfoDao.findAll(example2, pageRequest01);
+				dtoPage = this.cityInfoDao.getByNames(keyword, pageRequest01);
 			}
 		} else {
 			dtoPage = this.cityInfoDao.findAll(pageRequest01);
