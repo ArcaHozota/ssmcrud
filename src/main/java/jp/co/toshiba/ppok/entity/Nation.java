@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -23,6 +25,9 @@ import lombok.Setter;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "country")
+@NamedQueries({
+		@NamedQuery(name = "Nation.getNationCode", query = "select distinct n from Nation n where n.name = :name")
+})
 public class Nation implements Serializable {
 
 	private static final long serialVersionUID = -437505450837045511L;
@@ -126,11 +131,6 @@ public class Nation implements Serializable {
 	}
 
 	public Nation(final String name) {
-		this.name = name;
-	}
-
-	public Nation(final String code, final String name) {
-		this.code = code;
 		this.name = name;
 	}
 
