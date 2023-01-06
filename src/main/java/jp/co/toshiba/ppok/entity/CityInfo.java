@@ -12,10 +12,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -23,7 +23,6 @@ import lombok.Setter;
  *
  * @author Administrator
  */
-
 @Entity
 @Getter
 @Setter
