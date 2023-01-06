@@ -2,11 +2,9 @@ package jp.co.toshiba.ppok.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
-import jp.co.toshiba.ppok.utils.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityInfo;
@@ -35,6 +32,7 @@ import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
+import jp.co.toshiba.ppok.utils.StringUtils;
 
 /**
  * Center Terminal Controller handle the retrieve and update requests.
