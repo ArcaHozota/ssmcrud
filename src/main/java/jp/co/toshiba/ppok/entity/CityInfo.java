@@ -31,8 +31,8 @@ import lombok.Setter;
 @Table(name = "city_view")
 @NamedQueries({
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
-		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation"),
-		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%')") })
+		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation order by c.id"),
+		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%') order by c.id") })
 public class CityInfo implements Serializable {
 
 	private static final long serialVersionUID = -863534569423043863L;

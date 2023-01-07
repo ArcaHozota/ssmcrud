@@ -11,7 +11,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,7 +60,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		Page<CityInfo> dtoPage;
-		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17, Sort.by(Sort.Direction.ASC, "id"));
+		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
