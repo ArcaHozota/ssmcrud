@@ -129,10 +129,6 @@ public class Nation implements Serializable {
 	@Column(name = "is_deleted", nullable = false)
 	private Integer isDeleted;
 
-	public Nation(final String continent) {
-		this.continent = continent;
-	}
-
 	@Override
 	public String toString() {
 		return "Nation{" + "code='" + this.code + '\'' + ", name='" + this.name + '\'' + ", continent='"

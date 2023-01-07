@@ -1,12 +1,13 @@
 package jp.co.toshiba.ppok.repository;
 
-import jp.co.toshiba.ppok.entity.Nation;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import jp.co.toshiba.ppok.entity.Nation;
 
 /**
  * searching dao of table WORLD_COUNTRY
@@ -38,6 +39,6 @@ public interface NationDao extends JpaRepository<Nation, String> {
 	 *
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct new Nation(na.continent) from Nation na")
-	List<Nation> findAllContinents();
+	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
+	List<String> findAllContinents();
 }
