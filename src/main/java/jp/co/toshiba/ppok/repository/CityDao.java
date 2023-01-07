@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.toshiba.ppok.entity.City;
 
 /**
- * searching dao of table WORLD_CITY
+ * searching dao of table city
  *
  * @author Administrator
  * @date 2022-12-17

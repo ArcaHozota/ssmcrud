@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.toshiba.ppok.entity.Nation;
 
 /**
- * searching dao of table WORLD_COUNTRY
+ * searching dao of table country
  *
  * @author Administrator
  * @date 2022-12-16

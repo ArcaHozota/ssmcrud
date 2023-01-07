@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.toshiba.ppok.entity.CityInfo;
 
 /**
- * searching dao of table WORLD_CITY_VIEW
+ * searching dao of table city_view
  *
  * @author Administrator
  * @date 2022-12-17
@@ -48,7 +48,7 @@ public interface CityInfoDao extends JpaRepository<CityInfo, Integer> {
 
 	/**
 	 * Retrieve city infos by population ascending.
-	 * 
+	 *
 	 * @return Page<CityInfo>
 	 */
 	@Query(value = "select * from city_view cvn order by cvn.population asc fetch first 15 rows only", nativeQuery = true)
