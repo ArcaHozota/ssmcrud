@@ -3,7 +3,8 @@ package jp.co.toshiba.ppok.controller;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -117,11 +118,13 @@ public class CentreController {
 	 */
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
-		final String nationName = cityInfo.nation();
+		final City city = new City();
+		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+		final String nationName = cityInfo.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
-		final String nationCode = nation.code();
-		final City city = new City(cityInfo.id(), cityInfo.name(), nationCode, cityInfo.district(),
-				cityInfo.population(), 0);
+		final String nationCode = nation.getCode();
+		city.setCountryCode(nationCode);
+		city.setIsDeleted(0);
 		this.cityDao.save(city);
 		return RestMsg.success();
 	}
@@ -134,11 +137,13 @@ public class CentreController {
 	 */
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityInfo(@RequestBody final CityInfo cityInfo) {
-		final String nationName = cityInfo.nation();
+		final City city = new City();
+		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+		final String nationName = cityInfo.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
-		final String nationCode = nation.code();
-		final City city = new City(cityInfo.id(), cityInfo.name(), nationCode, cityInfo.district(),
-				cityInfo.population(), 0);
+		final String nationCode = nation.getCode();
+		city.setCountryCode(nationCode);
+		city.setIsDeleted(0);
 		this.cityDao.saveAndFlush(city);
 		return RestMsg.success();
 	}
@@ -165,7 +170,8 @@ public class CentreController {
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
 		if (cityName.matches(regex)) {
-			final CityInfo cityInfo = new CityInfo(null,cityName,null,null,null,null);
+			final CityInfo cityInfo = new CityInfo();
+			cityInfo.setName(cityName);
 			final ExampleMatcher matcher = ExampleMatcher.matching()
 					.withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
 					.withMatcher(cityName, ExampleMatcher.GenericPropertyMatchers.exact())
@@ -203,7 +209,7 @@ public class CentreController {
 		final List<String> nationList = Lists.newArrayList();
 		final List<Nation> list = this.nationDao.findNationsByCnt(continent);
 		list.forEach(item -> {
-			nationList.add(item.name());
+			nationList.add(item.getName());
 		});
 		return RestMsg.success().add("nations", nationList);
 	}
@@ -217,13 +223,13 @@ public class CentreController {
 	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
 		final List<String> nationList = Lists.newArrayList();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
-		final String nationName = cityInfo.nation();
+		final String nationName = cityInfo.getNation();
 		nationList.add(nationName);
-		final String continent = cityInfo.continent();
+		final String continent = cityInfo.getContinent();
 		final List<Nation> nations = this.nationDao.findNationsByCnt(continent);
 		nations.forEach(item -> {
-			if (StringUtils.isNotEqual(nationName, item.name())) {
-				nationList.add(item.name());
+			if (StringUtils.isNotEqual(nationName, item.getName())) {
+				nationList.add(item.getName());
 			}
 		});
 		return RestMsg.success().add("nationsByName", nationList);
