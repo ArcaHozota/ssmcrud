@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import jp.co.toshiba.ppok.entity.Nation;
 
@@ -15,7 +14,6 @@ import jp.co.toshiba.ppok.entity.Nation;
  * @author Administrator
  * @date 2022-12-16
  */
-@Repository
 public interface NationDao extends JpaRepository<Nation, String> {
 
 	/**

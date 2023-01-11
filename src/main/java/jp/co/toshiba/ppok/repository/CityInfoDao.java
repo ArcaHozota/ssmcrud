@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import jp.co.toshiba.ppok.entity.CityInfo;
 
@@ -17,7 +16,6 @@ import jp.co.toshiba.ppok.entity.CityInfo;
  * @author Administrator
  * @date 2022-12-17
  */
-@Repository
 public interface CityInfoDao extends JpaRepository<CityInfo, Integer> {
 
 	/**
