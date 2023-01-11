@@ -4,13 +4,13 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    druid:
-      url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
-      driver-class-name: org.postgresql.Driver
-      username: postgres
-      password: postgres
-      max-active: 30
-      max-wait: 1500000
+    url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    hikari:
+      max-lifetime: 1500000
+      maximum-pool-size: 30
   jpa:
     hibernate:
       ddl-auto: update
