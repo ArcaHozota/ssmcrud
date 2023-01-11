@@ -20,8 +20,8 @@ import org.hibernate.annotations.Proxy;
 @Table(name = "city")
 @NamedQueries({ @NamedQuery(name = "City.removeById", query = "update City c set c.isDeleted = 1 where c.id = :id") })
 public record City(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id,
-		@Column(nullable = false) String name, @Column(name = "country_code", nullable = false) String countryCode,
+		@Column(nullable = false) String name, @Column(nullable = false) String countryCode,
 		@Column(nullable = false) String district, @Column(nullable = false) Long population,
-		@Column(name = "is_deleted", nullable = false) Integer isDeleted) implements Serializable {
+		@Column(nullable = false) Integer isDeleted) implements Serializable {
 	private static final long serialVersionUID = 1815689293387304425L;
 }
