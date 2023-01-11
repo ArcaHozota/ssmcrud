@@ -1,575 +1,674 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CityList</title>
-    <!--import the jQuery framework-->
-    <script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
-    <!--import the bootstrap framework-->
-    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap-4.6.2-dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CityList</title>
+<!--import the jQuery framework-->
+<script type="text/javascript"
+	src="../static/jquery/jquery-3.6.2.min.js"></script>
+<!--import the bootstrap framework-->
+<link rel="shortcut icon" type="image/x-icon"
+	href="../static/favicon.ico" />
+<link rel="stylesheet" type="text/css"
+	href="../static/bootstrap-4.6.2-dist/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
-<!-- Build the displayed web page. -->
-<div class="container">
-    <!-- Title -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>グローバル都市一覧</h1>
-        </div>
-    </div>
-    <!-- Button -->
-    <div class="row">
-        <form class="form-inline col-lg-8" role="form">
-            <div class="input-group has-feedback col-lg-8">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                </div>
-                <input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください"
-                       aria-describedby="button-addon4">
-                <div class="input-group-append" id="button-addon4">
-                    <button id="searchBtn" class="btn btn-warning my-2 my-sm-0" type="button" style="float:left;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search"
-                             viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+	<!-- Build the displayed web page. -->
+	<div class="container">
+		<!-- Title -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>グローバル都市一覧</h1>
+			</div>
+		</div>
+		<!-- Button -->
+		<div class="row">
+			<form class="form-inline col-lg-8" role="form">
+				<div class="input-group has-feedback col-lg-8">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">@</span>
+					</div>
+					<input id="keywordInput" class="form-control" type="text"
+						placeholder="都市名を入力してください" aria-describedby="button-addon4">
+					<div class="input-group-append" id="button-addon4">
+						<button id="searchBtn" class="btn btn-warning my-2 my-sm-0"
+							type="button" style="float: left;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
-                        検索
-                    </button>
-                </div>
-            </div>
-        </form>
-        <div class="col-lg-2 offset-lg-2">
-            <button class="btn btn-success" id="cityAddModalBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                     class="bi bi-calendar2-plus-fill" viewBox="0 0 16 16">
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 3.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5H2.545c-.3 0-.545.224-.545.5zm6.5 5a.5.5 0 0 0-1 0V10H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V11H10a.5.5 0 0 0 0-1H8.5V8.5z"/>
+							検索
+						</button>
+					</div>
+				</div>
+			</form>
+			<div class="col-lg-2 offset-lg-2">
+				<button class="btn btn-success" id="cityAddModalBtn">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+						fill="currentColor" class="bi bi-calendar2-plus-fill"
+						viewBox="0 0 16 16">
+                    <path
+							d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 3.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5H2.545c-.3 0-.545.224-.545.5zm6.5 5a.5.5 0 0 0-1 0V10H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V11H10a.5.5 0 0 0 0-1H8.5V8.5z" />
                 </svg>
-                情報追加
-            </button>
-        </div>
-    </div>
-    <!-- Data -->
-    <div class="row">
-        <div class="col-lg-12">
-            <table id="cityTable" class="table table-sm">
-                <thead>
-                <tr class="thead-dark">
-                    <th scope="col" class="text-center" style="width:70px;">都市ID</th>
-                    <th scope="col" class="text-center" style="width:120px;">都市名</th>
-                    <th scope="col" class="text-center" style="width:100px;">大陸</th>
-                    <th scope="col" class="text-center" style="width:100px;">国家</th>
-                    <th scope="col" class="text-center" style="width:120px;">地域</th>
-                    <th scope="col" class="text-center" style="width:70px;">人口数量</th>
-                    <th scope="col" class="text-center" style="width:120px;">操作</th>
-                </tr>
-                </thead>
-                <tbody id="cityTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-    <!-- Info of the navigated pages -->
-    <div class="row">
-        <div id="pageInfos" class="col-lg-5"></div>
-        <div id="pageNavi" class="col-lg-7"></div>
-    </div>
-</div>
-<!-- Modal for inputting city info -->
-<div class="modal fade" id="cityAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">都市情報追加</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="nameInput" class="col-sm-4 control-label">都市名</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nameInput"
-                                   placeholder="都市の正式的な名称">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="continentInput" class="col-sm-4 control-label">大陸</label>
-                        <div class="col-sm-8">
-                            <select id="continentInput" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="nationInput" class="col-sm-3 control-label">国家</label>
-                        <div class="col-sm-9">
-                            <select id="nationInput" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="districtInput" class="col-sm-3 control-label">地域</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="districtInput"
-                                   placeholder="都市の地域">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="populationInput" class="col-sm-3 control-label">人口数量</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="populationInput"
-                                   placeholder="都市の人口数量">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="cityInfoSaveBtn">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal for modifying city info -->
-<div class="modal fade" id="cityEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">都市情報修正</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="nameEdit" class="col-sm-4 control-label">都市名</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static" id="nameEdit"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="continentEdit" class="col-sm-4 control-label">大陸</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static" id="continentEdit"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="nationEdit" class="col-sm-3 control-label">国家</label>
-                        <div class="col-sm-9">
-                            <select id="nationEdit" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="districtEdit" class="col-sm-3 control-label">地域</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="districtEdit"
-                                   placeholder="都市の地域">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="populationEdit" class="col-sm-3 control-label">人口数量</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="populationEdit"
-                                   placeholder="都市の人口数量">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" id="cityInfoChangeBtn">Change</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
+					情報追加
+				</button>
+			</div>
+		</div>
+		<!-- Data -->
+		<div class="row">
+			<div class="col-lg-12">
+				<table id="cityTable" class="table table-sm">
+					<thead>
+						<tr class="thead-dark">
+							<th scope="col" class="text-center" style="width: 70px;">都市ID</th>
+							<th scope="col" class="text-center" style="width: 120px;">都市名</th>
+							<th scope="col" class="text-center" style="width: 100px;">大陸</th>
+							<th scope="col" class="text-center" style="width: 100px;">国家</th>
+							<th scope="col" class="text-center" style="width: 120px;">地域</th>
+							<th scope="col" class="text-center" style="width: 70px;">人口数量</th>
+							<th scope="col" class="text-center" style="width: 120px;">操作</th>
+						</tr>
+					</thead>
+					<tbody id="cityTableBody"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- Info of the navigated pages -->
+		<div class="row">
+			<div id="pageInfos" class="col-lg-5"></div>
+			<div id="pageNavi" class="col-lg-7"></div>
+		</div>
+	</div>
+	<!-- Modal for inputting city info -->
+	<div class="modal fade" id="cityAddModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">都市情報追加</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="nameInput" class="col-sm-4 control-label">都市名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nameInput"
+									placeholder="都市の正式的な名称"> <span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="continentInput" class="col-sm-4 control-label">大陸</label>
+							<div class="col-sm-8">
+								<select id="continentInput" class="form-control"></select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nationInput" class="col-sm-3 control-label">国家</label>
+							<div class="col-sm-9">
+								<select id="nationInput" class="form-control"></select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="districtInput" class="col-sm-3 control-label">地域</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="districtInput"
+									placeholder="都市の地域"> <span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="populationInput" class="col-sm-3 control-label">人口数量</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="populationInput"
+									placeholder="都市の人口数量"> <span class="help-block"></span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="cityInfoSaveBtn">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal for modifying city info -->
+	<div class="modal fade" id="cityEditModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">都市情報修正</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="nameEdit" class="col-sm-4 control-label">都市名</label>
+							<div class="col-sm-8">
+								<p class="form-control-static" id="nameEdit"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="continentEdit" class="col-sm-4 control-label">大陸</label>
+							<div class="col-sm-8">
+								<p class="form-control-static" id="continentEdit"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nationEdit" class="col-sm-3 control-label">国家</label>
+							<div class="col-sm-9">
+								<select id="nationEdit" class="form-control"></select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="districtEdit" class="col-sm-3 control-label">地域</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="districtEdit"
+									placeholder="都市の地域"> <span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="populationEdit" class="col-sm-3 control-label">人口数量</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="populationEdit"
+									placeholder="都市の人口数量"> <span class="help-block"></span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info" id="cityInfoChangeBtn">Change</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		const pathdeApp = "grssmcrud";
 
-    const pathdeApp = "grssmcrud";
+		let totalRecord, totalPages, currentPage;
 
-    let totalRecord, totalPages, currentPage;
+		let searchName;
 
-    let searchName;
+		//After the page load, send the ajax request to get page infos.
+		$(document).ready(function() {
+			toSelectedPg(1, searchName);
+		});
 
-    //After the page load, send the ajax request to get page infos.
-    $(document).ready(function () {
-        toSelectedPg(1, searchName);
-    });
+		//Transfer to clicked page numbers.
+		function toSelectedPg(pageNum, searchName) {
+			$.ajax({
+				url : pathdeApp + '/city',
+				data : {
+					'pageNum' : pageNum,
+					'keyword' : searchName
+				},
+				type : 'GET',
+				success : function(result) {
+					buildCityTable(result);
+					buildPageInfos(result);
+					buildPageNavi(result);
+				}
+			})
+		}
 
-    //Transfer to clicked page numbers.
-    function toSelectedPg(pageNum, searchName) {
-        $.ajax({
-            url: pathdeApp + '/city',
-            data: {
-                'pageNum': pageNum,
-                'keyword': searchName
-            },
-            type: 'GET',
-            success: function (result) {
-                buildCityTable(result);
-                buildPageInfos(result);
-                buildPageNavi(result);
-            }
-        })
-    }
+		//Analyze and display the data.
+		function buildCityTable(result) {
+			//Emptying the former table.
+			$("#cityTableBody").empty();
+			let index = result.extend.pageInfo.content;
+			$
+					.each(
+							index,
+							function(index, item) {
+								let cityName = item.name.trim().toString();
+								let nationName = item.nation.trim().toString();
+								let districtName = item.district.trim()
+										.toString();
+								let idTd = $(
+										"<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>")
+										.append(item.id);
+								let nameTd;
+								if (cityName.length >= 15) {
+									nameTd = $(
+											"<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>")
+											.append(cityName);
+								} else {
+									nameTd = $(
+											"<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>")
+											.append(cityName);
+								}
+								let continentTd = $(
+										"<td class='text-center' style='width:100px;vertical-align:bottom;'></td>")
+										.append(
+												item.continent.trim()
+														.toString());
+								let nationTd;
+								if (nationName.length > 12
+										&& nationName.length <= 15) {
+									nationTd = $(
+											"<td class='text-center' style='width:100px;font-size:12px;vertical-align:bottom;'></td>")
+											.append(nationName);
+								} else if (nationName.length > 15) {
+									nationTd = $(
+											"<td class='text-center' style='width:100px;font-size:10px;vertical-align:bottom;'></td>")
+											.append(nationName);
+								} else {
+									nationTd = $(
+											"<td class='text-center' style='width:100px;font-size:15px;vertical-align:bottom;'></td>")
+											.append(nationName);
+								}
+								let districtTd;
+								if (districtName.length >= 15) {
+									districtTd = $(
+											"<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>")
+											.append(districtName);
+								} else {
+									districtTd = $(
+											"<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom'></td>")
+											.append(districtName);
+								}
+								let populationTd = $(
+										"<td class='text-center' style='width:70px;vertical-align:bottom;'></td>")
+										.append(
+												item.population.trim()
+														.toString());
+								let editBtn = $("<button></button>")
+										.addClass(
+												"btn btn-primary btn-sm edit_btn")
+										.append(
+												$("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-pencil-fill\" viewBox=\"0 0 16 16\">\n"
+														+ "<path d=\"M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z\"/>\n"
+														+ "</svg>")).append(
+												"編集");
+								editBtn.attr("editId", item.id);
+								let deleteBtn = $("<button></button>")
+										.addClass(
+												"btn btn-danger btn-sm delete_btn")
+										.append(
+												$("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"currentColor\" class=\"bi bi-trash\" viewBox=\"0 0 16 16\"><path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>\n"
+														+ "<path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>\n"
+														+ "</svg>")).append(
+												"削除");
+								deleteBtn.attr("deleteId", item.id);
+								let btnTd = $(
+										"<td class='text-center' style='width:120px;vertical-align:bottom;'></td>")
+										.append(editBtn).append(" ").append(
+												deleteBtn);
+								$("<tr></tr>").append(idTd).append(nameTd)
+										.append(continentTd).append(nationTd)
+										.append(districtTd)
+										.append(populationTd).append(btnTd)
+										.appendTo("#cityTableBody");
+							});
+		}
 
-    //Analyze and display the data.
-    function buildCityTable(result) {
-        //Emptying the former table.
-        $("#cityTableBody").empty();
-        let index = result.extend.pageInfo.content;
-        $.each(index, function (index, item) {
-            let cityName = item.name.trim().toString();
-            let nationName = item.nation.trim().toString();
-            let districtName = item.district.trim().toString();
-            let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
-            let nameTd;
-            if (cityName.length >= 15) {
-                nameTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(cityName);
-            } else {
-                nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
-            }
-            let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>").append(item.continent.trim().toString());
-            let nationTd;
-            if (nationName.length > 12 && nationName.length <= 15) {
-                nationTd = $("<td class='text-center' style='width:100px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
-            } else if (nationName.length > 15) {
-                nationTd = $("<td class='text-center' style='width:100px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
-            } else {
-                nationTd = $("<td class='text-center' style='width:100px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
-            }
-            let districtTd;
-            if (districtName.length >= 15) {
-                districtTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(districtName);
-            } else {
-                districtTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom'></td>").append(districtName);
-            }
-            let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population.trim().toString());
-            let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
-                .append($("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-pencil-fill\" viewBox=\"0 0 16 16\">\n" +
-                    "<path d=\"M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z\"/>\n" +
-                    "</svg>")).append("編集");
-            editBtn.attr("editId", item.id);
-            let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
-                .append($("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"currentColor\" class=\"bi bi-trash\" viewBox=\"0 0 16 16\"><path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>\n" +
-                    "<path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>\n" +
-                    "</svg>"))
-                .append("削除");
-            deleteBtn.attr("deleteId", item.id);
-            let btnTd = $("<td class='text-center' style='width:120px;vertical-align:bottom;'></td>").append(editBtn).append(" ").append(deleteBtn);
-            $("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd)
-                .append(districtTd).append(populationTd).append(btnTd).appendTo("#cityTableBody");
-        });
-    }
+		//Analyze and display the page infos.
+		function buildPageInfos(result) {
+			let pageInfos = $("#pageInfos");
+			pageInfos.empty();
+			currentPage = result.extend.pageInfo.current;
+			totalPages = result.extend.pageInfo.totalPg;
+			totalRecord = result.extend.pageInfo.totalRecords;
+			pageInfos.append("The " + currentPage + " page in " + totalPages
+					+ " pages, " + totalRecord + " records found.");
+		}
 
-    //Analyze and display the page infos.
-    function buildPageInfos(result) {
-        let pageInfos = $("#pageInfos");
-        pageInfos.empty();
-        currentPage = result.extend.pageInfo.current;
-        totalPages = result.extend.pageInfo.totalPg;
-        totalRecord = result.extend.pageInfo.totalRecords;
-        pageInfos.append("The " + currentPage + " page in "
-            + totalPages + " pages, " + totalRecord + " records found.");
-    }
+		//Analyze and display the navigated pages.
+		function buildPageNavi(result) {
+			$("#pageNavi").empty();
+			let ul = $("<ul></ul>").addClass("pagination");
+			let firstPageLi = $("<li class='page-item'></li>").append(
+					$("<a class='page-link'></a>").append("最初のページへ").attr(
+							"href", "#"));
+			let previousPageLi = $("<li class='page-item'></li>").append(
+					$("<a class='page-link'></a>").append("&laquo;").attr(
+							"href", "#"));
+			if (!result.extend.pageInfo.hasPrevious) {
+				firstPageLi.addClass("disabled");
+				previousPageLi.addClass("disabled");
+			} else {
+				firstPageLi.click(function() {
+					toSelectedPg(1, searchName);
+				});
+				previousPageLi.click(function() {
+					toSelectedPg(currentPage - 1, searchName);
+				});
+			}
+			let nextPageLi = $("<li class='page-item'></li>").append(
+					$("<a class='page-link'></a>").append("&raquo;").attr(
+							"href", "#"));
+			let lastPageLi = $("<li class='page-item'></li>").append(
+					$("<a class='page-link'></a>").append("最後のページへ").attr(
+							"href", "#"));
+			if (!result.extend.pageInfo.hasNext) {
+				nextPageLi.addClass("disabled");
+				lastPageLi.addClass("disabled");
+			} else {
+				lastPageLi.addClass("success");
+				nextPageLi.click(function() {
+					toSelectedPg(currentPage + 1, searchName);
+				});
+				lastPageLi.click(function() {
+					toSelectedPg(totalPages, searchName);
+				});
+			}
+			ul.append(firstPageLi).append(previousPageLi);
+			$.each(result.extend.pageInfo.navigationPga, function(index, item) {
+				let numsLi = $("<li class='page-item'></li>").append(
+						$("<a class='page-link'></a>").append(item).attr(
+								"href", "#"));
+				if (currentPage === item) {
+					numsLi.attr("href", "#").addClass("active");
+				}
+				numsLi.click(function() {
+					toSelectedPg(item, searchName);
+				});
+				ul.append(numsLi);
+			});
+			ul.append(nextPageLi).append(lastPageLi);
+			let navElement = $("<nav></nav>").append(ul);
+			navElement.appendTo("#pageNavi");
+		}
 
-    //Analyze and display the navigated pages.
-    function buildPageNavi(result) {
-        $("#pageNavi").empty();
-        let ul = $("<ul></ul>").addClass("pagination");
-        let firstPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("最初のページへ").attr("href", "#"));
-        let previousPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("&laquo;").attr("href", "#"));
-        if (!result.extend.pageInfo.hasPrevious) {
-            firstPageLi.addClass("disabled");
-            previousPageLi.addClass("disabled");
-        } else {
-            firstPageLi.click(function () {
-                toSelectedPg(1, searchName);
-            });
-            previousPageLi.click(function () {
-                toSelectedPg(currentPage - 1, searchName);
-            });
-        }
-        let nextPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("&raquo;").attr("href", "#"));
-        let lastPageLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append("最後のページへ").attr("href", "#"));
-        if (!result.extend.pageInfo.hasNext) {
-            nextPageLi.addClass("disabled");
-            lastPageLi.addClass("disabled");
-        } else {
-            lastPageLi.addClass("success");
-            nextPageLi.click(function () {
-                toSelectedPg(currentPage + 1, searchName);
-            });
-            lastPageLi.click(function () {
-                toSelectedPg(totalPages, searchName);
-            });
-        }
-        ul.append(firstPageLi).append(previousPageLi);
-        $.each(result.extend.pageInfo.navigationPga, function (index, item) {
-            let numsLi = $("<li class='page-item'></li>").append($("<a class='page-link'></a>").append(item).attr("href", "#"));
-            if (currentPage === item) {
-                numsLi.attr("href", "#").addClass("active");
-            }
-            numsLi.click(function () {
-                toSelectedPg(item, searchName);
-            });
-            ul.append(numsLi);
-        });
-        ul.append(nextPageLi).append(lastPageLi);
-        let navElement = $("<nav></nav>").append(ul);
-        navElement.appendTo("#pageNavi");
-    }
+		//Add click function to search btn.
+		$("#searchBtn").on('click', function() {
+			searchName = $("#keywordInput").val().trim().toString();
+			toSelectedPg(1, searchName);
+		});
 
-    //Add click function to search btn.
-    $("#searchBtn").on('click', function () {
-        searchName = $("#keywordInput").val().trim().toString();
-        toSelectedPg(1, searchName);
-    });
+		//Add click function to the input modal.
+		$("#cityAddModalBtn").on('click', function() {
+			formReset("#cityAddModal form");
+			getContinent("#continentInput");
+			$("#cityAddModal").modal({
+				backdrop : 'static'
+			});
+		});
 
-    //Add click function to the input modal.
-    $("#cityAddModalBtn").on('click', function () {
-        formReset("#cityAddModal form");
-        getContinent("#continentInput");
-        $("#cityAddModal").modal({
-            backdrop: 'static'
-        });
-    });
+		//Add click function to select of continent.
+		$("#continentInput").on('change', function() {
+			let continentVal = $("#continentInput option:selected").val();
+			getNations($("#nationInput"), continentVal);
+		})
 
-    //Add click function to select of continent.
-    $("#continentInput").on('change', function () {
-        let continentVal = $("#continentInput option:selected").val();
-        getNations($("#nationInput"), continentVal);
-    })
+		//Get the name of continent.
+		function getContinent(element) {
+			$(element).empty();
+			$.ajax({
+				url : pathdeApp + '/continents',
+				type : 'GET',
+				success : function(result) {
+					$.each(result.extend.continents, function() {
+						let optionElement = $("<option></option>").append(this)
+								.attr("value", this);
+						optionElement.appendTo(element);
+					});
+				}
+			});
+		}
 
-    //Get the name of continent.
-    function getContinent(element) {
-        $(element).empty();
-        $.ajax({
-            url: pathdeApp + '/continents',
-            type: 'GET',
-            success: function (result) {
-                $.each(result.extend.continents, function () {
-                    let optionElement = $("<option></option>")
-                        .append(this).attr("value", this);
-                    optionElement.appendTo(element);
-                });
-            }
-        });
-    }
+		//Get the name of nation.
+		function getNations(element, continentVal) {
+			$(element).empty();
+			$.ajax({
+				url : pathdeApp + '/nations',
+				data : 'continentVal=' + continentVal,
+				type : 'GET',
+				success : function(result) {
+					$.each(result.extend.nations, function() {
+						let optionElement = $("<option></option>").append(this)
+								.attr("value", this);
+						optionElement.appendTo(element);
+					});
+				}
+			});
+		}
 
-    //Get the name of nation.
-    function getNations(element, continentVal) {
-        $(element).empty();
-        $.ajax({
-            url: pathdeApp + '/nations',
-            data: 'continentVal=' + continentVal,
-            type: 'GET',
-            success: function (result) {
-                $.each(result.extend.nations, function () {
-                    let optionElement = $("<option></option>")
-                        .append(this).attr("value", this);
-                    optionElement.appendTo(element);
-                });
-            }
-        });
-    }
+		//Analyze the input name is duplicate or not.
+		$("#nameInput").change(
+				function() {
+					let cityName = this.value;
+					$.ajax({
+						url : pathdeApp + '/checklist',
+						data : 'cityName=' + cityName,
+						type : 'GET',
+						success : function(result) {
+							if (result.code === 200) {
+								showValidationMsg("#nameInput", "success", "");
+								$("#cityInfoSaveBtn")
+										.attr("ajax-va", "success");
+							} else {
+								showValidationMsg("#nameInput", "error",
+										result.extend.validatedMsg);
+								$("#cityInfoSaveBtn").attr("ajax-va", "error");
+							}
+						}
+					});
+				});
 
-    //Analyze the input name is duplicate or not.
-    $("#nameInput").change(function () {
-        let cityName = this.value;
-        $.ajax({
-            url: pathdeApp + '/checklist',
-            data: 'cityName=' + cityName,
-            type: 'GET',
-            success: function (result) {
-                if (result.code === 200) {
-                    showValidationMsg("#nameInput", "success", "");
-                    $("#cityInfoSaveBtn").attr("ajax-va", "success");
-                } else {
-                    showValidationMsg("#nameInput", "error", result.extend.validatedMsg);
-                    $("#cityInfoSaveBtn").attr("ajax-va", "error");
-                }
-            }
-        });
-    });
+		//Click, save and check the input data format.
+		$("#cityInfoSaveBtn")
+				.on(
+						'click',
+						function() {
+							let inputDistrict = $("#districtInput").val()
+									.trim();
+							let inputPopulation = $("#populationInput").val()
+									.trim();
+							let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
+							let regularPopulation = /^[0-9]{4,18}$/;
+							if ($(this).attr("ajax-va") === "error") {
+								return false;
+							} else if (!regularDistrict.test(inputDistrict)
+									&& !regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtInput", "error",
+										"Districts' name should be in 2~33 Latin alphabets.");
+								showValidationMsg("#populationInput", "error",
+										"Population should be in 4~18 numbers.");
+								return false;
+							} else if (!regularDistrict.test(inputDistrict)
+									&& regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtInput", "error",
+										"Districts' name should be in 2~33 Latin alphabets.");
+								showValidationMsg("#populationInput",
+										"success", "√");
+								return false;
+							} else if (regularDistrict.test(inputDistrict)
+									&& !regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtInput", "success",
+										"√");
+								showValidationMsg("#populationInput", "error",
+										"Population should be in 4~18 numbers.");
+								return false;
+							} else {
+								showValidationMsg("#districtInput", "success",
+										"√");
+								showValidationMsg("#populationInput",
+										"success", "√");
+								//Send an ajax request to commit save options.
+								$
+										.ajax({
+											url : pathdeApp + '/city',
+											type : 'POST',
+											contentType : 'application/json;charset=UTF-8',
+											dataType : 'json',
+											data : JSON
+													.stringify({
+														'name' : $("#nameInput")
+																.val().trim(),
+														'continent' : $(
+																"#continentInput option:selected")
+																.val(),
+														'nation' : $(
+																"#nationInput option:selected")
+																.val(),
+														'district' : inputDistrict,
+														'population' : inputPopulation
+													}),
+											success : function(result) {
+												if (result.code === 200) {
+													$("#cityAddModal").modal(
+															'hide');
+													//To last page.
+													toSelectedPg(totalPages,
+															searchName);
+												} else if (undefined !== result.extend.errorFields.name) {
+													showValidationMsg(
+															"#nameInput",
+															"error",
+															result.extend.errorFields.name);
+												}
+											}
+										});
+							}
+						});
 
-    //Click, save and check the input data format.
-    $("#cityInfoSaveBtn").on('click', function () {
-        let inputDistrict = $("#districtInput").val().trim();
-        let inputPopulation = $("#populationInput").val().trim();
-        let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
-        let regularPopulation = /^[0-9]{4,18}$/;
-        if ($(this).attr("ajax-va") === "error") {
-            return false;
-        } else if (!regularDistrict.test(inputDistrict)
-            && !regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
-            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
-            return false;
-        } else if (!regularDistrict.test(inputDistrict)
-            && regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtInput", "error", "Districts' name should be in 2~33 Latin alphabets.");
-            showValidationMsg("#populationInput", "success", "√");
-            return false;
-        } else if (regularDistrict.test(inputDistrict)
-            && !regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtInput", "success", "√");
-            showValidationMsg("#populationInput", "error", "Population should be in 4~18 numbers.");
-            return false;
-        } else {
-            showValidationMsg("#districtInput", "success", "√");
-            showValidationMsg("#populationInput", "success", "√");
-            //Send an ajax request to commit save options.
-            $.ajax({
-                url: pathdeApp + '/city',
-                type: 'POST',
-                contentType: 'application/json;charset=UTF-8',
-                dataType :'json',
-                data: JSON.stringify({
-                    'name': $("#nameInput").val().trim(),
-                    'continent': $("#continentInput option:selected").val(),
-                    'nation': $("#nationInput option:selected").val(),
-                    'district': inputDistrict,
-                    'population': inputPopulation
-                }),
-                success: function (result) {
-                    if (result.code === 200) {
-                        $("#cityAddModal").modal('hide');
-                        //To last page.
-                        toSelectedPg(totalPages, searchName);
-                    } else if (undefined !== result.extend.errorFields.name) {
-                        showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
-                    }
-                }
-            });
-        }
-    });
+		//Add click function to the edit modal.
+		$(document).on('click', '.edit_btn', function() {
+			let editId = $(this).attr("editId");
+			formReset("#cityEditModal form");
+			getCityInfo(editId);
+			$("#cityInfoChangeBtn").attr("editId", editId);
+			$("#cityEditModal").modal({
+				backdrop : 'static'
+			});
+		});
 
-    //Add click function to the edit modal.
-    $(document).on('click', '.edit_btn', function () {
-        let editId = $(this).attr("editId");
-        formReset("#cityEditModal form");
-        getCityInfo(editId);
-        $("#cityInfoChangeBtn").attr("editId", editId);
-        $("#cityEditModal").modal({
-            backdrop: 'static'
-        });
-    });
+		//Get the selected city infos.
+		function getCityInfo(id) {
+			$.ajax({
+				url : pathdeApp + '/city/' + id,
+				type : 'GET',
+				dataType : 'json',
+				success : function(result) {
+					let cityData = result.extend.citySelected;
+					$("#nameEdit").text(cityData.name);
+					$("#continentEdit").text(cityData.continent);
+					$("#districtEdit").val(cityData.district);
+					$("#populationEdit").val(cityData.population);
+					getNationsById("#nationEdit", id);
+				}
+			});
+		}
 
-    //Get the selected city infos.
-    function getCityInfo(id) {
-        $.ajax({
-            url: pathdeApp + '/city/' + id,
-            type: 'GET',
-            dataType: 'json',
-            success: function (result) {
-                let cityData = result.extend.citySelected;
-                $("#nameEdit").text(cityData.name);
-                $("#continentEdit").text(cityData.continent);
-                $("#districtEdit").val(cityData.district);
-                $("#populationEdit").val(cityData.population);
-                getNationsById("#nationEdit", id);
-            }
-        });
-    }
+		//Get the name of nation.
+		function getNationsById(element, id) {
+			$(element).empty();
+			$.ajax({
+				url : pathdeApp + '/nations/' + id,
+				type : 'GET',
+				success : function(result) {
+					$.each(result.extend.nationsByName, function() {
+						let optionElement = $("<option></option>").append(this)
+								.attr("value", this);
+						optionElement.appendTo(element);
+					});
+				}
+			});
+		}
 
-    //Get the name of nation.
-    function getNationsById(element, id) {
-        $(element).empty();
-        $.ajax({
-            url: pathdeApp + '/nations/' + id,
-            type: 'GET',
-            success: function (result) {
-                $.each(result.extend.nationsByName, function () {
-                    let optionElement = $("<option></option>")
-                        .append(this).attr("value", this);
-                    optionElement.appendTo(element);
-                });
-            }
-        });
-    }
+		//Submit the change of city infos.
+		$("#cityInfoChangeBtn")
+				.on(
+						'click',
+						function() {
+							let inputDistrict = $("#districtEdit").val().trim();
+							let inputPopulation = $("#populationEdit").val()
+									.trim();
+							let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
+							let regularPopulation = /^[0-9]{4,18}$/;
+							let editId = $(this).attr("editId");
+							if (!regularDistrict.test(inputDistrict)
+									&& !regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtEdit", "error",
+										"Districts' name should be in 2~33 Latin alphabets.");
+								showValidationMsg("#populationEdit", "error",
+										"Population should be in 4~18 numbers.");
+								return false;
+							}
+							if (!regularDistrict.test(inputDistrict)
+									&& regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtEdit", "error",
+										"Districts' name should be in 2~33 Latin alphabets.");
+								showValidationMsg("#populationEdit", "success",
+										"√");
+								return false;
+							}
+							if (regularDistrict.test(inputDistrict)
+									&& !regularPopulation.test(inputPopulation)) {
+								showValidationMsg("#districtEdit", "success",
+										"√");
+								showValidationMsg("#populationEdit", "error",
+										"Population should be in 4~18 numbers.");
+								return false;
+							}
+							showValidationMsg("#districtEdit", "success", "√");
+							showValidationMsg("#populationEdit", "success", "√");
+							$.ajax({
+								url : pathdeApp + '/city/' + editId,
+								type : 'PUT',
+								contentType : 'application/json;charset=UTF-8',
+								dataType : 'json',
+								data : JSON.stringify({
+									'id' : editId,
+									'name' : $("#nameEdit").text(),
+									'continent' : $("#continentEdit").text(),
+									'nation' : $("#nationEdit option:selected")
+											.val(),
+									'district' : inputDistrict,
+									'population' : inputPopulation
+								}),
+								success : function() {
+									$("#cityEditModal").modal('hide');
+									toSelectedPg(currentPage, searchName);
+								}
+							});
+						});
 
-    //Submit the change of city infos.
-    $("#cityInfoChangeBtn").on('click', function () {
-        let inputDistrict = $("#districtEdit").val().trim();
-        let inputPopulation = $("#populationEdit").val().trim();
-        let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
-        let regularPopulation = /^[0-9]{4,18}$/;
-        let editId = $(this).attr("editId");
-        if (!regularDistrict.test(inputDistrict)
-            && !regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
-            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
-            return false;
-        }
-        if (!regularDistrict.test(inputDistrict)
-            && regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtEdit", "error", "Districts' name should be in 2~33 Latin alphabets.");
-            showValidationMsg("#populationEdit", "success", "√");
-            return false;
-        }
-        if (regularDistrict.test(inputDistrict)
-            && !regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtEdit", "success", "√");
-            showValidationMsg("#populationEdit", "error", "Population should be in 4~18 numbers.");
-            return false;
-        }
-        showValidationMsg("#districtEdit", "success", "√");
-        showValidationMsg("#populationEdit", "success", "√");
-        $.ajax({
-            url: pathdeApp + '/city/' + editId,
-            type: 'PUT',
-            contentType: 'application/json;charset=UTF-8',
-            dataType: 'json',
-            data: JSON.stringify({
-                'id': editId,
-                'name': $("#nameEdit").text(),
-                'continent': $("#continentEdit").text(),
-                'nation': $("#nationEdit option:selected").val(),
-                'district': inputDistrict,
-                'population': inputPopulation
-            }),
-            success: function () {
-                $("#cityEditModal").modal('hide');
-                toSelectedPg(currentPage, searchName);
-            }
-        });
-    });
+		//Add click function to the delete modal.
+		$(document).on(
+				'click',
+				'.delete_btn',
+				function() {
+					let cityName = $(this).parents("tr").find("td:eq(0)")
+							.text().trim();
+					let cityId = $(this).attr("deleteId");
+					if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
+						$.ajax({
+							url : pathdeApp + "/city/" + cityId,
+							type : "DELETE",
+							success : function() {
+								toSelectedPg(currentPage, searchName);
+							}
+						});
+					}
+				});
 
-    //Add click function to the delete modal.
-    $(document).on('click', '.delete_btn', function () {
-        let cityName = $(this).parents("tr").find("td:eq(0)").text().trim();
-        let cityId = $(this).attr("deleteId");
-        if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
-            $.ajax({
-                url: pathdeApp + "/city/" + cityId,
-                type: "DELETE",
-                success: function () {
-                    toSelectedPg(currentPage, searchName);
-                }
-            });
-        }
-    });
+		//Reset the modal form.
+		function formReset(element) {
+			$(element)[0].reset();
+			$(element).find("*").removeClass("has-error has-success");
+			$(element).find(".help-block").text("");
+		}
 
-    //Reset the modal form.
-    function formReset(element) {
-        $(element)[0].reset();
-        $(element).find("*").removeClass("has-error has-success");
-        $(element).find(".help-block").text("");
-    }
-
-    //Add status color to the modal form input rows.
-    function showValidationMsg(element, status, msg) {
-        $(element).parent().removeClass("has-success has-error");
-        $(element).next("span").text("");
-        if (status === "success") {
-            $(element).parent().addClass("has-success");
-            $(element).next("span").text(msg);
-        } else if (status === "error") {
-            $(element).parent().addClass("has-error");
-            $(element).next("span").text(msg);
-        }
-    }
-</script>
+		//Add status color to the modal form input rows.
+		function showValidationMsg(element, status, msg) {
+			$(element).parent().removeClass("has-success has-error");
+			$(element).next("span").text("");
+			if (status === "success") {
+				$(element).parent().addClass("has-success");
+				$(element).next("span").text(msg);
+			} else if (status === "error") {
+				$(element).parent().addClass("has-error");
+				$(element).next("span").text(msg);
+			}
+		}
+	</script>
 </body>
 </html>
