@@ -11,6 +11,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -20,6 +21,7 @@ import org.hibernate.annotations.Proxy;
  */
 @Entity
 @Proxy(lazy = false)
+@NoArgsConstructor
 @Table(name = "city_view")
 @NamedQueries({
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
