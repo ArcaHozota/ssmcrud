@@ -117,13 +117,11 @@ public class CentreController {
 	 */
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
-		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
-		final String nationName = cityInfo.getNation();
+		final String nationName = cityInfo.nation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
-		final String nationCode = nation.getCode();
-		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
+		final String nationCode = nation.code();
+		final City city = new City(cityInfo.id(), cityInfo.name(), nationCode, cityInfo.district(),
+				cityInfo.population(), 0);
 		this.cityDao.save(city);
 		return RestMsg.success();
 	}
@@ -136,13 +134,11 @@ public class CentreController {
 	 */
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityInfo(@RequestBody final CityInfo cityInfo) {
-		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
-		final String nationName = cityInfo.getNation();
+		final String nationName = cityInfo.nation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
-		final String nationCode = nation.getCode();
-		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
+		final String nationCode = nation.code();
+		final City city = new City(cityInfo.id(), cityInfo.name(), nationCode, cityInfo.district(),
+				cityInfo.population(), 0);
 		this.cityDao.saveAndFlush(city);
 		return RestMsg.success();
 	}
