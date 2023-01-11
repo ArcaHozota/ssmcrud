@@ -16,9 +16,9 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-    database: postgresql
     show-sql: true
     open-in-view: false
+    database: POSTGRESQL
   output:
     ansi:
       enabled: ALWAYS
