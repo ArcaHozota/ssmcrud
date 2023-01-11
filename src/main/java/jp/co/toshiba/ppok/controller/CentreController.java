@@ -3,8 +3,7 @@ package jp.co.toshiba.ppok.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
