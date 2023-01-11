@@ -203,7 +203,7 @@ public class CentreController {
 		final List<String> nationList = Lists.newArrayList();
 		final List<Nation> list = this.nationDao.findNationsByCnt(continent);
 		list.forEach(item -> {
-			nationList.add(item.getName());
+			nationList.add(item.name());
 		});
 		return RestMsg.success().add("nations", nationList);
 	}
@@ -217,13 +217,13 @@ public class CentreController {
 	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
 		final List<String> nationList = Lists.newArrayList();
 		final CityInfo cityInfo = this.cityInfoDao.getById(id);
-		final String nationName = cityInfo.getNation();
+		final String nationName = cityInfo.nation();
 		nationList.add(nationName);
-		final String continent = cityInfo.getContinent();
+		final String continent = cityInfo.continent();
 		final List<Nation> nations = this.nationDao.findNationsByCnt(continent);
 		nations.forEach(item -> {
-			if (StringUtils.isNotEqual(nationName, item.getName())) {
-				nationList.add(item.getName());
+			if (StringUtils.isNotEqual(nationName, item.name())) {
+				nationList.add(item.name());
 			}
 		});
 		return RestMsg.success().add("nationsByName", nationList);
