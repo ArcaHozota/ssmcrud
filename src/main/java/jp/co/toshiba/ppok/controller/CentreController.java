@@ -165,8 +165,7 @@ public class CentreController {
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
 		if (cityName.matches(regex)) {
-			final CityInfo cityInfo = new CityInfo();
-			cityInfo.setName(cityName);
+			final CityInfo cityInfo = new CityInfo(null,cityName,null,null,null,null);
 			final ExampleMatcher matcher = ExampleMatcher.matching()
 					.withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
 					.withMatcher(cityName, ExampleMatcher.GenericPropertyMatchers.exact())
