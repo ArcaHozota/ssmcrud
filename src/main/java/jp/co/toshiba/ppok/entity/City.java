@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -23,5 +24,6 @@ public record City(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integ
 		@Column(nullable = false) String name, @Column(nullable = false) String countryCode,
 		@Column(nullable = false) String district, @Column(nullable = false) Long population,
 		@Column(nullable = false) Integer isDeleted) implements Serializable {
+	@Serial
 	private static final long serialVersionUID = 1815689293387304425L;
 }

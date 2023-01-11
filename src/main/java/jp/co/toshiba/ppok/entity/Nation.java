@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -32,5 +33,6 @@ public record Nation(@Id @GeneratedValue(strategy = GenerationType.AUTO) String 
 		@Column(name = "government_form", nullable = false) String governmentForm,
 		@Column(name = "head_of_state") String headOfState, Integer capital, @Column(nullable = false) String code2,
 		@Column(name = "is_deleted", nullable = false) Integer isDeleted) implements Serializable {
+	@Serial
 	private static final long serialVersionUID = -437505450837045511L;
 }
