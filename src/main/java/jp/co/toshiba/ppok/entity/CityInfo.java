@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
@@ -11,7 +12,6 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -21,7 +21,6 @@ import org.hibernate.annotations.Proxy;
  */
 @Entity
 @Proxy(lazy = false)
-@NoArgsConstructor
 @Table(name = "city_view")
 @NamedQueries({
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
@@ -31,5 +30,6 @@ public record CityInfo(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) I
 		@Column(nullable = false) @Pattern(regexp = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.") String name,
 		@Column(nullable = false) String continent, @Column(nullable = false) String nation,
 		@Column(nullable = false) String district, @Column(nullable = false) Long population) implements Serializable {
+	@Serial
 	private static final long serialVersionUID = -863534569423043863L;
 }
