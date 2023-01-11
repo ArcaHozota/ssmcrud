@@ -1,18 +1,22 @@
 package jp.co.toshiba.ppok.entity;
 
-import java.io.Serial;
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Pattern;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.annotations.Proxy;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * dto of the view of world cities
@@ -20,16 +24,61 @@ import org.hibernate.annotations.Proxy;
  * @author Administrator
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Proxy(lazy = false)
 @Table(name = "city_view")
 @NamedQueries({
 		@NamedQuery(name = "CityInfo.findByNations", query = "select c from CityInfo c where c.nation = :nation"),
 		@NamedQuery(name = "CityInfo.getByNations", query = "select c from CityInfo c where c.nation = :nation order by c.id asc"),
 		@NamedQuery(name = "CityInfo.getByNames", query = "select c from CityInfo c where c.name like concat('%', :name, '%') order by c.id asc") })
-public record CityInfo(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id,
-		@Column(nullable = false) @Pattern(regexp = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.") String name,
-		@Column(nullable = false) String continent, @Column(nullable = false) String nation,
-		@Column(nullable = false) String district, @Column(nullable = false) Long population) implements Serializable {
-	@Serial
+public class CityInfo implements Serializable {
+
 	private static final long serialVersionUID = -863534569423043863L;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.ID
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.NAME
+	 */
+	@Column(nullable = false)
+	@Pattern(regexp = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.")
+	private String name;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.CONTINENT
+	 */
+	@Column(nullable = false)
+	private String continent;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.NATION
+	 */
+	@Column(nullable = false)
+	private String nation;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.DISTRICT
+	 */
+	@Column(nullable = false)
+	private String district;
+
+	/**
+	 * This field corresponds to the database column WORLD_CITY_VIEW.POPULATION
+	 */
+	@Column(nullable = false)
+	private Long population;
+
+	@Override
+	public String toString() {
+		return "CityInfo{" + "id=" + this.id + ", name='" + this.name + '\'' + ", continent='" + this.continent + '\''
+				+ ", nation='" + this.nation + '\'' + ", district='" + this.district + '\'' + ", population="
+				+ this.population + '}';
+	}
 }
