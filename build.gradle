@@ -18,7 +18,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.boot:spring-boot-starter-parent:3.0.1'
+        mavenBom 'org.springframework.boot:spring-boot-starter-parent:2.6.14'
     }
 }
 
@@ -50,7 +50,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     annotationProcessor 'org.projectlombok:lombok'
 }
-
 
 test {
     useJUnitPlatform()

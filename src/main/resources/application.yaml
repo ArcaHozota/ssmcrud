@@ -4,21 +4,19 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    hikari:
-      max-lifetime: 1500000
-      maximum-pool-size: 30
+    druid:
+	    url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
+	    driver-class-name: org.postgresql.Driver
+	    username: postgres
+	    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    database: POSTGRESQL
     show-sql: true
     open-in-view: false
-    database: POSTGRESQL
   output:
     ansi:
       enabled: ALWAYS
