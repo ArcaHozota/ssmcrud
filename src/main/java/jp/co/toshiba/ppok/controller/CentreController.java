@@ -60,7 +60,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		Page<CityInfo> dtoPage;
-		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 17);
+		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 18);
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
 			if (keyNations.size() != 0) {
