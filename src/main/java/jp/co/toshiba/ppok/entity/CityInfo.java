@@ -38,47 +38,46 @@ public class CityInfo implements Serializable {
 	private static final long serialVersionUID = -863534569423043863L;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.ID
+	 * This field corresponds to the database column id
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.NAME
+	 * This field corresponds to the database column name
 	 */
 	@Column(nullable = false)
 	@Pattern(regexp = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$", message = "Name of cities should be in 4~17 Latin alphabets.")
 	private String name;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.CONTINENT
+	 * This field corresponds to the database column continent
 	 */
 	@Column(nullable = false)
 	private String continent;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.NATION
+	 * This field corresponds to the database column nation
 	 */
 	@Column(nullable = false)
 	private String nation;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.DISTRICT
+	 * This field corresponds to the database column district
 	 */
 	@Column(nullable = false)
 	private String district;
 
 	/**
-	 * This field corresponds to the database column WORLD_CITY_VIEW.POPULATION
+	 * This field corresponds to the database column population
 	 */
 	@Column(nullable = false)
 	private Long population;
 
 	@Override
 	public String toString() {
-		return "CityInfo{" + "id=" + this.id + ", name='" + this.name + '\'' + ", continent='" + this.continent + '\''
-				+ ", nation='" + this.nation + '\'' + ", district='" + this.district + '\'' + ", population="
-				+ this.population + '}';
+		return "CityInfo [id=" + this.id + ", name=" + this.name + ", continent=" + this.continent + ", nation="
+				+ this.nation + ", district=" + this.district + ", population=" + this.population + "]";
 	}
 }
