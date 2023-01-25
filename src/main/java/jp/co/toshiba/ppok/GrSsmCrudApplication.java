@@ -17,6 +17,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 public class GrSsmCrudApplication {
     public static void main(String[] args) {
         SpringApplication.run(GrSsmCrudApplication.class,args);
-        log.info("Successfully launched!");
+        log.info("Application launched successfully!");
     }
 }
