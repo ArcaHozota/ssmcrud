@@ -1,5 +1,6 @@
 package jp.co.toshiba.ppok.repository;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,6 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	 * @param id id of the selected city
 	 */
 	@Modifying
-	@Transactional
+	@Transactional(rollbackFor = PSQLException.class)
 	void removeById(@Param("id") final Integer id);
 }
