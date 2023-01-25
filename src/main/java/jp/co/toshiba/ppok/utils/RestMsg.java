@@ -1,16 +1,21 @@
 package jp.co.toshiba.ppok.utils;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import lombok.Data;
+import com.google.common.collect.Maps;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * The common class of JSON-data response.
  *
  * @author Administrator
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class RestMsg {
 
 	/**
@@ -26,7 +31,7 @@ public class RestMsg {
 	/**
 	 * data returned to browsers
 	 */
-	private final Map<String, Object> extend = new HashMap<>();
+	private final Map<String, Object> extend = Maps.newHashMap();
 
 	/**
 	 * retrieve successfully
