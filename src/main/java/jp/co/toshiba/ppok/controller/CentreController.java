@@ -42,6 +42,10 @@ import jp.co.toshiba.ppok.utils.StringUtils;
 @RequestMapping("/public/grssmcrud")
 public class CentreController {
 
+	private static final String CONTINENT = "continent";
+
+	private static final String NATION = "nation";
+
 	@Resource
 	private CityDao cityDao;
 
@@ -59,11 +63,11 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		Page<CityInfo> dtoPage;
+		final Page<CityInfo> dtoPage;
 		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 18);
 		if (StringUtils.isNotEmpty(keyword)) {
 			final List<CityInfo> keyNations = this.cityInfoDao.findByNations(keyword);
-			if (keyNations.size() != 0) {
+			if (keyNations.isEmpty()) {
 				dtoPage = this.cityInfoDao.getByNations(keyword, pageRequest);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityInfo> minimumRanks = this.cityInfoDao.findMinimumRanks();
@@ -119,7 +123,7 @@ public class CentreController {
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
 		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+		BeanUtils.copyProperties(cityInfo, city, CONTINENT, NATION);
 		final String nationName = cityInfo.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
 		final String nationCode = nation.getCode();
@@ -138,7 +142,7 @@ public class CentreController {
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityInfo(@RequestBody final CityInfo cityInfo) {
 		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, "continent", "nation");
+		BeanUtils.copyProperties(cityInfo, city, CONTINENT, NATION);
 		final String nationName = cityInfo.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
 		final String nationCode = nation.getCode();
@@ -175,7 +179,7 @@ public class CentreController {
 			final ExampleMatcher matcher = ExampleMatcher.matching()
 					.withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
 					.withMatcher(cityName, ExampleMatcher.GenericPropertyMatchers.exact())
-					.withIgnorePaths("id", "continent", "nation", "district", "population");
+					.withIgnorePaths("id", CONTINENT, NATION, "district", "population");
 			final Example<CityInfo> example = Example.of(cityInfo, matcher);
 			final Optional<CityInfo> duplicated = this.cityInfoDao.findOne(example);
 			if (duplicated.isPresent()) {
@@ -208,9 +212,7 @@ public class CentreController {
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final List<String> nationList = Lists.newArrayList();
 		final List<Nation> list = this.nationDao.findNationsByCnt(continent);
-		list.forEach(item -> {
-			nationList.add(item.getName());
-		});
+		list.forEach(item -> nationList.add(item.getName()));
 		return RestMsg.success().add("nations", nationList);
 	}
 
