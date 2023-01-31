@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -26,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Proxy(lazy = false)
 @Table(name = "city")
-@NamedQueries({ @NamedQuery(name = "City.removeById", query = "update City c set c.isDeleted = 1 where c.id = :id") })
+@NamedQuery(name = "City.removeById", query = "update City c set c.isDeleted = 1 where c.id = :id")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1815689293387304425L;
