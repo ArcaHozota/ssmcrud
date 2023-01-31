@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import jp.co.toshiba.ppok.entity.Nation;
+import jp.co.toshiba.ppok.entity.Country;
 
 /**
  * searching dao of table country
@@ -14,7 +14,7 @@ import jp.co.toshiba.ppok.entity.Nation;
  * @author Administrator
  * @date 2022-12-16
  */
-public interface NationDao extends JpaRepository<Nation, String> {
+public interface NationDao extends JpaRepository<Country, String> {
 
 	/**
 	 * Retrieve the nation list distinct.
@@ -22,7 +22,7 @@ public interface NationDao extends JpaRepository<Nation, String> {
 	 * @param continent name of continent
 	 * @return List<CityInfo>
 	 */
-	List<Nation> findNationsByCnt(@Param("continent") final String continent);
+	List<Country> findNationsByCnt(@Param("continent") final String continent);
 
 	/**
 	 * Retrieve the nationcd through name.
@@ -30,7 +30,7 @@ public interface NationDao extends JpaRepository<Nation, String> {
 	 * @param name name of nation
 	 * @return List<CityInfo>
 	 */
-	Nation findNationCode(@Param("name") final String name);
+	Country findNationCode(@Param("name") final String name);
 
 	/**
 	 * Retrieve continent list distinct.

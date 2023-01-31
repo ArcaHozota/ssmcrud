@@ -26,9 +26,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Proxy(lazy = false)
 @Table(name = "country")
-@NamedQuery(name = "Nation.findNationCode", query = "select distinct n from Nation n where n.name = :name")
-@NamedQuery(name = "Nation.findNationsByCnt", query = "select distinct n from Nation n where n.continent = :continent order by n.name asc")
-public class Nation implements Serializable {
+@NamedQuery(name = "Country.findNationCode", query = "select distinct n from Country n where n.name = :name")
+@NamedQuery(name = "Country.findNationsByCnt", query = "select distinct n from Country n where n.continent = :continent order by n.name asc")
+public class Country implements Serializable {
 
 	private static final long serialVersionUID = -437505450837045511L;
 
