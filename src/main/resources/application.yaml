@@ -5,11 +5,11 @@ spring:
     name: grssmcrud
   datasource:
     druid:
-      db-type: postgresql
-      url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
+      db-type: mysql
+      url: jdbc:mysql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
       driver-class-name: org.postgresql.Driver
-      username: postgres
-      password: postgres
+      username: mysqlad123
+      password: mysqlad123
       max-active: 30
       max-wait: 1200000
   jpa:
@@ -17,7 +17,7 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    database: POSTGRESQL
+    database: MYSQL
     show-sql: true
     open-in-view: false
   output:
