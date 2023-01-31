@@ -25,7 +25,7 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	 * Retrieve city infos by nation name provided.
 	 *
 	 * @param nation name of nation
-	 * @return List<CityInfo>
+	 * @return List<City>
 	 */
 	List<City> findByNations(@Param("nation") final String nation);
 
@@ -34,7 +34,7 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	 *
 	 * @param nation   name of nation
 	 * @param pageable page
-	 * @return Page<CityInfo>
+	 * @return Page<City>
 	 */
 	Page<City> getByNations(@Param("nation") final String nation, final Pageable pageable);
 
@@ -43,14 +43,22 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	 *
 	 * @param name     city name
 	 * @param pageable page
-	 * @return Page<CityInfo>
+	 * @return Page<City>
 	 */
 	Page<City> getByNames(@Param("name") final String name, final Pageable pageable);
 
 	/**
+	 * Retrieve city infos.
+	 *
+	 * @param pageable page
+	 * @return Page<City>
+	 */
+	Page<City> getCityInfos(final Pageable pageable);
+
+	/**
 	 * Retrieve city infos by population ascending.
 	 *
-	 * @return Page<CityInfo>
+	 * @return Page<City>
 	 */
 	@Query(value = "select cn.id, cn.name, cn.country_code, cn.distrcit, cn.population from city cn where cn.is_deleted = 0 order by cn.population asc fetch first 15 rows only", nativeQuery = true)
 	List<City> findMinimumRanks();
@@ -58,7 +66,7 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	/**
 	 * Retrieve city infos by population descending.
 	 *
-	 * @return Page<CityInfo>
+	 * @return Page<City>
 	 */
 	@Query(value = "select cn.id, cn.name, cn.country_code, cn.distrcit, cn.population from city cn where cn.is_deleted = 0 order by cn.population desc fetch first 15 rows only", nativeQuery = true)
 	List<City> findMaximumRanks();

@@ -26,6 +26,7 @@ import lombok.Setter;
 @Proxy(lazy = false)
 @Table(name = "city")
 @NamedQuery(name = "City.removeById", query = "update City c set c.isDeleted = 1 where c.id = :id")
+@NamedQuery(name = "City.getCityInfos", query = "select c from City c where c.isDeleted = 0 order by c.id asc")
 @NamedQuery(name = "City.findByNations", query = "select c from City c where c.countryCode = :nation")
 @NamedQuery(name = "City.getByNations", query = "select c from City c where c.countryCode = :nation order by c.id asc")
 @NamedQuery(name = "City.getByNames", query = "select c from City c where c.name like concat('%', :name, '%') order by c.id asc")
