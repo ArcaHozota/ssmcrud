@@ -25,10 +25,8 @@ import com.google.common.collect.Lists;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.CityInfo;
 import jp.co.toshiba.ppok.entity.Nation;
 import jp.co.toshiba.ppok.repository.CityDao;
-import jp.co.toshiba.ppok.repository.CityInfoDao;
 import jp.co.toshiba.ppok.repository.NationDao;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
