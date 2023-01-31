@@ -63,28 +63,28 @@ public class PaginationImpl<T> extends PageImpl<T> {
 			for (int i = 0; i < this.totalPg; i++) {
 				this.navigationPga[i] = i + 1;
 			}
+			return;
+		}
+		// 当总页数大于导航页码数时
+		this.navigationPga = new int[this.naviPages];
+		int startNum = currentPage - this.naviPages / 2;
+		int endNum = currentPage + this.naviPages / 2;
+		if (startNum < 1) {
+			startNum = 1;
+			// (最前pageSize页
+			for (int i = 0; i < this.naviPages; i++) {
+				this.navigationPga[i] = startNum++;
+			}
+		} else if (endNum > this.totalPg) {
+			endNum = this.totalPg;
+			// 最后pageSize页
+			for (int i = this.naviPages - 1; i >= 0; i--) {
+				this.navigationPga[i] = endNum--;
+			}
 		} else {
-			// 当总页数大于导航页码数时
-			this.navigationPga = new int[this.naviPages];
-			int startNum = currentPage - this.naviPages / 2;
-			int endNum = currentPage + this.naviPages / 2;
-			if (startNum < 1) {
-				startNum = 1;
-				// (最前pageSize页
-				for (int i = 0; i < this.naviPages; i++) {
-					this.navigationPga[i] = startNum++;
-				}
-			} else if (endNum > this.totalPg) {
-				endNum = this.totalPg;
-				// 最后pageSize页
-				for (int i = this.naviPages - 1; i >= 0; i--) {
-					this.navigationPga[i] = endNum--;
-				}
-			} else {
-				// 所有中间页
-				for (int i = 0; i < this.naviPages; i++) {
-					this.navigationPga[i] = startNum++;
-				}
+			// 所有中间页
+			for (int i = 0; i < this.naviPages; i++) {
+				this.navigationPga[i] = startNum++;
 			}
 		}
 	}
@@ -97,5 +97,4 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		final long totalPgs = this.totalPg;
 		this.hasNext = this.current < totalPgs;
 	}
-
 }
