@@ -5,13 +5,13 @@ spring:
     name: grssmcrud
   datasource:
     druid:
-      db-type: mysql
-      url: jdbc:mysql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
-      driver-class-name: org.postgresql.Driver
+      url: jdbc:mysql://mysqldb.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:3306/world
+      driver-class-name: com.mysql.cj.jdbc.Driver
       username: mysqlad123
       password: mysqlad123
       max-active: 30
       max-wait: 1200000
+      db-type: mysql
   jpa:
     hibernate:
       ddl-auto: update
