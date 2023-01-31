@@ -3,7 +3,6 @@ package jp.co.toshiba.ppok.utils;
 import java.util.List;
 
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,10 +34,6 @@ public class PaginationImpl<T> extends PageImpl<T> {
 
 	protected int[] navigationPga;
 
-	public PaginationImpl(final List<T> content, final Pageable pageable, final long total) {
-		super(content, pageable, total);
-	}
-
 	public PaginationImpl(final List<T> content) {
 		super(content);
 	}
@@ -52,7 +47,7 @@ public class PaginationImpl<T> extends PageImpl<T> {
 		// 設置導航條頁碼數量；
 		this.setNaviPages(naviPages);
 		// 计算导航页
-		this.calcnavigationPga();
+		this.calcNavigationPgs();
 		// 判定页面边界
 		this.discernPageBoundary();
 	}
@@ -60,7 +55,7 @@ public class PaginationImpl<T> extends PageImpl<T> {
 	/**
 	 * 计算导航页
 	 */
-	private void calcnavigationPga() {
+	private void calcNavigationPgs() {
 		final int currentPage = this.current;
 		// 当总页数小于或等于导航页码数时
 		if (this.totalPg <= this.naviPages) {
