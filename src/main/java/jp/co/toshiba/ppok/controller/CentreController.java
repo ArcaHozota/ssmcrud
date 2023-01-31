@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
 
+import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityInfo;
 import jp.co.toshiba.ppok.entity.Nation;
@@ -117,14 +118,14 @@ public class CentreController {
 	/**
 	 * Save inputted city info.
 	 *
-	 * @param cityInfo the input message of cities
+	 * @param cityDto the input message of cities
 	 * @return RestMsg.success()
 	 */
 	@PostMapping(value = "/city")
-	public RestMsg saveCityInfo(@RequestBody final CityInfo cityInfo) {
+	public RestMsg saveCityInfo(@RequestBody final CityDto cityDto) {
 		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, CONTINENT, NATION);
-		final String nationName = cityInfo.getNation();
+		BeanUtils.copyProperties(cityDto, city, CONTINENT, NATION);
+		final String nationName = cityDto.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
 		final String nationCode = nation.getCode();
 		city.setCountryCode(nationCode);
@@ -136,14 +137,14 @@ public class CentreController {
 	/**
 	 * Update city info.
 	 *
-	 * @param cityInfo the input message of cities
+	 * @param cityDto the input message of cities
 	 * @return RestMsg.success()
 	 */
 	@PutMapping(value = "/city/{id}")
-	public RestMsg updateCityInfo(@RequestBody final CityInfo cityInfo) {
+	public RestMsg updateCityInfo(@RequestBody final CityDto cityDto) {
 		final City city = new City();
-		BeanUtils.copyProperties(cityInfo, city, CONTINENT, NATION);
-		final String nationName = cityInfo.getNation();
+		BeanUtils.copyProperties(cityDto, city, CONTINENT, NATION);
+		final String nationName = cityDto.getNation();
 		final Nation nation = this.nationDao.findNationCode(nationName);
 		final String nationCode = nation.getCode();
 		city.setCountryCode(nationCode);
