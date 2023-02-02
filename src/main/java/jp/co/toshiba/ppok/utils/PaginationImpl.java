@@ -2,8 +2,7 @@ package jp.co.toshiba.ppok.utils;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageImpl;
-
+import jp.co.toshiba.ppok.service.Pagination;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PaginationImpl<T> extends PageImpl<T> {
+public class PaginationImpl<T> implements Pagination<T> {
 
 	private static final long serialVersionUID = -5664717729756413101L;
 
