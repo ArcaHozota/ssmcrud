@@ -4,22 +4,13 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    druid:
-      db-type: mysql
-      url: jdbc:mysql://mysqldb.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:3306/world
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      username: mysqlad123
-      password: mysqlad123
-      max-active: 30
-      max-wait: 1200000
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    database: MYSQL
-    show-sql: true
-    open-in-view: false
+    url: jdbc:mysql://mysqldb.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:3306/world
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mysqlad123
+    password: mysqlad123
+    hikari:
+      max-lifetime: 1500000
+      maximum-pool-size: 30
   output:
     ansi:
       enabled: ALWAYS
