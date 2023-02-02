@@ -17,12 +17,21 @@ import jp.co.toshiba.ppok.entity.Country;
 public interface NationDao extends JpaRepository<Country, String> {
 
 	/**
+	 * Retrieve continent list distinct.
+	 *
+	 * @return List<CityInfo>
+	 */
+	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
+	List<String> findAllContinents();
+
+	/**
 	 * Retrieve the nation list distinct.
 	 *
 	 * @param continent name of continent
 	 * @return List<CityInfo>
 	 */
-	List<Country> findNationsByCnt(@Param("continent") final String continent);
+	@Query(value = "select distinct cty.name from country cty where cty.continent =:continent", nativeQuery = true)
+	List<String> findNationsByCnt(@Param("continent") final String continent);
 
 	/**
 	 * Retrieve the nationcd through name.
@@ -31,12 +40,4 @@ public interface NationDao extends JpaRepository<Country, String> {
 	 * @return List<CityInfo>
 	 */
 	Country findNationCode(@Param("name") final String name);
-
-	/**
-	 * Retrieve continent list distinct.
-	 *
-	 * @return List<CityInfo>
-	 */
-	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
-	List<String> findAllContinents();
 }
