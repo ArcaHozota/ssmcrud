@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "country")
+@Proxy(lazy = false)
 @NamedQuery(name = "Country.findNationCode", query = "select distinct n from Country n where n.name = :name")
 @NamedQuery(name = "Country.findNationsByCnt", query = "select distinct n from Country n where n.continent = :continent order by n.name asc")
 public class Country implements Serializable {

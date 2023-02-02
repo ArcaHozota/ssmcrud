@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "city")
+@Proxy(lazy = false)
 @NamedQuery(name = "City.removeById", query = "update City c set c.isDeleted = 1 where c.id = :id")
 @NamedQuery(name = "City.getCityInfos", query = "select c from City c where c.isDeleted = 0 order by c.id asc")
 @NamedQuery(name = "City.findByNations", query = "select c from City c where c.countryCode = :nation")
