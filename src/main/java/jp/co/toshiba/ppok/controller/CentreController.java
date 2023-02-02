@@ -115,9 +115,9 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityDto(@PathVariable("id") final Integer id) {
+		final CityDto cityDto = new CityDto();
 		final City city = this.cityDao.getById(id);
 		final Country country = this.nationDao.getById(city.getCountryCode());
-		final CityDto cityDto = new CityDto();
 		BeanUtils.copyProperties(city, cityDto);
 		cityDto.setContinent(country.getContinent());
 		cityDto.setNation(country.getName());
