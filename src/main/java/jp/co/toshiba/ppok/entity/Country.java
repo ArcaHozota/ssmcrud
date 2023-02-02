@@ -129,7 +129,7 @@ public class Country implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Nation [code=" + this.code + ", name=" + this.name + ", continent=" + this.continent + ", region="
+		return "Country [code=" + this.code + ", name=" + this.name + ", continent=" + this.continent + ", region="
 				+ this.region + ", surfaceArea=" + this.surfaceArea + ", independenceYear=" + this.independenceYear
 				+ ", population=" + this.population + ", lifeExpectancy=" + this.lifeExpectancy + ", gnp=" + this.gnp
 				+ ", gnpOld=" + this.gnpOld + ", localName=" + this.localName + ", governmentForm="
