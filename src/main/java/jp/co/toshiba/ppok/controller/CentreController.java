@@ -235,10 +235,10 @@ public class CentreController {
 		final City city = this.cityDao.getById(id);
 		final Country country = this.nationDao.getById(city.getCountryCode());
 		nationList.add(country.getName());
-		final List<Country> countries = this.nationDao.findNationsByCnt(country.getContinent());
+		final List<String> countries = this.nationDao.findNationsByCnt(country.getContinent());
 		countries.forEach(item -> {
-			if (StringUtils.isNotEqual(country.getName(), item.getName())) {
-				nationList.add(item.getName());
+			if (StringUtils.isNotEqual(country.getName(), item)) {
+				nationList.add(item);
 			}
 		});
 		return RestMsg.success().add("nationsByName", nationList);
