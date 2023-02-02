@@ -218,11 +218,13 @@ public class CentreController {
 	 *
 	 * @return RestMsg.success().add(data)
 	 */
-	@GetMapping(value = "/nations")
+	@GetMapping(value = "/countries")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final List<String> nationList = Lists.newArrayList();
 		final List<Country> list = this.nationDao.findNationsByCnt(continent);
-		list.forEach(item -> nationList.add(item.getName()));
+		list.forEach(item -> {
+			nationList.add(item.getName());
+		});
 		return RestMsg.success().add("nations", nationList);
 	}
 
@@ -231,7 +233,7 @@ public class CentreController {
 	 *
 	 * @return RestMsg.success().add(data)
 	 */
-	@GetMapping(value = "/nations/{id}")
+	@GetMapping(value = "/countries/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
 		final List<String> nationList = Lists.newArrayList();
 		final City city = this.cityDao.getById(id);
