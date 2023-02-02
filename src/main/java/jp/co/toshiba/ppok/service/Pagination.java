@@ -1,4 +1,6 @@
 package jp.co.toshiba.ppok.service;
 
-public interface Pagination<T> {
+import java.util.List;
+
+public interface Pagination<T> extends List<T> {
 }

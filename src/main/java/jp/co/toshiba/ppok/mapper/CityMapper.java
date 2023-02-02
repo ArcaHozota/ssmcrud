@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
 import jp.co.toshiba.ppok.entity.City;
+import jp.co.toshiba.ppok.service.Pagination;
 
 /**
  * searching dao of table city
@@ -34,7 +35,7 @@ public interface CityMapper {
 	 * @param pageable page
 	 * @return Page<City>
 	 */
-	Page<City> getByNations(@Param("nation") final String nation, final Pageable pageable);
+	Pagination<City> getByNations(@Param("nation") final String nation, final Pageable pageable);
 
 	/**
 	 * Retrieve city infos by city name provided.
@@ -43,7 +44,7 @@ public interface CityMapper {
 	 * @param pageable page
 	 * @return Page<City>
 	 */
-	Page<City> getByNames(@Param("name") final String name, final Pageable pageable);
+	Pagination<City> getByNames(@Param("name") final String name, final Pageable pageable);
 
 	/**
 	 * Retrieve city infos.
@@ -51,7 +52,7 @@ public interface CityMapper {
 	 * @param pageable page
 	 * @return Page<City>
 	 */
-	Page<City> getCityInfos(final Pageable pageable);
+	Pagination<City> getCityInfos(final Pageable pageable);
 
 	/**
 	 * Retrieve city infos by population ascending.
