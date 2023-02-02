@@ -1,13 +1,9 @@
-package jp.co.toshiba.ppok.repository;
+package jp.co.toshiba.ppok.mapper;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
@@ -20,7 +16,8 @@ import jp.co.toshiba.ppok.entity.City;
  * @author Administrator
  * @date 2022-12-17
  */
-public interface CityDao extends JpaRepository<City, Integer> {
+@Mapper
+public interface CityMapper {
 
 	/**
 	 * Retrieve city infos by nation name provided.

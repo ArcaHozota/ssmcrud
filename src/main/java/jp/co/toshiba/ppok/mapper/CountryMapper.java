@@ -1,10 +1,9 @@
-package jp.co.toshiba.ppok.repository;
+package jp.co.toshiba.ppok.mapper;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import jp.co.toshiba.ppok.entity.Country;
 
@@ -14,7 +13,8 @@ import jp.co.toshiba.ppok.entity.Country;
  * @author Administrator
  * @date 2022-12-16
  */
-public interface NationDao extends JpaRepository<Country, String> {
+@Mapper
+public interface CountryMapper {
 
 	/**
 	 * Retrieve continent list distinct.
