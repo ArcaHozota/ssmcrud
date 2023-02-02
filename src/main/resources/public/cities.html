@@ -412,8 +412,7 @@
                 success: function (result) {
                     if (result.code === 200) {
                         showValidationMsg("#nameInput", "success", "");
-                        $("#cityInfoSaveBtn")
-                            .attr("ajax-va", "success");
+                        $("#cityInfoSaveBtn").attr("ajax-va", "success");
                     } else {
                         showValidationMsg("#nameInput", "error",
                             result.extend.validatedMsg);
@@ -444,13 +443,11 @@
             && regularPopulation.test(inputPopulation)) {
             showValidationMsg("#districtInput", "error",
                 "Districts' name should be in 2~33 Latin alphabets.");
-            showValidationMsg("#populationInput",
-                "success", "√");
+            showValidationMsg("#populationInput", "success", "√");
             return false;
         } else if (regularDistrict.test(inputDistrict)
             && !regularPopulation.test(inputPopulation)) {
-            showValidationMsg("#districtInput", "success",
-                "√");
+            showValidationMsg("#districtInput", "success", "√");
             showValidationMsg("#populationInput", "error",
                 "Population should be in 4~18 numbers.");
             return false;
