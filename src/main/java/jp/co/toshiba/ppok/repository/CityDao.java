@@ -2,7 +2,6 @@ package jp.co.toshiba.ppok.repository;
 
 import java.util.List;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
 import jp.co.toshiba.ppok.entity.City;
 
@@ -77,6 +78,6 @@ public interface CityDao extends JpaRepository<City, Integer> {
 	 * @param id id of the selected city
 	 */
 	@Modifying
-	@Transactional(rollbackFor = PSQLException.class)
+	@Transactional(rollbackFor = MySQLTransactionRollbackException.class)
 	void removeById(@Param("id") final Integer id);
 }
