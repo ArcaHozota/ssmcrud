@@ -21,7 +21,6 @@ public interface CountryMapper {
 	 *
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct cty.continent from country cty", nativeQuery = true)
 	List<String> findAllContinents();
 
 	/**
@@ -30,7 +29,6 @@ public interface CountryMapper {
 	 * @param continent name of continent
 	 * @return List<CityInfo>
 	 */
-	@Query(value = "select distinct cty.name from country cty where cty.continent =:continent", nativeQuery = true)
 	List<String> findNationsByCnt(@Param("continent") final String continent);
 
 	/**
@@ -39,5 +37,5 @@ public interface CountryMapper {
 	 * @param name name of nation
 	 * @return List<CityInfo>
 	 */
-	Country findNationCode(@Param("name") final String name);
+	Country getNationCode(@Param("name") final String name);
 }

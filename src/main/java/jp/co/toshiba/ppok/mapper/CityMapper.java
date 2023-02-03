@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.service.Pagination;
 
 /**
  * searching dao of table city
@@ -26,40 +25,28 @@ public interface CityMapper {
 	 * @param nation name of nation
 	 * @return List<City>
 	 */
-	List<City> findByNations(@Param("nation") final String nation);
-
-	/**
-	 * Retrieve city infos by nation name provided.
-	 *
-	 * @param nation   name of nation
-	 * @param pageable page
-	 * @return Page<City>
-	 */
-	Pagination<City> getByNations(@Param("nation") final String nation, final Pageable pageable);
+	List<City> getByNations(@Param("nation") final String nation);
 
 	/**
 	 * Retrieve city infos by city name provided.
 	 *
-	 * @param name     city name
-	 * @param pageable page
+	 * @param name city name
 	 * @return Page<City>
 	 */
-	Pagination<City> getByNames(@Param("name") final String name, final Pageable pageable);
+	List<City> getByNames(@Param("name") final String name);
 
 	/**
 	 * Retrieve city infos.
 	 *
-	 * @param pageable page
 	 * @return Page<City>
 	 */
-	Pagination<City> getCityInfos(final Pageable pageable);
+	List<City> getCityInfos();
 
 	/**
 	 * Retrieve city infos by population ascending.
 	 *
 	 * @return Page<City>
 	 */
-	@Query(value = "select cn.id, cn.name, cn.country_code, cn.distrcit, cn.population from city cn where cn.is_deleted = 0 order by cn.population asc fetch first 15 rows only", nativeQuery = true)
 	List<City> findMinimumRanks();
 
 	/**
@@ -67,7 +54,6 @@ public interface CityMapper {
 	 *
 	 * @return Page<City>
 	 */
-	@Query(value = "select cn.id, cn.name, cn.country_code, cn.distrcit, cn.population from city cn where cn.is_deleted = 0 order by cn.population desc fetch first 15 rows only", nativeQuery = true)
 	List<City> findMaximumRanks();
 
 	/**
@@ -75,7 +61,6 @@ public interface CityMapper {
 	 *
 	 * @param id id of the selected city
 	 */
-	@Modifying
 	@Transactional(rollbackFor = MySQLTransactionRollbackException.class)
 	void removeById(@Param("id") final Integer id);
 }
