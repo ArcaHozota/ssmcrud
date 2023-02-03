@@ -1,38 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
-	<resultMap id="BaseResultMap"
-		type="jp.co.toshiba.ppok.entity.City">
-		<id column="id" jdbcType="SMALLINT" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="country_code" jdbcType="CHAR"
-			property="countryCode" />
-		<result column="district" jdbcType="VARCHAR"
-			property="district" />
-		<result column="population" jdbcType="INTEGER"
-			property="population" />
-		<result column="is_deleted" jdbcType="SMALLINT"
-			property="isDeleted" />
-		<association property="continent"
-			javaType="jp.co.toshiba.ppok.entity.Country">
-			<id column="code" property="code" />
-			<result column="continent" property="continent" />
-		</association>
-		<association property="nation"
-			javaType="jp.co.toshiba.ppok.entity.Country">
-			<id column="code" property="code" />
-			<result column="name" property="name" />
-		</association>
-	</resultMap>
-	<select id="getCityInfos" resultMap="BaseResultMap">
-		SELECT cn.id, cn.name,
-		cty.continent, cty.name AS nation,
-		cn.district, cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE
-		cn.is_deleted = 0
-		ORDER BY cn.id ASC
-	</select>
+    <resultMap id="BaseResultMap"
+               type="jp.co.toshiba.ppok.entity.City">
+        <id column="id" jdbcType="SMALLINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="country_code" jdbcType="CHAR"
+                property="countryCode"/>
+        <result column="district" jdbcType="VARCHAR"
+                property="district"/>
+        <result column="population" jdbcType="INTEGER"
+                property="population"/>
+        <result column="is_deleted" jdbcType="SMALLINT"
+                property="isDeleted"/>
+        <association property="continent"
+                     javaType="jp.co.toshiba.ppok.entity.Country">
+            <id column="code" property="code"/>
+            <result column="continent" property="continent"/>
+        </association>
+        <association property="nation"
+                     javaType="jp.co.toshiba.ppok.entity.Country">
+            <id column="code" property="code"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+    <select id="getCityInfos" resultMap="BaseResultMap">
+        SELECT cn.id,
+               cn.name,
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+        ORDER BY cn.id ASC
+    </select>
+    <select id="getByNations" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT cn.id,
+               cn.name,
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+          AND cty.name = #{nation,jdbcType=VARCHAR}
+        ORDER BY cn.id ASC
+    </select>
+    <select id="getByNames" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT cn.id,
+               cn.name,
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+          AND cn.name LIKE #{name,jdbcType=VARCHAR}
+        ORDER BY cn.id ASC
+    </select>
 </mapper>
