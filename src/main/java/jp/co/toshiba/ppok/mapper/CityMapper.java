@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
-import jp.co.toshiba.ppok.entity.City;
+import jp.co.toshiba.ppok.dto.CityDto;
 
 /**
  * searching dao of table city
@@ -25,7 +25,7 @@ public interface CityMapper {
 	 * @param nation name of nation
 	 * @return List<City>
 	 */
-	List<City> getByNations(@Param("nation") final String nation);
+	List<CityDto> getByNations(@Param("nation") final String nation);
 
 	/**
 	 * Retrieve city infos by city name provided.
@@ -33,28 +33,28 @@ public interface CityMapper {
 	 * @param name city name
 	 * @return Page<City>
 	 */
-	List<City> getByNames(@Param("name") final String name);
+	List<CityDto> getByNames(@Param("name") final String name);
 
 	/**
 	 * Retrieve city infos.
 	 *
 	 * @return Page<City>
 	 */
-	List<City> getCityInfos();
+	List<CityDto> getCityInfos();
 
 	/**
 	 * Retrieve city infos by population ascending.
 	 *
 	 * @return Page<City>
 	 */
-	List<City> findMinimumRanks();
+	List<CityDto> findMinimumRanks();
 
 	/**
 	 * Retrieve city infos by population descending.
 	 *
 	 * @return Page<City>
 	 */
-	List<City> findMaximumRanks();
+	List<CityDto> findMaximumRanks();
 
 	/**
 	 * logic remove query.
