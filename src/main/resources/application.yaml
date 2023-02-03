@@ -18,6 +18,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    database-id: mysql
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: jp.co.toshiba.ppok.entity
 pagehelper:

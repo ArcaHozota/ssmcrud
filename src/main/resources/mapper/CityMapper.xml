@@ -24,6 +24,11 @@
             <result column="name" property="name"/>
         </association>
     </resultMap>
+    <update id="removeById" parameterType="java.lang.Integer">
+        UPDATE city AS cn
+        SET cn.is_deleted = 1
+        WHERE cn.id = #{id,jdbcType=SMALLINT}
+    </update>
     <select id="getCityInfos" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
@@ -64,5 +69,31 @@
         WHERE cn.is_deleted = 0
           AND cn.name LIKE #{name,jdbcType=VARCHAR}
         ORDER BY cn.id ASC
+    </select>
+    <select id="findMinimumRanks" resultMap="BaseResultMap">
+        SELECT cn.id,
+               cn.name,
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+        ORDER BY cn.population ASC LIMIT 15
+    </select>
+    <select id="findMaximumRanks" resultMap="BaseResultMap">
+        SELECT cn.id,
+               cn.name,
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+        ORDER BY cn.population DESC LIMIT 15
     </select>
 </mapper>
