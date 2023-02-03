@@ -29,7 +29,7 @@ public interface CountryMapper {
 	 * @param continent name of continent
 	 * @return List<CityInfo>
 	 */
-	List<String> findNationsByCnt(@Param("continent") final String continent);
+	List<String> findNationsByCnt(@Param("continent") String continent);
 
 	/**
 	 * Retrieve the nationcd through name.
@@ -37,5 +37,5 @@ public interface CountryMapper {
 	 * @param name name of nation
 	 * @return List<CityInfo>
 	 */
-	Country getNationCode(@Param("name") final String name);
+	Country getNationCode(@Param("name") String name);
 }

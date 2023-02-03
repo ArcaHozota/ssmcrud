@@ -25,7 +25,7 @@ public interface CityMapper {
 	 * @param nation name of nation
 	 * @return List<City>
 	 */
-	List<CityDto> getByNations(@Param("nation") final String nation);
+	List<CityDto> getByNations(@Param("nation") String nation);
 
 	/**
 	 * Retrieve city infos by city name provided.
@@ -33,7 +33,7 @@ public interface CityMapper {
 	 * @param name city name
 	 * @return Page<City>
 	 */
-	List<CityDto> getByNames(@Param("name") final String name);
+	List<CityDto> getByNames(@Param("name") String name);
 
 	/**
 	 * Retrieve city infos.
@@ -62,5 +62,5 @@ public interface CityMapper {
 	 * @param id id of the selected city
 	 */
 	@Transactional(rollbackFor = MySQLTransactionRollbackException.class)
-	void removeById(@Param("id") final Integer id);
+	void removeById(@Param("id") Integer id);
 }
