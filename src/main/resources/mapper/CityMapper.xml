@@ -13,5 +13,26 @@
 			property="population" />
 		<result column="is_deleted" jdbcType="SMALLINT"
 			property="isDeleted" />
+		<association property="continent"
+			javaType="jp.co.toshiba.ppok.entity.Country">
+			<id column="code" property="code" />
+			<result column="continent" property="continent" />
+		</association>
+		<association property="nation"
+			javaType="jp.co.toshiba.ppok.entity.Country">
+			<id column="code" property="code" />
+			<result column="name" property="name" />
+		</association>
 	</resultMap>
+	<select id="getCityInfos" resultMap="BaseResultMap">
+		SELECT cn.id, cn.name,
+		cty.continent, cty.name AS nation,
+		cn.district, cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE
+		cn.is_deleted = 0
+		ORDER BY cn.id ASC
+	</select>
 </mapper>
