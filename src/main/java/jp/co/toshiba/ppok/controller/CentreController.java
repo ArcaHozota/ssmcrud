@@ -27,8 +27,8 @@ import com.google.common.collect.Lists;
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.Country;
-import jp.co.toshiba.ppok.mapper.CityDao;
 import jp.co.toshiba.ppok.mapper.NationDao;
+import jp.co.toshiba.ppok.service.CityService;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
 import jp.co.toshiba.ppok.utils.StringUtils;
@@ -47,7 +47,7 @@ public class CentreController {
 	private static final String NATION = "nation";
 
 	@Resource
-	private CityDao cityDao;
+	private CityService cityService;
 
 	@Resource
 	private NationDao nationDao;
@@ -115,12 +115,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityDto(@PathVariable("id") final Integer id) {
-		final CityDto cityDto = new CityDto();
-		final City city = this.cityDao.getById(id);
-		final Country country = this.nationDao.getById(city.getCountryCode());
-		BeanUtils.copyProperties(city, cityDto);
-		cityDto.setContinent(country.getContinent());
-		cityDto.setNation(country.getName());
+		final CityDto cityDto = this.cityService.getCityInfo(id);
 		return RestMsg.success().add("citySelected", cityDto);
 	}
 

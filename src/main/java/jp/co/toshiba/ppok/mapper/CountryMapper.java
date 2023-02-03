@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import jp.co.toshiba.ppok.entity.Country;
+
 /**
  * searching dao of table country
  *
@@ -36,4 +38,12 @@ public interface CountryMapper {
 	 * @return List<CityInfo>
 	 */
 	String getNationCode(@Param("name") String name);
+
+	/**
+	 * Retrieve the nationcd through code.
+	 * 
+	 * @param code nation code
+	 * @return Country
+	 */
+	Country getNationById(@Param("code") String code);
 }
