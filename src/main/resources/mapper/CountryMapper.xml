@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.toshiba.ppok.mapper.CountryMapper">
+	<resultMap id="BaseResultMap"
+		type="jp.co.toshiba.ppok.entity.Country">
+		<id column="code" jdbcType="CHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="continent" jdbcType="VARCHAR"
+			property="continent" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="surface_area" jdbcType="FLOAT"
+			property="surfaceArea" />
+		<result column="independence_year" jdbcType="SMALLINT"
+			property="independenceYear" />
+		<result column="population" jdbcType="INTEGER"
+			property="population" />
+		<result column="life_expectancy" jdbcType="SMALLINT"
+			property="lifeExpectancy" />
+		<result column="gnp" jdbcType="FLOAT" property="gnp" />
+		<result column="gnp_old" jdbcType="FLOAT" property="gnpOld" />
+		<result column="local_name" jdbcType="VARCHAR"
+			property="localName" />
+		<result column="government_form" jdbcType="VARCHAR"
+			property="governmentForm" />
+		<result column="head_of_state" jdbcType="VARCHAR"
+			property="headOfState" />
+		<result column="capital" jdbcType="SMALLINT" property="capital" />
+		<result column="code2" jdbcType="CHAR" property="code2" />
+		<result column="is_deleted" jdbcType="SMALLINT"
+			property="isDeleted" />
+	</resultMap>
+</mapper>
