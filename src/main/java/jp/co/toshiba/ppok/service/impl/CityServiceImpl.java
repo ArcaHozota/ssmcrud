@@ -32,7 +32,7 @@ public class CityServiceImpl implements CityService {
 	 * @return cityDto
 	 */
 	@Override
-	public CityDto getCityInfo(final Integer id) {
+	public City getCityInfo(final Integer id) {
 		return this.cityMapper.getCityInfoById(id);
 	}
 

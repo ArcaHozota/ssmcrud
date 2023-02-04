@@ -71,7 +71,7 @@ public interface CityMapper {
 	 * @param id city id
 	 * @return entity of city
 	 */
-	CityDto getCityInfoById(@Param("id") Integer id);
+	City getCityInfoById(@Param("id") Integer id);
 
 	/**
 	 * Save the city info.
