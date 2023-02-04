@@ -502,7 +502,7 @@
             success: function (result) {
                 let cityData = result.extend.citySelected;
                 $("#nameEdit").text(cityData.name);
-                $("#continentEdit").text(cityData.continent);
+                $("#continentEdit").text(cityData.country.continent);
                 $("#districtEdit").val(cityData.district);
                 $("#populationEdit").val(cityData.population);
                 getNationsById("#nationEdit", id);
