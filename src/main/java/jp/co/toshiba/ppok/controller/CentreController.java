@@ -19,7 +19,7 @@ import com.github.pagehelper.page.PageMethod;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.service.CityService;
+import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
@@ -32,7 +32,7 @@ import jp.co.toshiba.ppok.utils.RestMsg;
 public class CentreController {
 
 	@Resource
-	private CityService cityService;
+	private CentreService centreService;
 
 	/**
 	 * Retrieve the city data.
@@ -43,7 +43,7 @@ public class CentreController {
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		PageMethod.startPage(pageNum, 18);
-		final List<CityDto> cityInfos = this.cityService.findByKeywords(keyword);
+		final List<CityDto> cityInfos = this.centreService.findByKeywords(keyword);
 		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos, 5);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
@@ -56,7 +56,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
-		final City cityInfo = this.cityService.getCityInfo(id);
+		final City cityInfo = this.centreService.getCityInfo(id);
 		return RestMsg.success().add("citySelected", cityInfo);
 	}
 
@@ -68,7 +68,7 @@ public class CentreController {
 	 */
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityDto cityDto) {
-		this.cityService.save(cityDto);
+		this.centreService.save(cityDto);
 		return RestMsg.success();
 	}
 
@@ -80,7 +80,7 @@ public class CentreController {
 	 */
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityDto(@RequestBody final CityDto cityDto) {
-		this.cityService.update(cityDto);
+		this.centreService.update(cityDto);
 		return RestMsg.success();
 	}
 
@@ -92,7 +92,7 @@ public class CentreController {
 	 */
 	@DeleteMapping(value = "/city/{id}")
 	public RestMsg deleteCityDto(@PathVariable("id") final Integer id) {
-		this.cityService.removeById(id);
+		this.centreService.removeById(id);
 		return RestMsg.success();
 	}
 
@@ -106,7 +106,7 @@ public class CentreController {
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
 		if (cityName.matches(regex)) {
-			final Boolean duplicated = this.cityService.checkDuplicated(cityName);
+			final Boolean duplicated = this.centreService.checkDuplicated(cityName);
 			if (Boolean.TRUE.equals(duplicated)) {
 				return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
 			} else {
@@ -124,7 +124,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
-		final List<String> cnList = this.cityService.findAllContinents();
+		final List<String> cnList = this.centreService.findAllContinents();
 		return RestMsg.success().add("continents", cnList);
 	}
 
@@ -135,7 +135,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/countries")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final List<String> nationList = this.cityService.findNationsByCnt(continent);
+		final List<String> nationList = this.centreService.findNationsByCnt(continent);
 		return RestMsg.success().add("nations", nationList);
 	}
 
@@ -146,7 +146,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/countries/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
-		final List<String> nationList = this.cityService.findNationsByCityId(id);
+		final List<String> nationList = this.centreService.findNationsByCityId(id);
 		return RestMsg.success().add("nationsByName", nationList);
 	}
 }
