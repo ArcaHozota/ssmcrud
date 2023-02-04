@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.Lists;
-
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.Country;
@@ -172,7 +170,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/continents")
 	public RestMsg getListOfContinents() {
-		final List<String> cnList = this.nationDao.findAllContinents();
+		final List<String> cnList = this.cityService.findAllContinents();
 		return RestMsg.success().add("continents", cnList);
 	}
 
@@ -183,7 +181,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/countries")
 	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
-		final List<String> nationList = this.nationDao.findNationsByCnt(continent);
+		final List<String> nationList = this.cityService.findNationsByCnt(continent);
 		return RestMsg.success().add("nations", nationList);
 	}
 
@@ -194,16 +192,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/countries/{id}")
 	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
-		final List<String> nationList = Lists.newArrayList();
-		final City city = this.cityDao.getById(id);
-		final Country country = this.nationDao.getById(city.getCountryCode());
-		nationList.add(country.getName());
-		final List<String> countries = this.nationDao.findNationsByCnt(country.getContinent());
-		countries.forEach(item -> {
-			if (StringUtils.isNotEqual(country.getName(), item)) {
-				nationList.add(item);
-			}
-		});
+		final List<String> nationList = this.cityService.findNationsByCityId(id);
 		return RestMsg.success().add("nationsByName", nationList);
 	}
 }
