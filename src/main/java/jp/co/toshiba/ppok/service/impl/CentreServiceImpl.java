@@ -13,11 +13,11 @@ import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
-import jp.co.toshiba.ppok.service.CityService;
+import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.StringUtils;
 
 @Service
-public class CityServiceImpl implements CityService {
+public class CentreServiceImpl implements CentreService {
 
 	@Resource
 	private CityMapper cityMapper;
