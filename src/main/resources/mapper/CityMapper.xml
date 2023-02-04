@@ -21,9 +21,9 @@
         </association>
     </resultMap>
     <insert id="insert" parameterType="jp.co.toshiba.ppok.entity.City">
-        INSERT INTO city (id, name, country_code,
-                          district, population, is_deleted)
-        VALUES (#{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
+        INSERT INTO city(name, country_code,
+                         district, population, is_deleted)
+        VALUES (#{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
                 #{district,jdbcType=VARCHAR}, #{population,jdbcType=INTEGER}, #{isDeleted,jdbcType=SMALLINT})
     </insert>
     <update id="removeById" parameterType="java.lang.Integer">
