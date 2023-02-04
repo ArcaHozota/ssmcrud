@@ -27,7 +27,6 @@ import com.google.common.collect.Lists;
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.Country;
-import jp.co.toshiba.ppok.mapper.NationDao;
 import jp.co.toshiba.ppok.service.CityService;
 import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
@@ -48,9 +47,6 @@ public class CentreController {
 
 	@Resource
 	private CityService cityService;
-
-	@Resource
-	private NationDao nationDao;
 
 	/**
 	 * Retrieve the city data.
