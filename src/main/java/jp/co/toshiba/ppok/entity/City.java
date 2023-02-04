@@ -41,4 +41,9 @@ public class City implements Serializable {
 	 * This field corresponds to the database column is_deleted
 	 */
 	private Integer isDeleted;
+
+	/**
+	 * This field corresponds to the database table country
+	 */
+	private Country country;
 }
