@@ -44,6 +44,7 @@ public class CentreController {
 		PageMethod.startPage(pageNum, 18);
 		final List<CityDto> cityInfos = this.cityService.findByKeywords(keyword);
 		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos);
+		pageInfo.setNavigatePages(5);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 

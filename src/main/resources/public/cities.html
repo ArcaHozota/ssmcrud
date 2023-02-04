@@ -225,9 +225,9 @@
         $("#cityTableBody").empty();
         let index = result.extend.pageInfo.list;
         $.each(index, function (index, item) {
-            let cityName = item.name.trim().toString();
-            let nationName = item.country.name.trim().toString();
-            let districtName = item.district.trim().toString();
+            let cityName = item.name;
+            let nationName = item.country.name;
+            let districtName = item.district;
             let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
             let nameTd;
             if (cityName.length >= 15) {
@@ -236,7 +236,7 @@
                 nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
             }
             let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>")
-                .append(item.country.continent.trim().toString());
+                .append(item.country.continent);
             let nationTd;
             if (nationName.length > 12
                 && nationName.length <= 15) {
@@ -258,7 +258,7 @@
                     .append(districtName);
             }
             let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>")
-                .append(item.population.trim().toString());
+                .append(item.population);
             let editBtn = $("<button></button>")
                 .addClass("btn btn-primary btn-sm edit_btn")
                 .append($("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-pencil-fill\" viewBox=\"0 0 16 16\">\n"
