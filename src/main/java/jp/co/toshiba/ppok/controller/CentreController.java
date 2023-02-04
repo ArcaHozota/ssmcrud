@@ -43,8 +43,7 @@ public class CentreController {
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		PageMethod.startPage(pageNum, 18);
 		final List<CityDto> cityInfos = this.cityService.findByKeywords(keyword);
-		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos);
-		pageInfo.setNavigatePages(5);
+		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos, 5);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 

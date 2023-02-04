@@ -334,8 +334,7 @@
         ul.append(firstPageLi).append(previousPageLi);
         $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
             let numsLi = $("<li class='page-item'></li>").append(
-                $("<a class='page-link'></a>").append(item).attr(
-                    "href", "#"));
+                $("<a class='page-link'></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
                 numsLi.attr("href", "#").addClass("active");
             }
