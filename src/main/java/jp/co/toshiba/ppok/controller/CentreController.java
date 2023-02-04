@@ -18,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
 
 import jp.co.toshiba.ppok.dto.CityDto;
+import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.service.CityService;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
@@ -55,8 +56,8 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
-		final CityDto cityDto = this.cityService.getCityInfo(id);
-		return RestMsg.success().add("citySelected", cityDto);
+		final City cityInfo = this.cityService.getCityInfo(id);
+		return RestMsg.success().add("citySelected", cityInfo);
 	}
 
 	/**
