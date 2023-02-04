@@ -70,4 +70,9 @@ public class CityServiceImpl implements CityService {
 	public void removeById(final Integer id) {
 		this.cityMapper.removeById(id);
 	}
+
+	@Override
+	public Boolean checkDuplicated(final String cityName) {
+		return 1 <= this.cityMapper.checkName(cityName);
+	}
 }

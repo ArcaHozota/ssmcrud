@@ -136,4 +136,9 @@
         WHERE cn.is_deleted = 0
           AND cn.id = #{id,jdbcType=SMALLINT}
     </select>
+    <select id="checkName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM city AS cn
+        WHERE cn.name = #{cityName,jdbcType=VARCHAR}
+    </select>
 </mapper>

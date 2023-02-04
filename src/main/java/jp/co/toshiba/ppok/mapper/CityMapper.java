@@ -75,15 +75,23 @@ public interface CityMapper {
 
 	/**
 	 * Save the city info.
-	 * 
+	 *
 	 * @param city entity
 	 */
 	void insert(City city);
 
 	/**
 	 * Update the selected city info.
-	 * 
+	 *
 	 * @param city entity
 	 */
 	void updateSelective(City city);
+
+	/**
+	 * Check the duplication of name.
+	 * 
+	 * @param cityName city name
+	 * @return 0: no duplication, 1 or more: duplicated.
+	 */
+	Integer checkName(@Param("cityName") String cityName);
 }

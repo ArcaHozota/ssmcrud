@@ -1,14 +1,11 @@
 package jp.co.toshiba.ppok.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -157,15 +154,8 @@ public class CentreController {
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
 		if (cityName.matches(regex)) {
-			final City city = new City();
-			city.setName(cityName);
-			final ExampleMatcher matcher = ExampleMatcher.matching()
-					.withStringMatcher(ExampleMatcher.StringMatcher.EXACT).withIgnoreCase(true)
-					.withMatcher(cityName, ExampleMatcher.GenericPropertyMatchers.exact())
-					.withIgnorePaths("id", "country_code", "district", "population", "is_deleted");
-			final Example<City> example = Example.of(city, matcher);
-			final Optional<City> duplicated = this.cityDao.findOne(example);
-			if (duplicated.isPresent()) {
+			final Boolean duplicated = this.cityService.checkDuplicated(cityName);
+			if (Boolean.TRUE.equals(duplicated)) {
 				return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
 			} else {
 				return RestMsg.success();

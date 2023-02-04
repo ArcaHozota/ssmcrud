@@ -32,4 +32,12 @@ public interface CityService {
 	 * @param id cityID
 	 */
 	void removeById(Integer id);
+
+	/**
+	 * check the duplication of city name
+	 * 
+	 * @param cityName name of city
+	 * @return true: duplicated, false: can be inserted;
+	 */
+	Boolean checkDuplicated(String cityName);
 }
