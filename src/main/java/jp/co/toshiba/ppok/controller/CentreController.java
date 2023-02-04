@@ -143,7 +143,7 @@ public class CentreController {
 	 */
 	@DeleteMapping(value = "/city/{id}")
 	public RestMsg deleteCityDto(@PathVariable("id") final Integer id) {
-		this.cityDao.removeById(id);
+		this.cityService.removeById(id);
 		return RestMsg.success();
 	}
 
