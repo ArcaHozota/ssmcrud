@@ -117,11 +117,11 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = Lists.newArrayList();
-		final CityDto cityDto = this.cityMapper.getCityInfoById(id);
-		nationList.add(cityDto.getNation());
-		final List<String> countries = this.countryMapper.getNationsByCnt(cityDto.getContinent());
+		final City city = this.cityMapper.getCityInfoById(id);
+		nationList.add(city.getCountry().getName());
+		final List<String> countries = this.countryMapper.getNationsByCnt(city.getCountry().getContinent());
 		countries.forEach(item -> {
-			if (StringUtils.isNotEqual(cityDto.getNation(), item)) {
+			if (StringUtils.isNotEqual(city.getCountry().getName(), item)) {
 				nationList.add(item);
 			}
 		});
