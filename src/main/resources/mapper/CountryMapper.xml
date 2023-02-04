@@ -43,24 +43,4 @@
         FROM country AS cty
         WHERE cty.name = #{name,jdbcType=VARCHAR}
     </select>
-    <select id="getNationById" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT cty.code,
-               cty.name,
-               cty.continent,
-               cty.region,
-               cty.surface_area,
-               cty.independence_year,
-               cty.population,
-               cty.life_expectancy,
-               cty.gnp,
-               cty.gnp_old,
-               cty.local_name,
-               cty.government_form,
-               cty.head_of_state,
-               cty.capital,
-               cty.code2,
-               cty.is_deleted
-        FROM country AS cty
-        WHERE cty.code = #{code,jdbcType=CHAR}
-    </select>
 </mapper>
