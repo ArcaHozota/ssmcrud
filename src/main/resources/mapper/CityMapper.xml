@@ -13,15 +13,11 @@
                 property="population"/>
         <result column="is_deleted" jdbcType="SMALLINT"
                 property="isDeleted"/>
-        <association property="continent"
-                     javaType="jp.co.toshiba.ppok.entity.Country">
-            <id column="code" property="code"/>
-            <result column="continent" property="continent"/>
-        </association>
-        <association property="nation"
+        <association property="country"
                      javaType="jp.co.toshiba.ppok.entity.Country">
             <id column="code" property="code"/>
             <result column="name" property="name"/>
+            <result column="continent" property="continent"/>
         </association>
     </resultMap>
     <insert id="insert" parameterType="jp.co.toshiba.ppok.entity.City">
