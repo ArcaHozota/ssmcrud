@@ -4,10 +4,10 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    url: jdbc:mysql://mysqldb.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:3306/world
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: mysqlad123
-    password: mysqlad123
+    url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
     hikari:
       max-lifetime: 1500000
       maximum-pool-size: 30
@@ -16,11 +16,11 @@ spring:
       enabled: ALWAYS
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true
+    database-id: postgresql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    database-id: mysql
+    map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: jp.co.toshiba.ppok.entity
 pagehelper:
-  helper-dialect: mysql
+  helper-dialect: postgresql
   reasonable: true

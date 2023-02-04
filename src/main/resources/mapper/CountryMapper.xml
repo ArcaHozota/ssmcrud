@@ -8,7 +8,7 @@
         <result column="continent" jdbcType="VARCHAR"
                 property="continent"/>
         <result column="region" jdbcType="VARCHAR" property="region"/>
-        <result column="surface_area" jdbcType="FLOAT"
+        <result column="surface_area" jdbcType="REAL"
                 property="surfaceArea"/>
         <result column="independence_year" jdbcType="SMALLINT"
                 property="independenceYear"/>
@@ -16,8 +16,8 @@
                 property="population"/>
         <result column="life_expectancy" jdbcType="SMALLINT"
                 property="lifeExpectancy"/>
-        <result column="gnp" jdbcType="FLOAT" property="gnp"/>
-        <result column="gnp_old" jdbcType="FLOAT" property="gnpOld"/>
+        <result column="gnp" jdbcType="REAL" property="gnp"/>
+        <result column="gnp_old" jdbcType="REAL" property="gnpOld"/>
         <result column="local_name" jdbcType="VARCHAR"
                 property="localName"/>
         <result column="government_form" jdbcType="VARCHAR"

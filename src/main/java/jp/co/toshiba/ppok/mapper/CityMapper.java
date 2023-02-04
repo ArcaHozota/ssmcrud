@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.postgresql.util.PSQLException;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
@@ -62,7 +61,7 @@ public interface CityMapper {
 	 *
 	 * @param id id of the selected city
 	 */
-	@Transactional(rollbackFor = MySQLTransactionRollbackException.class)
+	@Transactional(rollbackFor = PSQLException.class)
 	void removeById(@Param("id") Integer id);
 
 	/**
