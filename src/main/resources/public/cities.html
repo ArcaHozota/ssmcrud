@@ -226,7 +226,7 @@
         let index = result.extend.pageInfo.list;
         $.each(index, function (index, item) {
             let cityName = item.name.trim().toString();
-            let nationName = item.nation.trim().toString();
+            let nationName = item.country.name.trim().toString();
             let districtName = item.district.trim().toString();
             let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
             let nameTd;
@@ -236,7 +236,7 @@
                 nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
             }
             let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>")
-                .append(item.continent.trim().toString());
+                .append(item.country.continent.trim().toString());
             let nationTd;
             if (nationName.length > 12
                 && nationName.length <= 15) {
