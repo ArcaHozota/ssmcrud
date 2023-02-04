@@ -41,10 +41,6 @@ import jp.co.toshiba.ppok.utils.StringUtils;
 @RequestMapping("/public/grssmcrud")
 public class CentreController {
 
-	private static final String CONTINENT = "continent";
-
-	private static final String NATION = "nation";
-
 	@Resource
 	private CityService cityService;
 
@@ -135,14 +131,7 @@ public class CentreController {
 	 */
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityDto(@RequestBody final CityDto cityDto) {
-		final City city = new City();
-		BeanUtils.copyProperties(cityDto, city, CONTINENT, NATION);
-		final String nationName = cityDto.getNation();
-		final Country country = this.nationDao.findNationCode(nationName);
-		final String nationCode = country.getCode();
-		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
-		this.cityDao.saveAndFlush(city);
+		this.cityService.update(cityDto);
 		return RestMsg.success();
 	}
 

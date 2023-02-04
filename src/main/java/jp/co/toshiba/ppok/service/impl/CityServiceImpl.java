@@ -34,4 +34,14 @@ public class CityServiceImpl implements CityService {
 		city.setIsDeleted(0);
 		this.cityMapper.insert(city);
 	}
+
+	@Override
+	public void update(final CityDto cityDto) {
+		final City city = new City();
+		BeanUtils.copyProperties(cityDto, city, "continent", "nation");
+		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
+		city.setCountryCode(nationCode);
+		city.setIsDeleted(0);
+		this.cityMapper.updateSelective(city);
+	}
 }

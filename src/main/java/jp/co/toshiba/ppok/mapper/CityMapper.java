@@ -67,11 +67,23 @@ public interface CityMapper {
 
 	/**
 	 * Retrieve city infos by id.
-	 * 
+	 *
 	 * @param id city id
 	 * @return entity of city
 	 */
 	CityDto getCityInfoById(@Param("id") Integer id);
 
+	/**
+	 * Save the city info.
+	 * 
+	 * @param city entity
+	 */
 	void insert(City city);
+
+	/**
+	 * Update the selected city info.
+	 * 
+	 * @param city entity
+	 */
+	void updateSelective(City city);
 }

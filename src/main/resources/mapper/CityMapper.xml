@@ -25,14 +25,35 @@
         </association>
     </resultMap>
     <insert id="insert" parameterType="jp.co.toshiba.ppok.entity.City">
-        insert into city (id, name, country_code,
+        INSERT INTO city (id, name, country_code,
                           district, population, is_deleted)
-        values (#{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
+        VALUES (#{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
                 #{district,jdbcType=VARCHAR}, #{population,jdbcType=INTEGER}, #{isDeleted,jdbcType=SMALLINT})
     </insert>
     <update id="removeById" parameterType="java.lang.Integer">
         UPDATE city AS cn
         SET cn.is_deleted = 1
+        WHERE cn.id = #{id,jdbcType=SMALLINT}
+    </update>
+    <update id="updateSelective" parameterType="jp.co.toshiba.ppok.entity.City">
+        UPDATE city AS cn
+        <set>
+            <if test="name != null">
+                cn.name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="countryCode != null">
+                cn.country_code = #{countryCode,jdbcType=CHAR},
+            </if>
+            <if test="district != null">
+                cn.district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="population != null">
+                cn.population = #{population,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                cn.is_deleted = #{isDeleted,jdbcType=SMALLINT},
+            </if>
+        </set>
         WHERE cn.id = #{id,jdbcType=SMALLINT}
     </update>
     <select id="getCityInfos" resultMap="BaseResultMap">
