@@ -29,7 +29,7 @@ public class CentreServiceImpl implements CentreService {
 	 * retrieve selected city info by id provided
 	 *
 	 * @param id cityID
-	 * @return cityDto
+	 * @return entity of city
 	 */
 	@Override
 	public City getCityInfo(final Integer id) {

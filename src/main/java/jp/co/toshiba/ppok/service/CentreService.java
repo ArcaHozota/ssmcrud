@@ -11,7 +11,7 @@ public interface CentreService {
 	 * retrieve selected city info by id provided
 	 * 
 	 * @param id cityID
-	 * @return cityDto
+	 * @return entity of city
 	 */
 	City getCityInfo(Integer id);
 
