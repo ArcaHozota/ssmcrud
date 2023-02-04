@@ -99,8 +99,13 @@
     <select id="getCityInfoById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
-               cn.country_code cn.district, cn.population
+               cty.continent,
+               cty.name AS nation,
+               cn.district,
+               cn.population
         FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
         WHERE cn.is_deleted = 0
           AND cn.id = #{id,jdbcType=SMALLINT}
     </select>

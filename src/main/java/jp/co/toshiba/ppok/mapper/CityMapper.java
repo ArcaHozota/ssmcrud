@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException;
 
 import jp.co.toshiba.ppok.dto.CityDto;
-import jp.co.toshiba.ppok.entity.City;
 
 /**
  * searching dao of table city
@@ -71,5 +70,5 @@ public interface CityMapper {
 	 * @param id city id
 	 * @return entity of city
 	 */
-	City getCityInfoById(@Param("id") Integer id);
+	CityDto getCityInfoById(@Param("id") Integer id);
 }

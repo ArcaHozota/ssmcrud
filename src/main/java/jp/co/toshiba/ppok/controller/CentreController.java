@@ -114,7 +114,7 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/city/{id}")
-	public RestMsg getCityDto(@PathVariable("id") final Integer id) {
+	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
 		final CityDto cityDto = this.cityService.getCityInfo(id);
 		return RestMsg.success().add("citySelected", cityDto);
 	}
@@ -126,15 +126,8 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@PostMapping(value = "/city")
-	public RestMsg saveCityDto(@RequestBody final CityDto cityDto) {
-		final City city = new City();
-		BeanUtils.copyProperties(cityDto, city, CONTINENT, NATION);
-		final String nationName = cityDto.getNation();
-		final Country country = this.nationDao.findNationCode(nationName);
-		final String nationCode = country.getCode();
-		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
-		this.cityDao.save(city);
+	public RestMsg saveCityInfo(@RequestBody final CityDto cityDto) {
+		this.cityService.save(cityDto);
 		return RestMsg.success();
 	}
 
