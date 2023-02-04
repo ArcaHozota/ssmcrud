@@ -65,4 +65,12 @@ public interface CityService {
 	 * @return list of names
 	 */
 	List<String> findNationsByCityId(Integer id);
+
+	/**
+	 * get all cities by keyword.
+	 * 
+	 * @param keyword name of nation
+	 * @return list of cities
+	 */
+	List<CityDto> findByKeywords(String keyword);
 }

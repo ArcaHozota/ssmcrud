@@ -48,14 +48,14 @@ public interface CityMapper {
 	 *
 	 * @return Page<City>
 	 */
-	List<CityDto> findMinimumRanks();
+	List<CityDto> getMinimumRanks();
 
 	/**
 	 * Retrieve city infos by population descending.
 	 *
 	 * @return Page<City>
 	 */
-	List<CityDto> findMaximumRanks();
+	List<CityDto> getMaximumRanks();
 
 	/**
 	 * logic remove query.

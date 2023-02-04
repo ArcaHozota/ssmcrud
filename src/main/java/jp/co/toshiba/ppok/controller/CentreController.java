@@ -1,14 +1,9 @@
 package jp.co.toshiba.ppok.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
+
 import jp.co.toshiba.ppok.dto.CityDto;
-import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.Country;
 import jp.co.toshiba.ppok.service.CityService;
-import jp.co.toshiba.ppok.utils.PaginationImpl;
 import jp.co.toshiba.ppok.utils.RestMsg;
-import jp.co.toshiba.ppok.utils.StringUtils;
 
 /**
  * Center Terminal Controller handle the retrieve and update requests.
@@ -47,50 +41,9 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final Page<City> dtoPage;
-		final PageRequest pageRequest = PageRequest.of(pageNum - 1, 18);
-		if (StringUtils.isNotEmpty(keyword)) {
-			final List<City> keyNations = this.cityDao.findByNations(this.nationDao.findNationCode(keyword).getCode());
-			if (keyNations.isEmpty()) {
-				dtoPage = this.cityDao.getByNations(this.nationDao.findNationCode(keyword).getCode(), pageRequest);
-			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<City> minimumRanks = this.cityDao.findMinimumRanks();
-				dtoPage = new PageImpl<>(minimumRanks);
-			} else if (StringUtils.isEqual("max(pop)", keyword)) {
-				final List<City> maximumRanks = this.cityDao.findMaximumRanks();
-				dtoPage = new PageImpl<>(maximumRanks);
-			} else {
-				dtoPage = this.cityDao.getByNames(keyword, pageRequest);
-			}
-		} else {
-			dtoPage = this.cityDao.getCityInfos(pageRequest);
-		}
-		final List<CityDto> cities = dtoPage.stream().map(item -> {
-			final CityDto cityDto = new CityDto();
-			BeanUtils.copyProperties(item, cityDto);
-			final Country country = this.nationDao.getById(item.getCountryCode());
-			cityDto.setNation(country.getName());
-			cityDto.setContinent(country.getContinent());
-			return cityDto;
-		}).collect(Collectors.toList());
-		// 設置分頁；
-		final PaginationImpl<CityDto> pageInfo = new PaginationImpl<>(cities);
-		// 設置當前頁；
-		final int current = dtoPage.getNumber() + 1;
-		pageInfo.setCurrent(current);
-		// 設置總頁數；
-		final int totalPage = dtoPage.getTotalPages();
-		pageInfo.setTotalPg(totalPage);
-		// 設置總記錄數；
-		final long totalRecords = dtoPage.getTotalElements();
-		pageInfo.setTotalRecords(totalRecords);
-		// 設置是否有前後頁；
-		final boolean hasPrevious = dtoPage.hasPrevious();
-		pageInfo.setHasPrevious(hasPrevious);
-		final boolean hasNext = dtoPage.hasNext();
-		pageInfo.setHasNext(hasNext);
-		// 設置分頁導航條頁碼數量；
-		pageInfo.calcByNaviPages(5);
+		PageMethod.startPage(pageNum, 18);
+		final List<CityDto> cityInfos = this.cityService.findByKeywords(keyword);
+		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos);
 		return RestMsg.success().add("pageInfo", pageInfo);
 	}
 

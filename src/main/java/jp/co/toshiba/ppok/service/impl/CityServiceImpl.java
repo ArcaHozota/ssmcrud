@@ -127,4 +127,24 @@ public class CityServiceImpl implements CityService {
 		});
 		return nationList;
 	}
+
+	@Override
+	public List<CityDto> findByKeywords(final String keyword) {
+		final List<CityDto> cities;
+		if (StringUtils.isNotEmpty(keyword)) {
+			final List<CityDto> keyNations = this.cityMapper.getByNations(keyword);
+			if (!keyNations.isEmpty()) {
+				cities = keyNations;
+			} else if (StringUtils.isEqual("min(pop)", keyword)) {
+				cities = this.cityMapper.getMinimumRanks();
+			} else if (StringUtils.isEqual("max(pop)", keyword)) {
+				cities = this.cityMapper.getMaximumRanks();
+			} else {
+				cities = this.cityMapper.getByNames(keyword);
+			}
+		} else {
+			cities = this.cityMapper.getCityInfos();
+		}
+		return cities;
+	}
 }

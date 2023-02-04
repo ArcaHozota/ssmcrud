@@ -97,7 +97,7 @@
           AND cn.name LIKE #{name,jdbcType=VARCHAR}
         ORDER BY cn.id ASC
     </select>
-    <select id="findMinimumRanks" resultMap="BaseResultMap">
+    <select id="getMinimumRanks" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
                cty.continent,
@@ -110,7 +110,7 @@
         WHERE cn.is_deleted = 0
         ORDER BY cn.population ASC LIMIT 15
     </select>
-    <select id="findMaximumRanks" resultMap="BaseResultMap">
+    <select id="getMaximumRanks" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
                cty.continent,
