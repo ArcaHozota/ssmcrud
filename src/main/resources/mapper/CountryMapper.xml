@@ -32,11 +32,13 @@
     <select id="getAllContinents" resultType="java.lang.String">
         SELECT DISTINCT cty.continent
         FROM country AS cty
+        ORDER BY cty.continent
     </select>
     <select id="getNationsByCnt" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT DISTINCT cty.name
         FROM country AS cty
         WHERE cty.continent = #{continent,jdbcType=VARCHAR}
+        ORDER BY cty.name
     </select>
     <select id="getNationCode" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT cty.code

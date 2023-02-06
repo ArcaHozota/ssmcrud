@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * grssmcrud application
@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
  * @author Administrator
  * @date 2022-12-12
  */
-@Log4j2
+@Slf4j
 @SpringBootApplication
 @ServletComponentScan
 public class GrSsmCrudApplication {

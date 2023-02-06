@@ -9,12 +9,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import jp.co.toshiba.ppok.utils.JacksonObjectMapper;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Administrator
  */
-@Log4j2
+@Slf4j
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
