@@ -16,7 +16,7 @@
         <association property="country"
                      javaType="jp.co.toshiba.ppok.entity.Country">
             <id column="code" property="code"/>
-            <result column="name" property="name"/>
+            <result column="nation" property="name"/>
             <result column="continent" property="continent"/>
         </association>
     </resultMap>

@@ -425,10 +425,8 @@
 
     //Click, save and check the input data format.
     $("#cityInfoSaveBtn").on('click', function () {
-        let inputDistrict = $("#districtInput").val()
-            .trim();
-        let inputPopulation = $("#populationInput").val()
-            .trim();
+        let inputDistrict = $("#districtInput").val().trim();
+        let inputPopulation = $("#populationInput").val().trim();
         let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
         let regularPopulation = /^[0-9]{4,18}$/;
         if ($(this).attr("ajax-va") === "error") {
@@ -464,7 +462,7 @@
                 data: JSON.stringify({
                     'name': $("#nameInput").val().trim(),
                     'continent': $("#continentInput option:selected").val(),
-                    'country': $("#nationInput option:selected").val(),
+                    'nation': $("#nationInput option:selected").val(),
                     'district': inputDistrict,
                     'population': inputPopulation
                 }),
@@ -528,8 +526,7 @@
     //Submit the change of city infos.
     $("#cityInfoChangeBtn").on('click', function () {
         let inputDistrict = $("#districtEdit").val().trim();
-        let inputPopulation = $("#populationEdit").val()
-            .trim();
+        let inputPopulation = $("#populationEdit").val().trim();
         let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
         let regularPopulation = /^[0-9]{4,18}$/;
         let editId = $(this).attr("editId");
@@ -566,7 +563,7 @@
                 'id': editId,
                 'name': $("#nameEdit").text(),
                 'continent': $("#continentEdit").text(),
-                'country': $("#nationEdit option:selected").val(),
+                'nation': $("#nationEdit option:selected").val(),
                 'district': inputDistrict,
                 'population': inputPopulation
             }),
