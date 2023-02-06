@@ -1,9 +1,10 @@
 package jp.co.toshiba.ppok;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+
+import lombok.extern.log4j.Log4j2;
 
 /**
  * grssmcrud application
@@ -11,12 +12,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @author Administrator
  * @date 2022-12-12
  */
-@Slf4j
+@Log4j2
 @SpringBootApplication
 @ServletComponentScan
 public class GrSsmCrudApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(GrSsmCrudApplication.class,args);
-        log.info("Application launched successfully!");
-    }
+	public static void main(final String[] args) {
+		SpringApplication.run(GrSsmCrudApplication.class, args);
+		log.info("Application launched successfully!");
+	}
 }
