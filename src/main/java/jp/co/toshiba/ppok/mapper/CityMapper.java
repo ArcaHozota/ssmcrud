@@ -88,7 +88,7 @@ public interface CityMapper {
 
 	/**
 	 * Check the duplication of name.
-	 * 
+	 *
 	 * @param cityName city name
 	 * @return 0: no duplication, 1 or more: duplicated.
 	 */
