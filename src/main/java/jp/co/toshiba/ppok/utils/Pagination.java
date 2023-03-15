@@ -106,13 +106,15 @@ public final class Pagination<T> {
 	 * @param navigatePages 導航條頁碼數
 	 */
 	private Pagination(final List<T> records, final int totalRecords, final int pageNum, final int navigatePages) {
-		if (records instanceof Collection) {
+		if (records instanceof Collection && !records.isEmpty()) {
 			this.pageNum = pageNum;
 			this.records = records;
 			this.pageSize = records.size();
 			this.totalRecords = totalRecords;
 			final int ape = this.totalRecords / this.pageSize;
 			this.totalPages = this.totalRecords % this.pageSize == 0 ? ape : ape + 1;
+		} else if (records.isEmpty()) {
+			throw new RuntimeException("沒有相對應的數據！");
 		} else {
 			throw new RuntimeException("數據集合類型錯誤！");
 		}
