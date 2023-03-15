@@ -134,9 +134,9 @@ public class CentreServiceImpl implements CentreService {
 		final Integer offset = (pageNum - 1) * pageSize;
 		Pagination<CityDto> pages;
 		if (StringUtils.isNotEmpty(keyword)) {
-			final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
-			if (!keyNations.isEmpty()) {
-				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
+			final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
+			if (keyNationsCnt > 0) {
+				final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
 				pages = Pagination.of(keyNations, keyNationsCnt, pageNum, 5);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
