@@ -25,7 +25,7 @@ public interface CityMapper {
 	 * @param nation name of nation
 	 * @return List<City>
 	 */
-	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageNum") Integer pageSize,
+	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageSize") Integer pageSize,
 			@Param("offset") Integer offset);
 
 	/**
@@ -42,7 +42,7 @@ public interface CityMapper {
 	 * @param name city name
 	 * @return Page<City>
 	 */
-	List<CityDto> getByNames(@Param("name") String name, @Param("pageNum") Integer pageSize,
+	List<CityDto> getByNames(@Param("name") String name, @Param("pageSize") Integer pageSize,
 			@Param("offset") Integer offset);
 
 	/**
@@ -58,7 +58,7 @@ public interface CityMapper {
 	 *
 	 * @return Page<City>
 	 */
-	List<CityDto> getCityInfos(@Param("pageNum") Integer pageSize, @Param("offset") Integer offset);
+	List<CityDto> getCityInfos(@Param("pageSize") Integer pageSize, @Param("offset") Integer offset);
 
 	/**
 	 * Retrieve the number of cityInfos.
