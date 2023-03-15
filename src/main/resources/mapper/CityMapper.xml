@@ -85,7 +85,7 @@
                             ON cn.country_code = cty.code
         WHERE cn.is_deleted = 0
           AND cty.name = #{nation,jdbcType=VARCHAR}
-        ORDER BY cn.id ASC
+        ORDER BY cn.population DESC
         LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
     </select>
     <select id="getByNationsCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
