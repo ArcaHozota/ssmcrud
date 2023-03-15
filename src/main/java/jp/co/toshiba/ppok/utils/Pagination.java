@@ -208,6 +208,9 @@ public final class Pagination<T> {
 		return this.records.size() > 0;
 	}
 
+	/**
+	 * toString()
+	 */
 	@Override
 	public String toString() {
 		return "Pagination [records=" + this.records + ", pageNum=" + this.pageNum + ", pageSize=" + this.pageSize
