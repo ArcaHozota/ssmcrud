@@ -111,7 +111,7 @@
         ORDER BY cn.id ASC
         LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
     </select>
-    <select id="getByNamesCnt" parameterType="java.lang.String" resultMap="java.lang.Integer">
+    <select id="getByNamesCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(1)
         FROM city AS cn
                  INNER JOIN country AS cty
