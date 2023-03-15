@@ -129,17 +129,25 @@ public class CentreServiceImpl implements CentreService {
 		return nationList;
 	}
 
+	/**
+	 * get all cities by keyword.
+	 *
+	 * @param pageNum  pageNum
+	 * @param pageSize pageSize
+	 * @param keyword  name of nation
+	 * @return pageList of cities
+	 */
 	@Override
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
 		final Integer offset = (pageNum - 1) * pageSize;
 		Pagination<CityDto> pages;
 		if (StringUtils.isNotEmpty(keyword)) {
-			if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
-				pages = Pagination.of(minimumRanks, 15, 1, 5);
-			} else if (StringUtils.isEqual("max(pop)", keyword)) {
+			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
 				pages = Pagination.of(maximumRanks, 15, 1, 5);
+			} else if (StringUtils.isEqual("min(pop)", keyword)) {
+				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
+				pages = Pagination.of(minimumRanks, 15, 1, 5);
 			} else {
 				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
