@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
-
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.service.CentreService;
+import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
@@ -42,10 +40,9 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		PageMethod.startPage(pageNum, 18);
-		final List<CityDto> cityInfos = this.centreService.findByKeywords(keyword);
-		final PageInfo<CityDto> pageInfo = new PageInfo<>(cityInfos, 5);
-		return RestMsg.success().add("pageInfo", pageInfo);
+		final Integer pageSize = 17;
+		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, pageSize, keyword);
+		return RestMsg.success().add("pageInfo", cityInfos);
 	}
 
 	/**

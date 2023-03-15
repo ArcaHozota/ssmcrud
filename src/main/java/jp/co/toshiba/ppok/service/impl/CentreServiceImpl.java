@@ -14,6 +14,7 @@ import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.service.CentreService;
+import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.StringUtils;
 
 @Service
@@ -110,7 +111,7 @@ public class CentreServiceImpl implements CentreService {
 
 	/**
 	 * get all nations' names in the selected city's continent
-	 * 
+	 *
 	 * @param id cityID
 	 * @return list of names
 	 */
@@ -129,22 +130,30 @@ public class CentreServiceImpl implements CentreService {
 	}
 
 	@Override
-	public List<CityDto> findByKeywords(final String keyword) {
-		final List<CityDto> cities;
+	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
+		final Integer offset = (pageNum - 1) * pageSize;
+		Pagination<CityDto> pages;
 		if (StringUtils.isNotEmpty(keyword)) {
-			final List<CityDto> keyNations = this.cityMapper.getByNations(keyword);
+			final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
 			if (!keyNations.isEmpty()) {
-				cities = keyNations;
+				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
+				pages = Pagination.of(keyNations, keyNationsCnt, pageNum, 5);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				cities = this.cityMapper.getMinimumRanks();
+				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
+				pages = Pagination.of(minimumRanks, 15, 1, 5);
 			} else if (StringUtils.isEqual("max(pop)", keyword)) {
-				cities = this.cityMapper.getMaximumRanks();
+				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
+				pages = Pagination.of(maximumRanks, 15, 1, 5);
 			} else {
-				cities = this.cityMapper.getByNames(keyword);
+				final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
+				final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageSize, offset);
+				pages = Pagination.of(keyNames, keyNamesCnt, pageNum, 5);
 			}
 		} else {
-			cities = this.cityMapper.getCityInfos();
+			final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
+			final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageSize, offset);
+			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum, 5);
 		}
-		return cities;
+		return pages;
 	}
 }

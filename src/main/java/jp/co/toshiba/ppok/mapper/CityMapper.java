@@ -20,27 +20,52 @@ import jp.co.toshiba.ppok.entity.City;
 public interface CityMapper {
 
 	/**
-	 * Retrieve city infos by nation name provided.
+	 * Retrieve cityInfos by nation name provided.
 	 *
 	 * @param nation name of nation
 	 * @return List<City>
 	 */
-	List<CityDto> getByNations(@Param("nation") String nation);
+	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageNum") Integer pageSize,
+			@Param("offset") Integer offset);
 
 	/**
-	 * Retrieve city infos by city name provided.
+	 * Retrieve the number of cityInfos by nation name provided.
+	 *
+	 * @param nation name of nation
+	 * @return List<City>
+	 */
+	Integer getByNationsCnt(@Param("nation") String nation);
+
+	/**
+	 * Retrieve cityInfos by city name provided.
 	 *
 	 * @param name city name
 	 * @return Page<City>
 	 */
-	List<CityDto> getByNames(@Param("name") String name);
+	List<CityDto> getByNames(@Param("name") String name, @Param("pageNum") Integer pageSize,
+			@Param("offset") Integer offset);
 
 	/**
-	 * Retrieve city infos.
+	 * Retrieve the number of cityInfos by city name provided.
+	 *
+	 * @param name city name
+	 * @return Page<City>
+	 */
+	Integer getByNamesCnt(@Param("name") String name);
+
+	/**
+	 * Retrieve cityInfos.
 	 *
 	 * @return Page<City>
 	 */
-	List<CityDto> getCityInfos();
+	List<CityDto> getCityInfos(@Param("pageNum") Integer pageSize, @Param("offset") Integer offset);
+
+	/**
+	 * Retrieve the number of cityInfos.
+	 *
+	 * @return Page<City>
+	 */
+	Integer getCityInfosCnt();
 
 	/**
 	 * Retrieve city infos by population ascending.
@@ -77,6 +102,7 @@ public interface CityMapper {
 	 *
 	 * @param city entity
 	 */
+	@Transactional(rollbackFor = PSQLException.class)
 	void insert(City city);
 
 	/**
@@ -84,6 +110,7 @@ public interface CityMapper {
 	 *
 	 * @param city entity
 	 */
+	@Transactional(rollbackFor = PSQLException.class)
 	void updateSelective(City city);
 
 	/**
