@@ -114,7 +114,11 @@ public final class Pagination<T> {
 			final int ape = this.totalRecords / this.pageSize;
 			this.totalPages = this.totalRecords % this.pageSize == 0 ? ape : ape + 1;
 		} else if (records.isEmpty()) {
-			throw new RuntimeException("沒有相對應的數據！");
+			this.pageNum = 1;
+			this.records = null;
+			this.pageSize = 0;
+			this.totalRecords = 0;
+			this.totalPages = 1;
 		} else {
 			throw new RuntimeException("數據集合類型錯誤！");
 		}
