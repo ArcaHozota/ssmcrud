@@ -64,8 +64,16 @@
                             ON cn.country_code = cty.code
         WHERE cn.is_deleted = 0
         ORDER BY cn.id ASC
+        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
     </select>
-    <select id="getByNations" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="getCityInfosCnt" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+    </select>
+    <select id="getByNations" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
                cty.continent,
@@ -78,8 +86,17 @@
         WHERE cn.is_deleted = 0
           AND cty.name = #{nation,jdbcType=VARCHAR}
         ORDER BY cn.id ASC
+        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
     </select>
-    <select id="getByNames" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="getByNationsCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+          AND cty.name = #{nation,jdbcType=VARCHAR}
+    </select>
+    <select id="getByNames" resultMap="BaseResultMap">
         SELECT cn.id,
                cn.name,
                cty.continent,
@@ -92,6 +109,15 @@
         WHERE cn.is_deleted = 0
           AND cn.name LIKE #{name,jdbcType=VARCHAR}
         ORDER BY cn.id ASC
+        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+    </select>
+    <select id="getByNamesCnt" parameterType="java.lang.String" resultMap="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM city AS cn
+                 INNER JOIN country AS cty
+                            ON cn.country_code = cty.code
+        WHERE cn.is_deleted = 0
+          AND cn.name LIKE #{name,jdbcType=VARCHAR}
     </select>
     <select id="getMinimumRanks" resultMap="BaseResultMap">
         SELECT cn.id,

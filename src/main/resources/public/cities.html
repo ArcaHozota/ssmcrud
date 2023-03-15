@@ -223,7 +223,7 @@
     function buildCityTable(result) {
         //Emptying the former table.
         $("#cityTableBody").empty();
-        let index = result.extend.pageInfo.list;
+        let index = result.extend.pageInfo.records;
         $.each(index, function (index, item) {
             let cityName = item.name;
             let nationName = item.country.name;
@@ -286,8 +286,8 @@
         let pageInfos = $("#pageInfos");
         pageInfos.empty();
         currentPage = result.extend.pageInfo.pageNum;
-        totalPages = result.extend.pageInfo.pages;
-        totalRecord = result.extend.pageInfo.total;
+        totalPages = result.extend.pageInfo.totalPages;
+        totalRecord = result.extend.pageInfo.totalRecords;
         pageInfos.append("The " + currentPage + " page in " + totalPages
             + " pages, " + totalRecord + " records found.");
     }
@@ -332,7 +332,7 @@
             });
         }
         ul.append(firstPageLi).append(previousPageLi);
-        $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
+        $.each(result.extend.pageInfo.navigatePageNums, function (index, item) {
             let numsLi = $("<li class='page-item'></li>").append(
                 $("<a class='page-link'></a>").append(item).attr("href", "#"));
             if (currentPage === item) {
