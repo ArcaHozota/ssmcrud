@@ -153,10 +153,11 @@ public class CentreServiceImpl implements CentreService {
 				if (keyNationsCnt > 0) {
 					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
 					pages = Pagination.of(keyNations, keyNationsCnt, pageNum, 5);
+				} else {
+					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
+					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageSize, offset);
+					pages = Pagination.of(keyNames, keyNamesCnt, pageNum, 5);
 				}
-				final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
-				final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageSize, offset);
-				pages = Pagination.of(keyNames, keyNamesCnt, pageNum, 5);
 			}
 		} else {
 			final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
