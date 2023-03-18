@@ -1,166 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
-    <resultMap id="BaseResultMap"
-               type="jp.co.toshiba.ppok.entity.City">
-        <id column="id" jdbcType="SMALLINT" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="country_code" jdbcType="CHAR"
-                property="countryCode"/>
-        <result column="district" jdbcType="VARCHAR"
-                property="district"/>
-        <result column="population" jdbcType="INTEGER"
-                property="population"/>
-        <result column="is_deleted" jdbcType="SMALLINT"
-                property="isDeleted"/>
-        <association property="country"
-                     javaType="jp.co.toshiba.ppok.entity.Country">
-            <id column="code" property="code"/>
-            <result column="nation" property="name"/>
-            <result column="continent" property="continent"/>
-        </association>
-    </resultMap>
-    <insert id="insert" parameterType="jp.co.toshiba.ppok.entity.City">
-        INSERT INTO city(name, country_code,
-                         district, population, is_deleted)
-        VALUES (#{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
-                #{district,jdbcType=VARCHAR}, #{population,jdbcType=INTEGER}, #{isDeleted,jdbcType=SMALLINT})
-    </insert>
-    <update id="removeById" parameterType="java.lang.Integer">
-        UPDATE city AS cn
-        SET cn.is_deleted = 1
-        WHERE cn.id = #{id,jdbcType=SMALLINT}
-    </update>
-    <update id="updateSelective" parameterType="jp.co.toshiba.ppok.entity.City">
-        UPDATE city
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="countryCode != null">
-                country_code = #{countryCode,jdbcType=CHAR},
-            </if>
-            <if test="district != null">
-                district = #{district,jdbcType=VARCHAR},
-            </if>
-            <if test="population != null">
-                population = #{population,jdbcType=INTEGER},
-            </if>
-            <if test="isDeleted != null">
-                is_deleted = #{isDeleted,jdbcType=SMALLINT},
-            </if>
-        </set>
-        WHERE id = #{id,jdbcType=SMALLINT}
-    </update>
-    <select id="getCityInfos" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-        ORDER BY cn.id ASC
-        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
-    </select>
-    <select id="getCityInfosCnt" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-    </select>
-    <select id="getByNations" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-          AND cty.name = #{nation,jdbcType=VARCHAR}
-        ORDER BY cn.population DESC
-        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
-    </select>
-    <select id="getByNationsCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-          AND cty.name = #{nation,jdbcType=VARCHAR}
-    </select>
-    <select id="getByNames" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-          AND cn.name LIKE #{name,jdbcType=VARCHAR}
-        ORDER BY cn.id ASC
-        LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
-    </select>
-    <select id="getByNamesCnt" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-          AND cn.name LIKE #{name,jdbcType=VARCHAR}
-    </select>
-    <select id="getMinimumRanks" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-        ORDER BY cn.population ASC LIMIT 15
-    </select>
-    <select id="getMaximumRanks" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-        ORDER BY cn.population DESC LIMIT 15
-    </select>
-    <select id="getCityInfoById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT cn.id,
-               cn.name,
-               cty.continent,
-               cty.name AS nation,
-               cn.district,
-               cn.population
-        FROM city AS cn
-                 INNER JOIN country AS cty
-                            ON cn.country_code = cty.code
-        WHERE cn.is_deleted = 0
-          AND cn.id = #{id,jdbcType=SMALLINT}
-    </select>
-    <select id="checkName" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM city AS cn
-        WHERE cn.name = #{cityName,jdbcType=VARCHAR}
-    </select>
+	<resultMap id="BaseResultMap"
+		type="jp.co.toshiba.ppok.entity.City">
+		<id column="id" jdbcType="SMALLINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="country_code" jdbcType="CHAR"
+			property="countryCode" />
+		<result column="district" jdbcType="VARCHAR"
+			property="district" />
+		<result column="population" jdbcType="INTEGER"
+			property="population" />
+		<result column="is_deleted" jdbcType="SMALLINT"
+			property="isDeleted" />
+		<association property="country"
+			javaType="jp.co.toshiba.ppok.entity.Country">
+			<id column="code" property="code" />
+			<result column="nation" property="name" />
+			<result column="continent" property="continent" />
+		</association>
+	</resultMap>
+	<insert id="insert"
+		parameterType="jp.co.toshiba.ppok.entity.City">
+		INSERT INTO city(name, country_code,
+		district, population, is_deleted)
+		VALUES (#{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
+		#{district,jdbcType=VARCHAR}, #{population,jdbcType=INTEGER},
+		#{isDeleted,jdbcType=SMALLINT})
+	</insert>
+	<update id="removeById" parameterType="java.lang.Integer">
+		UPDATE city AS cn
+		SET cn.is_deleted = 1
+		WHERE cn.id = #{id,jdbcType=SMALLINT}
+	</update>
+	<update id="updateSelective"
+		parameterType="jp.co.toshiba.ppok.entity.City">
+		UPDATE city
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="countryCode != null">
+				country_code = #{countryCode,jdbcType=CHAR},
+			</if>
+			<if test="district != null">
+				district = #{district,jdbcType=VARCHAR},
+			</if>
+			<if test="population != null">
+				population = #{population,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				is_deleted = #{isDeleted,jdbcType=SMALLINT},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=SMALLINT}
+	</update>
+	<select id="getCityInfos" resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		ORDER BY cn.id ASC
+		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	</select>
+	<select id="getCityInfosCnt" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+	</select>
+	<select id="getByNations" resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		AND cty.name = #{nation,jdbcType=VARCHAR}
+		ORDER BY cn.population DESC
+		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	</select>
+	<select id="getByNationsCnt" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		AND cty.name = #{nation,jdbcType=VARCHAR}
+	</select>
+	<select id="getByNames" resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		AND cn.name LIKE #{name,jdbcType=VARCHAR}
+		ORDER BY cn.id ASC
+		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	</select>
+	<select id="getByNamesCnt" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		AND cn.name LIKE #{name,jdbcType=VARCHAR}
+	</select>
+	<select id="getMinimumRanks" resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		ORDER BY cn.population ASC LIMIT 15
+	</select>
+	<select id="getMaximumRanks" resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		ORDER BY cn.population DESC LIMIT 15
+	</select>
+	<select id="getCityInfoById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		SELECT cn.id,
+		cn.name,
+		cty.continent,
+		cty.name AS nation,
+		cn.district,
+		cn.population
+		FROM city AS cn
+		INNER JOIN country AS cty
+		ON cn.country_code = cty.code
+		WHERE cn.is_deleted = 0
+		AND cn.id = #{id,jdbcType=SMALLINT}
+	</select>
+	<select id="checkName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM city AS cn
+		WHERE cn.name = #{cityName,jdbcType=VARCHAR}
+	</select>
 </mapper>
