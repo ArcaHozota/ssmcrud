@@ -122,7 +122,7 @@
 		INNER JOIN country AS cty
 		ON cn.country_code = cty.code
 		WHERE cn.is_deleted = 0
-		AND cn.name LIKE #{name,jdbcType=VARCHAR}
+		AND cn.name LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
 	</select>
 	<select id="getMinimumRanks" resultMap="BaseResultMap">
 		SELECT cn.id,
