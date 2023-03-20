@@ -88,31 +88,34 @@ public final class Pagination<T> {
 	 * 生成Pagination對象
 	 *
 	 * @param records       結果集
-	 * @param pageNum       當前頁
 	 * @param totalRecords  總記錄數
+	 * @param pageNum       當前頁
+	 * @param pageSize      每頁大小
 	 * @param navigatePages 導航條頁碼數
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
-			final int navigatePages) {
-		return new Pagination<T>(records, totalRecords, pageNum, navigatePages);
+			final int pageSize, final int navigatePages) {
+		return new Pagination<T>(records, totalRecords, pageNum, pageSize, navigatePages);
 	}
 
 	/**
 	 * 封裝Pagination對象
 	 *
 	 * @param records       結果集
-	 * @param pageNum       當前頁
 	 * @param totalRecords  總記錄數
+	 * @param pageNum       當前頁
+	 * @param pageSize      每頁大小
 	 * @param navigatePages 導航條頁碼數
 	 */
-	private Pagination(final List<T> records, final int totalRecords, final int pageNum, final int navigatePages) {
+	private Pagination(final List<T> records, final int totalRecords, final int pageNum, final int pageSize,
+			final int navigatePages) {
 		if (records instanceof Collection && !records.isEmpty()) {
 			this.pageNum = pageNum;
 			this.records = records;
 			this.pageSize = records.size();
 			this.totalRecords = totalRecords;
-			final int ape = this.totalRecords / this.pageSize;
-			this.totalPages = this.totalRecords % this.pageSize == 0 ? ape : ape + 1;
+			final int ape = this.totalRecords / pageSize;
+			this.totalPages = this.totalRecords % pageSize == 0 ? ape : ape + 1;
 		} else if (records.isEmpty()) {
 			this.pageNum = 1;
 			this.records = null;
