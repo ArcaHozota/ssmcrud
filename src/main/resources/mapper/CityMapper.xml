@@ -15,9 +15,9 @@
 			property="isDeleted" />
 		<association property="country"
 			javaType="jp.co.toshiba.ppok.entity.Country">
-			<id column="code" property="code" />
-			<result column="nation" property="name" />
-			<result column="continent" property="continent" />
+			<id column="code" jdbcType="CHAR" property="code" />
+			<result column="nation" jdbcType="VARCHAR" property="name" />
+			<result column="continent" jdbcType="VARCHAR" property="continent" />
 		</association>
 	</resultMap>
 	<insert id="insert"
