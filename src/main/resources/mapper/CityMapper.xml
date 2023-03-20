@@ -111,7 +111,7 @@
 		INNER JOIN country AS cty
 		ON cn.country_code = cty.code
 		WHERE cn.is_deleted = 0
-		AND cn.name LIKE #{name,jdbcType=VARCHAR}
+		AND cn.name LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
 		ORDER BY cn.id ASC
 		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
 	</select>
