@@ -144,25 +144,25 @@ public class CentreServiceImpl implements CentreService {
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
-				pages = Pagination.of(maximumRanks, 15, 1, 5);
+				pages = Pagination.of(maximumRanks, 15, 1, pageSize, 5);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
-				pages = Pagination.of(minimumRanks, 15, 1, 5);
+				pages = Pagination.of(minimumRanks, 15, 1, pageSize, 5);
 			} else {
 				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
 					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
-					pages = Pagination.of(keyNations, keyNationsCnt, pageNum, 5);
+					pages = Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize, 5);
 				} else {
 					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
 					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageSize, offset);
-					pages = Pagination.of(keyNames, keyNamesCnt, pageNum, 5);
+					pages = Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize, 5);
 				}
 			}
 		} else {
 			final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
 			final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageSize, offset);
-			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum, 5);
+			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize, 5);
 		}
 		return pages;
 	}
