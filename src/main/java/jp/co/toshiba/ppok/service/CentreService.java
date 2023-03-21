@@ -6,6 +6,11 @@ import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.utils.Pagination;
 
+/**
+ * central service interface
+ *
+ * @author Administrator
+ */
 public interface CentreService {
 
 	/**

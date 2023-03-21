@@ -29,6 +29,14 @@ import jp.co.toshiba.ppok.utils.RestMsg;
 @RequestMapping("/public/grssmcrud")
 public class CentreController {
 
+	/**
+	 * pageSize
+	 */
+	private static final Integer PAGESIZE = 17;
+
+	/**
+	 * Central service interface
+	 */
 	@Resource
 	private CentreService centreService;
 
@@ -40,8 +48,7 @@ public class CentreController {
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final Integer pageSize = 17;
-		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, pageSize, keyword);
+		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, PAGESIZE, keyword);
 		return RestMsg.success().add("pageInfo", cityInfos);
 	}
 

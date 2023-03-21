@@ -17,6 +17,11 @@ import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.StringUtils;
 
+/**
+ * Implementation class of central service interface
+ *
+ * @author Administrator
+ */
 @Service
 public class CentreServiceImpl implements CentreService {
 
@@ -144,25 +149,25 @@ public class CentreServiceImpl implements CentreService {
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
-				pages = Pagination.of(maximumRanks, 15, 1, pageSize);
+				pages = Pagination.of(maximumRanks, 15, 1);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
-				pages = Pagination.of(minimumRanks, 15, 1, pageSize);
+				pages = Pagination.of(minimumRanks, 15, 1);
 			} else {
 				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
 					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageSize, offset);
-					pages = Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
+					pages = Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
 					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
 					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageSize, offset);
-					pages = Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
+					pages = Pagination.of(keyNames, keyNamesCnt, pageNum);
 				}
 			}
 		} else {
 			final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
 			final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageSize, offset);
-			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
+			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum);
 		}
 		return pages;
 	}

@@ -90,6 +90,17 @@ public final class Pagination<T> {
 	 * @param records      結果集
 	 * @param totalRecords 總記錄數
 	 * @param pageNum      當前頁
+	 */
+	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum) {
+		return new Pagination<T>(records, totalRecords, pageNum, 17, 5);
+	}
+
+	/**
+	 * 生成Pagination對象
+	 *
+	 * @param records      結果集
+	 * @param totalRecords 總記錄數
+	 * @param pageNum      當前頁
 	 * @param pageSize     每頁大小
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
