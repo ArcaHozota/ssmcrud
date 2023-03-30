@@ -27,7 +27,8 @@
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
 		UPDATE WORLD_CITY CN
-		SET CN.LOGIC_DELETE_FLG = 'removed'
+		SET
+		CN.LOGIC_DELETE_FLG = 'removed'
 		WHERE CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<update id="updateById"
@@ -48,65 +49,76 @@
 			</if>
 		</set>
 		WHERE CN.LOGIC_DELETE_FLG = 'visible'
-		AND CN.ID = #{id,jdbcType=NUMERIC}
+		AND CN.ID =
+		#{id,jdbcType=NUMERIC}
 	</update>
 	<select id="getCityInfos"
 		resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		CWV.NAME,
+		CWV.CONTINENT, CWV.NATION, CWV.DISTRICT, CWV.POPULATION
 		FROM
 		WORLD_CITY_VIEW CWV
 		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		WHERE SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT COUNT(1)
-		FROM WORLD_CITY_VIEW CWV
+		FROM
+		WORLD_CITY_VIEW CWV
 	</select>
-	<select id="getByNations" resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getByNations"
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
-		FROM WORLD_CITY_VIEW CWV
+		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		CWV.NAME,
+		CWV.CONTINENT, CWV.NATION, CWV.DISTRICT, CWV.POPULATION
+		FROM
+		WORLD_CITY_VIEW CWV
 		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
-		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		AND
+		ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE SUB.ROWNO &gt;
+		#{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
+		WHERE CWV.NATION =
+		#{nation,jdbcType=NVARCHAR}
 	</select>
-	<select id="getByNames" resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getByNames"
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
-		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
-		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		CWV.NAME, CWV.CONTINENT,
+		CWV.NATION, CWV.DISTRICT, CWV.POPULATION
+		FROM
+		WORLD_CITY_VIEW CWV
+		WHERE CWV.NAME LIKE CONCAT('%',
+		#{name,jdbcType=NVARCHAR}, '%')
+		AND ROWNUM &lt;=
+		#{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE SUB.ROWNO &gt;
+		#{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
+		WHERE CWV.NAME LIKE
+		CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 	</select>
-	<select id="getMinimumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getMinimumRanks"
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -116,9 +128,10 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		ORDER BY CWV.POPULATION ASC) SUB
-		WHERE SUB.ROWNUM &lt;= 15
+		WHERE ROWNUM &lt;= 15
 	</select>
-	<select id="getMaximumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getMaximumRanks"
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -128,7 +141,7 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		ORDER BY CWV.POPULATION DESC) SUB
-		WHERE SUB.ROWNUM &lt;= 15
+		WHERE ROWNUM &lt;= 15
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultType="jp.co.toshiba.ppok.dto.CityDto">
@@ -137,12 +150,14 @@
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.ID = #{id,jdbcType=NUMERIC}
+		WHERE CWV.ID =
+		#{id,jdbcType=NUMERIC}
 	</select>
 	<select id="checkName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY CN
-		WHERE CN.NAME = #{cityName,jdbcType=NVARCHAR}
+		WHERE CN.NAME =
+		#{cityName,jdbcType=NVARCHAR}
 	</select>
 </mapper>
