@@ -25,7 +25,7 @@ public interface CityMapper {
 	 * @param nation  name of nation
 	 * @param pageMax paging maximum
 	 * @param pageMin paging minimum
-	 * @return List<City>
+	 * @return List<CityDto>
 	 */
 	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
 			@Param("pageMin") Integer pageMin);
@@ -34,38 +34,42 @@ public interface CityMapper {
 	 * Retrieve the number of cityInfos by nation name provided.
 	 *
 	 * @param nation name of nation
-	 * @return List<City>
+	 * @return Integer
 	 */
 	Integer getByNationsCnt(@Param("nation") String nation);
 
 	/**
 	 * Retrieve cityInfos by city name provided.
 	 *
-	 * @param name city name
-	 * @return Page<City>
+	 * @param name    city name
+	 * @param pageMax paging maximum
+	 * @param pageMin paging minimum
+	 * @return List<CityDto>
 	 */
-	List<CityDto> getByNames(@Param("name") String name, @Param("pageSize") Integer pageSize,
-			@Param("offset") Integer offset);
+	List<CityDto> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
+			@Param("pageMin") Integer pageMin);
 
 	/**
 	 * Retrieve the number of cityInfos by city name provided.
 	 *
 	 * @param name city name
-	 * @return Page<City>
+	 * @return Integer
 	 */
 	Integer getByNamesCnt(@Param("name") String name);
 
 	/**
 	 * Retrieve cityInfos.
 	 *
-	 * @return Page<City>
+	 * @param pageMax paging maximum
+	 * @param pageMin paging minimum
+	 * @return List<CityDto>
 	 */
-	List<CityDto> getCityInfos(@Param("pageSize") Integer pageSize, @Param("offset") Integer offset);
+	List<CityDto> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
 
 	/**
 	 * Retrieve the number of cityInfos.
 	 *
-	 * @return Page<City>
+	 * @return Integer
 	 */
 	Integer getCityInfosCnt();
 
