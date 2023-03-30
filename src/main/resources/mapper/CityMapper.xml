@@ -26,29 +26,29 @@
 		#{logicDeleteFlg,jdbcType=NVARCHAR2})
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
-		UPDATE WORLD_CITY AS CN
+		UPDATE WORLD_CITY CN
 		SET CN.LOGIC_DELETE_FLG = 'removed'
 		WHERE CN.ID = #{id,jdbcType=NUMBER}
 	</update>
 	<update id="updateSelective"
 		parameterType="jp.co.toshiba.ppok.entity.City">
-		UPDATE WORLD_CITY
+		UPDATE WORLD_CITY CN
 		<set>
 			<if test="name != null">
-				NAME = #{name,jdbcType=NVARCHAR2},
+				CN.NAME = #{name,jdbcType=NVARCHAR2},
 			</if>
 			<if test="countryCode != null">
-				COUNTRY_CODE = #{countryCode,jdbcType=NCHAR},
+				CN.COUNTRY_CODE = #{countryCode,jdbcType=NCHAR},
 			</if>
 			<if test="district != null">
-				DISTRICT = #{district,jdbcType=NVARCHAR2},
+				CN.DISTRICT = #{district,jdbcType=NVARCHAR2},
 			</if>
 			<if test="population != null">
-				POPULATION = #{population,jdbcType=NUMBER},
+				CN.POPULATION = #{population,jdbcType=NUMBER},
 			</if>
 		</set>
-		WHERE LOGIC_DELETE_FLG = 'visible'
-		AND ID = #{id,jdbcType=NUMBER}
+		WHERE CN.LOGIC_DELETE_FLG = 'visible'
+		AND CN.ID = #{id,jdbcType=NUMBER}
 	</update>
 	<select id="getCityInfos"
 		resultType="jp.co.toshiba.ppok.dto.CityDto">
