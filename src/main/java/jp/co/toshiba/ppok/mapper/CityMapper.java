@@ -103,7 +103,7 @@ public interface CityMapper {
 	 * @param city entity
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
-	void insert(City city);
+	void saveById(City city);
 
 	/**
 	 * Update the selected city info.
@@ -111,7 +111,7 @@ public interface CityMapper {
 	 * @param city entity
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
-	void updateSelective(City city);
+	void updateById(City city);
 
 	/**
 	 * Check the duplication of name.

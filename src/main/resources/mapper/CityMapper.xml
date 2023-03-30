@@ -14,7 +14,7 @@
 		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR2"
 			property="logicDeleteFlg" />
 	</resultMap>
-	<insert id="insert"
+	<insert id="saveById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
 		INSERT INTO WORLD_CITY(NAME, COUNTRY_CODE,
 		DISTRICT,
@@ -30,7 +30,7 @@
 		SET CN.LOGIC_DELETE_FLG = 'removed'
 		WHERE CN.ID = #{id,jdbcType=NUMBER}
 	</update>
-	<update id="updateSelective"
+	<update id="updateById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
 		UPDATE WORLD_CITY CN
 		<set>

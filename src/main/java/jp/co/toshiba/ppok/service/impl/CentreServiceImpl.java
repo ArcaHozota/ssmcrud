@@ -25,9 +25,15 @@ import jp.co.toshiba.ppok.utils.StringUtils;
 @Service
 public class CentreServiceImpl implements CentreService {
 
+	/**
+	 * city mapper
+	 */
 	@Resource
 	private CityMapper cityMapper;
 
+	/**
+	 * country mapper
+	 */
 	@Resource
 	private CountryMapper countryMapper;
 
@@ -54,7 +60,7 @@ public class CentreServiceImpl implements CentreService {
 		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
 		city.setCountryCode(nationCode);
 		city.setLogicDeleteFlg("visible");
-		this.cityMapper.insert(city);
+		this.cityMapper.saveById(city);
 	}
 
 	/**
