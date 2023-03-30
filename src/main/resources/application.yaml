@@ -4,19 +4,19 @@ spring:
   application:
     name: grssmcrud
   datasource:
-    url: jdbc:postgresql://postgresdb01.cdd6uaafebcj.ap-northeast-1.rds.amazonaws.com:5432/world
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: oraclect
+    password: oraclect
     hikari:
-      max-lifetime: 1500000
       maximum-pool-size: 30
+      max-lifetime: 1500000
   output:
     ansi:
       enabled: ALWAYS
 mybatis:
   configuration:
-    database-id: postgresql
+    database-id: oracle
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
