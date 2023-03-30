@@ -22,11 +22,13 @@ public interface CityMapper {
 	/**
 	 * Retrieve cityInfos by nation name provided.
 	 *
-	 * @param nation name of nation
+	 * @param nation  name of nation
+	 * @param pageMax paging maximum
+	 * @param pageMin paging minimum
 	 * @return List<City>
 	 */
-	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageSize") Integer pageSize,
-			@Param("offset") Integer offset);
+	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
+			@Param("pageMin") Integer pageMin);
 
 	/**
 	 * Retrieve the number of cityInfos by nation name provided.
@@ -95,7 +97,7 @@ public interface CityMapper {
 	 * @param id city id
 	 * @return entity of city
 	 */
-	City getCityInfoById(@Param("id") Integer id);
+	CityDto getCityInfoById(@Param("id") Integer id);
 
 	/**
 	 * Save the city info.
