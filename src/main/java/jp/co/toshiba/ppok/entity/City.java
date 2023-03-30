@@ -5,6 +5,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
+ * Entity of Table WORLD_CITY
+ *
  * @author Administrator
  */
 @Data
@@ -13,37 +15,32 @@ public class City implements Serializable {
 	private static final long serialVersionUID = 1815689293387304425L;
 
 	/**
-	 * This field corresponds to the database column id
+	 * This field corresponds to the database column ID
 	 */
 	private Integer id;
 
 	/**
-	 * This field corresponds to the database column name
+	 * This field corresponds to the database column NAME
 	 */
 	private String name;
 
 	/**
-	 * This field corresponds to the database column country_code
+	 * This field corresponds to the database column COUNTRY_CODE
 	 */
 	private String countryCode;
 
 	/**
-	 * This field corresponds to the database column district
+	 * This field corresponds to the database column DISTRICT
 	 */
 	private String district;
 
 	/**
-	 * This field corresponds to the database column population
+	 * This field corresponds to the database column POPULATION
 	 */
 	private Long population;
 
 	/**
-	 * This field corresponds to the database column is_deleted
+	 * This field corresponds to the database column LOGIC_DELETE_FLG
 	 */
-	private Integer isDeleted;
-
-	/**
-	 * This field corresponds to the database table country
-	 */
-	private Country country;
+	private String logicDeleteFlg;
 }

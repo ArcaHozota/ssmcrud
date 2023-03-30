@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 /**
+ * Entity of Table WORLD_COUNTRY
+ *
  * @author Administrator
  */
 @Data
@@ -14,82 +16,82 @@ public class Country implements Serializable {
 	private static final long serialVersionUID = -437505450837045511L;
 
 	/**
-	 * This field corresponds to the database column code
+	 * This field corresponds to the database column CODE
 	 */
 	private String code;
 
 	/**
-	 * This field corresponds to the database column name
+	 * This field corresponds to the database column NAME
 	 */
 	private String name;
 
 	/**
-	 * This field corresponds to the database column continent
+	 * This field corresponds to the database column CONTINENT
 	 */
 	private String continent;
 
 	/**
-	 * This field corresponds to the database column region
+	 * This field corresponds to the database column REGION
 	 */
 	private String region;
 
 	/**
-	 * This field corresponds to the database column surface_area
+	 * This field corresponds to the database column SURFACE_AREA
 	 */
 	private BigDecimal surfaceArea;
 
 	/**
-	 * This field corresponds to the database column independence_year
+	 * This field corresponds to the database column INDEPENDENCE_YEAR
 	 */
 	private Integer independenceYear;
 
 	/**
-	 * This field corresponds to the database column population
+	 * This field corresponds to the database column POPULATION
 	 */
 	private Long population;
 
 	/**
-	 * This field corresponds to the database column life_expectancy
+	 * This field corresponds to the database column LIFE_EXPECTANCY
 	 */
 	private Integer lifeExpectancy;
 
 	/**
-	 * This field corresponds to the database column gnp
+	 * This field corresponds to the database column GNP
 	 */
 	private BigDecimal gnp;
 
 	/**
-	 * This field corresponds to the database column gnp_old
+	 * This field corresponds to the database column CNP_OLD
 	 */
 	private BigDecimal gnpOld;
 
 	/**
-	 * This field corresponds to the database column local_name
+	 * This field corresponds to the database column LOCAL_NAME
 	 */
 	private String localName;
 
 	/**
-	 * This field corresponds to the database column government_form
+	 * This field corresponds to the database column GOVERNMENT_FORM
 	 */
 	private String governmentForm;
 
 	/**
-	 * This field corresponds to the database column head_of_state
+	 * This field corresponds to the database column HEAD_OF_STATE
 	 */
 	private String headOfState;
 
 	/**
-	 * This field corresponds to the database column capital
+	 * This field corresponds to the database column CAPITAL
 	 */
 	private Integer capital;
 
 	/**
-	 * This field corresponds to the database column code2
+	 * This field corresponds to the database column CODE2
 	 */
 	private String code2;
 
 	/**
-	 * This field corresponds to the database column is_deleted
+	 * This field corresponds to the database column LOGIC_DELETE_FLG
 	 */
-	private Integer isDeleted;
+	private String logicDeleteFlg;
 }
