@@ -3,15 +3,15 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.City">
-		<id column="ID" jdbcType="NUMBER" property="id" />
-		<result column="NAME" jdbcType="NVARCHAR2" property="name" />
+		<id column="ID" jdbcType="DOUBLE" property="id" />
+		<result column="NAME" jdbcType="NVARCHAR" property="name" />
 		<result column="COUNTRY_CODE" jdbcType="NCHAR"
 			property="countryCode" />
-		<result column="DISTRICT" jdbcType="NVARCHAR2"
+		<result column="DISTRICT" jdbcType="NVARCHAR"
 			property="district" />
-		<result column="POPULATION" jdbcType="NUMBER"
+		<result column="POPULATION" jdbcType="DOUBLE"
 			property="population" />
-		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR2"
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
 			property="logicDeleteFlg" />
 	</resultMap>
 	<insert id="saveById"
