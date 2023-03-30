@@ -62,7 +62,7 @@
 		FROM
 		WORLD_CITY_VIEW CWV
 		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT COUNT(1)
@@ -79,7 +79,7 @@
 		FROM WORLD_CITY_VIEW CWV
 		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
 		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -98,7 +98,7 @@
 		FROM WORLD_CITY_VIEW CWV
 		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
+		WHERE SUB.ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -116,7 +116,7 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		ORDER BY CWV.POPULATION ASC) SUB
-		WHERE ROWNUM &lt;= 15
+		WHERE SUB.ROWNUM &lt;= 15
 	</select>
 	<select id="getMaximumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
@@ -128,7 +128,7 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		ORDER BY CWV.POPULATION DESC) SUB
-		WHERE ROWNUM &lt;= 15
+		WHERE SUB.ROWNUM &lt;= 15
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultType="jp.co.toshiba.ppok.dto.CityDto">
