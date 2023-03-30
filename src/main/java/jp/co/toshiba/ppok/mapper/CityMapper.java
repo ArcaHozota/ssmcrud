@@ -76,40 +76,32 @@ public interface CityMapper {
 	/**
 	 * Retrieve city infos by population ascending.
 	 *
-	 * @return Page<City>
+	 * @return List<CityDto>
 	 */
 	List<CityDto> getMinimumRanks();
 
 	/**
 	 * Retrieve city infos by population descending.
 	 *
-	 * @return Page<City>
+	 * @return List<CityDto>
 	 */
 	List<CityDto> getMaximumRanks();
 
 	/**
-	 * logic remove query.
-	 *
-	 * @param id id of the selected city
-	 */
-	@Transactional(rollbackFor = OracleSQLException.class)
-	void removeById(@Param("id") Integer id);
-
-	/**
-	 * Retrieve city infos by id.
-	 *
-	 * @param id city id
-	 * @return entity of city
-	 */
-	CityDto getCityInfoById(@Param("id") Integer id);
-
-	/**
-	 * Save the city info.
+	 * Save inputed city info.
 	 *
 	 * @param city entity
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void saveById(City city);
+
+	/**
+	 * Logic deletion
+	 *
+	 * @param id id of the selected city
+	 */
+	@Transactional(rollbackFor = OracleSQLException.class)
+	void removeById(@Param("id") Integer id);
 
 	/**
 	 * Update the selected city info.
@@ -118,6 +110,14 @@ public interface CityMapper {
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateById(City city);
+
+	/**
+	 * Retrieve city info by id.
+	 *
+	 * @param id city id
+	 * @return entity of city
+	 */
+	CityDto getCityInfoById(@Param("id") Integer id);
 
 	/**
 	 * Check the duplication of name.
