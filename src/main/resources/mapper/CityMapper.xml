@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
 	<resultMap id="BasicResultMap"
-		type="jp.co.toshiba.ppok.entity.City">
+		type="jp.co.toshiba.ppok.dto.CityDto">
 		<id column="ID" jdbcType="NUMERIC" property="id" />
 		<result column="NAME" jdbcType="NVARCHAR" property="name" />
-		<result column="COUNTRY_CODE" jdbcType="NCHAR"
-			property="countryCode" />
+		<result column="CONTINENT" jdbcType="NVARCHAR"
+			property="continent" />
+		<result column="NATION" jdbcType="NVARCHAR"
+			property="nation" />
 		<result column="DISTRICT" jdbcType="NVARCHAR"
 			property="district" />
 		<result column="POPULATION" jdbcType="NUMERIC"
 			property="population" />
-		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
-			property="logicDeleteFlg" />
 	</resultMap>
 	<insert id="saveById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
@@ -52,8 +52,7 @@
 		AND CN.ID =
 		#{id,jdbcType=NUMERIC}
 	</update>
-	<select id="getCityInfos"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -70,8 +69,7 @@
 		FROM
 		WORLD_CITY_VIEW CWV
 	</select>
-	<select id="getByNations"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getByNations" resultMap="BasicResultMap">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -93,8 +91,7 @@
 		WHERE CWV.NATION =
 		#{nation,jdbcType=NVARCHAR}
 	</select>
-	<select id="getByNames"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getByNames" resultMap="BasicResultMap">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -117,8 +114,7 @@
 		WHERE CWV.NAME LIKE
 		CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 	</select>
-	<select id="getMinimumRanks"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -130,8 +126,7 @@
 		ORDER BY CWV.POPULATION ASC) SUB
 		WHERE ROWNUM &lt;= 15
 	</select>
-	<select id="getMaximumRanks"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+	<select id="getMaximumRanks" resultMap="BasicResultMap">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
@@ -144,7 +139,7 @@
 		WHERE ROWNUM &lt;= 15
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
-		resultType="jp.co.toshiba.ppok.dto.CityDto">
+		resultMap="BasicResultMap">
 		SELECT CWV.ID, CWV.NAME,
 		CWV.CONTINENT,
 		CWV.NATION,
