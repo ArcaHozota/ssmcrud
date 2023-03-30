@@ -4,29 +4,29 @@
 	<resultMap id="BaseResultMap"
 		type="jp.co.toshiba.ppok.entity.Country">
 		<id column="CODE" jdbcType="NCHAR" property="code" />
-		<result column="NAME" jdbcType="NVARCHAR2" property="name" />
-		<result column="CONTINENT" jdbcType="NVARCHAR2"
+		<result column="NAME" jdbcType="NVARCHAR" property="name" />
+		<result column="CONTINENT" jdbcType="NVARCHAR"
 			property="continent" />
-		<result column="REGION" jdbcType="NVARCHAR2" property="region" />
-		<result column="SURFACE_AREA" jdbcType="NUMBER"
+		<result column="REGION" jdbcType="NVARCHAR" property="region" />
+		<result column="SURFACE_AREA" jdbcType="NUMERIC"
 			property="surfaceArea" />
-		<result column="INDEPENDENCE_YEAR" jdbcType="NUMBER"
+		<result column="INDEPENDENCE_YEAR" jdbcType="NUMERIC"
 			property="independenceYear" />
-		<result column="POPULATION" jdbcType="NUMBER"
+		<result column="POPULATION" jdbcType="NUMERIC"
 			property="population" />
-		<result column="LIFE_EXPECTANCY" jdbcType="NUMBER"
+		<result column="LIFE_EXPECTANCY" jdbcType="NUMERIC"
 			property="lifeExpectancy" />
-		<result column="GNP" jdbcType="NUMBER" property="gnp" />
-		<result column="CNP_OLD" jdbcType="NUMBER" property="gnpOld" />
-		<result column="LOCAL_NAME" jdbcType="NVARCHAR2"
+		<result column="GNP" jdbcType="NUMERIC" property="gnp" />
+		<result column="CNP_OLD" jdbcType="NUMERIC" property="gnpOld" />
+		<result column="LOCAL_NAME" jdbcType="NVARCHAR"
 			property="localName" />
-		<result column="GOVERNMENT_FORM" jdbcType="NVARCHAR2"
+		<result column="GOVERNMENT_FORM" jdbcType="NVARCHAR"
 			property="governmentForm" />
-		<result column="HEAD_OF_STATE" jdbcType="NVARCHAR2"
+		<result column="HEAD_OF_STATE" jdbcType="NVARCHAR"
 			property="headOfState" />
-		<result column="CAPITAL" jdbcType="NUMBER" property="capital" />
+		<result column="CAPITAL" jdbcType="NUMERIC" property="capital" />
 		<result column="CODE2" jdbcType="NCHAR" property="code2" />
-		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR2"
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
 			property="logicDeleteFlg" />
 	</resultMap>
 	<select id="getAllContinents" resultType="java.lang.String">
@@ -40,7 +40,7 @@
 		SELECT DISTINCT CTY.NAME
 		FROM WORLD_COUNTRY CTY
 		WHERE
-		CTY.CONTINENT = #{continent,jdbcType=NVARCHAR2}
+		CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
 		ORDER BY CTY.NAME
 	</select>
 	<select id="getNationCode" parameterType="java.lang.String"
@@ -48,6 +48,6 @@
 		SELECT CTY.CODE
 		FROM WORLD_COUNTRY CTY
 		WHERE CTY.NAME =
-		#{name,jdbcType=NVARCHAR2}
+		#{name,jdbcType=NVARCHAR}
 	</select>
 </mapper>

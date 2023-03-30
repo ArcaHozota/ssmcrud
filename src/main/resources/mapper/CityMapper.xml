@@ -3,13 +3,13 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.City">
-		<id column="ID" jdbcType="DOUBLE" property="id" />
+		<id column="ID" jdbcType="NUMERIC" property="id" />
 		<result column="NAME" jdbcType="NVARCHAR" property="name" />
 		<result column="COUNTRY_CODE" jdbcType="NCHAR"
 			property="countryCode" />
 		<result column="DISTRICT" jdbcType="NVARCHAR"
 			property="district" />
-		<result column="POPULATION" jdbcType="DOUBLE"
+		<result column="POPULATION" jdbcType="NUMERIC"
 			property="population" />
 		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
 			property="logicDeleteFlg" />
@@ -19,36 +19,36 @@
 		INSERT INTO WORLD_CITY(NAME, COUNTRY_CODE,
 		DISTRICT,
 		POPULATION, LOGIC_DELETE_FLG)
-		VALUES (#{name,jdbcType=NVARCHAR2},
+		VALUES (#{name,jdbcType=NVARCHAR},
 		#{countryCode,jdbcType=NCHAR},
-		#{district,jdbcType=NVARCHAR2},
-		#{population,jdbcType=NUMBER},
-		#{logicDeleteFlg,jdbcType=NVARCHAR2})
+		#{district,jdbcType=NVARCHAR},
+		#{population,jdbcType=NUMERIC},
+		#{logicDeleteFlg,jdbcType=NVARCHAR})
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
 		UPDATE WORLD_CITY CN
 		SET CN.LOGIC_DELETE_FLG = 'removed'
-		WHERE CN.ID = #{id,jdbcType=NUMBER}
+		WHERE CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<update id="updateById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
 		UPDATE WORLD_CITY CN
 		<set>
 			<if test="name != null">
-				CN.NAME = #{name,jdbcType=NVARCHAR2},
+				CN.NAME = #{name,jdbcType=NVARCHAR},
 			</if>
 			<if test="countryCode != null">
 				CN.COUNTRY_CODE = #{countryCode,jdbcType=NCHAR},
 			</if>
 			<if test="district != null">
-				CN.DISTRICT = #{district,jdbcType=NVARCHAR2},
+				CN.DISTRICT = #{district,jdbcType=NVARCHAR},
 			</if>
 			<if test="population != null">
-				CN.POPULATION = #{population,jdbcType=NUMBER},
+				CN.POPULATION = #{population,jdbcType=NUMERIC},
 			</if>
 		</set>
 		WHERE CN.LOGIC_DELETE_FLG = 'visible'
-		AND CN.ID = #{id,jdbcType=NUMBER}
+		AND CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="getCityInfos"
 		resultType="jp.co.toshiba.ppok.dto.CityDto">
@@ -77,7 +77,7 @@
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR2}
+		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
 		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
 		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
 	</select>
@@ -85,7 +85,7 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR2}
+		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getByNames" resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
@@ -96,7 +96,7 @@
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR2}, '%')
+		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
 		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
 	</select>
@@ -104,7 +104,7 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR2}, '%')
+		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 	</select>
 	<select id="getMinimumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
 		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
@@ -143,6 +143,6 @@
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM WORLD_CITY CN
-		WHERE CN.NAME = #{cityName,jdbcType=NVARCHAR2}
+		WHERE CN.NAME = #{cityName,jdbcType=NVARCHAR}
 	</select>
 </mapper>
