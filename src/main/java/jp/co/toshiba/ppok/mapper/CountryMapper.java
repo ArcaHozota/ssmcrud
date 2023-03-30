@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * searching dao of table country
+ * Mapper of Table WORLD_COUNTRY
  *
  * @author Administrator
  * @date 2022-12-16

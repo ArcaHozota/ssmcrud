@@ -11,7 +11,7 @@ import jp.co.toshiba.ppok.entity.City;
 import oracle.jdbc.driver.OracleSQLException;
 
 /**
- * searching dao of table city
+ * Mapper of Table WORLD_CITY
  *
  * @author Administrator
  * @date 2022-12-17
