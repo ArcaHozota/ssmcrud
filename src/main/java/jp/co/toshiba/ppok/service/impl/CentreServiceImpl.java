@@ -53,7 +53,7 @@ public class CentreServiceImpl implements CentreService {
 		BeanUtils.copyProperties(cityDto, city, "continent", "nation");
 		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
 		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
+		city.setLogicDeleteFlg("visible");
 		this.cityMapper.insert(city);
 	}
 
@@ -68,7 +68,6 @@ public class CentreServiceImpl implements CentreService {
 		BeanUtils.copyProperties(cityDto, city, "continent", "nation");
 		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
 		city.setCountryCode(nationCode);
-		city.setIsDeleted(0);
 		this.cityMapper.updateSelective(city);
 	}
 
