@@ -3,7 +3,6 @@ package jp.co.toshiba.ppok.service;
 import java.util.List;
 
 import jp.co.toshiba.ppok.dto.CityDto;
-import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.utils.Pagination;
 
 /**
@@ -19,7 +18,7 @@ public interface CentreService {
 	 * @param id cityID
 	 * @return entity of city
 	 */
-	City getCityInfo(Integer id);
+	CityDto getCityInfo(Integer id);
 
 	/**
 	 * save inputted city info
