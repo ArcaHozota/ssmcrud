@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.postgresql.util.PSQLException;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
+import oracle.jdbc.driver.OracleSQLException;
 
 /**
  * searching dao of table city
@@ -86,7 +86,7 @@ public interface CityMapper {
 	 *
 	 * @param id id of the selected city
 	 */
-	@Transactional(rollbackFor = PSQLException.class)
+	@Transactional(rollbackFor = OracleSQLException.class)
 	void removeById(@Param("id") Integer id);
 
 	/**
@@ -102,7 +102,7 @@ public interface CityMapper {
 	 *
 	 * @param city entity
 	 */
-	@Transactional(rollbackFor = PSQLException.class)
+	@Transactional(rollbackFor = OracleSQLException.class)
 	void insert(City city);
 
 	/**
@@ -110,7 +110,7 @@ public interface CityMapper {
 	 *
 	 * @param city entity
 	 */
-	@Transactional(rollbackFor = PSQLException.class)
+	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateSelective(City city);
 
 	/**

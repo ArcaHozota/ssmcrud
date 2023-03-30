@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CountryMapper">
-    <resultMap id="BaseResultMap"
-               type="jp.co.toshiba.ppok.entity.Country">
-        <id column="code" jdbcType="CHAR" property="code"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="continent" jdbcType="VARCHAR"
-                property="continent"/>
-        <result column="region" jdbcType="VARCHAR" property="region"/>
-        <result column="surface_area" jdbcType="REAL"
-                property="surfaceArea"/>
-        <result column="independence_year" jdbcType="SMALLINT"
-                property="independenceYear"/>
-        <result column="population" jdbcType="INTEGER"
-                property="population"/>
-        <result column="life_expectancy" jdbcType="SMALLINT"
-                property="lifeExpectancy"/>
-        <result column="gnp" jdbcType="REAL" property="gnp"/>
-        <result column="gnp_old" jdbcType="REAL" property="gnpOld"/>
-        <result column="local_name" jdbcType="VARCHAR"
-                property="localName"/>
-        <result column="government_form" jdbcType="VARCHAR"
-                property="governmentForm"/>
-        <result column="head_of_state" jdbcType="VARCHAR"
-                property="headOfState"/>
-        <result column="capital" jdbcType="SMALLINT" property="capital"/>
-        <result column="code2" jdbcType="CHAR" property="code2"/>
-        <result column="is_deleted" jdbcType="SMALLINT"
-                property="isDeleted"/>
-    </resultMap>
-    <select id="getAllContinents" resultType="java.lang.String">
-        SELECT DISTINCT cty.continent
-        FROM country AS cty
-        ORDER BY cty.continent
-    </select>
-    <select id="getNationsByCnt" parameterType="java.lang.String" resultType="java.lang.String">
-        SELECT DISTINCT cty.name
-        FROM country AS cty
-        WHERE cty.continent = #{continent,jdbcType=VARCHAR}
-        ORDER BY cty.name
-    </select>
-    <select id="getNationCode" parameterType="java.lang.String" resultType="java.lang.String">
-        SELECT cty.code
-        FROM country AS cty
-        WHERE cty.name = #{name,jdbcType=VARCHAR}
-    </select>
+	<resultMap id="BaseResultMap"
+		type="jp.co.toshiba.ppok.entity.Country">
+		<id column="CODE" jdbcType="NCHAR" property="code" />
+		<result column="NAME" jdbcType="NVARCHAR2" property="name" />
+		<result column="CONTINENT" jdbcType="NVARCHAR2"
+			property="continent" />
+		<result column="REGION" jdbcType="NVARCHAR2" property="region" />
+		<result column="SURFACE_AREA" jdbcType="NUMBER"
+			property="surfaceArea" />
+		<result column="INDEPENDENCE_YEAR" jdbcType="NUMBER"
+			property="independenceYear" />
+		<result column="POPULATION" jdbcType="NUMBER"
+			property="population" />
+		<result column="LIFE_EXPECTANCY" jdbcType="NUMBER"
+			property="lifeExpectancy" />
+		<result column="GNP" jdbcType="NUMBER" property="gnp" />
+		<result column="CNP_OLD" jdbcType="NUMBER" property="gnpOld" />
+		<result column="LOCAL_NAME" jdbcType="NVARCHAR2"
+			property="localName" />
+		<result column="GOVERNMENT_FORM" jdbcType="NVARCHAR2"
+			property="governmentForm" />
+		<result column="HEAD_OF_STATE" jdbcType="NVARCHAR2"
+			property="headOfState" />
+		<result column="CAPITAL" jdbcType="NUMBER" property="capital" />
+		<result column="CODE2" jdbcType="NCHAR" property="code2" />
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR2"
+			property="logicDeleteFlg" />
+	</resultMap>
+	<select id="getAllContinents" resultType="java.lang.String">
+		SELECT DISTINCT
+		CTY.CONTINENT
+		FROM WORLD_COUNTRY CTY
+		ORDER BY CTY.CONTINENT
+	</select>
+	<select id="getNationsByCnt" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT DISTINCT CTY.NAME
+		FROM WORLD_COUNTRY CTY
+		WHERE
+		CTY.CONTINENT = #{continent,jdbcType=NVARCHAR2}
+		ORDER BY CTY.NAME
+	</select>
+	<select id="getNationCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT CTY.CODE
+		FROM WORLD_COUNTRY CTY
+		WHERE CTY.NAME =
+		#{name,jdbcType=NVARCHAR2}
+	</select>
 </mapper>

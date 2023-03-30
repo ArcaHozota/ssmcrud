@@ -1,173 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
-	<resultMap id="BaseResultMap"
+	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.City">
-		<id column="id" jdbcType="SMALLINT" property="id" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="country_code" jdbcType="CHAR"
+		<id column="ID" jdbcType="NUMBER" property="id" />
+		<result column="NAME" jdbcType="NVARCHAR2" property="name" />
+		<result column="COUNTRY_CODE" jdbcType="NCHAR"
 			property="countryCode" />
-		<result column="district" jdbcType="VARCHAR"
+		<result column="DISTRICT" jdbcType="NVARCHAR2"
 			property="district" />
-		<result column="population" jdbcType="INTEGER"
+		<result column="POPULATION" jdbcType="NUMBER"
 			property="population" />
-		<result column="is_deleted" jdbcType="SMALLINT"
-			property="isDeleted" />
-		<association property="country"
-			javaType="jp.co.toshiba.ppok.entity.Country">
-			<id column="code" jdbcType="CHAR" property="code" />
-			<result column="nation" jdbcType="VARCHAR" property="name" />
-			<result column="continent" jdbcType="VARCHAR" property="continent" />
-		</association>
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR2"
+			property="logicDeleteFlg" />
 	</resultMap>
 	<insert id="insert"
 		parameterType="jp.co.toshiba.ppok.entity.City">
-		INSERT INTO city(name, country_code,
-		district, population, is_deleted)
-		VALUES (#{name,jdbcType=VARCHAR}, #{countryCode,jdbcType=CHAR},
-		#{district,jdbcType=VARCHAR}, #{population,jdbcType=INTEGER},
-		#{isDeleted,jdbcType=SMALLINT})
+		INSERT INTO WORLD_CITY(NAME, COUNTRY_CODE,
+		DISTRICT,
+		POPULATION, LOGIC_DELETE_FLG)
+		VALUES (#{name,jdbcType=NVARCHAR2},
+		#{countryCode,jdbcType=NCHAR},
+		#{district,jdbcType=NVARCHAR2},
+		#{population,jdbcType=NUMBER},
+		#{logicDeleteFlg,jdbcType=NVARCHAR2})
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
-		UPDATE city AS cn
-		SET cn.is_deleted = 1
-		WHERE cn.id = #{id,jdbcType=SMALLINT}
+		UPDATE WORLD_CITY AS CN
+		SET CN.LOGIC_DELETE_FLG = 'removed'
+		WHERE CN.ID = #{id,jdbcType=NUMBER}
 	</update>
 	<update id="updateSelective"
 		parameterType="jp.co.toshiba.ppok.entity.City">
-		UPDATE city
+		UPDATE WORLD_CITY
 		<set>
 			<if test="name != null">
-				name = #{name,jdbcType=VARCHAR},
+				NAME = #{name,jdbcType=NVARCHAR2},
 			</if>
 			<if test="countryCode != null">
-				country_code = #{countryCode,jdbcType=CHAR},
+				COUNTRY_CODE = #{countryCode,jdbcType=NCHAR},
 			</if>
 			<if test="district != null">
-				district = #{district,jdbcType=VARCHAR},
+				DISTRICT = #{district,jdbcType=NVARCHAR2},
 			</if>
 			<if test="population != null">
-				population = #{population,jdbcType=INTEGER},
-			</if>
-			<if test="isDeleted != null">
-				is_deleted = #{isDeleted,jdbcType=SMALLINT},
+				POPULATION = #{population,jdbcType=NUMBER},
 			</if>
 		</set>
-		WHERE id = #{id,jdbcType=SMALLINT}
+		WHERE LOGIC_DELETE_FLG = 'visible'
+		AND ID = #{id,jdbcType=NUMBER}
 	</update>
-	<select id="getCityInfos" resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		ORDER BY cn.id ASC
-		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	<select id="getCityInfos"
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SUB.NATION,
+		SUB.DISTRICT, SUB.POPULATION
+		FROM (SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM
+		WORLD_CITY_VIEW CWV
+		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT COUNT(1)
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
+		FROM WORLD_CITY_VIEW CWV
 	</select>
-	<select id="getByNations" resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		AND cty.name = #{nation,jdbcType=VARCHAR}
-		ORDER BY cn.population DESC
-		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	<select id="getByNations" resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SUB.NATION,
+		SUB.DISTRICT, SUB.POPULATION
+		FROM (SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM WORLD_CITY_VIEW CWV
+		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR2}
+		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		AND cty.name = #{nation,jdbcType=VARCHAR}
+		FROM WORLD_CITY_VIEW CWV
+		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR2}
 	</select>
-	<select id="getByNames" resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		AND cn.name LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
-		ORDER BY cn.id ASC
-		LIMIT #{pageSize,jdbcType=SMALLINT} OFFSET #{offset,jdbcType=SMALLINT}
+	<select id="getByNames" resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SUB.NATION,
+		SUB.DISTRICT, SUB.POPULATION
+		FROM (SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM WORLD_CITY_VIEW CWV
+		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR2}, '%')
+		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		AND cn.name LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+		FROM WORLD_CITY_VIEW CWV
+		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR2}, '%')
 	</select>
-	<select id="getMinimumRanks" resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		ORDER BY cn.population ASC LIMIT 15
+	<select id="getMinimumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SUB.NATION,
+		SUB.DISTRICT, SUB.POPULATION
+		FROM (SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM WORLD_CITY_VIEW CWV
+		ORDER BY CWV.POPULATION ASC) SUB
+		WHERE ROWNUM &lt;= 15
 	</select>
-	<select id="getMaximumRanks" resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		ORDER BY cn.population DESC LIMIT 15
+	<select id="getMaximumRanks" resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SUB.NATION,
+		SUB.DISTRICT, SUB.POPULATION
+		FROM (SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM WORLD_CITY_VIEW CWV
+		ORDER BY CWV.POPULATION DESC) SUB
+		WHERE ROWNUM &lt;= 15
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
-		SELECT cn.id,
-		cn.name,
-		cty.continent,
-		cty.name AS nation,
-		cn.district,
-		cn.population
-		FROM city AS cn
-		INNER JOIN country AS cty
-		ON cn.country_code = cty.code
-		WHERE cn.is_deleted = 0
-		AND cn.id = #{id,jdbcType=SMALLINT}
+		resultType="jp.co.toshiba.ppok.dto.CityDto">
+		SELECT CWV.ID, CWV.NAME,
+		CWV.CONTINENT,
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
+		FROM WORLD_CITY_VIEW CWV
+		WHERE CWV.ID = #{id,jdbcType=NUMBER}
 	</select>
 	<select id="checkName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT COUNT(1)
-		FROM city AS cn
-		WHERE cn.name = #{cityName,jdbcType=VARCHAR}
+		FROM WORLD_CITY CN
+		WHERE CN.NAME = #{cityName,jdbcType=NVARCHAR2}
 	</select>
 </mapper>
