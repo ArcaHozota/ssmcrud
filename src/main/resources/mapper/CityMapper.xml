@@ -7,8 +7,7 @@
 		<result column="NAME" jdbcType="NVARCHAR" property="name" />
 		<result column="CONTINENT" jdbcType="NVARCHAR"
 			property="continent" />
-		<result column="NATION" jdbcType="NVARCHAR"
-			property="nation" />
+		<result column="NATION" jdbcType="NVARCHAR" property="nation" />
 		<result column="DISTRICT" jdbcType="NVARCHAR"
 			property="district" />
 		<result column="POPULATION" jdbcType="NUMERIC"
@@ -53,16 +52,21 @@
 		#{id,jdbcType=NUMERIC}
 	</update>
 	<select id="getCityInfos" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SELECT SUB.ID, SUB.NAME,
+		SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		FROM (SELECT
+		ROWNUM AS ROWNO, CWV.ID,
 		CWV.NAME,
-		CWV.CONTINENT, CWV.NATION, CWV.DISTRICT, CWV.POPULATION
+		CWV.CONTINENT, CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
 		FROM
 		WORLD_CITY_VIEW CWV
-		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+		WHERE ROWNUM &lt;=
+		#{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE SUB.ROWNO &gt;
+		#{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT COUNT(1)
@@ -70,17 +74,22 @@
 		WORLD_CITY_VIEW CWV
 	</select>
 	<select id="getByNations" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SELECT SUB.ID, SUB.NAME,
+		SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		FROM (SELECT
+		ROWNUM AS ROWNO, CWV.ID,
 		CWV.NAME,
-		CWV.CONTINENT, CWV.NATION, CWV.DISTRICT, CWV.POPULATION
+		CWV.CONTINENT, CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
 		FROM
 		WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
+		WHERE CWV.NATION =
+		#{nation,jdbcType=NVARCHAR}
 		AND
-		ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		ROWNUM &lt;=
+		#{pageMax,jdbcType=NUMERIC}) SUB
 		WHERE SUB.ROWNO &gt;
 		#{pageMin,jdbcType=NUMERIC}
 	</select>
@@ -92,15 +101,19 @@
 		#{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
+		SELECT SUB.ID, SUB.NAME,
+		SUB.CONTINENT,
 		SUB.NATION,
 		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT ROWNUM AS ROWNO, CWV.ID,
+		FROM (SELECT
+		ROWNUM AS ROWNO, CWV.ID,
 		CWV.NAME, CWV.CONTINENT,
-		CWV.NATION, CWV.DISTRICT, CWV.POPULATION
+		CWV.NATION,
+		CWV.DISTRICT, CWV.POPULATION
 		FROM
 		WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE CONCAT('%',
+		WHERE CWV.NAME LIKE
+		CONCAT('%',
 		#{name,jdbcType=NVARCHAR}, '%')
 		AND ROWNUM &lt;=
 		#{pageMax,jdbcType=NUMERIC}) SUB
@@ -115,28 +128,24 @@
 		CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
-		SUB.NATION,
-		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT CWV.ID, CWV.NAME,
+		SELECT CWV.ID, CWV.NAME,
 		CWV.CONTINENT,
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
-		FROM WORLD_CITY_VIEW CWV
-		ORDER BY CWV.POPULATION ASC) SUB
-		WHERE ROWNUM &lt;= 15
+		FROM
+		WORLD_CITY_VIEW CWV
+		ORDER BY CWV.POPULATION ASC
+		FETCH FIRST 15 ROWS ONLY
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME, SUB.CONTINENT,
-		SUB.NATION,
-		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT CWV.ID, CWV.NAME,
+		SELECT CWV.ID, CWV.NAME,
 		CWV.CONTINENT,
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
-		FROM WORLD_CITY_VIEW CWV
-		ORDER BY CWV.POPULATION DESC) SUB
-		WHERE ROWNUM &lt;= 15
+		FROM
+		WORLD_CITY_VIEW CWV
+		ORDER BY CWV.POPULATION DESC
+		FETCH FIRST 15 ROWS ONLY
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
