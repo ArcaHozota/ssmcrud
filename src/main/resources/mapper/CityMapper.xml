@@ -61,8 +61,8 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM
 		WORLD_CITY_VIEW CWV
-		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
+		WHERE ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT COUNT(1)
@@ -78,8 +78,8 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		WHERE CWV.NATION = #{nation,jdbcType=NVARCHAR}
-		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
+		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -97,8 +97,8 @@
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
 		WHERE CWV.NAME LIKE CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
-		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMBER}) SUB
-		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMBER}
+		AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE ROWNUM &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -137,7 +137,7 @@
 		CWV.NATION,
 		CWV.DISTRICT, CWV.POPULATION
 		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.ID = #{id,jdbcType=NUMBER}
+		WHERE CWV.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="checkName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
