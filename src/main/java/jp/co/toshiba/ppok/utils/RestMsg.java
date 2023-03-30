@@ -1,8 +1,7 @@
 package jp.co.toshiba.ppok.utils;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class RestMsg {
 	/**
 	 * data returned to browsers
 	 */
-	private final Map<String, Object> extend = Maps.newHashMap();
+	private final Map<String, Object> extend = new HashMap<>();
 
 	/**
 	 * retrieve successfully
