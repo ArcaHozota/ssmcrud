@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jp.co.toshiba.ppok.dto.CityDto;
-import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;
@@ -60,7 +59,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city/{id}")
 	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
-		final City cityInfo = this.centreService.getCityInfo(id);
+		final CityDto cityInfo = this.centreService.getCityInfo(id);
 		return RestMsg.success().add("citySelected", cityInfo);
 	}
 
