@@ -91,7 +91,7 @@ public final class Pagination<T> {
 	 * @param pageNum      當前頁
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum) {
-		return new Pagination<T>(records, totalRecords, pageNum, 17, 5);
+		return new Pagination<>(records, totalRecords, pageNum, 17, 5);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public final class Pagination<T> {
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
 			final int pageSize) {
-		return new Pagination<T>(records, totalRecords, pageNum, pageSize, 5);
+		return new Pagination<>(records, totalRecords, pageNum, pageSize, 5);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public final class Pagination<T> {
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
 			final int pageSize, final int navigatePages) {
-		return new Pagination<T>(records, totalRecords, pageNum, pageSize, navigatePages);
+		return new Pagination<>(records, totalRecords, pageNum, pageSize, navigatePages);
 	}
 
 	/**
