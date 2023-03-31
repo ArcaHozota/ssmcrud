@@ -235,7 +235,7 @@ public final class Pagination<T> {
 	}
 
 	/**
-	 * toString()
+	 * toString
 	 */
 	@Override
 	public String toString() {
