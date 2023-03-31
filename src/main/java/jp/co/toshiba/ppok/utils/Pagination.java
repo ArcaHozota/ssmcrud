@@ -103,7 +103,7 @@ public final class Pagination<T> {
 	 * @param pageSize     每頁大小
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
-									   final int pageSize) {
+			final int pageSize) {
 		return new Pagination<T>(records, totalRecords, pageNum, pageSize, 5);
 	}
 
@@ -117,7 +117,7 @@ public final class Pagination<T> {
 	 * @param navigatePages 導航條頁碼數
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final int totalRecords, final int pageNum,
-									   final int pageSize, final int navigatePages) {
+			final int pageSize, final int navigatePages) {
 		return new Pagination<T>(records, totalRecords, pageNum, pageSize, navigatePages);
 	}
 
@@ -131,7 +131,7 @@ public final class Pagination<T> {
 	 * @param navigatePages 導航條頁碼數
 	 */
 	private Pagination(final List<T> records, final int totalRecords, final int pageNum, final int pageSize,
-					   final int navigatePages) {
+			final int navigatePages) {
 		if (records != null && !records.isEmpty()) {
 			this.pageNum = pageNum;
 			this.records = records;
