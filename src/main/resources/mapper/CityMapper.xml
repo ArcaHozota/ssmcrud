@@ -113,8 +113,7 @@
 		FROM
 		WORLD_CITY_VIEW CWV
 		WHERE CWV.NAME LIKE
-		CONCAT('%',
-		#{name,jdbcType=NVARCHAR}, '%')
+		CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
 		AND ROWNUM &lt;=
 		#{pageMax,jdbcType=NUMERIC}) SUB
 		WHERE SUB.ROWNO &gt;
@@ -125,7 +124,7 @@
 		SELECT COUNT(1)
 		FROM WORLD_CITY_VIEW CWV
 		WHERE CWV.NAME LIKE
-		CONCAT('%', #{name,jdbcType=NVARCHAR}, '%')
+		CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT CWV.ID, CWV.NAME,
@@ -145,7 +144,8 @@
 		FROM
 		WORLD_CITY_VIEW CWV
 		ORDER BY CWV.POPULATION DESC
-		FETCH FIRST 15 ROWS ONLY
+		FETCH FIRST 15 ROWS
+		ONLY
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
