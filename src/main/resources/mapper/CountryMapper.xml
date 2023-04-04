@@ -43,7 +43,7 @@
 		        WHERE
 		            CTN.CONTINENT = CTY.CONTINENT 
 		            AND CTN.CODE > CTY.CODE
-		    );
+		    )
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
