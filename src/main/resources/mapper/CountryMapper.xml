@@ -47,10 +47,10 @@
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		SELECT DISTINCT
-		    CTY.NAME 
+		SELECT
+		    CTY.NAME
 		FROM
-		    WORLD_COUNTRY CTY 
+		    WORLD_COUNTRY CTY
 		WHERE
 		    CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
 		ORDER BY
@@ -59,9 +59,9 @@
 	<select id="getNationCode" parameterType="java.lang.String"
 		resultType="java.lang.String">
 		SELECT
-		    CTY.CODE 
+		    CTY.CODE
 		FROM
-		    WORLD_COUNTRY CTY 
+		    WORLD_COUNTRY CTY
 		WHERE
 		    CTY.NAME = #{name,jdbcType=NVARCHAR}
 	</select>
