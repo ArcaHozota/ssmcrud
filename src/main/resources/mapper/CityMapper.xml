@@ -156,9 +156,9 @@
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT
-		    COUNT(1) 
+		    COUNT(1)
 		FROM
-		    WORLD_CITY_VIEW WCV 
+		    WORLD_CITY_VIEW WCV
 		WHERE
 		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'));
 	</select>
