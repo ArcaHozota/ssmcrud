@@ -15,20 +15,28 @@
 	</resultMap>
 	<insert id="saveById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
-		INSERT INTO WORLD_CITY(NAME, COUNTRY_CODE,
-		DISTRICT,
-		POPULATION, LOGIC_DELETE_FLG)
-		VALUES (#{name,jdbcType=NVARCHAR},
-		#{countryCode,jdbcType=NCHAR},
-		#{district,jdbcType=NVARCHAR},
-		#{population,jdbcType=NUMERIC},
-		#{logicDeleteFlg,jdbcType=NVARCHAR})
+		INSERT 
+		INTO WORLD_CITY( 
+		    NAME
+		    , COUNTRY_CODE
+		    , DISTRICT
+		    , POPULATION
+		    , LOGIC_DELETE_FLG
+		) 
+		VALUES ( 
+		    #{name,jdbcType=NVARCHAR}
+		    , #{countryCode,jdbcType=NCHAR}
+		    , #{district,jdbcType=NVARCHAR}
+		    , #{population,jdbcType=NUMERIC}
+		    , #{logicDeleteFlg,jdbcType=NVARCHAR}
+		)
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
-		UPDATE WORLD_CITY CN
+		UPDATE WORLD_CITY CN 
 		SET
-		CN.LOGIC_DELETE_FLG = 'removed'
-		WHERE CN.ID = #{id,jdbcType=NUMERIC}
+		    CN.LOGIC_DELETE_FLG = 'removed' 
+		WHERE
+    		CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<update id="updateById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
@@ -52,116 +60,155 @@
 		#{id,jdbcType=NUMERIC}
 	</update>
 	<select id="getCityInfos" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME,
-		SUB.CONTINENT,
-		SUB.NATION,
-		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT
-		ROWNUM AS ROWNO, CWV.ID,
-		CWV.NAME,
-		CWV.CONTINENT, CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		SELECT
+			SUB.ID,
+			SUB.NAME,
+			SUB.CONTINENT,
+			SUB.NATION,
+			SUB.DISTRICT,
+			SUB.POPULATION
 		FROM
-		WORLD_CITY_VIEW CWV
-		WHERE ROWNUM &lt;=
-		#{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNO &gt;
-		#{pageMin,jdbcType=NUMERIC}
+			(
+			SELECT
+				ROWNUM AS ROWNO,
+				WCV.ID,
+				WCV.NAME,
+				WCV.CONTINENT,
+				WCV.NATION,
+				WCV.DISTRICT,
+				WCV.POPULATION
+			FROM
+				WORLD_CITY_VIEW WCV
+			WHERE
+				ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE
+			SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
-		SELECT COUNT(1)
+		SELECT
+			COUNT(1)
 		FROM
-		WORLD_CITY_VIEW CWV
+			WORLD_CITY_VIEW WCV
 	</select>
 	<select id="getByNations" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME,
-		SUB.CONTINENT,
-		SUB.NATION,
-		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT
-		ROWNUM AS ROWNO, CWV.ID,
-		CWV.NAME,
-		CWV.CONTINENT, CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		SELECT
+		    SUB.ID
+		    , SUB.NAME
+		    , SUB.CONTINENT
+		    , SUB.NATION
+		    , SUB.DISTRICT
+		    , SUB.POPULATION 
 		FROM
-		WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION =
-		#{nation,jdbcType=NVARCHAR}
-		AND
-		ROWNUM &lt;=
-		#{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNO &gt;
-		#{pageMin,jdbcType=NUMERIC}
+		    ( 
+		        SELECT
+		            ROWNUM AS ROWNO
+		            , WCV.ID
+		            , WCV.NAME
+		            , WCV.CONTINENT
+		            , WCV.NATION
+		            , WCV.DISTRICT
+		            , WCV.POPULATION 
+		        FROM
+		            WORLD_CITY_VIEW WCV 
+		        WHERE
+		            WCV.NATION = #{nation,jdbcType=NVARCHAR}
+		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
+		    ) SUB 
+		WHERE
+		    SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
-		SELECT COUNT(1)
-		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NATION =
-		#{nation,jdbcType=NVARCHAR}
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.NATION = #{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
-		SELECT SUB.ID, SUB.NAME,
-		SUB.CONTINENT,
-		SUB.NATION,
-		SUB.DISTRICT, SUB.POPULATION
-		FROM (SELECT
-		ROWNUM AS ROWNO, CWV.ID,
-		CWV.NAME, CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		SELECT
+		    SUB.ID
+		    , SUB.NAME
+		    , SUB.CONTINENT
+		    , SUB.NATION
+		    , SUB.DISTRICT
+		    , SUB.POPULATION 
 		FROM
-		WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE
-		CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
-		AND ROWNUM &lt;=
-		#{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE SUB.ROWNO &gt;
-		#{pageMin,jdbcType=NUMERIC}
+		    ( 
+		        SELECT
+		            ROWNUM AS ROWNO
+		            , WCV.ID
+		            , WCV.NAME
+		            , WCV.CONTINENT
+		            , WCV.NATION
+		            , WCV.DISTRICT
+		            , WCV.POPULATION 
+		        FROM
+		            WORLD_CITY_VIEW WCV 
+		        WHERE
+		            WCV.NAME LIKE CONCAT('%', CONCAT(# { name, jdbcType = NVARCHAR }, '%')) 
+		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
+		    ) SUB 
+		WHERE
+		    SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
-		SELECT COUNT(1)
-		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.NAME LIKE
-		CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'));
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
-		SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		SELECT
+		    WCV.ID
+		    , WCV.NAME
+		    , WCV.CONTINENT
+		    , WCV.NATION
+		    , WCV.DISTRICT
+		    , WCV.POPULATION 
 		FROM
-		WORLD_CITY_VIEW CWV
-		ORDER BY CWV.POPULATION ASC
-		FETCH FIRST 15 ROWS ONLY
+		    WORLD_CITY_VIEW WCV 
+		ORDER BY
+		    WCV.POPULATION ASC FETCH FIRST 15 ROWS ONLY
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
-		SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
+		SELECT
+		    WCV.ID
+		    , WCV.NAME
+		    , WCV.CONTINENT
+		    , WCV.NATION
+		    , WCV.DISTRICT
+		    , WCV.POPULATION 
 		FROM
-		WORLD_CITY_VIEW CWV
-		ORDER BY CWV.POPULATION DESC
-		FETCH FIRST 15 ROWS
-		ONLY
+		    WORLD_CITY_VIEW WCV 
+		ORDER BY
+		    WCV.POPULATION DESC FETCH FIRST 15 ROWS ONLY
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
-		SELECT CWV.ID, CWV.NAME,
-		CWV.CONTINENT,
-		CWV.NATION,
-		CWV.DISTRICT, CWV.POPULATION
-		FROM WORLD_CITY_VIEW CWV
-		WHERE CWV.ID =
-		#{id,jdbcType=NUMERIC}
+		SELECT
+		    WCV.ID
+		    , WCV.NAME
+		    , WCV.CONTINENT
+		    , WCV.NATION
+		    , WCV.DISTRICT
+		    , WCV.POPULATION 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="checkName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
-		SELECT COUNT(1)
-		FROM WORLD_CITY CN
-		WHERE CN.NAME =
-		#{cityName,jdbcType=NVARCHAR}
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY CN 
+		WHERE
+		    CN.NAME = #{cityName,jdbcType=NVARCHAR}
 	</select>
 </mapper>
