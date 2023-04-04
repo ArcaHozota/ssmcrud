@@ -56,8 +56,7 @@
 			</if>
 		</set>
 		WHERE CN.LOGIC_DELETE_FLG = 'visible'
-		AND CN.ID =
-		#{id,jdbcType=NUMERIC}
+		AND CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT
