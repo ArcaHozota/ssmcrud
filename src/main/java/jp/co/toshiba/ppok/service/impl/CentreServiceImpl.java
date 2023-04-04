@@ -149,30 +149,27 @@ public class CentreServiceImpl implements CentreService {
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
 		final Integer pageMin = (pageNum - 1) * pageSize;
 		final Integer pageMax = pageNum * pageSize;
-		Pagination<CityDto> pages;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
-				pages = Pagination.of(maximumRanks, 15, 1);
+				return Pagination.of(maximumRanks, 15, 1);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
-				pages = Pagination.of(minimumRanks, 15, 1);
+				return Pagination.of(minimumRanks, 15, 1);
 			} else {
 				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
 					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageMax, pageMin);
-					pages = Pagination.of(keyNations, keyNationsCnt, pageNum);
+					return Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
 					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
 					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageMax, pageMin);
-					pages = Pagination.of(keyNames, keyNamesCnt, pageNum);
+					return Pagination.of(keyNames, keyNamesCnt, pageNum);
 				}
 			}
-		} else {
-			final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
-			final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageMax, pageMin);
-			pages = Pagination.of(cityInfos, cityInfosCnt, pageNum);
 		}
-		return pages;
+		final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
+		final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageMax, pageMin);
+		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
 	}
 }
