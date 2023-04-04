@@ -146,7 +146,7 @@
 		        FROM
 		            WORLD_CITY_VIEW WCV 
 		        WHERE
-		            WCV.NAME LIKE CONCAT('%', CONCAT(# { name, jdbcType = NVARCHAR }, '%')) 
+		            WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
 		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
 		    ) SUB 
 		WHERE
