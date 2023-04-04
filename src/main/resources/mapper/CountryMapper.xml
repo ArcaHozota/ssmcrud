@@ -31,23 +31,30 @@
 	</resultMap>
 	<select id="getAllContinents" resultType="java.lang.String">
 		SELECT DISTINCT
-		CTY.CONTINENT
-		FROM WORLD_COUNTRY CTY
-		ORDER BY CTY.CONTINENT
+		    CTY.CONTINENT 
+		FROM
+		    WORLD_COUNTRY CTY 
+		ORDER BY
+		    CTY.CONTINENT
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		SELECT DISTINCT CTY.NAME
-		FROM WORLD_COUNTRY CTY
+		SELECT DISTINCT
+		    CTY.NAME 
+		FROM
+		    WORLD_COUNTRY CTY 
 		WHERE
-		CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
-		ORDER BY CTY.NAME
+		    CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
+		ORDER BY
+		    CTY.NAME
 	</select>
 	<select id="getNationCode" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		SELECT CTY.CODE
-		FROM WORLD_COUNTRY CTY
-		WHERE CTY.NAME =
-		#{name,jdbcType=NVARCHAR}
+		SELECT
+		    CTY.CODE 
+		FROM
+		    WORLD_COUNTRY CTY 
+		WHERE
+		    CTY.NAME = #{name,jdbcType=NVARCHAR}
 	</select>
 </mapper>
