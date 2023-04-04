@@ -159,7 +159,7 @@
 		FROM
 		    WORLD_CITY_VIEW WCV
 		WHERE
-		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'));
+		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT
