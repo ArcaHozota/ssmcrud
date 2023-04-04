@@ -82,7 +82,7 @@
 			WHERE
 				ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
 		WHERE
-			SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
+			SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT
@@ -115,7 +115,7 @@
 		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
 		    ) SUB 
 		WHERE
-		    SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
+		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -151,7 +151,7 @@
 		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
 		    ) SUB 
 		WHERE
-		    SUB.ROWNO &gt;= #{pageMin,jdbcType=NUMERIC}
+		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
