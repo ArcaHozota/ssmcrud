@@ -14,10 +14,42 @@
 	</resultMap>
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT
-		COUNT(1)
+		    WL.LANGUAGE 
 		FROM
-		WORLD_CITY CN
-		WHERE
-		CN.NAME = #{cityName,jdbcType=NVARCHAR}
+		    WORLD_LANGUAGE WL 
+		    INNER JOIN ( 
+		        SELECT
+		            WL.COUNTRY_CODE, 
+		            MIN(WL.PERCENTAGE) AS PERCENTAGE 
+		        FROM
+		            WORLD_LANGUAGE WL 
+		            INNER JOIN ( 
+		                SELECT
+		                    CN.COUNTRY_CODE AS CD, 
+		                    (CN.POPULATION / NATION_POP) * 100 AS PERCENTAGE 
+		                FROM
+		                    WORLD_CITY CN 
+		                    INNER JOIN ( 
+		                        SELECT
+		                            CTY.CODE AS CODE, 
+		                            CTY.POPULATION AS NATION_POP 
+		                        FROM
+		                            WORLD_COUNTRY CTY
+		                    ) SUB 
+		                        ON SUB.CODE = CN.COUNTRY_CODE 
+		                WHERE
+		                    CN.ID = #{id,jdbcType=BIGINT}
+		            ) SUB2 
+		                ON SUB2.CD = WL.COUNTRY_CODE 
+		        WHERE
+		            WL.LOGIC_DELETE_FLG = 'visible' 
+		            AND WL.IS_OFFICIAL = 'T' 
+		            AND WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR} 
+		            AND SUB2.PERCENTAGE &lt;= WL.PERCENTAGE 
+		        GROUP BY
+		            WL.COUNTRY_CODE
+		    ) MITX 
+		        ON MITX.COUNTRY_CODE = WL.COUNTRY_CODE 
+		        AND MITX.PERCENTAGE = WL.PERCENTAGE
 	</select>
 </mapper>

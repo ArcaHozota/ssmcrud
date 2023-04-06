@@ -1,6 +1,7 @@
 package jp.co.toshiba.ppok.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Mapper of Table WORLD_LANGUAGE
@@ -10,4 +11,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface LanguageMapper {
+
+	/**
+	 * Get official language by cityID
+	 *
+	 * @param id   cityID
+	 * @param code countryCode
+	 * @return String
+	 */
+	String getLanguage(@Param("id") Integer id, @Param("nationCode") String code);
 }
