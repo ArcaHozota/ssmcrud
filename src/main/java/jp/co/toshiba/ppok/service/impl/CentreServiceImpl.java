@@ -13,6 +13,7 @@ import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
+import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.StringUtils;
@@ -26,16 +27,22 @@ import jp.co.toshiba.ppok.utils.StringUtils;
 public class CentreServiceImpl implements CentreService {
 
 	/**
-	 * city mapper
+	 * City mapper
 	 */
 	@Resource
 	private CityMapper cityMapper;
 
 	/**
-	 * country mapper
+	 * Country mapper
 	 */
 	@Resource
 	private CountryMapper countryMapper;
+
+	/**
+	 * Language mapper
+	 */
+	@Resource
+	private LanguageMapper languageMapper;
 
 	/**
 	 * retrieve selected city info by id provided
