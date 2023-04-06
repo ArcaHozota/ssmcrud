@@ -13,11 +13,10 @@ import org.apache.ibatis.annotations.Param;
 public interface LanguageMapper {
 
 	/**
-	 * Get official language by cityID
+	 * Get official language by nationCode
 	 *
-	 * @param id   cityID
 	 * @param code countryCode
 	 * @return String
 	 */
-	String getLanguage(@Param("id") Integer id, @Param("nationCode") String code);
+	String getLanguage(@Param("nationCode") String code);
 }

@@ -13,43 +13,62 @@
 			property="logicDeleteFlg" />
 	</resultMap>
 	<select id="getLanguage" resultType="java.lang.String">
-		SELECT
-		    WL.LANGUAGE 
+		SELECT DISTINCT
+		    CASE 
+		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 20 
+		            THEN SUBF.OFLANGUAGE 
+		        ELSE SUBT.OTLANGUAGE 
+		        END AS LANGUAGE
 		FROM
 		    WORLD_LANGUAGE WL 
 		    INNER JOIN ( 
 		        SELECT
 		            WL.COUNTRY_CODE, 
-		            MIN(WL.PERCENTAGE) AS PERCENTAGE 
+		            WL.LANGUAGE AS OTLANGUAGE, 
+		            MATX.OTPERCENTAGE 
 		        FROM
 		            WORLD_LANGUAGE WL 
 		            INNER JOIN ( 
 		                SELECT
-		                    CN.COUNTRY_CODE AS CD, 
-		                    (CN.POPULATION / NATION_POP) * 100 AS PERCENTAGE 
+		                    WL.COUNTRY_CODE, 
+		                    MAX(WL.PERCENTAGE) AS OTPERCENTAGE 
 		                FROM
-		                    WORLD_CITY CN 
-		                    INNER JOIN ( 
-		                        SELECT
-		                            CTY.CODE AS CODE, 
-		                            CTY.POPULATION AS NATION_POP 
-		                        FROM
-		                            WORLD_COUNTRY CTY
-		                    ) SUB 
-		                        ON SUB.CODE = CN.COUNTRY_CODE 
+		                    WORLD_LANGUAGE WL 
 		                WHERE
-		                    CN.ID = #{id,jdbcType=BIGINT}
-		            ) SUB2 
-		                ON SUB2.CD = WL.COUNTRY_CODE 
-		        WHERE
-		            WL.LOGIC_DELETE_FLG = 'visible' 
-		            AND WL.IS_OFFICIAL = 'T' 
-		            AND WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR} 
-		            AND SUB2.PERCENTAGE &lt;= WL.PERCENTAGE 
-		        GROUP BY
-		            WL.COUNTRY_CODE
-		    ) MITX 
-		        ON MITX.COUNTRY_CODE = WL.COUNTRY_CODE 
-		        AND MITX.PERCENTAGE = WL.PERCENTAGE
+		                    WL.LOGIC_DELETE_FLG = 'visible' 
+		                    AND WL.IS_OFFICIAL = 'T' 
+		                GROUP BY
+		                    WL.COUNTRY_CODE
+		            ) MATX 
+		                ON MATX.COUNTRY_CODE = WL.COUNTRY_CODE 
+		                AND MATX.OTPERCENTAGE = WL.PERCENTAGE 
+		                AND WL.IS_OFFICIAL = 'T'
+		    ) SUBT 
+		        ON SUBT.COUNTRY_CODE = WL.COUNTRY_CODE 
+		    INNER JOIN ( 
+		        SELECT
+		            WL.COUNTRY_CODE, 
+		            WL.LANGUAGE AS OFLANGUAGE, 
+		            MAFX.OFPERCENTAGE 
+		        FROM
+		            WORLD_LANGUAGE WL 
+		            INNER JOIN ( 
+		                SELECT
+		                    WL.COUNTRY_CODE, 
+		                    MAX(WL.PERCENTAGE) AS OFPERCENTAGE 
+		                FROM
+		                    WORLD_LANGUAGE WL 
+		                WHERE
+		                    WL.LOGIC_DELETE_FLG = 'visible' 
+		                    AND WL.IS_OFFICIAL = 'F' 
+		                GROUP BY
+		                    WL.COUNTRY_CODE
+		            ) MAFX 
+		                ON MAFX.COUNTRY_CODE = WL.COUNTRY_CODE 
+		                AND MAFX.OFPERCENTAGE = WL.PERCENTAGE 
+		                AND WL.IS_OFFICIAL = 'F'
+		    ) SUBF 
+		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE
+		        AND WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
 	</select>
 </mapper>
