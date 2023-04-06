@@ -61,7 +61,7 @@ public class Country implements Serializable {
 	private BigDecimal gnp;
 
 	/**
-	 * This field corresponds to the database column CNP_OLD
+	 * This field corresponds to the database column GNP_OLD
 	 */
 	private BigDecimal gnpOld;
 
