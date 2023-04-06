@@ -176,7 +176,11 @@ public class CentreServiceImpl implements CentreService {
 			}
 		}
 		final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageMax, pageMin);
+		final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageMax, pageMin).stream().peek(item -> {
+			final String nationCode = this.countryMapper.getNationCode(item.getNation());
+			final String language = this.languageMapper.getLanguage(nationCode);
+			item.setLanguage(language);
+		}).collect(Collectors.toList());
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
 	}
 }

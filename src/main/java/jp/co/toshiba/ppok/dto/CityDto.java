@@ -43,4 +43,9 @@ public class CityDto implements Serializable {
 	 * This field corresponds to the database column POPULATION
 	 */
 	private Long population;
+
+	/**
+	 * This field corresponds to the database column LANGUAGE
+	 */
+	private String language;
 }
