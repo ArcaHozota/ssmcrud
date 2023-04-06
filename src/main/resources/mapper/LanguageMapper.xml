@@ -69,6 +69,6 @@
 		                AND WL.IS_OFFICIAL = 'F'
 		    ) SUBF 
 		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE
-		        AND WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
+		WHERE WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
 	</select>
 </mapper>
