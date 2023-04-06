@@ -3,23 +3,21 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.LanguageMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.Language">
-		<id column="ID" jdbcType="NUMERIC" property="id" />
-		<result column="NAME" jdbcType="NVARCHAR" property="name" />
-		<result column="CONTINENT" jdbcType="NVARCHAR"
-			property="continent" />
-		<result column="NATION" jdbcType="NVARCHAR" property="nation" />
-		<result column="DISTRICT" jdbcType="NVARCHAR"
-			property="district" />
-		<result column="POPULATION" jdbcType="NUMERIC"
-			property="population" />
+		<id column="COUNTRY_CODE" jdbcType="NCHAR" property="countryCode" />
+		<id column="LANGUAGE" jdbcType="NVARCHAR" property="language" />
+		<result column="IS_OFFICIAL" jdbcType="NCHAR"
+			property="isOfficial" />
+		<result column="PERCENTAGE" jdbcType="NUMERIC"
+			property="percentage" />
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
+			property="logicDeleteFlg" />
 	</resultMap>
-	<select id="checkName" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
+	<select id="getLanguage" resultType="java.lang.String">
 		SELECT
-		    COUNT(1) 
+		COUNT(1)
 		FROM
-		    WORLD_CITY CN 
+		WORLD_CITY CN
 		WHERE
-		    CN.NAME = #{cityName,jdbcType=NVARCHAR}
+		CN.NAME = #{cityName,jdbcType=NVARCHAR}
 	</select>
 </mapper>
