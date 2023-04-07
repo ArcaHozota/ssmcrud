@@ -183,4 +183,16 @@ public class CentreServiceImpl implements CentreService {
 		}).collect(Collectors.toList());
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
 	}
+
+	/**
+	 * get language by nation
+	 *
+	 * @param nation name of nation
+	 * @return language name
+	 */
+	@Override
+	public String findLanguageByCty(final String nation) {
+		final String nationCode = this.countryMapper.getNationCode(nation);
+		return this.languageMapper.getLanguage(nationCode);
+	}
 }
