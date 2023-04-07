@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
@@ -17,6 +18,7 @@ import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.StringUtils;
+import oracle.jdbc.driver.OracleSQLException;
 
 /**
  * Implementation class of central service interface
@@ -24,6 +26,7 @@ import jp.co.toshiba.ppok.utils.StringUtils;
  * @author Administrator
  */
 @Service
+@Transactional(rollbackFor = OracleSQLException.class)
 public class CentreServiceImpl implements CentreService {
 
 	/**
