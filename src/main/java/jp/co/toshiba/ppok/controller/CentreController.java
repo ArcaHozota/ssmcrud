@@ -152,4 +152,15 @@ public class CentreController {
 		final List<String> nationList = this.centreService.findNationsByCityId(id);
 		return RestMsg.success().add("nationsByName", nationList);
 	}
+
+	/**
+	 * Get language by nation.
+	 *
+	 * @return RestMsg.success().add(data)
+	 */
+	@GetMapping(value = "/language")
+	public RestMsg getLanguages(@RequestParam("nationVal") final String nation) {
+		final String language = this.centreService.findLanguageByCty(nation);
+		return RestMsg.success().add("languages", language);
+	}
 }

@@ -81,4 +81,12 @@ public interface CentreService {
 	 * @return pageList of cities
 	 */
 	Pagination<CityDto> findByKeywords(Integer pageNum, Integer pageSize, String keyword);
+
+	/**
+	 * get language by nation
+	 *
+	 * @param nation name of nation
+	 * @return language name
+	 */
+	String findLanguageByCty(String nation);
 }
