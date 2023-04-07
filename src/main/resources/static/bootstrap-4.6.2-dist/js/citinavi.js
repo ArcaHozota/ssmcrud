@@ -154,6 +154,7 @@ $("#searchBtn").on('click', function() {
 $("#cityAddModalBtn").on('click', function() {
 	formReset("#cityAddModal form");
 	getContinent("#continentInput");
+	getNations($("#nationInput"), 'Antarctica');
 	$("#cityAddModal").modal({
 		backdrop: 'static'
 	});
