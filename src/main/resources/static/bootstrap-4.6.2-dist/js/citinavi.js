@@ -313,6 +313,25 @@ function getNationsById(element, id) {
 	});
 }
 
+// Add click function to select of nation.
+$("#nationEdit").on('change', function() {
+	let nationVal = $("#nationEdit option:selected").val();
+	getLanguage($("#languageEdit"), nationVal);
+})
+
+// Get the name of country.
+function getLanguage(element, nationVal) {
+	$(element).empty();
+	$.ajax({
+		url: pathdeApp + '/language',
+		data: 'nationVal=' + nationVal,
+		type: 'GET',
+		success: function(result) {
+			$("#languageEdit").text(result.extend.languages);
+		}
+	});
+}
+
 // Submit the change of city infos.
 $("#cityInfoChangeBtn").on('click', function() {
 	let inputDistrict = $("#districtEdit").val().trim();
