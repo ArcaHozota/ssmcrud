@@ -15,13 +15,13 @@
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT DISTINCT
 		    CASE 
-		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 20 
+		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 20
 		            THEN SUBF.OFLANGUAGE 
-		        ELSE SUBT.OTLANGUAGE 
-		        END AS LANGUAGE
+		        ELSE NVL(SUBT.OTLANGUAGE, SUBF.OFLANGUAGE) 
+		        END AS LANGUAGE 
 		FROM
 		    WORLD_LANGUAGE WL 
-		    INNER JOIN ( 
+		    LEFT JOIN ( 
 		        SELECT
 		            WL.COUNTRY_CODE, 
 		            WL.LANGUAGE AS OTLANGUAGE, 
@@ -45,7 +45,7 @@
 		                AND WL.IS_OFFICIAL = 'T'
 		    ) SUBT 
 		        ON SUBT.COUNTRY_CODE = WL.COUNTRY_CODE 
-		    INNER JOIN ( 
+		    LEFT JOIN ( 
 		        SELECT
 		            WL.COUNTRY_CODE, 
 		            WL.LANGUAGE AS OFLANGUAGE, 
@@ -68,7 +68,8 @@
 		                AND MAFX.OFPERCENTAGE = WL.PERCENTAGE 
 		                AND WL.IS_OFFICIAL = 'F'
 		    ) SUBF 
-		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE
-		WHERE WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
+		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE 
+		WHERE
+		    WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
 	</select>
 </mapper>
