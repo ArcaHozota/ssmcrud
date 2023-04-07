@@ -52,7 +52,11 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		return this.cityMapper.getCityInfoById(id);
+		final CityDto cityInfoById = this.cityMapper.getCityInfoById(id);
+		final String nationCode = this.countryMapper.getNationCode(cityInfoById.getNation());
+		final String language = this.languageMapper.getLanguage(nationCode);
+		cityInfoById.setLanguage(language);
+		return cityInfoById;
 	}
 
 	/**
