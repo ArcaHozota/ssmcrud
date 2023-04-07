@@ -162,19 +162,37 @@ public class CentreServiceImpl implements CentreService {
 		final Integer pageMax = pageNum * pageSize;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
-				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks();
+				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks().stream().peek(item -> {
+					final String nationCode = this.countryMapper.getNationCode(item.getNation());
+					final String language = this.languageMapper.getLanguage(nationCode);
+					item.setLanguage(language);
+				}).collect(Collectors.toList());
 				return Pagination.of(maximumRanks, 15, 1);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks();
+				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks().stream().peek(item -> {
+					final String nationCode = this.countryMapper.getNationCode(item.getNation());
+					final String language = this.languageMapper.getLanguage(nationCode);
+					item.setLanguage(language);
+				}).collect(Collectors.toList());
 				return Pagination.of(minimumRanks, 15, 1);
 			} else {
 				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
-					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageMax, pageMin);
+					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageMax, pageMin).stream()
+							.peek(item -> {
+								final String nationCode = this.countryMapper.getNationCode(item.getNation());
+								final String language = this.languageMapper.getLanguage(nationCode);
+								item.setLanguage(language);
+							}).collect(Collectors.toList());
 					return Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
 					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
-					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageMax, pageMin);
+					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageMax, pageMin).stream()
+							.peek(item -> {
+								final String nationCode = this.countryMapper.getNationCode(item.getNation());
+								final String language = this.languageMapper.getLanguage(nationCode);
+								item.setLanguage(language);
+							}).collect(Collectors.toList());
 					return Pagination.of(keyNames, keyNamesCnt, pageNum);
 				}
 			}
