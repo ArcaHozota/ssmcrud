@@ -297,6 +297,7 @@ function getCityInfo(id) {
 			let cityData = result.extend.citySelected;
 			$("#nameEdit").text(cityData.name);
 			$("#continentEdit").text(cityData.continent);
+			$("#languageEdit").text(cityData.language);
 			$("#districtEdit").val(cityData.district);
 			$("#populationEdit").val(cityData.population);
 			getNationsById("#nationEdit", id);
