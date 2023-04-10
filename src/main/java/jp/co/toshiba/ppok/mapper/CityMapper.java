@@ -74,21 +74,21 @@ public interface CityMapper {
 	Integer getCityInfosCnt();
 
 	/**
-	 * Retrieve city infos by population ascending.
+	 * Retrieve cityInfos by population ascending.
 	 *
 	 * @return List<CityDto>
 	 */
 	List<CityDto> getMinimumRanks();
 
 	/**
-	 * Retrieve city infos by population descending.
+	 * Retrieve cityInfos by population descending.
 	 *
 	 * @return List<CityDto>
 	 */
 	List<CityDto> getMaximumRanks();
 
 	/**
-	 * Save inputed city info.
+	 * Save inputed cityInfo.
 	 *
 	 * @param city entity
 	 */
@@ -104,7 +104,7 @@ public interface CityMapper {
 	void removeById(@Param("id") Integer id);
 
 	/**
-	 * Update the selected city info.
+	 * Update the selected cityInfo.
 	 *
 	 * @param city entity
 	 */
@@ -112,7 +112,7 @@ public interface CityMapper {
 	void updateById(City city);
 
 	/**
-	 * Retrieve city info by id.
+	 * Retrieve cityInfo by id.
 	 *
 	 * @param id city id
 	 * @return entity of city
