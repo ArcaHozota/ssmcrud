@@ -91,22 +91,22 @@
 	</select>
 	<select id="getByNations" resultMap="BasicResultMap">
 		SELECT
-		    SUB.ID
-		    , SUB.NAME
-		    , SUB.CONTINENT
-		    , SUB.NATION
-		    , SUB.DISTRICT
-		    , SUB.POPULATION 
+		    SUB.ID, 
+		    SUB.NAME, 
+		    SUB.CONTINENT, 
+		    SUB.NATION, 
+		    SUB.DISTRICT, 
+		    SUB.POPULATION 
 		FROM
 		    ( 
 		        SELECT
-		            ROWNUM AS ROWNO
-		            , WCV.ID
-		            , WCV.NAME
-		            , WCV.CONTINENT
-		            , WCV.NATION
-		            , WCV.DISTRICT
-		            , WCV.POPULATION 
+		            ROWNUM AS ROWNO, 
+		            WCV.ID, 
+		            WCV.NAME, 
+		            WCV.CONTINENT, 
+		            WCV.NATION, 
+		            WCV.DISTRICT, 
+		            WCV.POPULATION 
 		        FROM
 		            WORLD_CITY_VIEW WCV 
 		        WHERE
@@ -127,22 +127,22 @@
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
 		SELECT
-		    SUB.ID
-		    , SUB.NAME
-		    , SUB.CONTINENT
-		    , SUB.NATION
-		    , SUB.DISTRICT
-		    , SUB.POPULATION 
+		    SUB.ID, 
+		    SUB.NAME, 
+		    SUB.CONTINENT, 
+		    SUB.NATION, 
+		    SUB.DISTRICT, 
+		    SUB.POPULATION 
 		FROM
 		    ( 
 		        SELECT
-		            ROWNUM AS ROWNO
-		            , WCV.ID
-		            , WCV.NAME
-		            , WCV.CONTINENT
-		            , WCV.NATION
-		            , WCV.DISTRICT
-		            , WCV.POPULATION 
+		            ROWNUM AS ROWNO, 
+		            WCV.ID, 
+		            WCV.NAME, 
+		            WCV.CONTINENT, 
+		            WCV.NATION, 
+		            WCV.DISTRICT, 
+		            WCV.POPULATION 
 		        FROM
 		            WORLD_CITY_VIEW WCV 
 		        WHERE
