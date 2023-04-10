@@ -37,13 +37,15 @@
 		WHERE
 		    NOT EXISTS ( 
 		        SELECT
-		            1
+		            1 
 		        FROM
 		            WORLD_COUNTRY CTN 
 		        WHERE
 		            CTN.CONTINENT = CTY.CONTINENT 
 		            AND CTN.CODE > CTY.CODE
-		    )
+		    ) 
+		ORDER BY
+		    CTY.CONTINENT
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
