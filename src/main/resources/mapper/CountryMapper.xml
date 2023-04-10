@@ -45,7 +45,7 @@
 		            AND CTN.CODE > CTY.CODE
 		    ) 
 		ORDER BY
-		    CTY.CONTINENT
+		    CTY.CONTINENT ASC
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
@@ -56,7 +56,7 @@
 		WHERE
 		    CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
 		ORDER BY
-		    CTY.NAME
+		    CTY.NAME ASC
 	</select>
 	<select id="getNationCode" parameterType="java.lang.String"
 		resultType="java.lang.String">

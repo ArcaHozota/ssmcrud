@@ -163,12 +163,12 @@
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.NAME
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.DISTRICT
-		    , WCV.POPULATION 
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		ORDER BY
@@ -176,12 +176,12 @@
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.NAME
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.DISTRICT
-		    , WCV.POPULATION 
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		ORDER BY
@@ -190,12 +190,12 @@
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.NAME
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.DISTRICT
-		    , WCV.POPULATION 
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
