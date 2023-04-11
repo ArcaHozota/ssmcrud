@@ -24,11 +24,11 @@
 		    LOGIC_DELETE_FLG
 		) 
 		VALUES ( 
-		    #{NAME,JDBCTYPE=NVARCHAR}, 
-		    #{COUNTRYCODE,JDBCTYPE=NCHAR}, 
-		    #{DISTRICT,JDBCTYPE=NVARCHAR}, 
-		    #{POPULATION,JDBCTYPE=NUMERIC}, 
-		    #{LOGICDELETEFLG,JDBCTYPE=NVARCHAR}
+		    #{NAME,jdbcTYPE=NVARCHAR}, 
+		    #{COUNTRYCODE,jdbcTYPE=NCHAR}, 
+		    #{DISTRICT,jdbcTYPE=NVARCHAR}, 
+		    #{POPULATION,jdbcTYPE=NUMERIC}, 
+		    #{LOGICDELETEFLG,jdbcTYPE=NVARCHAR}
 		)
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
