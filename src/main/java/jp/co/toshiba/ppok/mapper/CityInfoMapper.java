@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import jp.co.toshiba.ppok.dto.CityDto;
+import jp.co.toshiba.ppok.entity.CityInfo;
 
 /**
  * Mapper of View WORLD_CITY_VIEW
@@ -25,9 +25,9 @@ public interface CityInfoMapper {
 	 * @param nation  name of nation
 	 * @param pageMax paging maximum
 	 * @param pageMin paging minimum
-	 * @return List<CityDto>
+	 * @return List<CityInfo>
 	 */
-	List<CityDto> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
+	List<CityInfo> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
 			@Param("pageMin") Integer pageMin);
 
 	/**
@@ -44,9 +44,9 @@ public interface CityInfoMapper {
 	 * @param name    city name
 	 * @param pageMax paging maximum
 	 * @param pageMin paging minimum
-	 * @return List<CityDto>
+	 * @return List<CityInfo>
 	 */
-	List<CityDto> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
+	List<CityInfo> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
 			@Param("pageMin") Integer pageMin);
 
 	/**
@@ -62,9 +62,9 @@ public interface CityInfoMapper {
 	 *
 	 * @param pageMax paging maximum
 	 * @param pageMin paging minimum
-	 * @return List<CityDto>
+	 * @return List<CityInfo>
 	 */
-	List<CityDto> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
+	List<CityInfo> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
 
 	/**
 	 * Retrieve the number of cityInfos.
@@ -76,16 +76,16 @@ public interface CityInfoMapper {
 	/**
 	 * Retrieve cityInfos by population ascending.
 	 *
-	 * @return List<CityDto>
+	 * @return List<CityInfo>
 	 */
-	List<CityDto> getMinimumRanks();
+	List<CityInfo> getMinimumRanks();
 
 	/**
 	 * Retrieve cityInfos by population descending.
 	 *
-	 * @return List<CityDto>
+	 * @return List<CityInfo>
 	 */
-	List<CityDto> getMaximumRanks();
+	List<CityInfo> getMaximumRanks();
 
 	/**
 	 * Retrieve cityInfo by id.
@@ -93,7 +93,7 @@ public interface CityInfoMapper {
 	 * @param id city id
 	 * @return entity of city
 	 */
-	CityDto getCityInfoById(@Param("id") Integer id);
+	CityInfo getCityInfoById(@Param("id") Integer id);
 
 	/**
 	 * Check the duplication of name.
