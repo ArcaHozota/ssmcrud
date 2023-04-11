@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
+import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.mapper.CityInfoMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.mapper.LanguageMapper;
@@ -42,6 +44,12 @@ public class CentreServiceImpl implements CentreService {
 	private CountryMapper countryMapper;
 
 	/**
+	 * CityInfo mapper
+	 */
+	@Resource
+	private CityInfoMapper cityInfoMapper;
+
+	/**
 	 * Language mapper
 	 */
 	@Resource
@@ -55,11 +63,13 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		final CityDto cityInfoById = this.cityMapper.getCityInfoById(id);
+		final CityInfo cityInfoById = this.cityInfoMapper.getCityInfoById(id);
+		final CityDto cityDto = new CityDto();
+		BeanUtils.copyProperties(cityInfoById, cityDto);
 		final String nationCode = this.countryMapper.getNationCode(cityInfoById.getNation());
 		final String language = this.languageMapper.getLanguage(nationCode);
-		cityInfoById.setLanguage(language);
-		return cityInfoById;
+		cityDto.setLanguage(language);
+		return cityDto;
 	}
 
 	/**
@@ -109,7 +119,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public Boolean checkDuplicated(final String cityName) {
-		return 1 <= this.cityMapper.checkName(cityName);
+		return 1 <= this.cityInfoMapper.checkName(cityName);
 	}
 
 	/**
@@ -142,10 +152,10 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityDto cityDto = this.cityMapper.getCityInfoById(id);
-		final String firstName = cityDto.getNation();
+		final CityInfo cityInfo = this.cityInfoMapper.getCityInfoById(id);
+		final String firstName = cityInfo.getNation();
 		nationList.add(firstName);
-		final List<String> countries = this.countryMapper.getNationsByCnt(cityDto.getContinent()).stream()
+		final List<String> countries = this.countryMapper.getNationsByCnt(cityInfo.getContinent()).stream()
 				.filter(item -> StringUtils.isNotEqual(item, firstName)).collect(Collectors.toList());
 		nationList.addAll(countries);
 		return nationList;
@@ -165,46 +175,61 @@ public class CentreServiceImpl implements CentreService {
 		final Integer pageMax = pageNum * pageSize;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
-				final List<CityDto> maximumRanks = this.cityMapper.getMaximumRanks().stream().peek(item -> {
+				final List<CityDto> maximumRanks = this.cityInfoMapper.getMaximumRanks().stream().map(item -> {
+					final CityDto cityDto = new CityDto();
+					BeanUtils.copyProperties(item, cityDto);
 					final String nationCode = this.countryMapper.getNationCode(item.getNation());
 					final String language = this.languageMapper.getLanguage(nationCode);
-					item.setLanguage(language);
+					cityDto.setLanguage(language);
+					return cityDto;
 				}).collect(Collectors.toList());
 				return Pagination.of(maximumRanks, 15, 1);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<CityDto> minimumRanks = this.cityMapper.getMinimumRanks().stream().peek(item -> {
+				final List<CityDto> minimumRanks = this.cityInfoMapper.getMinimumRanks().stream().map(item -> {
+					final CityDto cityDto = new CityDto();
+					BeanUtils.copyProperties(item, cityDto);
 					final String nationCode = this.countryMapper.getNationCode(item.getNation());
 					final String language = this.languageMapper.getLanguage(nationCode);
-					item.setLanguage(language);
+					cityDto.setLanguage(language);
+					return cityDto;
 				}).collect(Collectors.toList());
 				return Pagination.of(minimumRanks, 15, 1);
 			} else {
-				final Integer keyNationsCnt = this.cityMapper.getByNationsCnt(keyword);
+				final Integer keyNationsCnt = this.cityInfoMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
-					final List<CityDto> keyNations = this.cityMapper.getByNations(keyword, pageMax, pageMin).stream()
-							.peek(item -> {
+					final List<CityDto> keyNations = this.cityInfoMapper.getByNations(keyword, pageMax, pageMin)
+							.stream().map(item -> {
+								final CityDto cityDto = new CityDto();
+								BeanUtils.copyProperties(item, cityDto);
 								final String nationCode = this.countryMapper.getNationCode(item.getNation());
 								final String language = this.languageMapper.getLanguage(nationCode);
-								item.setLanguage(language);
+								cityDto.setLanguage(language);
+								return cityDto;
 							}).collect(Collectors.toList());
 					return Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
-					final Integer keyNamesCnt = this.cityMapper.getByNamesCnt(keyword);
-					final List<CityDto> keyNames = this.cityMapper.getByNames(keyword, pageMax, pageMin).stream()
-							.peek(item -> {
+					final Integer keyNamesCnt = this.cityInfoMapper.getByNamesCnt(keyword);
+					final List<CityDto> keyNames = this.cityInfoMapper.getByNames(keyword, pageMax, pageMin).stream()
+							.map(item -> {
+								final CityDto cityDto = new CityDto();
+								BeanUtils.copyProperties(item, cityDto);
 								final String nationCode = this.countryMapper.getNationCode(item.getNation());
 								final String language = this.languageMapper.getLanguage(nationCode);
-								item.setLanguage(language);
+								cityDto.setLanguage(language);
+								return cityDto;
 							}).collect(Collectors.toList());
 					return Pagination.of(keyNames, keyNamesCnt, pageNum);
 				}
 			}
 		}
-		final Integer cityInfosCnt = this.cityMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityMapper.getCityInfos(pageMax, pageMin).stream().peek(item -> {
+		final Integer cityInfosCnt = this.cityInfoMapper.getCityInfosCnt();
+		final List<CityDto> cityInfos = this.cityInfoMapper.getCityInfos(pageMax, pageMin).stream().map(item -> {
+			final CityDto cityDto = new CityDto();
+			BeanUtils.copyProperties(item, cityDto);
 			final String nationCode = this.countryMapper.getNationCode(item.getNation());
 			final String language = this.languageMapper.getLanguage(nationCode);
-			item.setLanguage(language);
+			cityDto.setLanguage(language);
+			return cityDto;
 		}).collect(Collectors.toList());
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
 	}
