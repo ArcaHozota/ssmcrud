@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.toshiba.ppok.mapper.CityInfoMapper">
+	<resultMap id="BasicResultMap"
+		type="jp.co.toshiba.ppok.entity.CityInfo">
+		<id column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="NAME" jdbcType="NVARCHAR" property="name" />
+		<result column="CONTINENT" jdbcType="NVARCHAR"
+			property="continent" />
+		<result column="NATION" jdbcType="NVARCHAR" property="nation" />
+		<result column="DISTRICT" jdbcType="NVARCHAR"
+			property="district" />
+		<result column="POPULATION" jdbcType="NUMERIC"
+			property="population" />
+	</resultMap>
+	<select id="getCityInfos" resultMap="BasicResultMap">
+		SELECT
+			SUB.ID,
+			SUB.NAME,
+			SUB.CONTINENT,
+			SUB.NATION,
+			SUB.DISTRICT,
+			SUB.POPULATION
+		FROM
+			(
+			SELECT
+				ROWNUM AS ROWNO,
+				WCV.ID,
+				WCV.NAME,
+				WCV.CONTINENT,
+				WCV.NATION,
+				WCV.DISTRICT,
+				WCV.POPULATION
+			FROM
+				WORLD_CITY_VIEW WCV
+			WHERE
+				ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
+		WHERE
+			SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+	</select>
+	<select id="getCityInfosCnt" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			WORLD_CITY_VIEW WCV
+	</select>
+	<select id="getByNations" resultMap="BasicResultMap">
+		SELECT
+		    SUB.ID, 
+		    SUB.NAME, 
+		    SUB.CONTINENT, 
+		    SUB.NATION, 
+		    SUB.DISTRICT, 
+		    SUB.POPULATION 
+		FROM
+		    ( 
+		        SELECT
+		            ROWNUM AS ROWNO, 
+		            WCV.ID, 
+		            WCV.NAME, 
+		            WCV.CONTINENT, 
+		            WCV.NATION, 
+		            WCV.DISTRICT, 
+		            WCV.POPULATION 
+		        FROM
+		            WORLD_CITY_VIEW WCV 
+		        WHERE
+		            WCV.NATION = #{nation,jdbcType=NVARCHAR}
+		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
+		    ) SUB 
+		WHERE
+		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+	</select>
+	<select id="getByNationsCnt" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.NATION = #{nation,jdbcType=NVARCHAR}
+	</select>
+	<select id="getByNames" resultMap="BasicResultMap">
+		SELECT
+		    SUB.ID, 
+		    SUB.NAME, 
+		    SUB.CONTINENT, 
+		    SUB.NATION, 
+		    SUB.DISTRICT, 
+		    SUB.POPULATION 
+		FROM
+		    ( 
+		        SELECT
+		            ROWNUM AS ROWNO, 
+		            WCV.ID, 
+		            WCV.NAME, 
+		            WCV.CONTINENT, 
+		            WCV.NATION, 
+		            WCV.DISTRICT, 
+		            WCV.POPULATION 
+		        FROM
+		            WORLD_CITY_VIEW WCV 
+		        WHERE
+		            WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
+		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
+		    ) SUB 
+		WHERE
+		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+	</select>
+	<select id="getByNamesCnt" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1)
+		FROM
+		    WORLD_CITY_VIEW WCV
+		WHERE
+		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
+	</select>
+	<select id="getMinimumRanks" resultMap="BasicResultMap">
+		SELECT
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		ORDER BY
+		    WCV.POPULATION ASC FETCH FIRST 15 ROWS ONLY
+	</select>
+	<select id="getMaximumRanks" resultMap="BasicResultMap">
+		SELECT
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		ORDER BY
+		    WCV.POPULATION DESC FETCH FIRST 15 ROWS ONLY
+	</select>
+	<select id="getCityInfoById" parameterType="java.lang.Integer"
+		resultMap="BasicResultMap">
+		SELECT
+		    WCV.ID, 
+		    WCV.NAME, 
+		    WCV.CONTINENT, 
+		    WCV.NATION, 
+		    WCV.DISTRICT, 
+		    WCV.POPULATION 
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.ID = #{id,jdbcType=NUMERIC}
+	</select>
+	<select id="checkName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY CN 
+		WHERE
+		    CN.NAME = #{cityName,jdbcType=NVARCHAR}
+	</select>
+</mapper>
