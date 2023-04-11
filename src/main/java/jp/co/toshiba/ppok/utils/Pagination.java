@@ -3,19 +3,12 @@ package jp.co.toshiba.ppok.utils;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * 數據分頁
  *
  * @author Administrator
  * @param <T>
  */
-@Getter
-@Setter
-@NoArgsConstructor
 public final class Pagination<T> {
 
 	/**
@@ -232,6 +225,240 @@ public final class Pagination<T> {
 	 */
 	public boolean hasContent() {
 		return this.records.size() > 0;
+	}
+
+	/**
+	 * getter for records
+	 *
+	 * @return records
+	 */
+	public List<T> getRecords() {
+		return this.records;
+	}
+
+	/**
+	 * setter of records
+	 *
+	 * @param records セットする records
+	 */
+	public void setRecords(final List<T> records) {
+		this.records = records;
+	}
+
+	/**
+	 * getter for pageNum
+	 *
+	 * @return pageNum
+	 */
+	public int getPageNum() {
+		return this.pageNum;
+	}
+
+	/**
+	 * setter of pageNum
+	 *
+	 * @param pageNum セットする pageNum
+	 */
+	public void setPageNum(final int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	/**
+	 * getter for pageSize
+	 *
+	 * @return pageSize
+	 */
+	public int getPageSize() {
+		return this.pageSize;
+	}
+
+	/**
+	 * setter of pageSize
+	 *
+	 * @param pageSize セットする pageSize
+	 */
+	public void setPageSize(final int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	/**
+	 * getter for totalPages
+	 *
+	 * @return totalPages
+	 */
+	public int getTotalPages() {
+		return this.totalPages;
+	}
+
+	/**
+	 * setter of totalPages
+	 *
+	 * @param totalPages セットする totalPages
+	 */
+	public void setTotalPages(final int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	/**
+	 * getter for totalRecords
+	 *
+	 * @return totalRecords
+	 */
+	public int getTotalRecords() {
+		return this.totalRecords;
+	}
+
+	/**
+	 * setter of totalRecords
+	 *
+	 * @param totalRecords セットする totalRecords
+	 */
+	public void setTotalRecords(final int totalRecords) {
+		this.totalRecords = totalRecords;
+	}
+
+	/**
+	 * getter for hasPreviousPage
+	 *
+	 * @return hasPreviousPage
+	 */
+	public boolean isHasPreviousPage() {
+		return this.hasPreviousPage;
+	}
+
+	/**
+	 * setter of hasPreviousPage
+	 *
+	 * @param hasPreviousPage セットする hasPreviousPage
+	 */
+	public void setHasPreviousPage(final boolean hasPreviousPage) {
+		this.hasPreviousPage = hasPreviousPage;
+	}
+
+	/**
+	 * getter for hasNextPage
+	 *
+	 * @return hasNextPage
+	 */
+	public boolean isHasNextPage() {
+		return this.hasNextPage;
+	}
+
+	/**
+	 * setter of hasNextPage
+	 *
+	 * @param hasNextPage セットする hasNextPage
+	 */
+	public void setHasNextPage(final boolean hasNextPage) {
+		this.hasNextPage = hasNextPage;
+	}
+
+	/**
+	 * getter for previousPage
+	 *
+	 * @return previousPage
+	 */
+	public int getPreviousPage() {
+		return this.previousPage;
+	}
+
+	/**
+	 * setter of previousPage
+	 *
+	 * @param previousPage セットする previousPage
+	 */
+	public void setPreviousPage(final int previousPage) {
+		this.previousPage = previousPage;
+	}
+
+	/**
+	 * getter for nextPage
+	 *
+	 * @return nextPage
+	 */
+	public int getNextPage() {
+		return this.nextPage;
+	}
+
+	/**
+	 * setter of nextPage
+	 *
+	 * @param nextPage セットする nextPage
+	 */
+	public void setNextPage(final int nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	/**
+	 * getter for navigatePages
+	 *
+	 * @return navigatePages
+	 */
+	public int getNavigatePages() {
+		return this.navigatePages;
+	}
+
+	/**
+	 * setter of navigatePages
+	 *
+	 * @param navigatePages セットする navigatePages
+	 */
+	public void setNavigatePages(final int navigatePages) {
+		this.navigatePages = navigatePages;
+	}
+
+	/**
+	 * getter for naviFirstPage
+	 *
+	 * @return naviFirstPage
+	 */
+	public int getNaviFirstPage() {
+		return this.naviFirstPage;
+	}
+
+	/**
+	 * setter of naviFirstPage
+	 *
+	 * @param naviFirstPage セットする naviFirstPage
+	 */
+	public void setNaviFirstPage(final int naviFirstPage) {
+		this.naviFirstPage = naviFirstPage;
+	}
+
+	/**
+	 * getter for naviLastPage
+	 *
+	 * @return naviLastPage
+	 */
+	public int getNaviLastPage() {
+		return this.naviLastPage;
+	}
+
+	/**
+	 * setter of naviLastPage
+	 *
+	 * @param naviLastPage セットする naviLastPage
+	 */
+	public void setNaviLastPage(final int naviLastPage) {
+		this.naviLastPage = naviLastPage;
+	}
+
+	/**
+	 * getter for navigatePageNums
+	 *
+	 * @return navigatePageNums
+	 */
+	public int[] getNavigatePageNums() {
+		return this.navigatePageNums;
+	}
+
+	/**
+	 * setter of navigatePageNums
+	 *
+	 * @param navigatePageNums セットする navigatePageNums
+	 */
+	public void setNavigatePageNums(final int[] navigatePageNums) {
+		this.navigatePageNums = navigatePageNums;
 	}
 
 	/**
