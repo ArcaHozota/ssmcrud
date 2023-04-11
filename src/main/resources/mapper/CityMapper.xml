@@ -2,16 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
 	<resultMap id="BasicResultMap"
-		type="jp.co.toshiba.ppok.dto.CityDto">
+		type="jp.co.toshiba.ppok.entity.City">
 		<id column="ID" jdbcType="NUMERIC" property="id" />
 		<result column="NAME" jdbcType="NVARCHAR" property="name" />
-		<result column="CONTINENT" jdbcType="NVARCHAR"
-			property="continent" />
-		<result column="NATION" jdbcType="NVARCHAR" property="nation" />
+		<result column="COUNTRY_CODE" jdbcType="NVARCHAR"
+			property="countryCode" />
 		<result column="DISTRICT" jdbcType="NVARCHAR"
 			property="district" />
 		<result column="POPULATION" jdbcType="NUMERIC"
 			property="population" />
+		<result column="LOGIC_DELETE_FLG" jdbcType="NVARCHAR"
+			property="logicDeleteFlg" />
 	</resultMap>
 	<insert id="saveById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
