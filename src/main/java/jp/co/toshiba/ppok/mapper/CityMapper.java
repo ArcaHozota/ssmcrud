@@ -39,5 +39,4 @@ public interface CityMapper {
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateById(City city);
-
 }
