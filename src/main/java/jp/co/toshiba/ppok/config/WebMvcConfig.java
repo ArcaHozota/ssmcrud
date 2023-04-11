@@ -2,6 +2,8 @@ package jp.co.toshiba.ppok.config;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -9,14 +11,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import jp.co.toshiba.ppok.utils.JacksonObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Administrator
  */
-@Slf4j
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
+
+	private static final Logger log = LogManager.getLogger(WebMvcConfig.class);
 
 	/**
 	 * SpringMVCフレームワークを拡張するメッセージ・コンバーター
