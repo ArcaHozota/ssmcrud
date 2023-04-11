@@ -47,6 +47,13 @@ public class CityDto implements Serializable {
 	private String language;
 
 	/**
+	 * コンストラクタ
+	 */
+	public CityDto() {
+		super();
+	}
+
+	/**
 	 * getter for id
 	 *
 	 * @return id
