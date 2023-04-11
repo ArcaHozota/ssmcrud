@@ -3,14 +3,11 @@ package jp.co.toshiba.ppok.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import lombok.Data;
-
 /**
  * Entity of Table WORLD_LANGUAGE
  *
  * @author Administrator
  */
-@Data
 public class Language implements Serializable {
 
 	private static final long serialVersionUID = 487191389336636732L;
@@ -39,4 +36,107 @@ public class Language implements Serializable {
 	 * This field corresponds to the database column LOGIC_DELETE_FLG
 	 */
 	private String logicDeleteFlg;
+
+	/**
+	 * コンストラクタ
+	 */
+	public Language() {
+		super();
+	}
+
+	/**
+	 * getter for countryCode
+	 *
+	 * @return countryCode
+	 */
+	public String getCountryCode() {
+		return this.countryCode;
+	}
+
+	/**
+	 * setter of countryCode
+	 *
+	 * @param countryCode セットする countryCode
+	 */
+	public void setCountryCode(final String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	/**
+	 * getter for language
+	 *
+	 * @return language
+	 */
+	public String getLanguage() {
+		return this.language;
+	}
+
+	/**
+	 * setter of language
+	 *
+	 * @param language セットする language
+	 */
+	public void setLanguage(final String language) {
+		this.language = language;
+	}
+
+	/**
+	 * getter for isOfficial
+	 *
+	 * @return isOfficial
+	 */
+	public String getIsOfficial() {
+		return this.isOfficial;
+	}
+
+	/**
+	 * setter of isOfficial
+	 *
+	 * @param isOfficial セットする isOfficial
+	 */
+	public void setIsOfficial(final String isOfficial) {
+		this.isOfficial = isOfficial;
+	}
+
+	/**
+	 * getter for percentage
+	 *
+	 * @return percentage
+	 */
+	public BigDecimal getPercentage() {
+		return this.percentage;
+	}
+
+	/**
+	 * setter of percentage
+	 *
+	 * @param percentage セットする percentage
+	 */
+	public void setPercentage(final BigDecimal percentage) {
+		this.percentage = percentage;
+	}
+
+	/**
+	 * getter for logicDeleteFlg
+	 *
+	 * @return logicDeleteFlg
+	 */
+	public String getLogicDeleteFlg() {
+		return this.logicDeleteFlg;
+	}
+
+	/**
+	 * setter of logicDeleteFlg
+	 *
+	 * @param logicDeleteFlg セットする logicDeleteFlg
+	 */
+	public void setLogicDeleteFlg(final String logicDeleteFlg) {
+		this.logicDeleteFlg = logicDeleteFlg;
+	}
+
+	@Override
+	public String toString() {
+		return "Language [countryCode=" + this.countryCode + ", language=" + this.language + ", isOfficial="
+				+ this.isOfficial + ", percentage=" + this.percentage + ", logicDeleteFlg=" + this.logicDeleteFlg + "]";
+	}
 }
