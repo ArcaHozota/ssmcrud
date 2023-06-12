@@ -2,16 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityViewMapper">
 	<resultMap id="BasicResultMap"
-		type="jp.co.toshiba.ppok.entity.CityView">
+		type="jp.co.toshiba.ppok.entity.CityView" autoMapping="true">
 		<id column="ID" jdbcType="NUMERIC" property="id" />
-		<result column="NAME" jdbcType="NVARCHAR" property="name" />
-		<result column="CONTINENT" jdbcType="NVARCHAR"
-			property="continent" />
-		<result column="NATION" jdbcType="NVARCHAR" property="nation" />
-		<result column="DISTRICT" jdbcType="NVARCHAR"
-			property="district" />
-		<result column="POPULATION" jdbcType="NUMERIC"
-			property="population" />
 	</resultMap>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT
