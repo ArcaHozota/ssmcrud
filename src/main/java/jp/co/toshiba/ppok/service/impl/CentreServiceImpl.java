@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityView;
-import jp.co.toshiba.ppok.mapper.CityInfoMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
+import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
@@ -47,7 +47,7 @@ public class CentreServiceImpl implements CentreService {
 	 * CityInfo mapper
 	 */
 	@Resource
-	private CityInfoMapper cityInfoMapper;
+	private CityViewMapper cityViewMapper;
 
 	/**
 	 * Language mapper
@@ -63,7 +63,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		final CityView cityInfoById = this.cityInfoMapper.getCityInfoById(id);
+		final CityView cityInfoById = this.cityViewMapper.getCityInfoById(id);
 		final CityDto cityDto = new CityDto();
 		BeanUtils.copyProperties(cityInfoById, cityDto);
 		final String nationCode = this.countryMapper.getNationCode(cityInfoById.getNation());
@@ -119,7 +119,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public Boolean checkDuplicated(final String cityName) {
-		return 1 <= this.cityInfoMapper.checkName(cityName);
+		return 1 <= this.cityViewMapper.checkName(cityName);
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityView cityInfo = this.cityInfoMapper.getCityInfoById(id);
+		final CityView cityInfo = this.cityViewMapper.getCityInfoById(id);
 		final String firstName = cityInfo.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityInfo.getContinent()).stream()
@@ -175,7 +175,7 @@ public class CentreServiceImpl implements CentreService {
 		final Integer pageMax = pageNum * pageSize;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
-				final List<CityDto> maximumRanks = this.cityInfoMapper.getMaximumRanks().stream().map(item -> {
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks().stream().map(item -> {
 					final CityDto cityDto = new CityDto();
 					BeanUtils.copyProperties(item, cityDto);
 					final String nationCode = this.countryMapper.getNationCode(item.getNation());
@@ -185,7 +185,7 @@ public class CentreServiceImpl implements CentreService {
 				}).collect(Collectors.toList());
 				return Pagination.of(maximumRanks, 15, 1);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<CityDto> minimumRanks = this.cityInfoMapper.getMinimumRanks().stream().map(item -> {
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks().stream().map(item -> {
 					final CityDto cityDto = new CityDto();
 					BeanUtils.copyProperties(item, cityDto);
 					final String nationCode = this.countryMapper.getNationCode(item.getNation());
@@ -195,9 +195,9 @@ public class CentreServiceImpl implements CentreService {
 				}).collect(Collectors.toList());
 				return Pagination.of(minimumRanks, 15, 1);
 			} else {
-				final Integer keyNationsCnt = this.cityInfoMapper.getByNationsCnt(keyword);
+				final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
-					final List<CityDto> keyNations = this.cityInfoMapper.getByNations(keyword, pageMax, pageMin)
+					final List<CityDto> keyNations = this.cityViewMapper.getByNations(keyword, pageMax, pageMin)
 							.stream().map(item -> {
 								final CityDto cityDto = new CityDto();
 								BeanUtils.copyProperties(item, cityDto);
@@ -208,8 +208,8 @@ public class CentreServiceImpl implements CentreService {
 							}).collect(Collectors.toList());
 					return Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
-					final Integer keyNamesCnt = this.cityInfoMapper.getByNamesCnt(keyword);
-					final List<CityDto> keyNames = this.cityInfoMapper.getByNames(keyword, pageMax, pageMin).stream()
+					final Integer keyNamesCnt = this.cityViewMapper.getByNamesCnt(keyword);
+					final List<CityDto> keyNames = this.cityViewMapper.getByNames(keyword, pageMax, pageMin).stream()
 							.map(item -> {
 								final CityDto cityDto = new CityDto();
 								BeanUtils.copyProperties(item, cityDto);
@@ -222,8 +222,8 @@ public class CentreServiceImpl implements CentreService {
 				}
 			}
 		}
-		final Integer cityInfosCnt = this.cityInfoMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityInfoMapper.getCityInfos(pageMax, pageMin).stream().map(item -> {
+		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(pageMax, pageMin).stream().map(item -> {
 			final CityDto cityDto = new CityDto();
 			BeanUtils.copyProperties(item, cityDto);
 			final String nationCode = this.countryMapper.getNationCode(item.getNation());
