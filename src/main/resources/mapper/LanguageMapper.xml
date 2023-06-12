@@ -9,7 +9,7 @@
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT DISTINCT
 		    CASE 
-		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 35
+		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE >= 35 
 		            THEN SUBF.OFLANGUAGE 
 		        ELSE NVL(SUBT.OTLANGUAGE, SUBF.OFLANGUAGE) 
 		        END AS LANGUAGE 
@@ -25,6 +25,7 @@
 		            INNER JOIN ( 
 		                SELECT
 		                    WL.COUNTRY_CODE, 
+		                    MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL, 
 		                    MAX(WL.PERCENTAGE) AS OTPERCENTAGE 
 		                FROM
 		                    WORLD_LANGUAGE WL 
@@ -35,7 +36,8 @@
 		                    WL.COUNTRY_CODE
 		            ) MATX 
 		                ON MATX.COUNTRY_CODE = WL.COUNTRY_CODE 
-		                AND MATX.OTPERCENTAGE = WL.PERCENTAGE 
+		                AND MATX.IS_OFFICIAL = WL.IS_OFFICIAL 
+		                AND MATX.OTPERCENTAGE = WL.PERCENTAGE
 		    ) SUBT 
 		        ON SUBT.COUNTRY_CODE = WL.COUNTRY_CODE 
 		    LEFT JOIN ( 
@@ -48,6 +50,7 @@
 		            INNER JOIN ( 
 		                SELECT
 		                    WL.COUNTRY_CODE, 
+		                    MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL, 
 		                    MAX(WL.PERCENTAGE) AS OFPERCENTAGE 
 		                FROM
 		                    WORLD_LANGUAGE WL 
@@ -58,7 +61,8 @@
 		                    WL.COUNTRY_CODE
 		            ) MAFX 
 		                ON MAFX.COUNTRY_CODE = WL.COUNTRY_CODE 
-		                AND MAFX.OFPERCENTAGE = WL.PERCENTAGE 
+		                AND MAFX.IS_OFFICIAL = WL.IS_OFFICIAL 
+		                AND MAFX.OFPERCENTAGE = WL.PERCENTAGE
 		    ) SUBF 
 		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE 
 		WHERE
