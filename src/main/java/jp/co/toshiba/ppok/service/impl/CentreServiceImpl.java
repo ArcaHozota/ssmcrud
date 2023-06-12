@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.mapper.CityInfoMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
@@ -63,7 +63,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		final CityInfo cityInfoById = this.cityInfoMapper.getCityInfoById(id);
+		final CityView cityInfoById = this.cityInfoMapper.getCityInfoById(id);
 		final CityDto cityDto = new CityDto();
 		BeanUtils.copyProperties(cityInfoById, cityDto);
 		final String nationCode = this.countryMapper.getNationCode(cityInfoById.getNation());
@@ -152,7 +152,7 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityInfo cityInfo = this.cityInfoMapper.getCityInfoById(id);
+		final CityView cityInfo = this.cityInfoMapper.getCityInfoById(id);
 		final String firstName = cityInfo.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityInfo.getContinent()).stream()

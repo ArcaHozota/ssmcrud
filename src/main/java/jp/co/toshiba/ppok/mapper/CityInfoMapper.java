@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.entity.CityView;
 
 /**
  * Mapper of View WORLD_CITY_VIEW
@@ -27,7 +27,7 @@ public interface CityInfoMapper {
 	 * @param pageMin paging minimum
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
+	List<CityView> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
 			@Param("pageMin") Integer pageMin);
 
 	/**
@@ -46,7 +46,7 @@ public interface CityInfoMapper {
 	 * @param pageMin paging minimum
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
+	List<CityView> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
 			@Param("pageMin") Integer pageMin);
 
 	/**
@@ -64,7 +64,7 @@ public interface CityInfoMapper {
 	 * @param pageMin paging minimum
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
+	List<CityView> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
 
 	/**
 	 * Retrieve the number of cityInfos.
@@ -78,14 +78,14 @@ public interface CityInfoMapper {
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> getMinimumRanks();
+	List<CityView> getMinimumRanks();
 
 	/**
 	 * Retrieve cityInfos by population descending.
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityInfo> getMaximumRanks();
+	List<CityView> getMaximumRanks();
 
 	/**
 	 * Retrieve cityInfo by id.
@@ -93,7 +93,7 @@ public interface CityInfoMapper {
 	 * @param id city id
 	 * @return entity of city
 	 */
-	CityInfo getCityInfoById(@Param("id") Integer id);
+	CityView getCityInfoById(@Param("id") Integer id);
 
 	/**
 	 * Check the duplication of name.

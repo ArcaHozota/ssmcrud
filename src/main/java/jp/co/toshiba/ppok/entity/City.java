@@ -14,7 +14,7 @@ public class City implements Serializable {
 	/**
 	 * This field corresponds to the database column ID
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * This field corresponds to the database column NAME
@@ -53,7 +53,7 @@ public class City implements Serializable {
 	 *
 	 * @return id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -62,7 +62,7 @@ public class City implements Serializable {
 	 *
 	 * @param id セットする id
 	 */
-	public void setId(final Integer id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 

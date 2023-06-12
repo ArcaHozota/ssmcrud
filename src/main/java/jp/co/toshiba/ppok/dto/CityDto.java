@@ -1,13 +1,13 @@
 package jp.co.toshiba.ppok.dto;
 
-import jp.co.toshiba.ppok.entity.CityInfo;
+import jp.co.toshiba.ppok.entity.CityView;
 
 /**
  * DTO class of CityInfo
  *
  * @author Administrator
  */
-public class CityDto extends CityInfo {
+public class CityDto extends CityView {
 
 	private static final long serialVersionUID = 7478219222594404009L;
 

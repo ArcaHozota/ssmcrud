@@ -10,14 +10,14 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
-public class CityInfo implements Serializable {
+public class CityView implements Serializable {
 
 	private static final long serialVersionUID = -1945579742723628429L;
 
 	/**
 	 * This field corresponds to the database column ID
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * This field corresponds to the database column NAME
@@ -47,7 +47,7 @@ public class CityInfo implements Serializable {
 	/**
 	 * コンストラクタ
 	 */
-	public CityInfo() {
+	public CityView() {
 		super();
 	}
 
@@ -56,7 +56,7 @@ public class CityInfo implements Serializable {
 	 *
 	 * @return id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -65,7 +65,7 @@ public class CityInfo implements Serializable {
 	 *
 	 * @param id セットする id
 	 */
-	public void setId(final Integer id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
