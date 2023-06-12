@@ -118,7 +118,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public Boolean checkDuplicated(final String cityName) {
-		return 1 <= this.cityViewMapper.checkName(cityName);
+		return 1 <= this.cityMapper.checkDuplicatedName(cityName);
 	}
 
 	/**

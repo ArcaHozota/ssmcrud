@@ -39,4 +39,12 @@ public interface CityMapper {
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateById(City city);
+
+	/**
+	 * Check the duplication of name.
+	 *
+	 * @param cityName city name
+	 * @return 0: no duplication, 1 or more: duplicated.
+	 */
+	Integer checkDuplicatedName(@Param("cityName") String cityName);
 }

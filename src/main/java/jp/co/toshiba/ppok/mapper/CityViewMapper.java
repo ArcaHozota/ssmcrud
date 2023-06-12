@@ -94,12 +94,4 @@ public interface CityViewMapper {
 	 * @return entity of city
 	 */
 	CityView getCityInfoById(@Param("id") Integer id);
-
-	/**
-	 * Check the duplication of name.
-	 *
-	 * @param cityName city name
-	 * @return 0: no duplication, 1 or more: duplicated.
-	 */
-	Integer checkName(@Param("cityName") String cityName);
 }

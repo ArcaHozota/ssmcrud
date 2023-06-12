@@ -50,4 +50,13 @@
 		WHERE CN.LOGIC_DELETE_FLG = 'visible'
 		AND CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<select id="checkDuplicatedName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    WORLD_CITY CN 
+		WHERE
+		    CN.NAME = #{cityName,jdbcType=NVARCHAR}
+	</select>
 </mapper>

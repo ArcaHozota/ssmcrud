@@ -57,7 +57,7 @@
 				FROM
 					WORLD_CITY_VIEW WCV
 		        WHERE
-		            WCV.NATION = #{nation,jdbcType=NVARCHAR}
+		            WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR}
 		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
 		    ) SUB 
 		WHERE
@@ -70,7 +70,7 @@
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
-		    WCV.NATION = #{nation,jdbcType=NVARCHAR}
+		    WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
 		SELECT
@@ -93,7 +93,7 @@
 				FROM
 					WORLD_CITY_VIEW WCV 
 		        WHERE
-		            WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
+		            WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
 		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
 		    ) SUB 
 		WHERE
@@ -146,15 +146,6 @@
 		FROM
 			WORLD_CITY_VIEW WCV
 		WHERE
-		    WCV.ID = #{id,jdbcType=NUMERIC}
-	</select>
-	<select id="checkName" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		SELECT
-		    COUNT(1) 
-		FROM
-		    WORLD_CITY CN 
-		WHERE
-		    CN.NAME = #{cityName,jdbcType=NVARCHAR}
+		    WCV.CITY_ID = #{id,jdbcType=NUMERIC}
 	</select>
 </mapper>
