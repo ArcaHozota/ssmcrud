@@ -17,7 +17,7 @@ import jp.co.toshiba.ppok.entity.CityView;
  * @date 2022-12-27
  */
 @Mapper
-public interface CityInfoMapper {
+public interface CityViewMapper {
 
 	/**
 	 * Retrieve cityInfos by nation name provided.
