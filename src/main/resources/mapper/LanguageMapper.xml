@@ -9,7 +9,7 @@
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT DISTINCT
 		    CASE 
-		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE >= 35 
+		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 35 
 		            THEN SUBF.OFLANGUAGE 
 		        ELSE NVL(SUBT.OTLANGUAGE, SUBF.OFLANGUAGE) 
 		        END AS LANGUAGE 
