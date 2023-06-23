@@ -15,7 +15,7 @@
             WCV.POPULATION 
         FROM
             WORLD_CITY_VIEW WCV 
-        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
@@ -37,7 +37,7 @@
 			WORLD_CITY_VIEW WCV
         WHERE
             WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR} 
-        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
@@ -62,7 +62,7 @@
 			WORLD_CITY_VIEW WCV 
         WHERE
             WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
-        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
