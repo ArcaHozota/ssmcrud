@@ -44,7 +44,7 @@ public class CentreServiceImpl implements CentreService {
 	private CountryMapper countryMapper;
 
 	/**
-	 * CityInfo mapper
+	 * CityView mapper
 	 */
 	@Resource
 	private CityViewMapper cityViewMapper;
@@ -170,8 +170,7 @@ public class CentreServiceImpl implements CentreService {
 	 */
 	@Override
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
-		final Integer pageMin = (pageNum - 1) * pageSize;
-		final Integer pageMax = pageNum * pageSize;
+		final Integer offset = (pageNum - 1) * pageSize;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks().stream().map(item -> {
@@ -194,7 +193,7 @@ public class CentreServiceImpl implements CentreService {
 			} else {
 				final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
-					final List<CityDto> keyNations = this.cityViewMapper.getByNations(keyword, pageMax, pageMin)
+					final List<CityDto> keyNations = this.cityViewMapper.getByNations(keyword, offset, pageSize)
 							.stream().map(item -> {
 								final CityDto cityDto = new CityDto();
 								BeanUtils.copyProperties(item, cityDto);
@@ -205,7 +204,7 @@ public class CentreServiceImpl implements CentreService {
 					return Pagination.of(keyNations, keyNationsCnt, pageNum);
 				} else {
 					final Integer keyNamesCnt = this.cityViewMapper.getByNamesCnt(keyword);
-					final List<CityDto> keyNames = this.cityViewMapper.getByNames(keyword, pageMax, pageMin).stream()
+					final List<CityDto> keyNames = this.cityViewMapper.getByNames(keyword, offset, pageSize).stream()
 							.map(item -> {
 								final CityDto cityDto = new CityDto();
 								BeanUtils.copyProperties(item, cityDto);
@@ -218,7 +217,7 @@ public class CentreServiceImpl implements CentreService {
 			}
 		}
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(pageMax, pageMin).stream().map(item -> {
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream().map(item -> {
 			final CityDto cityDto = new CityDto();
 			BeanUtils.copyProperties(item, cityDto);
 			final String language = this.findLanguageByCty(item.getNation());

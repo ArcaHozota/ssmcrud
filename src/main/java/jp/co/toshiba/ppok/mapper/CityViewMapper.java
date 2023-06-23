@@ -22,13 +22,13 @@ public interface CityViewMapper {
 	/**
 	 * Retrieve cityInfos by nation name provided.
 	 *
-	 * @param nation  name of nation
-	 * @param pageMax paging maximum
-	 * @param pageMin paging minimum
+	 * @param nation   name of nation
+	 * @param offset   offset
+	 * @param pageSize pageSize
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getByNations(@Param("nation") String nation, @Param("pageMax") Integer pageMax,
-			@Param("pageMin") Integer pageMin);
+	List<CityView> getByNations(@Param("nation") String nation, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * Retrieve the number of cityInfos by nation name provided.
@@ -41,13 +41,13 @@ public interface CityViewMapper {
 	/**
 	 * Retrieve cityInfos by city name provided.
 	 *
-	 * @param name    city name
-	 * @param pageMax paging maximum
-	 * @param pageMin paging minimum
+	 * @param name     city name
+	 * @param offset   offset
+	 * @param pageSize pageSize
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getByNames(@Param("name") String name, @Param("pageMax") Integer pageMax,
-			@Param("pageMin") Integer pageMin);
+	List<CityView> getByNames(@Param("name") String name, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * Retrieve the number of cityInfos by city name provided.
@@ -60,11 +60,11 @@ public interface CityViewMapper {
 	/**
 	 * Retrieve cityInfos.
 	 *
-	 * @param pageMax paging maximum
-	 * @param pageMin paging minimum
+	 * @param offset   offset
+	 * @param pageSize pageSize
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getCityInfos(@Param("pageMax") Integer pageMax, @Param("pageMin") Integer pageMin);
+	List<CityView> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * Retrieve the number of cityInfos.
