@@ -7,28 +7,16 @@
 	</resultMap>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT
-		    SUB.ID, 
-		    SUB.NAME, 
-		    SUB.CONTINENT, 
-		    SUB.NATION, 
-		    SUB.DISTRICT, 
-		    SUB.POPULATION 
-		FROM
-		    ( 
-		        SELECT
-		            ROWNUM AS ROWNO, 
-		            WCV.CITY_ID AS ID, 
-		            WCV.CITY_NAME AS NAME, 
-		            WCV.CONTINENT, 
-		            WCV.COUNTRY_NAME AS NATION, 
-		            WCV.DISTRICT, 
-		            WCV.POPULATION 
-		        FROM
-		            WORLD_CITY_VIEW WCV 
-		        WHERE
-					ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}) SUB
-		WHERE
-			SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+            WCV.CITY_ID AS ID, 
+            WCV.CITY_NAME AS NAME, 
+            WCV.CONTINENT, 
+            WCV.COUNTRY_NAME AS NATION, 
+            WCV.DISTRICT, 
+            WCV.POPULATION 
+        FROM
+            WORLD_CITY_VIEW WCV 
+        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getCityInfosCnt" resultType="java.lang.Integer">
 		SELECT
@@ -38,30 +26,19 @@
 	</select>
 	<select id="getByNations" resultMap="BasicResultMap">
 		SELECT
-		    SUB.ID, 
-		    SUB.NAME, 
-		    SUB.CONTINENT, 
-		    SUB.NATION, 
-		    SUB.DISTRICT, 
-		    SUB.POPULATION 
+			ROWNUM AS ROWNO,
+			WCV.CITY_ID AS ID,
+			WCV.CITY_NAME AS NAME,
+			WCV.CONTINENT,
+			WCV.COUNTRY_NAME AS NATION,
+			WCV.DISTRICT,
+			WCV.POPULATION
 		FROM
-		    ( 
-		        SELECT
-					ROWNUM AS ROWNO,
-					WCV.CITY_ID AS ID,
-					WCV.CITY_NAME AS NAME,
-					WCV.CONTINENT,
-					WCV.COUNTRY_NAME AS NATION,
-					WCV.DISTRICT,
-					WCV.POPULATION
-				FROM
-					WORLD_CITY_VIEW WCV
-		        WHERE
-		            WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR}
-		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
-		    ) SUB 
-		WHERE
-		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+			WORLD_CITY_VIEW WCV
+        WHERE
+            WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR} 
+        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getByNationsCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -74,30 +51,19 @@
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
 		SELECT
-		    SUB.ID, 
-		    SUB.NAME, 
-		    SUB.CONTINENT, 
-		    SUB.NATION, 
-		    SUB.DISTRICT, 
-		    SUB.POPULATION 
+			ROWNUM AS ROWNO,
+			WCV.CITY_ID AS ID,
+			WCV.CITY_NAME AS NAME,
+			WCV.CONTINENT,
+			WCV.COUNTRY_NAME AS NATION,
+			WCV.DISTRICT,
+			WCV.POPULATION
 		FROM
-		    ( 
-		        SELECT
-					ROWNUM AS ROWNO,
-					WCV.CITY_ID AS ID,
-					WCV.CITY_NAME AS NAME,
-					WCV.CONTINENT,
-					WCV.COUNTRY_NAME AS NATION,
-					WCV.DISTRICT,
-					WCV.POPULATION
-				FROM
-					WORLD_CITY_VIEW WCV 
-		        WHERE
-		            WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
-		            AND ROWNUM &lt;= #{pageMax,jdbcType=NUMERIC}
-		    ) SUB 
-		WHERE
-		    SUB.ROWNO &gt; #{pageMin,jdbcType=NUMERIC}
+			WORLD_CITY_VIEW WCV 
+        WHERE
+            WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
+        OFFSET #{offset,jdbcType=INTEGER}) ROWS 
+        FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getByNamesCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
