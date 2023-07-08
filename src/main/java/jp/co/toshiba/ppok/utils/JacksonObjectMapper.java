@@ -1,7 +1,5 @@
 package jp.co.toshiba.ppok.utils;
 
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,23 +18,33 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
 /**
- * @author Administrator
+ * JSONオブジェクトマッパー
+ *
+ * @author ArcaHozota
+ * @since 1.68
+ * @version 3.86
  */
 public class JacksonObjectMapper extends ObjectMapper {
 
+	/**
+	 * シリアルナンバー
+	 */
 	private static final long serialVersionUID = 3882120239622401371L;
 
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 
+	/**
+	 * コンストラクタ
+	 */
 	public JacksonObjectMapper() {
 		super();
-		// 收到未知屬性時不報異常；
-		this.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
-		// 反序列化時，屬性不存在的兼容處理；
+		// 不明な属性を受信して​​も例外は報告されません。
+		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		// デシリアライズ時、互換性のある処理が存在しないプロパティ。
 		this.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-		// 設置序列化器和反序列化器；
+		// シリアライザーとデシリアライザーを設定する。
 		final SimpleModule simpleModule = new SimpleModule()
 				.addDeserializer(LocalDateTime.class,
 						new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))
@@ -52,7 +60,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 						new LocalDateSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))
 				.addSerializer(LocalTime.class,
 						new LocalTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));
-		// 注冊功能模塊；
+		// 機能モジュールを登記する。
 		this.registerModule(simpleModule);
 	}
 }
