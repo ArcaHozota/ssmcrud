@@ -8,43 +8,42 @@ import jp.co.toshiba.ppok.entity.City;
 import oracle.jdbc.driver.OracleSQLException;
 
 /**
- * Mapper of Table WORLD_CITY
+ * テーブルWORLD_CITYのマッパー
  *
  * @author Administrator
- * @date 2022-12-17
  */
 @Mapper
 public interface CityMapper {
 
 	/**
-	 * Save inputed cityInfo.
+	 * 保存
 	 *
-	 * @param city entity
+	 * @param city 都市エンティティ
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void saveById(City city);
 
 	/**
-	 * Logic deletion
+	 * 論理削除
 	 *
-	 * @param id id of the selected city
+	 * @param id 都市ID
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void removeById(@Param("id") Integer id);
 
 	/**
-	 * Update the selected cityInfo.
+	 * 更新
 	 *
-	 * @param city entity
+	 * @param city 都市エンティティ
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateById(City city);
 
 	/**
-	 * Check the duplication of name.
+	 * 重複性をチェックする
 	 *
-	 * @param cityName city name
-	 * @return 0: no duplication, 1 or more: duplicated.
+	 * @param cityName 都市名
+	 * @return 0: 重複しない, 1: 重複する
 	 */
 	Integer checkDuplicatedName(@Param("cityName") String cityName);
 }
