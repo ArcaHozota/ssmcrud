@@ -6,87 +6,87 @@ import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.utils.Pagination;
 
 /**
- * central service interface
+ * サービスインターフェス
  *
  * @author Administrator
  */
 public interface CentreService {
 
 	/**
-	 * retrieve selected city info by id provided
+	 * 都市IDによって都市情報を検索する
 	 *
-	 * @param id cityID
-	 * @return entity of city
+	 * @param id 都市ID
+	 * @return CityDto
 	 */
 	CityDto getCityInfo(Integer id);
 
 	/**
-	 * save inputted city info
+	 * 入力した都市情報を保存する
 	 *
-	 * @param cityDto dto of city.
+	 * @param cityDto 都市情報DTO
 	 */
 	void save(CityDto cityDto);
 
 	/**
-	 * update inputted city info
+	 * 入力した都市情報を更新する
 	 *
-	 * @param cityDto dto of city.
+	 * @param cityDto 都市情報DTO
 	 */
 	void update(CityDto cityDto);
 
 	/**
-	 * remove city info by id provided
+	 * 都市IDによって都市情報を削除する
 	 *
-	 * @param id cityID
+	 * @param id 都市ID
 	 */
 	void removeById(Integer id);
 
 	/**
-	 * check the duplication of city name
+	 * 都市名が重複することを確認する
 	 *
-	 * @param cityName name of city
-	 * @return true: duplicated, false: can be inserted;
+	 * @param cityName 都市名
+	 * @return true: 重複する, false: 重複しない;
 	 */
 	Boolean checkDuplicated(String cityName);
 
 	/**
-	 * get all continents' names
+	 * 大陸の名称リストを取得する
 	 *
-	 * @return list of names
+	 * @return List<String>
 	 */
 	List<String> findAllContinents();
 
 	/**
-	 * get all nations' names in the selected continent
+	 * 大陸によって全ての国の名称リストを取得する
 	 *
-	 * @param continent selected continent
-	 * @return list of names
+	 * @param continent 大陸名称
+	 * @return List<String>
 	 */
 	List<String> findNationsByCnt(String continent);
 
 	/**
-	 * get all nations' names in the selected city's continent
+	 * 選択された都市の大陸によって全ての国の名称リストを取得する
 	 *
-	 * @param id cityID
-	 * @return list of names
+	 * @param id 都市ID
+	 * @return List<String>
 	 */
 	List<String> findNationsByCityId(Integer id);
 
 	/**
-	 * get all cities by keyword.
+	 * キーワードによって都市情報を検索する
 	 *
-	 * @param pageNum  pageNum
-	 * @param pageSize pageSize
-	 * @param keyword  name of nation
-	 * @return pageList of cities
+	 * @param pageNum  ページナンバー
+	 * @param pageSize ページサイズ
+	 * @param keyword  キーワード
+	 * @return Pagination<CityDto>
 	 */
 	Pagination<CityDto> findByKeywords(Integer pageNum, Integer pageSize, String keyword);
 
 	/**
-	 * get language by nation
+	 * 国によって公用語を取得する
 	 *
-	 * @param nation name of nation
-	 * @return language name
+	 * @param nation 国名
+	 * @return String
 	 */
 	String findLanguageByCty(String nation);
 }

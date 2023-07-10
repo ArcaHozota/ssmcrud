@@ -23,44 +23,39 @@ import jp.co.toshiba.ppok.utils.StringUtils;
 import oracle.jdbc.driver.OracleSQLException;
 
 /**
- * Implementation class of central service interface
+ * サービス実装クラス
  *
  * @author Administrator
+ * @since 6.71
  */
 @Service
 @Transactional(rollbackFor = OracleSQLException.class)
 public class CentreServiceImpl implements CentreService {
 
 	/**
-	 * City mapper
+	 * Cityマッパー
 	 */
 	@Resource
 	private CityMapper cityMapper;
 
 	/**
-	 * Country mapper
+	 * Countryマッパー
 	 */
 	@Resource
 	private CountryMapper countryMapper;
 
 	/**
-	 * CityView mapper
+	 * CityViewマッパー
 	 */
 	@Resource
 	private CityViewMapper cityViewMapper;
 
 	/**
-	 * Language mapper
+	 * Languageマッパー
 	 */
 	@Resource
 	private LanguageMapper languageMapper;
 
-	/**
-	 * retrieve selected city info by id provided
-	 *
-	 * @param id cityID
-	 * @return entity of city
-	 */
 	@Override
 	public CityDto getCityInfo(final Integer id) {
 		final CityView cityInfoById = this.cityViewMapper.getCityInfoById(id);
@@ -71,11 +66,6 @@ public class CentreServiceImpl implements CentreService {
 		return cityDto;
 	}
 
-	/**
-	 * save inputted city info
-	 *
-	 * @param cityDto dto of city.
-	 */
 	@Override
 	public void save(final CityDto cityDto) {
 		final City city = new City();
@@ -86,11 +76,6 @@ public class CentreServiceImpl implements CentreService {
 		this.cityMapper.saveById(city);
 	}
 
-	/**
-	 * update inputted city info
-	 *
-	 * @param cityDto dto of city.
-	 */
 	@Override
 	public void update(final CityDto cityDto) {
 		final City city = new City();
@@ -100,54 +85,26 @@ public class CentreServiceImpl implements CentreService {
 		this.cityMapper.updateById(city);
 	}
 
-	/**
-	 * remove city info by id provided
-	 *
-	 * @param id cityID
-	 */
 	@Override
 	public void removeById(final Integer id) {
 		this.cityMapper.removeById(id);
 	}
 
-	/**
-	 * check the duplication of city name
-	 *
-	 * @param cityName name of city
-	 * @return true: duplicated, false: can be inserted;
-	 */
 	@Override
 	public Boolean checkDuplicated(final String cityName) {
 		return 1 <= this.cityMapper.checkDuplicatedName(cityName);
 	}
 
-	/**
-	 * get all continents' names
-	 *
-	 * @return list of name
-	 */
 	@Override
 	public List<String> findAllContinents() {
 		return this.countryMapper.getAllContinents();
 	}
 
-	/**
-	 * get all nations' names in the selected continent
-	 *
-	 * @param continent selected continent
-	 * @return list of names
-	 */
 	@Override
 	public List<String> findNationsByCnt(final String continent) {
 		return this.countryMapper.getNationsByCnt(continent);
 	}
 
-	/**
-	 * get all nations' names in the selected city's continent
-	 *
-	 * @param id cityID
-	 * @return list of names
-	 */
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
@@ -160,14 +117,6 @@ public class CentreServiceImpl implements CentreService {
 		return nationList;
 	}
 
-	/**
-	 * get all cities by keyword.
-	 *
-	 * @param pageNum  pageNum
-	 * @param pageSize pageSize
-	 * @param keyword  name of nation
-	 * @return pageList of cities
-	 */
 	@Override
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
 		final Integer offset = (pageNum - 1) * pageSize;
@@ -180,7 +129,7 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
-				return Pagination.of(maximumRanks, 15, 1);
+				return Pagination.of(maximumRanks, maximumRanks.size(), pageNum);
 			} else if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks().stream().map(item -> {
 					final CityDto cityDto = new CityDto();
@@ -189,7 +138,7 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
-				return Pagination.of(minimumRanks, 15, 1);
+				return Pagination.of(minimumRanks, minimumRanks.size(), pageNum);
 			} else {
 				final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
 				if (keyNationsCnt > 0) {
@@ -227,12 +176,6 @@ public class CentreServiceImpl implements CentreService {
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
 	}
 
-	/**
-	 * get language by nation
-	 *
-	 * @param nation name of nation
-	 * @return language name
-	 */
 	@Override
 	public String findLanguageByCty(final String nation) {
 		final String nationCode = this.countryMapper.getNationCode(nation);
