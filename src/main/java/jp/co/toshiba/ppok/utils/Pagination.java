@@ -140,7 +140,7 @@ public final class Pagination<T> {
 			this.totalRecords = 0;
 			this.totalPages = 1;
 		} else {
-			throw new RuntimeException("數據集合類型錯誤！");
+			throw new PaginationException("數據集合類型錯誤！");
 		}
 		this.calcByNavigatePages(navigatePages);
 	}
@@ -473,5 +473,15 @@ public final class Pagination<T> {
 				+ ", nextPage=" + this.nextPage + ", navigatePages=" + this.navigatePages + ", naviFirstPage="
 				+ this.naviFirstPage + ", naviLastPage=" + this.naviLastPage + ", navigatePageNums="
 				+ Arrays.toString(this.navigatePageNums) + "]";
+	}
+
+	static class PaginationException extends RuntimeException {
+
+		private static final long serialVersionUID = 4906724781325178457L;
+
+		public PaginationException(final String message) {
+			super(message);
+		}
+
 	}
 }
