@@ -1,7 +1,7 @@
 package jp.co.toshiba.ppok;
 
-import java.util.logging.LogManager;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -16,10 +16,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @ServletComponentScan
 public class SsmCrudApplication {
 
-	private static final Logger log = LogManager.getLogger(GrSsmCrudApplication.class);
+	private static final Logger log = LogManager.getLogger(SsmCrudApplication.class);
 
 	public static void main(final String[] args) {
-		SpringApplication.run(GrSsmCrudApplication.class, args);
+		SpringApplication.run(SsmCrudApplication.class, args);
 		log.info("Application launched successfully!");
 	}
 }
