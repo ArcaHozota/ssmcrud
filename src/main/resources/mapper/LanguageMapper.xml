@@ -4,7 +4,7 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.Language" autoMapping="true">
 		<id column="COUNTRY_CODE" jdbcType="NCHAR" property="countryCode" />
-		<id column="LANGUAGE" jdbcType="NVARCHAR" property="language" />
+		<id column="LANGUAGE" jdbcType="NVARCHAR" property="name" />
 	</resultMap>
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT DISTINCT
