@@ -133,7 +133,7 @@ public final class Pagination<T> {
 			this.totalRecords = totalRecords;
 			final int ape = this.totalRecords / pageSize;
 			this.totalPages = this.totalRecords % pageSize == 0 ? ape : ape + 1;
-		} else if (records.isEmpty()) {
+		} else if (records == null || records.isEmpty()) {
 			this.pageNum = 1;
 			this.records = null;
 			this.pageSize = 0;
@@ -225,7 +225,7 @@ public final class Pagination<T> {
 	 * 是否包含内容
 	 */
 	public boolean hasContent() {
-		return this.records.size() > 0;
+		return !this.records.isEmpty();
 	}
 
 	/**
