@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
  * 通用判斷工具類
  *
  * @author Administrator
- *
+ * @since 5.52
  */
 public final class StringUtils {
 

@@ -7,6 +7,7 @@ import java.util.Map;
  * The common class of JSON-data response.
  *
  * @author Administrator
+ * @since 8.76
  */
 public class RestMessage {
 

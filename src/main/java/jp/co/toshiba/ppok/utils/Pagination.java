@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author Administrator
  * @param <T>
+ * @since 3.08
  */
 public final class Pagination<T> {
 
