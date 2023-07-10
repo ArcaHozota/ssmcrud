@@ -1,4 +1,4 @@
-package jp.co.toshiba.ppok.utils;
+package jp.co.toshiba.ppok.config;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 	/**
 	 * コンストラクタ
 	 */
-	public JacksonObjectMapper() {
+	protected JacksonObjectMapper() {
 		super();
 		// 不明な属性を受信して​​も例外は報告されません。
 		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
