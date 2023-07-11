@@ -10,7 +10,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * Ssmcrud application
  *
  * @author Administrator
- * @date 2022-12-12
+ * @since  2022-12-12
  */
 @SpringBootApplication
 @ServletComponentScan

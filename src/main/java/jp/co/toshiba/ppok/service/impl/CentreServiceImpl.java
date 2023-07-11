@@ -112,7 +112,7 @@ public class CentreServiceImpl implements CentreService {
 		final String firstName = cityInfo.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityInfo.getContinent()).stream()
-				.filter(item -> StringUtils.isNotEqual(item, firstName)).collect(Collectors.toList());
+				.filter(item -> StringUtils.isNotEqual(firstName, item)).collect(Collectors.toList());
 		nationList.addAll(countries);
 		return nationList;
 	}
