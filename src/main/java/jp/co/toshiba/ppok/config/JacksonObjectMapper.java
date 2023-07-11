@@ -40,7 +40,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 	 */
 	protected JacksonObjectMapper() {
 		super();
-		// 不明な属性を受信して​​も例外は報告されません。
+		// 不明な属性を受信しても例外は報告されません。
 		this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		// デシリアライズ時、互換性のある処理が存在しないプロパティ。
 		this.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
