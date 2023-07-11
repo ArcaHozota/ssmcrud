@@ -85,7 +85,7 @@
 		FROM
 			WORLD_CITY_VIEW WCV
 		ORDER BY
-		    WCV.POPULATION ASC FETCH FIRST 15 ROWS ONLY
+		    WCV.POPULATION FETCH FIRST 15 ROWS ONLY
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
 		SELECT
