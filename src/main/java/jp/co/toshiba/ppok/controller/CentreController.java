@@ -2,28 +2,20 @@ package jp.co.toshiba.ppok.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Center Terminal Controller handle the retrieve and update requests.
  *
  * @author Administrator
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/public/grssmcrud")
 public class CentreController {
@@ -31,13 +23,12 @@ public class CentreController {
 	/**
 	 * pageSize
 	 */
-	private static final Integer PAGESIZE = 17;
+	private static final Integer PAGE_SIZE = 17;
 
 	/**
 	 * Central service interface
 	 */
-	@Resource
-	private CentreService centreService;
+	private final CentreService centreService;
 
 	/**
 	 * Retrieve the city data.
@@ -46,8 +37,8 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
-                             @RequestParam(value = "keyword", defaultValue = "") final String keyword) {
-		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, PAGESIZE, keyword);
+			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, PAGE_SIZE, keyword);
 		return RestMsg.success().add("pageInfo", cityInfos);
 	}
 
