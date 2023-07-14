@@ -1,5 +1,9 @@
 package jp.co.toshiba.ppok.utils;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +13,10 @@ import java.util.Map;
  * @author Administrator
  * @since 8.76
  */
-public class RestMessage {
+@Getter
+@Setter
+@NoArgsConstructor
+public class RestMsg {
 
 	/**
 	 * status code
@@ -31,8 +38,8 @@ public class RestMessage {
 	 *
 	 * @return result including data
 	 */
-	public static RestMessage success() {
-		final RestMessage result = new RestMessage();
+	public static RestMsg success() {
+		final RestMsg result = new RestMsg();
 		result.setCode(200);
 		result.setMessage("Retrieve success.");
 		return result;
@@ -43,8 +50,8 @@ public class RestMessage {
 	 *
 	 * @return result including error message
 	 */
-	public static RestMessage failure() {
-		final RestMessage result = new RestMessage();
+	public static RestMsg failure() {
+		final RestMsg result = new RestMsg();
 		result.setCode(400);
 		result.setMessage("Retrieve failed.");
 		return result;
@@ -57,53 +64,8 @@ public class RestMessage {
 	 * @param value value
 	 * @return RestMsg
 	 */
-	public RestMessage add(final String key, final Object value) {
+	public RestMsg add(final String key, final Object value) {
 		this.getExtend().put(key, value);
 		return this;
-	}
-
-	/**
-	 * getter for code
-	 *
-	 * @return code
-	 */
-	public Integer getCode() {
-		return this.code;
-	}
-
-	/**
-	 * setter of code
-	 *
-	 * @param code セットする code
-	 */
-	public void setCode(final Integer code) {
-		this.code = code;
-	}
-
-	/**
-	 * getter for message
-	 *
-	 * @return message
-	 */
-	public String getMessage() {
-		return this.message;
-	}
-
-	/**
-	 * setter of message
-	 *
-	 * @param message セットする message
-	 */
-	public void setMessage(final String message) {
-		this.message = message;
-	}
-
-	/**
-	 * getter for extend
-	 *
-	 * @return extend
-	 */
-	public Map<String, Object> getExtend() {
-		return this.extend;
 	}
 }

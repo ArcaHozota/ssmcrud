@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly 'org.projectlombok:lombok'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

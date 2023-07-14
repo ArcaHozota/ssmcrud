@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
-import jp.co.toshiba.ppok.utils.RestMessage;
+import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
  * Center Terminal Controller handle the retrieve and update requests.
@@ -45,10 +45,10 @@ public class CentreController {
 	 * @return page(JSON)
 	 */
 	@GetMapping(value = "/city")
-	public RestMessage getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
-			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
+                             @RequestParam(value = "keyword", defaultValue = "") final String keyword) {
 		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, PAGESIZE, keyword);
-		return RestMessage.success().add("pageInfo", cityInfos);
+		return RestMsg.success().add("pageInfo", cityInfos);
 	}
 
 	/**
@@ -58,9 +58,9 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/city/{id}")
-	public RestMessage getCityInfo(@PathVariable("id") final Integer id) {
+	public RestMsg getCityInfo(@PathVariable("id") final Integer id) {
 		final CityDto cityInfo = this.centreService.getCityInfo(id);
-		return RestMessage.success().add("citySelected", cityInfo);
+		return RestMsg.success().add("citySelected", cityInfo);
 	}
 
 	/**
@@ -70,9 +70,9 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@PostMapping(value = "/city")
-	public RestMessage saveCityInfo(@RequestBody final CityDto cityDto) {
+	public RestMsg saveCityInfo(@RequestBody final CityDto cityDto) {
 		this.centreService.save(cityDto);
-		return RestMessage.success();
+		return RestMsg.success();
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@PutMapping(value = "/city/{id}")
-	public RestMessage updateCityDto(@RequestBody final CityDto cityDto) {
+	public RestMsg updateCityDto(@RequestBody final CityDto cityDto) {
 		this.centreService.update(cityDto);
-		return RestMessage.success();
+		return RestMsg.success();
 	}
 
 	/**
@@ -94,9 +94,9 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@DeleteMapping(value = "/city/{id}")
-	public RestMessage deleteCityDto(@PathVariable("id") final Integer id) {
+	public RestMsg deleteCityDto(@PathVariable("id") final Integer id) {
 		this.centreService.removeById(id);
-		return RestMessage.success();
+		return RestMsg.success();
 	}
 
 	/**
@@ -106,17 +106,17 @@ public class CentreController {
 	 * @return RestMsg.success()
 	 */
 	@GetMapping(value = "/checklist")
-	public RestMessage checkCityName(@RequestParam("cityName") final String cityName) {
+	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
 		if (cityName.matches(regex)) {
 			final Boolean duplicated = this.centreService.checkDuplicated(cityName);
 			if (Boolean.TRUE.equals(duplicated)) {
-				return RestMessage.failure().add("validatedMsg", "City name is duplicate.");
+				return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
 			} else {
-				return RestMessage.success();
+				return RestMsg.success();
 			}
 		} else {
-			return RestMessage.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
+			return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
 		}
 	}
 
@@ -126,9 +126,9 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/continents")
-	public RestMessage getListOfContinents() {
+	public RestMsg getListOfContinents() {
 		final List<String> cnList = this.centreService.findAllContinents();
-		return RestMessage.success().add("continents", cnList);
+		return RestMsg.success().add("continents", cnList);
 	}
 
 	/**
@@ -137,9 +137,9 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/countries")
-	public RestMessage getListOfNations(@RequestParam("continentVal") final String continent) {
+	public RestMsg getListOfNations(@RequestParam("continentVal") final String continent) {
 		final List<String> nationList = this.centreService.findNationsByCnt(continent);
-		return RestMessage.success().add("nations", nationList);
+		return RestMsg.success().add("nations", nationList);
 	}
 
 	/**
@@ -148,9 +148,9 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/countries/{id}")
-	public RestMessage getListOfNationsById(@PathVariable("id") final Integer id) {
+	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
 		final List<String> nationList = this.centreService.findNationsByCityId(id);
-		return RestMessage.success().add("nationsByName", nationList);
+		return RestMsg.success().add("nationsByName", nationList);
 	}
 
 	/**
@@ -159,8 +159,8 @@ public class CentreController {
 	 * @return RestMsg.success().add(data)
 	 */
 	@GetMapping(value = "/language")
-	public RestMessage getLanguages(@RequestParam("nationVal") final String nation) {
+	public RestMsg getLanguages(@RequestParam("nationVal") final String nation) {
 		final String language = this.centreService.findLanguageByCty(nation);
-		return RestMessage.success().add("languages", language);
+		return RestMsg.success().add("languages", language);
 	}
 }
