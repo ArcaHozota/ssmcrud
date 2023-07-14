@@ -1,11 +1,12 @@
 package jp.co.toshiba.ppok.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The common class of JSON-data response.
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RestMsg {
 
 	/**
