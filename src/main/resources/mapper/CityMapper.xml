@@ -25,10 +25,8 @@
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
 		UPDATE WORLD_CITY CN 
-		SET
-		    CN.LOGIC_DELETE_FLG = 'removed' 
-		WHERE
-    		CN.ID = #{id,jdbcType=NUMERIC}
+		SET CN.LOGIC_DELETE_FLG = 'removed' 
+		WHERE CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<update id="updateById"
 		parameterType="jp.co.toshiba.ppok.entity.City">
