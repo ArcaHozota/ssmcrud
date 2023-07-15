@@ -225,7 +225,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	let inputDistrict = $("#districtInput").val().trim();
 	let inputPopulation = $("#populationInput").val().trim();
 	let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
-	let regularPopulation = /^[0-9]{4,18}$/;
+	let regularPopulation = /^\d{4,18}$/;
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else if (!regularDistrict.test(inputDistrict)
@@ -345,7 +345,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let inputDistrict = $("#districtEdit").val().trim();
 	let inputPopulation = $("#populationEdit").val().trim();
 	let regularDistrict = /^[a-zA-Z-\s]{2,33}$/;
-	let regularPopulation = /^[0-9]{4,18}$/;
+	let regularPopulation = /^\d{4,18}$/;
 	let editId = $(this).attr("editId");
 	if (!regularDistrict.test(inputDistrict)
 		&& !regularPopulation.test(inputPopulation)) {
