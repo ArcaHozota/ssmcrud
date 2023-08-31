@@ -118,8 +118,8 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
-		final Integer offset = (pageNum - 1) * pageSize;
-		final Integer sort = 100;
+		final int offset = (pageNum - 1) * pageSize;
+		final int sort = 100;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
 				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream().map(item -> {
