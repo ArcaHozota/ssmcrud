@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
+import jp.co.toshiba.ppok.utils.Messages;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -19,6 +20,6 @@ public class SsmCrudApplication {
 
 	public static void main(final String[] args) {
 		SpringApplication.run(SsmCrudApplication.class, args);
-		log.info("Application launched successfully!");
+		log.info(Messages.MSG003);
 	}
 }

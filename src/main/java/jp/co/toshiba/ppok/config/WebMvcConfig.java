@@ -8,6 +8,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import jp.co.toshiba.ppok.utils.Messages;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -24,7 +25,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
-		log.info("The advanced message converter configuration is complete.");
+		log.info(Messages.MSG001);
 		// 創建消息轉換器對象；
 		final MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
 		// 設置對象轉換器，底層使用Jackson將Java對象轉為JSON；
@@ -40,7 +41,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		log.info("Static resource mapping started.");
+		log.info(Messages.MSG002);
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 		registry.addResourceHandler("/public/**").addResourceLocations("classpath:/public/");
 	}
