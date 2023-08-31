@@ -65,7 +65,7 @@ public class CentreController {
 	}
 
 	/**
-	 * Save inputted city info.
+	 * Save input city info.
 	 *
 	 * @param cityDto the input message of cities
 	 * @return RestMsg.success()

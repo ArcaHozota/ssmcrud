@@ -4,10 +4,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * Mapper of Table WORLD_LANGUAGE
+ * テーブルWORLD_LANGUAGEのマッパー
  *
  * @author Administrator
- * @date 2022-12-17
+ * @since 2022-12-17
  */
 @Mapper
 public interface LanguageMapper {

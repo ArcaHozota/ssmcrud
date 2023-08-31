@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * Mapper of Table WORLD_COUNTRY
+ * テーブルWORLD_COUNTRYのマッパー
  *
  * @author Administrator
- * @date 2022-12-16
+ * @since 2022-12-16
  */
 @Mapper
 public interface CountryMapper {
