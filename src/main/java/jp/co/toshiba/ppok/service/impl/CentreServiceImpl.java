@@ -67,7 +67,9 @@ public class CentreServiceImpl implements CentreService {
 	public void save(final CityDto cityDto) {
 		final City city = new City();
 		BeanUtils.copyProperties(cityDto, city, "continent", "nation");
+		final Long saiban = this.cityMapper.saiban();
 		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
+		city.setId(saiban);
 		city.setCountryCode(nationCode);
 		city.setLogicDeleteFlg("visible");
 		this.cityMapper.saveById(city);
