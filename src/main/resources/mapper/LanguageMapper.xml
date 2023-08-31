@@ -15,18 +15,20 @@
 		        END AS LANGUAGE 
 		FROM
 		    WORLD_LANGUAGE WL 
+		    INNER JOIN WORLD_COUNTRY WTY 
+		        ON WL.COUNTRY_CODE = WTY.CODE 
 		    LEFT JOIN ( 
 		        SELECT
-		            WL.COUNTRY_CODE, 
-		            WL.LANGUAGE AS OTLANGUAGE, 
-		            MATX.OTPERCENTAGE 
+		            WL.COUNTRY_CODE
+		            , WL.LANGUAGE AS OTLANGUAGE
+		            , MATX.OTPERCENTAGE 
 		        FROM
 		            WORLD_LANGUAGE WL 
 		            INNER JOIN ( 
 		                SELECT
-		                    WL.COUNTRY_CODE, 
-		                    MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL, 
-		                    MAX(WL.PERCENTAGE) AS OTPERCENTAGE 
+		                    WL.COUNTRY_CODE
+		                    , MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL
+		                    , MAX(WL.PERCENTAGE) AS OTPERCENTAGE 
 		                FROM
 		                    WORLD_LANGUAGE WL 
 		                WHERE
@@ -42,16 +44,16 @@
 		        ON SUBT.COUNTRY_CODE = WL.COUNTRY_CODE 
 		    LEFT JOIN ( 
 		        SELECT
-		            WL.COUNTRY_CODE, 
-		            WL.LANGUAGE AS OFLANGUAGE, 
-		            MAFX.OFPERCENTAGE 
+		            WL.COUNTRY_CODE
+		            , WL.LANGUAGE AS OFLANGUAGE
+		            , MAFX.OFPERCENTAGE 
 		        FROM
 		            WORLD_LANGUAGE WL 
 		            INNER JOIN ( 
 		                SELECT
-		                    WL.COUNTRY_CODE, 
-		                    MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL, 
-		                    MAX(WL.PERCENTAGE) AS OFPERCENTAGE 
+		                    WL.COUNTRY_CODE
+		                    , MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL
+		                    , MAX(WL.PERCENTAGE) AS OFPERCENTAGE 
 		                FROM
 		                    WORLD_LANGUAGE WL 
 		                WHERE
@@ -66,6 +68,6 @@
 		    ) SUBF 
 		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE 
 		WHERE
-		    WL.COUNTRY_CODE = #{nationCode,jdbcType=NCHAR}
+		    WTY.NAME = #{nation,jdbcType=NVARCHAR}
 	</select>
 </mapper>

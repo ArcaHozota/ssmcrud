@@ -3,7 +3,7 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.CountryMapper">
 	<resultMap id="BaseResultMap"
 		type="jp.co.toshiba.ppok.entity.Country" autoMapping="true">
-		<id column="CODE" jdbcType="NCHAR" property="code" />
+		<id property="code" jdbcType="NCHAR" column="CODE" />
 	</resultMap>
 	<select id="getAllContinents" resultType="java.lang.String">
 		SELECT
