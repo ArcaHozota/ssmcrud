@@ -37,7 +37,7 @@ public final class StringUtils {
 	 * @return boolean
 	 */
 	public static boolean isEmpty(@Nullable final String str) {
-		return (str == null || str.length() == 0 || str.isBlank());
+		return str == null || str.length() == 0 || str.isBlank();
 	}
 
 	/**
@@ -61,9 +61,8 @@ public final class StringUtils {
 		final boolean isEqual;
 		if (str1 == null && str2 == null) {
 			return true;
-		} else if (str1 == null || str2 == null) {
-			return false;
-		} else if (str1.length() != str2.length()) {
+		}
+		if ((str1 == null || str2 == null) || (str1.length() != str2.length())) {
 			return false;
 		} else {
 			isEqual = str1.trim().equals(str2.trim());

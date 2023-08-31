@@ -16,6 +16,8 @@ import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;
+import jp.co.toshiba.ppok.utils.StringUtils;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -23,9 +25,9 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Administrator
  */
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/public/grssmcrud")
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CentreController {
 
 	/**
@@ -45,7 +47,7 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/city")
 	public RestMsg getCities(@RequestParam(value = "pageNum", defaultValue = "1") final Integer pageNum,
-			@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
+			@RequestParam(value = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
 		final Pagination<CityDto> cityInfos = this.centreService.findByKeywords(pageNum, PAGE_SIZE, keyword);
 		return RestMsg.success().add("pageInfo", cityInfos);
 	}
@@ -107,16 +109,14 @@ public class CentreController {
 	@GetMapping(value = "/checklist")
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
 		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
-		if (cityName.matches(regex)) {
-			final Boolean duplicated = this.centreService.checkDuplicated(cityName);
-			if (Boolean.TRUE.equals(duplicated)) {
-				return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
-			} else {
-				return RestMsg.success();
-			}
-		} else {
+		if (!cityName.matches(regex)) {
 			return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
 		}
+		final Boolean duplicated = this.centreService.checkDuplicated(cityName);
+		if (Boolean.TRUE.equals(duplicated)) {
+			return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
+		}
+		return RestMsg.success();
 	}
 
 	/**
