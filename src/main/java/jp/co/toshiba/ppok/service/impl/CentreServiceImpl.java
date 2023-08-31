@@ -30,7 +30,7 @@ import oracle.jdbc.driver.OracleSQLException;
  */
 @Service
 @Transactional(rollbackFor = OracleSQLException.class)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class CentreServiceImpl implements CentreService {
 
 	/**
