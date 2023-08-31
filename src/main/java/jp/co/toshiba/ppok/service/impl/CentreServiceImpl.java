@@ -129,7 +129,7 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
-				return Pagination.of(maximumRanks, maximumRanks.size(), pageNum);
+				return Pagination.of(maximumRanks.subList(offset, pageNum * pageSize), maximumRanks.size(), pageNum);
 			}
 			if (StringUtils.isEqual("min(pop)", keyword)) {
 				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream().map(item -> {
@@ -139,7 +139,7 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
-				return Pagination.of(minimumRanks, minimumRanks.size(), pageNum);
+				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum);
 			}
 			final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
 			if (keyNationsCnt > 0) {
