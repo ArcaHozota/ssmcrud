@@ -9,6 +9,7 @@
 		parameterType="jp.co.toshiba.ppok.entity.City">
 		INSERT 
 		INTO WORLD_CITY( 
+			ID,
 		    NAME, 
 		    COUNTRY_CODE, 
 		    DISTRICT, 
@@ -16,11 +17,12 @@
 		    LOGIC_DELETE_FLG
 		) 
 		VALUES ( 
-		    #{NAME,jdbcType=NVARCHAR}, 
-		    #{COUNTRYCODE,jdbcType=NCHAR}, 
-		    #{DISTRICT,jdbcType=NVARCHAR}, 
-		    #{POPULATION,jdbcType=NUMERIC}, 
-		    #{LOGICDELETEFLG,jdbcType=NVARCHAR}
+		    #{id,jdbcType=NUMERIC}, 
+		    #{name,jdbcType=NVARCHAR}, 
+		    #{countryCode,jdbcType=NCHAR}, 
+		    #{district,jdbcType=NVARCHAR}, 
+		    #{population,jdbcType=NUMERIC}, 
+		    #{logicDeleteFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
