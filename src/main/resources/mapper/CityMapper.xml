@@ -3,7 +3,7 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.City" autoMapping="true">
-		<id column="ID" jdbcType="NUMERIC" property="id" />
+		<id property="id" jdbcType="NUMERIC" column="ID" />
 	</resultMap>
 	<insert id="saveById"
 		parameterType="jp.co.toshiba.ppok.entity.City">

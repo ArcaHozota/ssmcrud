@@ -3,18 +3,18 @@
 <mapper namespace="jp.co.toshiba.ppok.mapper.CityViewMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.toshiba.ppok.entity.CityView" autoMapping="true">
-		<id column="ID" jdbcType="NUMERIC" property="id" />
+		<id property="id" jdbcType="NUMERIC" column="ID" />
 	</resultMap>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT
-            WCV.CITY_ID AS ID, 
-            WCV.CITY_NAME AS NAME, 
-            WCV.CONTINENT, 
-            WCV.COUNTRY_NAME AS NATION, 
-            WCV.DISTRICT, 
-            WCV.POPULATION 
-        FROM
-            WORLD_CITY_VIEW WCV 
+			WCV.ID,
+			WCV.CONTINENT,
+			WCV.NATION,
+			WCV.NAME,
+			WCV.DISTRICT,
+			WCV.POPULATION
+		FROM
+			WORLD_CITY_VIEW WCV 
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
@@ -26,17 +26,16 @@
 	</select>
 	<select id="getByNations" resultMap="BasicResultMap">
 		SELECT
-			ROWNUM AS ROWNO,
-			WCV.CITY_ID AS ID,
-			WCV.CITY_NAME AS NAME,
+			WCV.ID,
 			WCV.CONTINENT,
-			WCV.COUNTRY_NAME AS NATION,
+			WCV.NATION,
+			WCV.NAME,
 			WCV.DISTRICT,
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV
         WHERE
-            WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR} 
+            WCV.NATION = #{nation,jdbcType=NVARCHAR} 
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
@@ -47,21 +46,20 @@
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
-		    WCV.COUNTRY_NAME = #{nation,jdbcType=NVARCHAR}
+		    WCV.NATION = #{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getByNames" resultMap="BasicResultMap">
 		SELECT
-			ROWNUM AS ROWNO,
-			WCV.CITY_ID AS ID,
-			WCV.CITY_NAME AS NAME,
+			WCV.ID,
 			WCV.CONTINENT,
-			WCV.COUNTRY_NAME AS NATION,
+			WCV.NATION,
+			WCV.NAME,
 			WCV.DISTRICT,
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV 
         WHERE
-            WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
+            WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
@@ -72,46 +70,48 @@
 		FROM
 		    WORLD_CITY_VIEW WCV
 		WHERE
-		    WCV.CITY_NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
+		    WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%'))
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT
-			WCV.CITY_ID AS ID,
-			WCV.CITY_NAME AS NAME,
+			WCV.ID,
 			WCV.CONTINENT,
-			WCV.COUNTRY_NAME AS NATION,
+			WCV.NATION,
+			WCV.NAME,
 			WCV.DISTRICT,
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV
 		ORDER BY
-		    WCV.POPULATION FETCH FIRST 15 ROWS ONLY
+		    WCV.POPULATION ASC 
+		FETCH FIRST #{sort,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
 		SELECT
-			WCV.CITY_ID AS ID,
-			WCV.CITY_NAME AS NAME,
+			WCV.ID,
 			WCV.CONTINENT,
-			WCV.COUNTRY_NAME AS NATION,
+			WCV.NATION,
+			WCV.NAME,
 			WCV.DISTRICT,
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV
 		ORDER BY
-		    WCV.POPULATION DESC FETCH FIRST 15 ROWS ONLY
+		    WCV.POPULATION DESC 
+		FETCH FIRST #{sort,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
 		SELECT
-			WCV.CITY_ID AS ID,
-			WCV.CITY_NAME AS NAME,
+			WCV.ID,
 			WCV.CONTINENT,
-			WCV.COUNTRY_NAME AS NATION,
+			WCV.NATION,
+			WCV.NAME,
 			WCV.DISTRICT,
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV
 		WHERE
-		    WCV.CITY_ID = #{id,jdbcType=NUMERIC}
+		    WCV.ID = #{id,jdbcType=NUMERIC}
 	</select>
 </mapper>
