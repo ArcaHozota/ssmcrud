@@ -13,9 +13,9 @@ import org.apache.ibatis.annotations.Param;
 public interface LanguageMapper {
 
 	/**
-	 * Get official language by nation
+	 * 公用語を取得する
 	 *
-	 * @param nation country
+	 * @param nation 国名
 	 * @return String
 	 */
 	String getLanguage(@Param("nation") String nation);

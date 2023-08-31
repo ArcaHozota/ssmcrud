@@ -15,25 +15,25 @@ import org.apache.ibatis.annotations.Param;
 public interface CountryMapper {
 
 	/**
-	 * Retrieve continent list distinct.
+	 * すべての大陸名称を取得する
 	 *
 	 * @return List<CityInfo>
 	 */
 	List<String> getAllContinents();
 
 	/**
-	 * Retrieve the nation list distinct.
+	 * 選択された大陸のすべての国を取得する
 	 *
-	 * @param continent name of continent
+	 * @param continent 大陸名
 	 * @return List<CityInfo>
 	 */
 	List<String> getNationsByCnt(@Param("continent") String continent);
 
 	/**
-	 * Retrieve the nationcd through name.
+	 * 国名によって国家コードを取得する
 	 *
-	 * @param name name of nation
+	 * @param nation 国名
 	 * @return List<CityInfo>
 	 */
-	String getNationCode(@Param("name") String name);
+	String getNationCode(@Param("name") String nation);
 }
