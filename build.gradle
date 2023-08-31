@@ -36,6 +36,8 @@ dependencies {
     implementation 'org.hibernate.validator:hibernate-validator'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+	implementation 'org.apache.commons:commons-collections4:4.3'
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
