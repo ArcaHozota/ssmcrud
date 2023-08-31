@@ -15,6 +15,7 @@
 			WCV.POPULATION
 		FROM
 			WORLD_CITY_VIEW WCV 
+		ORDER BY WCV.ID ASC
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
@@ -36,6 +37,7 @@
 			WORLD_CITY_VIEW WCV
         WHERE
             WCV.NATION = #{nation,jdbcType=NVARCHAR} 
+        ORDER BY WCV.ID ASC
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
@@ -60,6 +62,7 @@
 			WORLD_CITY_VIEW WCV 
         WHERE
             WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
+        ORDER BY WCV.ID ASC
         OFFSET #{offset,jdbcType=INTEGER} ROWS 
         FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
