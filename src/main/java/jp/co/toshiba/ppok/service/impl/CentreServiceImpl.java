@@ -129,6 +129,9 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
+				if (pageNum * pageSize >= sort) {
+					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum);
+				}
 				return Pagination.of(maximumRanks.subList(offset, pageNum * pageSize), maximumRanks.size(), pageNum);
 			}
 			if (StringUtils.isEqual("min(pop)", keyword)) {
@@ -139,6 +142,9 @@ public class CentreServiceImpl implements CentreService {
 					cityDto.setLanguage(language);
 					return cityDto;
 				}).collect(Collectors.toList());
+				if (pageNum * pageSize >= sort) {
+					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum);
+				}
 				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum);
 			}
 			final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
