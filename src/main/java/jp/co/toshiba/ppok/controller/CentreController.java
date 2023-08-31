@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.service.CentreService;
+import jp.co.toshiba.ppok.utils.Messages;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.RestMsg;
 import jp.co.toshiba.ppok.utils.StringUtils;
@@ -108,13 +109,12 @@ public class CentreController {
 	 */
 	@GetMapping(value = "/checklist")
 	public RestMsg checkCityName(@RequestParam("cityName") final String cityName) {
-		final String regex = "^[a-zA-Z-\\p{IsWhiteSpace}]{4,17}$";
-		if (!cityName.matches(regex)) {
-			return RestMsg.failure().add("validatedMsg", "Name of cities should be in 4~17 Latin alphabets.");
+		if (!cityName.matches(Messages.MSG006)) {
+			return RestMsg.failure().add("validatedMsg", Messages.MSG005);
 		}
 		final Boolean duplicated = this.centreService.checkDuplicated(cityName);
 		if (Boolean.TRUE.equals(duplicated)) {
-			return RestMsg.failure().add("validatedMsg", "City name is duplicate.");
+			return RestMsg.failure().add("validatedMsg", Messages.MSG004);
 		}
 		return RestMsg.success();
 	}
