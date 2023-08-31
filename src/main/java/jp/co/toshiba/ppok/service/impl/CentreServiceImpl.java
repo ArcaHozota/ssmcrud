@@ -119,9 +119,10 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
 		final Integer offset = (pageNum - 1) * pageSize;
+		final Integer sort = 100;
 		if (StringUtils.isNotEmpty(keyword)) {
 			if (StringUtils.isEqual("max(pop)", keyword)) {
-				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks().stream().map(item -> {
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream().map(item -> {
 					final CityDto cityDto = new CityDto();
 					BeanUtils.copyProperties(item, cityDto);
 					final String language = this.findLanguageByCty(item.getNation());
@@ -131,7 +132,7 @@ public class CentreServiceImpl implements CentreService {
 				return Pagination.of(maximumRanks, maximumRanks.size(), pageNum);
 			}
 			if (StringUtils.isEqual("min(pop)", keyword)) {
-				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks().stream().map(item -> {
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream().map(item -> {
 					final CityDto cityDto = new CityDto();
 					BeanUtils.copyProperties(item, cityDto);
 					final String language = this.findLanguageByCty(item.getNation());

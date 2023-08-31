@@ -77,14 +77,14 @@ public interface CityViewMapper {
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getMinimumRanks();
+	List<CityView> getMinimumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 人口数量降順で都市情報を検索する
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getMaximumRanks();
+	List<CityView> getMaximumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 都市IDによって都市情報を検索する
