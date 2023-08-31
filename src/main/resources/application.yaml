@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: oraclect
-    password: oraclect
+    username: ORACLECT
+    password: ORACLECT
     hikari:
       maximum-pool-size: 30
       max-lifetime: 1500000
