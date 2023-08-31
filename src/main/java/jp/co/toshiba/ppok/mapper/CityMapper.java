@@ -16,6 +16,13 @@ import oracle.jdbc.driver.OracleSQLException;
 public interface CityMapper {
 
 	/**
+	 * 採番を行う
+	 *
+	 * @return 採番値
+	 */
+	Long saiban();
+
+	/**
 	 * 保存
 	 *
 	 * @param city 都市エンティティ

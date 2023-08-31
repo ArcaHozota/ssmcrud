@@ -48,6 +48,12 @@
 		WHERE CN.LOGIC_DELETE_FLG = 'visible'
 		AND CN.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<select id="saiban" resultType="java.lang.Long">
+		SELECT
+		    COUNT(CN.id) + 1 
+		FROM
+		    WORLD_CITY CN 
+	</select>
 	<select id="checkDuplicatedName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT
