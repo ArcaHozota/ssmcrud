@@ -5,7 +5,9 @@ plugins {
 
 group 'jp.co.toshiba.ppok'
 version '1.0-SNAPSHOT'
-sourceCompatibility = 11
+description = 'ssmcrud'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
 
 repositories {
     mavenCentral()
