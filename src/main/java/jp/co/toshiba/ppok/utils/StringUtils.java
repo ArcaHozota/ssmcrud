@@ -5,22 +5,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.springframework.lang.Nullable;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
- * 通用判斷工具類
+ * 共通ストリング判断ツール
  *
  * @author Administrator
  * @since 5.52
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class StringUtils {
 
 	/**
 	 * 全角半角変換マップ
 	 */
-	private static final BidiMap<String, String> HALF_FULL_CONVERTAR = new DualHashBidiMap<>();
+	private static final BiMap<String, String> HALF_FULL_CONVERTAR = HashBiMap.create(200);
 
 	/**
 	 * UTF-8キャラセット
@@ -31,13 +36,6 @@ public final class StringUtils {
 	 * 空のストリング
 	 */
 	public static final String EMPTY_STRING = "";
-
-	/**
-	 * コンストラクタ
-	 */
-	private StringUtils() {
-		throw new IllegalStateException("Utility class");
-	}
 
 	/**
 	 * 全角から半角へ変換
@@ -77,7 +75,7 @@ public final class StringUtils {
 		for (int i = 0; i < hankaku.length(); i++) {
 			final String charAtString = String.valueOf(hankaku.charAt(i));
 			if (hankakuList.contains(charAtString)) {
-				builder.append(HALF_FULL_CONVERTAR.inverseBidiMap().get(charAtString));
+				builder.append(HALF_FULL_CONVERTAR.inverse().get(charAtString));
 			} else {
 				builder.append(charAtString);
 			}
@@ -86,31 +84,31 @@ public final class StringUtils {
 	}
 
 	/**
-	 * 判斷該字符串是否爲空
+	 * 当ストリングは空かどうかを判断する
 	 *
-	 * @param str 目標字符串
-	 * @return boolean
+	 * @param str ストリング
+	 * @return true: 空, false: 空ではない
 	 */
 	public static boolean isEmpty(@Nullable final String str) {
 		return str == null || str.length() == 0 || str.isBlank();
 	}
 
 	/**
-	 * 判斷該字符串是否不為空
+	 * 当ストリングは空ではないかどうかを判断する
 	 *
-	 * @param str 目標字符串
-	 * @return boolean
+	 * @param str ストリング
+	 * @return true: 空ではない, false: 空
 	 */
 	public static boolean isNotEmpty(@Nullable final String str) {
 		return !isEmpty(str);
 	}
 
 	/**
-	 * 兩者相等
+	 * 二つのストリングはイコールすることを判断する
 	 *
-	 * @param str1 值
-	 * @param str2 值
-	 * @return 判斷結果
+	 * @param str1 ストリング1
+	 * @param str2 ストリング2
+	 * @return true: イコール, false: イコールしない
 	 */
 	public static boolean isEqual(@Nullable final String str1, @Nullable final String str2) {
 		final boolean isEqual;
@@ -125,11 +123,11 @@ public final class StringUtils {
 	}
 
 	/**
-	 * 兩者不等
+	 * 二つのストリングはイコールしないことを判断する
 	 *
-	 * @param str1 值
-	 * @param str2 值
-	 * @return 判斷結果
+	 * @param str1 ストリング1
+	 * @param str2 ストリング2
+	 * @return true: イコールしない, false: イコール
 	 */
 	public static boolean isNotEqual(@Nullable final String str1, @Nullable final String str2) {
 		return !isEqual(str1, str2);
