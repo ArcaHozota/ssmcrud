@@ -18,6 +18,11 @@ import org.springframework.lang.Nullable;
 public final class StringUtils {
 
 	/**
+	 * 全角半角変換マップ
+	 */
+	private static final BidiMap<String, String> HALF_FULL_CONVERTAR = new DualHashBidiMap<>();
+
+	/**
 	 * UTF-8キャラセット
 	 */
 	public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
@@ -26,11 +31,6 @@ public final class StringUtils {
 	 * 空のストリング
 	 */
 	public static final String EMPTY_STRING = "";
-
-	/**
-	 * 全角半角変換マップ
-	 */
-	private static final BidiMap<String, String> HALF_FULL_CONVERTAR = new DualHashBidiMap<>();
 
 	/**
 	 * コンストラクタ
@@ -321,6 +321,6 @@ public final class StringUtils {
 		HALF_FULL_CONVERTAR.put("\u30fa", "ｦﾞ");
 		HALF_FULL_CONVERTAR.put("゛", "ﾞ");
 		HALF_FULL_CONVERTAR.put("゜", "ﾟ");
-		HALF_FULL_CONVERTAR.put("　", " ");
+		HALF_FULL_CONVERTAR.put("\u3000", " ");
 	}
 }
