@@ -52,11 +52,11 @@ public final class StringUtils {
 		final StringBuilder builder = new StringBuilder();
 		final List<String> zenkakuList = new ArrayList<>(HALF_FULL_CONVERTAR.keySet());
 		for (int i = 0; i < zenkaku.length(); i++) {
-			final char charAt = zenkaku.charAt(i);
-			if (zenkakuList.contains(String.valueOf(charAt))) {
-				builder.append(HALF_FULL_CONVERTAR.get(String.valueOf(charAt)));
+			final String charAtString = String.valueOf(zenkaku.charAt(i));
+			if (zenkakuList.contains(charAtString)) {
+				builder.append(HALF_FULL_CONVERTAR.get(charAtString));
 			} else {
-				builder.append(charAt);
+				builder.append(charAtString);
 			}
 		}
 		return builder.toString();
@@ -75,11 +75,11 @@ public final class StringUtils {
 		final StringBuilder builder = new StringBuilder();
 		final List<String> hankakuList = new ArrayList<>(HALF_FULL_CONVERTAR.values());
 		for (int i = 0; i < hankaku.length(); i++) {
-			final char charAt = hankaku.charAt(i);
-			if (hankakuList.contains(String.valueOf(charAt))) {
-				builder.append(HALF_FULL_CONVERTAR.inverseBidiMap().get(String.valueOf(charAt)));
+			final String charAtString = String.valueOf(hankaku.charAt(i));
+			if (hankakuList.contains(charAtString)) {
+				builder.append(HALF_FULL_CONVERTAR.inverseBidiMap().get(charAtString));
 			} else {
-				builder.append(charAt);
+				builder.append(charAtString);
 			}
 		}
 		return builder.toString();
