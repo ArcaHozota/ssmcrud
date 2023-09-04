@@ -101,7 +101,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public List<String> findNationsByCnt(final String continent) {
-		return this.countryMapper.getNationsByCnt(continent);
+		return this.countryMapper.getNationsByCnt(StringUtils.toHankaku(continent));
 	}
 
 	@Override
@@ -121,9 +121,10 @@ public class CentreServiceImpl implements CentreService {
 		final int offset = (pageNum - 1) * pageSize;
 		int sort = 100;
 		if (StringUtils.isNotEmpty(keyword)) {
-			if (keyword.startsWith("max(pop)")) {
-				final int index = keyword.indexOf(")");
-				final String keisan = keyword.substring(index + 1);
+			final String hankakuKeyword = StringUtils.toHankaku(keyword);
+			if (hankakuKeyword.startsWith("max(pop)")) {
+				final int index = hankakuKeyword.indexOf(")");
+				final String keisan = hankakuKeyword.substring(index + 1);
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
@@ -139,9 +140,9 @@ public class CentreServiceImpl implements CentreService {
 				}
 				return Pagination.of(maximumRanks.subList(offset, pageNum * pageSize), maximumRanks.size(), pageNum);
 			}
-			if (StringUtils.isEqual("min(pop)", keyword)) {
-				final int index = keyword.indexOf(")");
-				final String keisan = keyword.substring(index + 1);
+			if (hankakuKeyword.startsWith("min(pop)")) {
+				final int index = hankakuKeyword.indexOf(")");
+				final String keisan = hankakuKeyword.substring(index + 1);
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
@@ -157,10 +158,10 @@ public class CentreServiceImpl implements CentreService {
 				}
 				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum);
 			}
-			final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(keyword);
+			final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(hankakuKeyword);
 			if (keyNationsCnt > 0) {
-				final List<CityDto> keyNations = this.cityViewMapper.getByNations(keyword, offset, pageSize).stream()
-						.map(item -> {
+				final List<CityDto> keyNations = this.cityViewMapper.getByNations(hankakuKeyword, offset, pageSize)
+						.stream().map(item -> {
 							final CityDto cityDto = new CityDto();
 							BeanUtils.copyProperties(item, cityDto);
 							final String language = this.findLanguageByCty(item.getNation());
@@ -169,8 +170,8 @@ public class CentreServiceImpl implements CentreService {
 						}).collect(Collectors.toList());
 				return Pagination.of(keyNations, keyNationsCnt, pageNum);
 			}
-			final Integer keyNamesCnt = this.cityViewMapper.getByNamesCnt(keyword);
-			final List<CityDto> keyNames = this.cityViewMapper.getByNames(keyword, offset, pageSize).stream()
+			final Integer keyNamesCnt = this.cityViewMapper.getByNamesCnt(hankakuKeyword);
+			final List<CityDto> keyNames = this.cityViewMapper.getByNames(hankakuKeyword, offset, pageSize).stream()
 					.map(item -> {
 						final CityDto cityDto = new CityDto();
 						BeanUtils.copyProperties(item, cityDto);
