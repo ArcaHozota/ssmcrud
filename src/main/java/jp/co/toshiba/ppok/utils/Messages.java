@@ -23,4 +23,8 @@ public final class Messages {
 	public static final String MSG005 = "入力した都市名は4桁から23桁までのローマ字にしなければなりません。";
 
 	public static final String MSG006 = "^[a-zA-Z-\\\\p{IsWhiteSpace}]{4,17}$";
+
+	public static final String MSG007 = "visible";
+
+	public static final String MSG008 = "removed";
 }
