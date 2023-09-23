@@ -5,7 +5,7 @@ spring:
     name: grssmcrud
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    url: jdbc:oracle:thin:@//54.250.57.240:1521/XEPDB1
     username: ORACLECT
     password: ORACLECT
     hikari:
