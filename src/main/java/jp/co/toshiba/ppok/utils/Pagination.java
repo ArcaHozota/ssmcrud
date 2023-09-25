@@ -89,7 +89,7 @@ public final class Pagination<T> {
 	 * @param pageNum      当ページ
 	 */
 	public static <T> Pagination<T> of(final List<T> records, final long totalRecords, final int pageNum) {
-		return new Pagination<>(records, totalRecords, pageNum, records.size(), 5);
+		return new Pagination<>(records, totalRecords, pageNum, 12, 5);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public final class Pagination<T> {
 		if (records != null && !records.isEmpty()) {
 			this.pageNum = pageNum;
 			this.records = records;
-			this.pageSize = pageSize;
+			this.pageSize = records.size();
 			this.totalRecords = totalRecords;
 			final long ape = this.totalRecords / pageSize;
 			this.totalPages = this.totalRecords % pageSize == 0 ? ape : ape + 1;
