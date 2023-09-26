@@ -8,7 +8,7 @@ import jp.co.toshiba.ppok.utils.Messages;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Ssmcrud application
+ * Ssmcrudアプリケーション
  *
  * @author Administrator
  * @since 2022-12-12
@@ -17,7 +17,6 @@ import lombok.extern.log4j.Log4j2;
 @SpringBootApplication
 @ServletComponentScan
 public class SsmCrudApplication {
-
 	public static void main(final String[] args) {
 		SpringApplication.run(SsmCrudApplication.class, args);
 		log.info(Messages.MSG003);
