@@ -10,8 +10,8 @@ import lombok.extern.log4j.Log4j2;
 /**
  * Ssmcrudアプリケーション
  *
- * @author Administrator
- * @since 2022-12-12
+ * @author ArcaHozota
+ * @since 1.65
  */
 @Log4j2
 @SpringBootApplication

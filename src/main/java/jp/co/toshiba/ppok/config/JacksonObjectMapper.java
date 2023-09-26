@@ -22,7 +22,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
  *
  * @author ArcaHozota
  * @since 1.68
- * @version 3.86
  */
 public class JacksonObjectMapper extends ObjectMapper {
 
