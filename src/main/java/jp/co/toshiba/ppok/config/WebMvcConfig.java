@@ -12,7 +12,10 @@ import jp.co.toshiba.ppok.utils.Messages;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * @author Administrator
+ * SpringMVC配置クラス
+ *
+ * @author ArcaHozota
+ * @since 1.64
  */
 @Log4j2
 @Configuration
