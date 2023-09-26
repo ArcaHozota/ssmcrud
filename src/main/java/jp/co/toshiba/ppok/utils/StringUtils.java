@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 /**
  * 共通ストリング判断ツール
  *
- * @author Administrator
+ * @author ArcaHozota
  * @since 5.52
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -111,15 +111,13 @@ public final class StringUtils {
 	 * @return true: イコール, false: イコールしない
 	 */
 	public static boolean isEqual(@Nullable final String str1, @Nullable final String str2) {
-		final boolean isEqual;
 		if (str1 == null && str2 == null) {
 			return true;
 		}
 		if (str1 == null || str2 == null || str1.length() != str2.length()) {
 			return false;
 		}
-		isEqual = str1.trim().equals(str2.trim());
-		return isEqual;
+		return str1.trim().equals(str2.trim());
 	}
 
 	/**
