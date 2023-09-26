@@ -1,9 +1,9 @@
 package jp.co.toshiba.ppok.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import lombok.Data;
 
 /**
  * Entity of Table WORLD_COUNTRY
@@ -93,5 +93,5 @@ public class Country implements Serializable {
 	/**
 	 * This field corresponds to the database column LOGIC_DELETE_FLG
 	 */
-	private String logicDeleteFlg;
+	private String deleteFlg;
 }

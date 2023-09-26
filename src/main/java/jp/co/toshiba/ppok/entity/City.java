@@ -1,8 +1,8 @@
 package jp.co.toshiba.ppok.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * Entity of Table WORLD_CITY
@@ -42,5 +42,5 @@ public class City implements Serializable {
 	/**
 	 * This field corresponds to the database column LOGIC_DELETE_FLG
 	 */
-	private String logicDeleteFlg;
+	private String deleteFlg;
 }
