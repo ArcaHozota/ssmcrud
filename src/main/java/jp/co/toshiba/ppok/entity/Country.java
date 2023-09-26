@@ -11,7 +11,7 @@ import lombok.Data;
  * @author Administrator
  */
 @Data
-public class Country implements Serializable {
+public final class Country implements Serializable {
 
 	private static final long serialVersionUID = -437505450837045511L;
 

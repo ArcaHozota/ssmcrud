@@ -10,7 +10,7 @@ import lombok.Data;
  * @author Administrator
  */
 @Data
-public class City implements Serializable {
+public final class City implements Serializable {
 
 	private static final long serialVersionUID = 1815689293387304425L;
 
