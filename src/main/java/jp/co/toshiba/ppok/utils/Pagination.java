@@ -10,7 +10,8 @@ import lombok.Setter;
  * 共通ページングクラス
  *
  * @param <T>
- * @author Administrator
+ * @author ArcaHozota
+ * @since 3.08
  */
 @Getter
 @Setter

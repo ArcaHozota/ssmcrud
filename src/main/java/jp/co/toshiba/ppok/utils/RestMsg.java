@@ -11,7 +11,7 @@ import lombok.Setter;
 /**
  * The common class of JSON-data response.
  *
- * @author Administrator
+ * @author ArcaHozota
  * @since 8.76
  */
 @Getter
