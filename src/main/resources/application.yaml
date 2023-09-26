@@ -2,7 +2,7 @@ server:
   port: 8083
 spring:
   application:
-    name: grssmcrud
+    name: ssmcrud
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@//54.250.57.240:1521/XEPDB1
