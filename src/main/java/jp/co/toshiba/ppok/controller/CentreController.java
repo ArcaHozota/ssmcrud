@@ -34,7 +34,7 @@ public class CentreController {
 	/**
 	 * pageSize
 	 */
-	private static final Integer PAGE_SIZE = 17;
+	private static final Integer PAGE_SIZE = 12;
 
 	/**
 	 * Central service interface

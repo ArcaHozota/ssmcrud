@@ -16,6 +16,7 @@ import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
+import jp.co.toshiba.ppok.utils.Messages;
 import jp.co.toshiba.ppok.utils.Pagination;
 import jp.co.toshiba.ppok.utils.StringUtils;
 import lombok.AccessLevel;
@@ -71,7 +72,7 @@ public class CentreServiceImpl implements CentreService {
 		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
 		city.setId(saiban);
 		city.setCountryCode(nationCode);
-		city.setLogicDeleteFlg("visible");
+		city.setDeleteFlg(Messages.MSG007);
 		this.cityMapper.saveById(city);
 	}
 
@@ -136,9 +137,10 @@ public class CentreServiceImpl implements CentreService {
 					return cityDto;
 				}).collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
-					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum);
+					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
 				}
-				return Pagination.of(maximumRanks.subList(offset, pageNum * pageSize), maximumRanks.size(), pageNum);
+				return Pagination.of(maximumRanks.subList(offset, pageNum * pageSize), maximumRanks.size(), pageNum,
+						pageSize);
 			}
 			if (hankakuKeyword.startsWith("min(pop)")) {
 				final int index = hankakuKeyword.indexOf(")");
@@ -154,9 +156,10 @@ public class CentreServiceImpl implements CentreService {
 					return cityDto;
 				}).collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
-					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum);
+					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
 				}
-				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum);
+				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum,
+						pageSize);
 			}
 			final Integer keyNationsCnt = this.cityViewMapper.getByNationsCnt(hankakuKeyword);
 			if (keyNationsCnt > 0) {
@@ -168,7 +171,7 @@ public class CentreServiceImpl implements CentreService {
 							cityDto.setLanguage(language);
 							return cityDto;
 						}).collect(Collectors.toList());
-				return Pagination.of(keyNations, keyNationsCnt, pageNum);
+				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
 			}
 			final Integer keyNamesCnt = this.cityViewMapper.getByNamesCnt(hankakuKeyword);
 			final List<CityDto> keyNames = this.cityViewMapper.getByNames(hankakuKeyword, offset, pageSize).stream()
@@ -179,7 +182,7 @@ public class CentreServiceImpl implements CentreService {
 						cityDto.setLanguage(language);
 						return cityDto;
 					}).collect(Collectors.toList());
-			return Pagination.of(keyNames, keyNamesCnt, pageNum);
+			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
 		}
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
 		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream().map(item -> {
@@ -189,7 +192,7 @@ public class CentreServiceImpl implements CentreService {
 			cityDto.setLanguage(language);
 			return cityDto;
 		}).collect(Collectors.toList());
-		return Pagination.of(cityInfos, cityInfosCnt, pageNum);
+		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
 	}
 
 	@Override
