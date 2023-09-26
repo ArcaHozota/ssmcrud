@@ -194,6 +194,6 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public String findLanguageByCty(final String nation) {
-		return this.languageMapper.getLanguage(nation);
+		return this.languageMapper.getLanguageByNationName(nation);
 	}
 }

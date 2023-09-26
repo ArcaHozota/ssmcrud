@@ -18,5 +18,5 @@ public interface LanguageMapper {
 	 * @param nation 国名
 	 * @return String
 	 */
-	String getLanguage(@Param("nation") String nation);
+	String getLanguageByNationName(@Param("nation") String nation);
 }
