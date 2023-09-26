@@ -9,65 +9,53 @@
 	<select id="getLanguage" resultType="java.lang.String">
 		SELECT DISTINCT
 		    CASE 
-		        WHEN SUBF.OFPERCENTAGE - SUBT.OTPERCENTAGE &gt;= 35 
-		            THEN SUBF.OFLANGUAGE 
-		        ELSE NVL(SUBT.OTLANGUAGE, SUBF.OFLANGUAGE) 
+		        WHEN (UM.OFPERCENTAGE - COALESCE(OM.OTPERCENTAGE, 0)) &gt;= 35 
+		            THEN UM.OFLANGUAGE 
+		        ELSE NVL(OM.OTLANGUAGE, UM.OFLANGUAGE) 
 		        END AS LANGUAGE 
 		FROM
 		    WORLD_LANGUAGE WL 
-		    INNER JOIN WORLD_COUNTRY WTY 
-		        ON WL.COUNTRY_CODE = WTY.CODE 
+		    INNER JOIN WORLD_COUNTRY WCY 
+		        ON WCY.CODE = WL.COUNTRY_CODE 
 		    LEFT JOIN ( 
 		        SELECT
 		            WL.COUNTRY_CODE
 		            , WL.LANGUAGE AS OTLANGUAGE
-		            , MATX.OTPERCENTAGE 
+		            , WL.PERCENTAGE AS OTPERCENTAGE
+		            , ROW_NUMBER() OVER ( 
+		                PARTITION BY
+		                    COUNTRY_CODE 
+		                ORDER BY
+		                    PERCENTAGE DESC
+		            ) AS RNK 
 		        FROM
 		            WORLD_LANGUAGE WL 
-		            INNER JOIN ( 
-		                SELECT
-		                    WL.COUNTRY_CODE
-		                    , MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL
-		                    , MAX(WL.PERCENTAGE) AS OTPERCENTAGE 
-		                FROM
-		                    WORLD_LANGUAGE WL 
-		                WHERE
-		                    WL.LOGIC_DELETE_FLG = 'visible' 
-		                    AND WL.IS_OFFICIAL = 'True' 
-		                GROUP BY
-		                    WL.COUNTRY_CODE
-		            ) MATX 
-		                ON MATX.COUNTRY_CODE = WL.COUNTRY_CODE 
-		                AND MATX.IS_OFFICIAL = WL.IS_OFFICIAL 
-		                AND MATX.OTPERCENTAGE = WL.PERCENTAGE
-		    ) SUBT 
-		        ON SUBT.COUNTRY_CODE = WL.COUNTRY_CODE 
+		        WHERE
+		            WL.DELETE_FLG = 'visible' 
+		            AND WL.IS_OFFICIAL = 'True'
+		    ) OM 
+		        ON OM.COUNTRY_CODE = WL.COUNTRY_CODE 
+		        AND OM.RNK = 1 
 		    LEFT JOIN ( 
 		        SELECT
 		            WL.COUNTRY_CODE
 		            , WL.LANGUAGE AS OFLANGUAGE
-		            , MAFX.OFPERCENTAGE 
+		            , WL.PERCENTAGE AS OFPERCENTAGE
+		            , ROW_NUMBER() OVER ( 
+		                PARTITION BY
+		                    COUNTRY_CODE 
+		                ORDER BY
+		                    PERCENTAGE DESC
+		            ) AS RNK 
 		        FROM
 		            WORLD_LANGUAGE WL 
-		            INNER JOIN ( 
-		                SELECT
-		                    WL.COUNTRY_CODE
-		                    , MAX(WL.IS_OFFICIAL) AS IS_OFFICIAL
-		                    , MAX(WL.PERCENTAGE) AS OFPERCENTAGE 
-		                FROM
-		                    WORLD_LANGUAGE WL 
-		                WHERE
-		                    WL.LOGIC_DELETE_FLG = 'visible' 
-		                    AND WL.IS_OFFICIAL = 'False' 
-		                GROUP BY
-		                    WL.COUNTRY_CODE
-		            ) MAFX 
-		                ON MAFX.COUNTRY_CODE = WL.COUNTRY_CODE 
-		                AND MAFX.IS_OFFICIAL = WL.IS_OFFICIAL 
-		                AND MAFX.OFPERCENTAGE = WL.PERCENTAGE
-		    ) SUBF 
-		        ON SUBF.COUNTRY_CODE = WL.COUNTRY_CODE 
+		        WHERE
+		            WL.DELETE_FLG = 'visible' 
+		            AND WL.IS_OFFICIAL = 'False'
+		    ) UM 
+		        ON UM.COUNTRY_CODE = WL.COUNTRY_CODE 
+		        AND UM.RNK = 1 
 		WHERE
-		    WTY.NAME = #{nation,jdbcType=NVARCHAR}
+		    WCY.NAME = #{nation,jdbcType=NVARCHAR}
 	</select>
 </mapper>
