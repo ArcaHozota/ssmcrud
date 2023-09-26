@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 /**
  * 共通メッセージクラス
  *
- * @author Administrator
- * @since 2023-08-31
+ * @author ArcaHozota
+ * @since 9.49
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Messages {
