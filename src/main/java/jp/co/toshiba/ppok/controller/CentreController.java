@@ -22,7 +22,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Center Terminal Controller handle the retrieve and update requests.
+ * 中央業務処理コントローラ
  *
  * @author ArcaHozota
  * @since 1.00
