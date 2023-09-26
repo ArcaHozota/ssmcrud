@@ -26,7 +26,7 @@ public interface CityDtoMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getByNations(@Param("nation") String nation, @Param("offset") Integer offset,
+	List<CityDto> getCityInfosByNation(@Param("nation") String nation, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -35,7 +35,7 @@ public interface CityDtoMapper {
 	 * @param nation 国名
 	 * @return Integer
 	 */
-	Integer getByNationsCnt(@Param("nation") String nation);
+	Integer getCityInfosByNationCnt(@Param("nation") String nation);
 
 	/**
 	 * 都市名によって都市情報を検索する
@@ -45,7 +45,7 @@ public interface CityDtoMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getByNames(@Param("name") String name, @Param("offset") Integer offset,
+	List<CityDto> getCityInfosByName(@Param("name") String name, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -54,7 +54,7 @@ public interface CityDtoMapper {
 	 * @param name 都市名
 	 * @return Integer
 	 */
-	Integer getByNamesCnt(@Param("name") String name);
+	Integer getCityInfosByNameCnt(@Param("name") String name);
 
 	/**
 	 * 都市情報を検索する
