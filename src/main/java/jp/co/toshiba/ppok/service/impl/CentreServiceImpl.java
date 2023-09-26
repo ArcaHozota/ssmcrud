@@ -25,7 +25,7 @@ import oracle.jdbc.driver.OracleSQLException;
 /**
  * サービス実装クラス
  *
- * @author Administrator
+ * @author ArcaHozota
  * @since 6.71
  */
 @Service

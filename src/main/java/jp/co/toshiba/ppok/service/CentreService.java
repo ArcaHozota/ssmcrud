@@ -8,7 +8,8 @@ import jp.co.toshiba.ppok.utils.Pagination;
 /**
  * サービスインターフェス
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 6.61
  */
 public interface CentreService {
 
