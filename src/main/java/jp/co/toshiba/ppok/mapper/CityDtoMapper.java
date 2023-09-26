@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import jp.co.toshiba.ppok.entity.CityView;
+import jp.co.toshiba.ppok.dto.CityDto;
 
 /**
  * ビューWORLD_CITY_VIEWのマッパー
@@ -16,7 +16,7 @@ import jp.co.toshiba.ppok.entity.CityView;
  * @author Administrator
  */
 @Mapper
-public interface CityViewMapper {
+public interface CityDtoMapper {
 
 	/**
 	 * 国名によって都市情報を検索する
@@ -26,7 +26,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getByNations(@Param("nation") String nation, @Param("offset") Integer offset,
+	List<CityDto> getByNations(@Param("nation") String nation, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -45,7 +45,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getByNames(@Param("name") String name, @Param("offset") Integer offset,
+	List<CityDto> getByNames(@Param("name") String name, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -63,7 +63,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<CityDto> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * 都市情報を検索する
@@ -77,20 +77,20 @@ public interface CityViewMapper {
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getMinimumRanks(@Param("sort") Integer sort);
+	List<CityDto> getMinimumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 人口数量降順で都市情報を検索する
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getMaximumRanks(@Param("sort") Integer sort);
+	List<CityDto> getMaximumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 都市IDによって都市情報を検索する
 	 *
 	 * @param id 都市ID
-	 * @return CityView
+	 * @return CityDto
 	 */
-	CityView getCityInfoById(@Param("id") Integer id);
+	CityDto getCityInfoById(@Param("id") Integer id);
 }

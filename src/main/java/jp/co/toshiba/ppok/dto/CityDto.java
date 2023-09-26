@@ -1,8 +1,6 @@
 package jp.co.toshiba.ppok.dto;
 
-import jp.co.toshiba.ppok.entity.CityView;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * DTO class of CityInfo
@@ -10,10 +8,37 @@ import lombok.EqualsAndHashCode;
  * @author Administrator
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class CityDto extends CityView {
+public final class CityDto {
 
-	private static final long serialVersionUID = 7478219222594404009L;
+	/**
+	 * This field corresponds to the database column ID
+	 */
+	private Long id;
+
+	/**
+	 * This field corresponds to the database column NAME
+	 */
+	private String name;
+
+	/**
+	 * This field corresponds to the database column CONTINENT
+	 */
+	private String continent;
+
+	/**
+	 * This field corresponds to the database column NATION
+	 */
+	private String nation;
+
+	/**
+	 * This field corresponds to the database column DISTRICT
+	 */
+	private String district;
+
+	/**
+	 * This field corresponds to the database column POPULATION
+	 */
+	private Long population;
 
 	/**
 	 * This field corresponds to the database column LANGUAGE
