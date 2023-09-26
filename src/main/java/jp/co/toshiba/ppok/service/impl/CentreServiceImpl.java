@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityView;
+import jp.co.toshiba.ppok.mapper.CityDtoMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
-import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
@@ -47,7 +47,7 @@ public class CentreServiceImpl implements CentreService {
 	/**
 	 * CityViewマッパー
 	 */
-	private final CityViewMapper cityViewMapper;
+	private final CityDtoMapper cityDtoMapper;
 
 	/**
 	 * Languageマッパー
@@ -56,12 +56,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		final CityView cityInfoById = this.cityViewMapper.getCityInfoById(id);
-		final CityDto cityDto = new CityDto();
-		BeanUtils.copyProperties(cityInfoById, cityDto);
-		final String language = this.findLanguageByCty(cityInfoById.getNation());
-		cityDto.setLanguage(language);
-		return cityDto;
+		return this.cityDtoMapper.getCityInfoById(id);
 	}
 
 	@Override
