@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Param;
 /**
  * テーブルWORLD_COUNTRYのマッパー
  *
- * @author Administrator
- * @since 2022-12-16
+ * @author ArcaHozota
+ * @since 4.15
  */
 @Mapper
 public interface CountryMapper {

@@ -7,7 +7,8 @@ import lombok.Data;
 /**
  * 都市情報DTO
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 6.24
  */
 @Data
 public final class CityDto implements Serializable {

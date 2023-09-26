@@ -8,7 +8,8 @@ import lombok.Data;
 /**
  * Entity of Table WORLD_LANGUAGE
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 8.50
  */
 @Data
 public final class Language implements Serializable {

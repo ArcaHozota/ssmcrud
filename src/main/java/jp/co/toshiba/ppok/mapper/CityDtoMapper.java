@@ -13,7 +13,8 @@ import jp.co.toshiba.ppok.dto.CityDto;
 /**
  * ビューWORLD_CITY_VIEWのマッパー
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 8.84
  */
 @Mapper
 public interface CityDtoMapper {

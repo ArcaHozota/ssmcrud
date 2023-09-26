@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 /**
  * テーブルWORLD_LANGUAGEのマッパー
  *
- * @author Administrator
- * @since 2022-12-17
+ * @author ArcaHozota
+ * @since 8.52
  */
 @Mapper
 public interface LanguageMapper {

@@ -8,7 +8,8 @@ import lombok.Data;
 /**
  * Entity of Table WORLD_COUNTRY
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 1.00
  */
 @Data
 public final class Country implements Serializable {

@@ -10,7 +10,8 @@ import oracle.jdbc.driver.OracleSQLException;
 /**
  * テーブルWORLD_CITYのマッパー
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 4.15
  */
 @Mapper
 public interface CityMapper {

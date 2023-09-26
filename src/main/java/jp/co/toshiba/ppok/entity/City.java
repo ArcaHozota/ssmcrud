@@ -7,7 +7,8 @@ import lombok.Data;
 /**
  * Entity of Table WORLD_CITY
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 1.00
  */
 @Data
 public final class City implements Serializable {
