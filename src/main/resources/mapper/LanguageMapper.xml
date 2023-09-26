@@ -6,7 +6,7 @@
 		<id column="COUNTRY_CODE" jdbcType="NCHAR" property="countryCode" />
 		<id column="LANGUAGE" jdbcType="NVARCHAR" property="name" />
 	</resultMap>
-	<select id="getLanguage" resultType="java.lang.String">
+	<select id="getLanguageByNationName" resultType="java.lang.String">
 		SELECT DISTINCT
 		    CASE 
 		        WHEN (UM.OFPERCENTAGE - COALESCE(OM.OTPERCENTAGE, 0)) &gt;= 35 
