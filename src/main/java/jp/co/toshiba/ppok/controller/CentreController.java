@@ -24,7 +24,8 @@ import lombok.RequiredArgsConstructor;
 /**
  * Center Terminal Controller handle the retrieve and update requests.
  *
- * @author Administrator
+ * @author ArcaHozota
+ * @since 1.00
  */
 @RestController
 @RequestMapping("/public/grssmcrud")
