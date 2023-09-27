@@ -6,12 +6,13 @@
 		<id column="COUNTRY_CODE" jdbcType="NCHAR" property="countryCode" />
 		<id column="LANGUAGE" jdbcType="NVARCHAR" property="name" />
 	</resultMap>
-	<select id="getLanguageByNationName" resultType="java.lang.String">
-		SELECT DISTINCT
+	<select id="getLanguageByNationName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT
 		    CASE 
-		        WHEN (UM.OFPERCENTAGE - COALESCE(OM.OTPERCENTAGE, 0)) &gt;= 35 
+		        WHEN (UM.OFPERCENTAGE - COALESCE(OM.OTPERCENTAGE, 0)) >= 35 
 		            THEN UM.OFLANGUAGE 
-		        ELSE NVL(OM.OTLANGUAGE, UM.OFLANGUAGE) 
+		        ELSE COALESCE(OM.OTLANGUAGE, UM.OFLANGUAGE) 
 		        END AS LANGUAGE 
 		FROM
 		    WORLD_LANGUAGE WL 
@@ -19,9 +20,9 @@
 		        ON WCY.CODE = WL.COUNTRY_CODE 
 		    LEFT JOIN ( 
 		        SELECT
-		            WL.COUNTRY_CODE
-		            , WL.LANGUAGE AS OTLANGUAGE
-		            , WL.PERCENTAGE AS OTPERCENTAGE
+		            AL.COUNTRY_CODE
+		            , AL.LANGUAGE AS OTLANGUAGE
+		            , AL.PERCENTAGE AS OTPERCENTAGE
 		            , ROW_NUMBER() OVER ( 
 		                PARTITION BY
 		                    COUNTRY_CODE 
@@ -29,18 +30,18 @@
 		                    PERCENTAGE DESC
 		            ) AS RNK 
 		        FROM
-		            WORLD_LANGUAGE WL 
+		            WORLD_LANGUAGE AL 
 		        WHERE
-		            WL.DELETE_FLG = 'visible' 
-		            AND WL.IS_OFFICIAL = 'True'
+		            AL.DELETE_FLG = 'visible' 
+		            AND AL.IS_OFFICIAL = 'True'
 		    ) OM 
 		        ON OM.COUNTRY_CODE = WL.COUNTRY_CODE 
 		        AND OM.RNK = 1 
 		    LEFT JOIN ( 
 		        SELECT
-		            WL.COUNTRY_CODE
-		            , WL.LANGUAGE AS OFLANGUAGE
-		            , WL.PERCENTAGE AS OFPERCENTAGE
+		            AL.COUNTRY_CODE
+		            , AL.LANGUAGE AS OFLANGUAGE
+		            , AL.PERCENTAGE AS OFPERCENTAGE
 		            , ROW_NUMBER() OVER ( 
 		                PARTITION BY
 		                    COUNTRY_CODE 
@@ -48,14 +49,20 @@
 		                    PERCENTAGE DESC
 		            ) AS RNK 
 		        FROM
-		            WORLD_LANGUAGE WL 
+		            WORLD_LANGUAGE AL 
 		        WHERE
-		            WL.DELETE_FLG = 'visible' 
-		            AND WL.IS_OFFICIAL = 'False'
+		            AL.DELETE_FLG = 'visible' 
+		            AND AL.IS_OFFICIAL = 'False'
 		    ) UM 
 		        ON UM.COUNTRY_CODE = WL.COUNTRY_CODE 
 		        AND UM.RNK = 1 
 		WHERE
-		    WCY.NAME = #{nation,jdbcType=NVARCHAR}
+		    WCY.NAME = #{nation,jdbcType=NVARCHAR} 
+		GROUP BY
+		    WL.COUNTRY_CODE
+		    , UM.OFLANGUAGE
+		    , OM.OTLANGUAGE
+		    , UM.OFPERCENTAGE
+		    , OM.OTPERCENTAGE
 	</select>
 </mapper>
