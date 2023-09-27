@@ -17,7 +17,7 @@ import jp.co.toshiba.ppok.dto.CityDto;
  * @since 8.84
  */
 @Mapper
-public interface CityDtoMapper {
+public interface CityViewMapper {
 
 	/**
 	 * 国名によって都市情報を検索する
