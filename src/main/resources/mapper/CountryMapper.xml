@@ -7,40 +7,40 @@
 	</resultMap>
 	<select id="getAllContinents" resultType="java.lang.String">
 		SELECT
-		    CTY.CONTINENT 
+		    WCY.CONTINENT 
 		FROM
-		    WORLD_COUNTRY CTY 
+		    WORLD_COUNTRY WCY 
 		WHERE
 		    NOT EXISTS ( 
 		        SELECT
 		            1 
 		        FROM
-		            WORLD_COUNTRY CTN 
+		            WORLD_COUNTRY CTY 
 		        WHERE
-		            CTN.CONTINENT = CTY.CONTINENT 
-		            AND CTN.CODE > CTY.CODE
+		            CTY.CONTINENT = WCY.CONTINENT 
+		            AND CTY.CODE > WCY.CODE
 		    ) 
 		ORDER BY
-		    CTY.CONTINENT
+		    WCY.CONTINENT
 	</select>
 	<select id="getNationsByCnt" parameterType="java.lang.String"
 		resultType="java.lang.String">
 		SELECT
-		    CTY.NAME
+		    WCY.NAME 
 		FROM
-		    WORLD_COUNTRY CTY
+		    WORLD_COUNTRY WCY 
 		WHERE
-		    CTY.CONTINENT = #{continent,jdbcType=NVARCHAR}
+		    WCY.CONTINENT = #{continent,jdbcType=NVARCHAR} 
 		ORDER BY
-		    CTY.NAME
+		    WCY.NAME
 	</select>
 	<select id="getNationCode" parameterType="java.lang.String"
 		resultType="java.lang.String">
 		SELECT
-		    CTY.CODE
+		    WCY.CODE 
 		FROM
-		    WORLD_COUNTRY CTY
+		    WORLD_COUNTRY WCY 
 		WHERE
-		    CTY.NAME = #{name,jdbcType=NVARCHAR}
+		    WCY.NAME = #{name,jdbcType=NVARCHAR}
 	</select>
 </mapper>
