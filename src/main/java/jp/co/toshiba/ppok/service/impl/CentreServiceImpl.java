@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
-import jp.co.toshiba.ppok.mapper.CityDtoMapper;
 import jp.co.toshiba.ppok.mapper.CityMapper;
+import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
 import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
@@ -46,7 +46,7 @@ public class CentreServiceImpl implements CentreService {
 	/**
 	 * CityViewマッパー
 	 */
-	private final CityDtoMapper cityDtoMapper;
+	private final CityViewMapper cityViewMapper;
 
 	/**
 	 * Languageマッパー
@@ -55,7 +55,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		return this.cityDtoMapper.getCityInfoById(id);
+		return this.cityViewMapper.getCityInfoById(id);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityDto cityDto = this.cityDtoMapper.getCityInfoById(id);
+		final CityDto cityDto = this.cityViewMapper.getCityInfoById(id);
 		final String firstName = cityDto.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityDto.getContinent()).stream()
@@ -123,7 +123,7 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> maximumRanks = this.cityDtoMapper.getMaximumRanks(sort);
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort);
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
 				}
@@ -136,25 +136,25 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> minimumRanks = this.cityDtoMapper.getMinimumRanks(sort);
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort);
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
 				}
 				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum,
 						pageSize);
 			}
-			final Integer keyNationsCnt = this.cityDtoMapper.getCityInfosByNationCnt(hankakuKeyword);
+			final Integer keyNationsCnt = this.cityViewMapper.getCityInfosByNationCnt(hankakuKeyword);
 			if (keyNationsCnt > 0) {
-				final List<CityDto> keyNations = this.cityDtoMapper.getCityInfosByNation(hankakuKeyword, offset,
+				final List<CityDto> keyNations = this.cityViewMapper.getCityInfosByNation(hankakuKeyword, offset,
 						pageSize);
 				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
 			}
-			final Integer keyNamesCnt = this.cityDtoMapper.getCityInfosByNameCnt(hankakuKeyword);
-			final List<CityDto> keyNames = this.cityDtoMapper.getCityInfosByName(hankakuKeyword, offset, pageSize);
+			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
+			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize);
 			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
 		}
-		final Integer cityInfosCnt = this.cityDtoMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityDtoMapper.getCityInfos(offset, pageSize);
+		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize);
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
 	}
 
