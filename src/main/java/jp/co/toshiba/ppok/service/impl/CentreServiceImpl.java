@@ -57,7 +57,9 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public CityDto getCityInfo(final Integer id) {
 		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
-		return (CityDto) cityView;
+		final CityDto cityDto = new CityDto();
+		BeanUtils.copyProperties(cityView, cityDto);
+		return cityDto;
 	}
 
 	@Override
@@ -104,10 +106,10 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityView cityDto = this.cityViewMapper.getCityInfoById(id);
-		final String firstName = cityDto.getNation();
+		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
+		final String firstName = cityView.getNation();
 		nationList.add(firstName);
-		final List<String> countries = this.countryMapper.getNationsByCnt(cityDto.getContinent()).stream()
+		final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
 				.filter(item -> StringUtils.isNotEqual(firstName, item)).collect(Collectors.toList());
 		nationList.addAll(countries);
 		return nationList;
