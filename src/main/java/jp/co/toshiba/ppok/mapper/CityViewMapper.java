@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import jp.co.toshiba.ppok.dto.CityDto;
+import jp.co.toshiba.ppok.entity.CityView;
 
 /**
  * ビューWORLD_CITY_VIEWのマッパー
@@ -27,7 +27,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getCityInfosByNation(@Param("nation") String nation, @Param("offset") Integer offset,
+	List<CityView> getCityInfosByNation(@Param("nation") String nation, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -46,7 +46,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getCityInfosByName(@Param("name") String name, @Param("offset") Integer offset,
+	List<CityView> getCityInfosByName(@Param("name") String name, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 
 	/**
@@ -64,7 +64,7 @@ public interface CityViewMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<CityView> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * 都市情報を検索する
@@ -78,20 +78,20 @@ public interface CityViewMapper {
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getMinimumRanks(@Param("sort") Integer sort);
+	List<CityView> getMinimumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 人口数量降順で都市情報を検索する
 	 *
 	 * @return List<CityInfo>
 	 */
-	List<CityDto> getMaximumRanks(@Param("sort") Integer sort);
+	List<CityView> getMaximumRanks(@Param("sort") Integer sort);
 
 	/**
 	 * 都市IDによって都市情報を検索する
 	 *
 	 * @param id 都市ID
-	 * @return CityDto
+	 * @return CityView
 	 */
-	CityDto getCityInfoById(@Param("id") Integer id);
+	CityView getCityInfoById(@Param("id") Integer id);
 }

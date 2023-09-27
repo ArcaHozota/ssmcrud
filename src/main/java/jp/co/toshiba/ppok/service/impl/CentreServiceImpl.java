@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
+import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.mapper.CountryMapper;
@@ -55,7 +56,8 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public CityDto getCityInfo(final Integer id) {
-		return this.cityViewMapper.getCityInfoById(id);
+		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
+		return (CityDto) cityView;
 	}
 
 	@Override
@@ -102,7 +104,7 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public List<String> findNationsByCityId(final Integer id) {
 		final List<String> nationList = new ArrayList<>();
-		final CityDto cityDto = this.cityViewMapper.getCityInfoById(id);
+		final CityView cityDto = this.cityViewMapper.getCityInfoById(id);
 		final String firstName = cityDto.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityDto.getContinent()).stream()
@@ -123,7 +125,11 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort);
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream().map(item -> {
+					final CityDto cityDto = new CityDto();
+					BeanUtils.copyProperties(item, cityDto);
+					return cityDto;
+				}).collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
 				}
@@ -136,7 +142,11 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort);
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream().map(item -> {
+					final CityDto cityDto = new CityDto();
+					BeanUtils.copyProperties(item, cityDto);
+					return cityDto;
+				}).collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
 				}
@@ -145,16 +155,29 @@ public class CentreServiceImpl implements CentreService {
 			}
 			final Integer keyNationsCnt = this.cityViewMapper.getCityInfosByNationCnt(hankakuKeyword);
 			if (keyNationsCnt > 0) {
-				final List<CityDto> keyNations = this.cityViewMapper.getCityInfosByNation(hankakuKeyword, offset,
-						pageSize);
+				final List<CityDto> keyNations = this.cityViewMapper
+						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream().map(item -> {
+							final CityDto cityDto = new CityDto();
+							BeanUtils.copyProperties(item, cityDto);
+							return cityDto;
+						}).collect(Collectors.toList());
 				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
 			}
 			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
-			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize);
+			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize)
+					.stream().map(item -> {
+						final CityDto cityDto = new CityDto();
+						BeanUtils.copyProperties(item, cityDto);
+						return cityDto;
+					}).collect(Collectors.toList());
 			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
 		}
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize);
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream().map(item -> {
+			final CityDto cityDto = new CityDto();
+			BeanUtils.copyProperties(item, cityDto);
+			return cityDto;
+		}).collect(Collectors.toList());
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
 	}
 
