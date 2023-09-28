@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,29 +56,33 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public CityDto getCityInfo(final Integer id) {
 		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
-		final CityDto cityDto = new CityDto();
-		BeanUtils.copyProperties(cityView, cityDto);
-		return cityDto;
+		return new CityDto(cityView.getId(), cityView.getName(), cityView.getContinent(), cityView.getNation(),
+				cityView.getDistrict(), cityView.getPopulation(), cityView.getLanguage());
 	}
 
 	@Override
 	public void save(final CityDto cityDto) {
-		final City city = new City();
-		BeanUtils.copyProperties(cityDto, city, "continent", "nation", "language");
 		final Long saiban = this.cityMapper.saiban();
-		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
+		final String nationCode = this.countryMapper.getNationCode(cityDto.nation());
+		final City city = new City();
 		city.setId(saiban);
+		city.setName(cityDto.name());
 		city.setCountryCode(nationCode);
+		city.setDistrict(cityDto.district());
+		city.setPopulation(cityDto.population());
 		city.setDeleteFlg(Messages.MSG007);
 		this.cityMapper.saveById(city);
 	}
 
 	@Override
 	public void update(final CityDto cityDto) {
+		final String nationCode = this.countryMapper.getNationCode(cityDto.nation());
 		final City city = new City();
-		BeanUtils.copyProperties(cityDto, city, "continent", "nation", "language");
-		final String nationCode = this.countryMapper.getNationCode(cityDto.getNation());
+		city.setId(cityDto.id());
+		city.setName(cityDto.name());
 		city.setCountryCode(nationCode);
+		city.setDistrict(cityDto.district());
+		city.setPopulation(cityDto.population());
 		this.cityMapper.updateById(city);
 	}
 
@@ -127,11 +130,10 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream().map(item -> {
-					final CityDto cityDto = new CityDto();
-					BeanUtils.copyProperties(item, cityDto);
-					return cityDto;
-				}).collect(Collectors.toList());
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
 				}
@@ -144,11 +146,10 @@ public class CentreServiceImpl implements CentreService {
 				if (StringUtils.isNotEmpty(keisan)) {
 					sort = Integer.parseInt(keisan);
 				}
-				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream().map(item -> {
-					final CityDto cityDto = new CityDto();
-					BeanUtils.copyProperties(item, cityDto);
-					return cityDto;
-				}).collect(Collectors.toList());
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.collect(Collectors.toList());
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
 				}
@@ -158,28 +159,24 @@ public class CentreServiceImpl implements CentreService {
 			final Integer keyNationsCnt = this.cityViewMapper.getCityInfosByNationCnt(hankakuKeyword);
 			if (keyNationsCnt > 0) {
 				final List<CityDto> keyNations = this.cityViewMapper
-						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream().map(item -> {
-							final CityDto cityDto = new CityDto();
-							BeanUtils.copyProperties(item, cityDto);
-							return cityDto;
-						}).collect(Collectors.toList());
+						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.collect(Collectors.toList());
 				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
 			}
 			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
 			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize)
-					.stream().map(item -> {
-						final CityDto cityDto = new CityDto();
-						BeanUtils.copyProperties(item, cityDto);
-						return cityDto;
-					}).collect(Collectors.toList());
+					.stream().map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(),
+							item.getNation(), item.getDistrict(), item.getPopulation(), item.getLanguage()))
+					.collect(Collectors.toList());
 			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
 		}
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream().map(item -> {
-			final CityDto cityDto = new CityDto();
-			BeanUtils.copyProperties(item, cityDto);
-			return cityDto;
-		}).collect(Collectors.toList());
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream()
+				.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+						item.getDistrict(), item.getPopulation(), item.getLanguage()))
+				.collect(Collectors.toList());
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
 	}
 
