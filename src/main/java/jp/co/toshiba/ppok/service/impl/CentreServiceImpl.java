@@ -133,7 +133,7 @@ public class CentreServiceImpl implements CentreService {
 				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream()
 						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
 								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.collect(Collectors.toList());
+						.toList();
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
 				}
@@ -149,7 +149,7 @@ public class CentreServiceImpl implements CentreService {
 				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream()
 						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
 								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.collect(Collectors.toList());
+						.toList();
 				if (pageNum * pageSize >= sort) {
 					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
 				}
@@ -162,21 +162,21 @@ public class CentreServiceImpl implements CentreService {
 						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream()
 						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
 								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.collect(Collectors.toList());
+						.toList();
 				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
 			}
 			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
 			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize)
 					.stream().map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(),
 							item.getNation(), item.getDistrict(), item.getPopulation(), item.getLanguage()))
-					.collect(Collectors.toList());
+					.toList();
 			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
 		}
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
 		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream()
 				.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
 						item.getDistrict(), item.getPopulation(), item.getLanguage()))
-				.collect(Collectors.toList());
+				.toList();
 		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
 	}
 
