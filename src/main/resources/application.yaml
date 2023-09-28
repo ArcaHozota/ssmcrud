@@ -17,8 +17,8 @@ spring:
 mybatis:
   configuration:
     lazy-loading-enabled: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: jp.co.toshiba.ppok.entity
 # DBFile is in the classpath:public/dbfile/world.sql
