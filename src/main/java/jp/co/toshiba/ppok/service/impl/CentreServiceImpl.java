@@ -2,7 +2,6 @@ package jp.co.toshiba.ppok.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,7 +112,7 @@ public class CentreServiceImpl implements CentreService {
 		final String firstName = cityView.getNation();
 		nationList.add(firstName);
 		final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
-				.filter(item -> StringUtils.isNotEqual(firstName, item)).collect(Collectors.toList());
+				.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
 		nationList.addAll(countries);
 		return nationList;
 	}

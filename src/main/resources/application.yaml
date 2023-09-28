@@ -16,7 +16,6 @@ spring:
       enabled: ALWAYS
 mybatis:
   configuration:
-    database-id: oracle
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
