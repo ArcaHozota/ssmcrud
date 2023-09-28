@@ -11,7 +11,7 @@ import lombok.Data;
  * @since 4.14
  */
 @Data
-public class CityView implements Serializable {
+public final class CityView implements Serializable {
 
 	private static final long serialVersionUID = 3899140616215776494L;
 
