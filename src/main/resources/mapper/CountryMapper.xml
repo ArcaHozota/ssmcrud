@@ -11,7 +11,8 @@
 		FROM
 		    WORLD_COUNTRY WCY 
 		WHERE
-		    NOT EXISTS ( 
+			WCY.DELETE_FLG = 'visible'
+		    AND NOT EXISTS ( 
 		        SELECT
 		            1 
 		        FROM
@@ -30,7 +31,8 @@
 		FROM
 		    WORLD_COUNTRY WCY 
 		WHERE
-		    WCY.CONTINENT = #{continent,jdbcType=NVARCHAR} 
+		    WCY.DELETE_FLG = 'visible'
+		    AND WCY.CONTINENT = #{continent,jdbcType=NVARCHAR} 
 		ORDER BY
 		    WCY.NAME
 	</select>
@@ -41,6 +43,7 @@
 		FROM
 		    WORLD_COUNTRY WCY 
 		WHERE
-		    WCY.NAME = #{name,jdbcType=NVARCHAR}
+			WCY.DELETE_FLG = 'visible'
+		    AND WCY.NAME = #{name,jdbcType=NVARCHAR}
 	</select>
 </mapper>

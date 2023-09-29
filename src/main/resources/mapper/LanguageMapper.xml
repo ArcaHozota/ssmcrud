@@ -57,7 +57,8 @@
 		        ON UM.COUNTRY_CODE = WL.COUNTRY_CODE 
 		        AND UM.RNK = 1 
 		WHERE
-		    WCY.NAME = #{nation,jdbcType=NVARCHAR} 
+			WL.DELETE_FLG = 'visible'
+		    AND WCY.NAME = #{nation,jdbcType=NVARCHAR} 
 		GROUP BY
 		    WL.COUNTRY_CODE
 		    , UM.OFLANGUAGE
