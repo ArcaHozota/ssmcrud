@@ -49,8 +49,9 @@
 				WCN.POPULATION = #{population,jdbcType=NUMERIC},
 			</if>
 		</set>
-		WHERE WCN.DELETE_FLG = 'visible'
-		AND WCN.ID = #{id,jdbcType=NUMERIC}
+		WHERE 
+			WCN.DELETE_FLG = 'visible'
+			AND WCN.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="saiban" resultType="java.lang.Long">
 		SELECT
@@ -65,6 +66,7 @@
 		FROM
 		    WORLD_CITY WCN 
 		WHERE
-		    WCN.NAME = #{cityName,jdbcType=NVARCHAR}
+			WCN.DELETE_FLG = 'visible'
+			AND WCN.NAME = #{cityName,jdbcType=NVARCHAR}
 	</select>
 </mapper>
