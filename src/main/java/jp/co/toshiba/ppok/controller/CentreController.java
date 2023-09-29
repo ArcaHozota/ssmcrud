@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
  * @since 1.00
  */
 @RestController
-@RequestMapping("/public/grssmcrud")
+@RequestMapping("/public/ssmcrud")
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CentreController {
 
