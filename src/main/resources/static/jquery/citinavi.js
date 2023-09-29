@@ -39,7 +39,7 @@ function buildCityTable(result) {
 		let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
 		let nameTd;
 		if (cityName.length >= 15) {
-			nameTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(cityName);
+			nameTd = $("<td class='text-center' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(cityName);
 		} else {
 			nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
 		}
@@ -54,14 +54,14 @@ function buildCityTable(result) {
 		}
 		let districtTd;
 		if (districtName.length >= 15) {
-			districtTd = $("<td class='text-center' style='width:120px;font-size:12px;vertical-align:bottom;'></td>").append(districtName);
+			districtTd = $("<td class='text-center' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(districtName);
 		} else {
 			districtTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom'></td>").append(districtName);
 		}
 		let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
 		let languageTd;
 		if (languageName.length >= 15) {
-			languageTd = $("<td class='text-center' style='width:80px;font-size:12px;vertical-align:bottom;'></td>").append(languageName);
+			languageTd = $("<td class='text-center' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(languageName);
 		} else {
 			languageTd = $("<td class='text-center' style='width:80px;font-size:15px;vertical-align:bottom;'></td>").append(languageName);
 		}
