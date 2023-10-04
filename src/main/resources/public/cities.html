@@ -6,13 +6,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CityList</title>
-	<!--import the jQuery framework-->
+	<!--フレームワークjQueryを導入-->
 	<script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
-	<!--import the bootstrap framework-->
+	<!--フレームワークBootstrapを導入-->
 	<link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="../static/bootstrap-4.6.2-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-	<script type="text/javascript" src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+	<script type="text/javascript" src="../static/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -20,48 +20,46 @@
 		caption {
 			font-size: 12px;
 		}
-
-		.reduce-margin {
-			margin-bottom: 0px;
-		}
 	</style>
-	<!-- Build the displayed web page. -->
+	<!-- ウェブページを構築する -->
 	<div class="container">
-		<!-- Title -->
+		<!-- タイトル -->
 		<div class="row">
 			<div class="col-lg-12">
 				<h1>グローバル都市一覧</h1>
 			</div>
 		</div>
-		<!-- Button -->
+		<!-- 検索バーとボタン -->
 		<div class="row">
-			<form class="form-inline col-lg-8" role="form">
-				<div class="input-group has-feedback col-lg-8">
+			<form class="form-inline col-lg-7" role="form">
+				<div class="input-group has-feedback col-lg-5">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">@</span>
 					</div>
-					<input id="keywordInput" class="form-control" type="text" placeholder="都市名を入力してください"
+					<input id="keywordInput" class="form-control" type="text" placeholder="検索条件を入力してください"
 						aria-describedby="button-addon4">
 					<div class="input-group-append" id="button-addon4">
-						<button id="searchBtn" class="btn btn-warning my-2 my-sm-0" type="button">
-							<i class="bi bi-search"></i> 検索
-						</button>
+						<div class="input-group-append" id="button-addon4">
+							<button id="searchBtn" class="btn btn-warning my-2 my-sm-0" type="button">
+								<i class="bi bi-search"></i> 検索
+							</button>
+						</div>
 					</div>
 				</div>
 			</form>
-			<div class="col-lg-2 offset-lg-2">
+			<div class="col-lg-2 offset-lg-3">
 				<button class="btn btn-success" id="cityAddModalBtn">
 					<i class="bi bi-calendar2-plus-fill"></i> 情報追加
 				</button>
 			</div>
 		</div>
-		<!-- Data -->
+		<!-- データ -->
 		<div class="row">
 			<div class="col-lg-12">
-				<table id="cityTable" class="table table-sm reduce-margin">
+				<table id="cityTable" class="table table-sm">
 					<caption>Information of populous cities gathered around 2000s'</caption>
 					<thead>
-						<tr class="thead-dark">
+						<tr class="table-success">
 							<th scope="col" class="text-center" style="width: 70px;">都市ID</th>
 							<th scope="col" class="text-center" style="width: 120px;">都市名</th>
 							<th scope="col" class="text-center" style="width: 100px;">大陸</th>
@@ -72,9 +70,9 @@
 							<th scope="col" class="text-center" style="width: 120px;">操作</th>
 						</tr>
 					</thead>
-					<tbody id="cityTableBody"></tbody>
+					<tbody id="cityTableBody" class="table-group-divider"></tbody>
 				</table>
-				<!-- Info of the navigated pages -->
+				<!-- ページナビ -->
 				<div class="row">
 					<div id="pageInfos" class="col-lg-5"></div>
 					<div id="pageNavi" class="col-lg-7 d-flex justify-content-end"></div>
@@ -82,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal for inputting city info -->
+	<!-- データ追加モーダル -->
 	<div class="modal fade" id="cityAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -92,33 +90,33 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group row">
-							<label for="nameInput" class="col-sm-3 control-label text-right mb-4">都市名</label>
+							<label for="nameInput" class="col-sm-3 control-label text-right mb-3">都市名</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="nameInput" placeholder="都市の正式的な名称">
 								<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="continentInput" class="col-sm-3 control-label text-right mb-4">大陸</label>
+							<label for="continentInput" class="col-sm-3 control-label text-right mb-3">大陸</label>
 							<div class="col-sm-9">
-								<select id="continentInput" class="form-control"></select>
+								<select id="continentInput" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="nationInput" class="col-sm-3 col-form-label text-right mb-3">国家</label>
 							<div class="col-sm-9">
-								<select id="nationInput" class="form-control"></select>
+								<select id="nationInput" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="districtInput" class="col-sm-3 control-label text-right mb-4">地域</label>
+							<label for="districtInput" class="col-sm-3 control-label text-right mb-3">地域</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="districtInput" placeholder="都市の地域"> <span
 									class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="populationInput" class="col-sm-3 control-label text-right mb-4">人口数量</label>
+							<label for="populationInput" class="col-sm-3 control-label text-right mb-3">人口数量</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="populationInput" placeholder="都市の人口数量">
 								<span class="help-block"></span>
@@ -127,13 +125,13 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
 					<button type="button" class="btn btn-primary" id="cityInfoSaveBtn">保存</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Modal for modifying city info -->
+	<!-- データ編集モーダル -->
 	<div class="modal fade" id="cityEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -143,13 +141,13 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group row">
-							<label for="nameEdit" class="col-sm-3 control-label text-right mb-4">都市名</label>
+							<label for="nameEdit" class="col-sm-3 control-label text-right mb-3">都市名</label>
 							<div class="col-sm-9">
 								<p class="form-control-static" id="nameEdit"></p>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="continentEdit" class="col-sm-3 control-label text-right mb-4">大陸</label>
+							<label for="continentEdit" class="col-sm-3 control-label text-right mb-3">大陸</label>
 							<div class="col-sm-9">
 								<p class="form-control-static" id="continentEdit"></p>
 							</div>
@@ -157,7 +155,7 @@
 						<div class="form-group row">
 							<label for="nationEdit" class="col-sm-3 control-label text-right mb-3">国家</label>
 							<div class="col-sm-9">
-								<select id="nationEdit" class="form-control"></select>
+								<select id="nationEdit" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -167,14 +165,14 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="districtEdit" class="col-sm-3 control-label text-right mb-4">地域</label>
+							<label for="districtEdit" class="col-sm-3 control-label text-right mb-3">地域</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="districtEdit" placeholder="都市の地域"> <span
 									class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="populationEdit" class="col-sm-3 control-label text-right mb-4">人口数量</label>
+							<label for="populationEdit" class="col-sm-3 control-label text-right mb-3">人口数量</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="populationEdit" placeholder="都市の人口数量"> <span
 									class="help-block"></span>
@@ -183,7 +181,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">閉じる</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">閉じる</button>
 					<button type="button" class="btn btn-info" id="cityInfoChangeBtn">変更</button>
 				</div>
 			</div>

@@ -4,12 +4,12 @@ let totalRecord, totalPages, currentPage;
 
 let searchName;
 
-// After the page load, send the ajax request to get page infos.
+// ページの読み込み後、ajaxリクエストを送信してページ情報を取得する
 $(document).ready(function() {
 	toSelectedPg(1, searchName);
 });
 
-// Transfer to clicked page numbers.
+// クリックしたページ番号に転送する
 function toSelectedPg(pageNum, searchName) {
 	$.ajax({
 		url: pathdeApp + '/city',
@@ -26,9 +26,9 @@ function toSelectedPg(pageNum, searchName) {
 	})
 }
 
-// Analyze and display the data.
+// データを分析して表示する
 function buildCityTable(result) {
-	// Emptying the former table.
+	// 元のテーブルを空にする
 	$("#cityTableBody").empty();
 	let index = result.extend.pageInfo.records;
 	$.each(index, (index, item) => {
@@ -77,7 +77,7 @@ function buildCityTable(result) {
 	});
 }
 
-// Analyze and display the page infos.
+// ページ情報を分析して表示する
 function buildPageInfos(result) {
 	let pageInfos = $("#pageInfos");
 	pageInfos.empty();
@@ -88,7 +88,7 @@ function buildPageInfos(result) {
 		+ " pages, " + totalRecord + " records found.");
 }
 
-// Analyze and display the navigated pages.
+// ナビゲートされたページを分析して表示する
 function buildPageNavi(result) {
 	$("#pageNavi").empty();
 	let ul = $("<ul></ul>").addClass("pagination");
@@ -140,29 +140,31 @@ function buildPageNavi(result) {
 	navElement.appendTo("#pageNavi");
 }
 
-// Add click function to search btn.
+// 検索ボタンのクリック機能を追加する
 $("#searchBtn").on('click', function() {
 	searchName = $("#keywordInput").val().trim().toString();
 	toSelectedPg(1, searchName);
 });
 
-// Add click function to the input modal.
+// 入力モーダルにクリック機能を追加する
 $("#cityAddModalBtn").on('click', function() {
 	formReset("#cityAddModal form");
 	getContinent("#continentInput");
 	getNations($("#nationInput"), 'Africa');
-	$("#cityAddModal").modal({
+	let addModal = new bootstrap.Modal(document.getElementById('cityAddModal'), {
 		backdrop: 'static'
 	});
+	addModal.show();
 });
 
-// Add click function to select of continent.
+
+// 大陸選択にクリック機能を追加する
 $("#continentInput").on('change', function() {
 	let continentVal = $("#continentInput option:selected").val();
 	getNations($("#nationInput"), continentVal);
 })
 
-// Get the name of continent.
+// 大陸の名称を取得する
 function getContinent(element) {
 	$(element).empty();
 	$.ajax({
@@ -178,7 +180,7 @@ function getContinent(element) {
 	});
 }
 
-// Get the name of country.
+// 国の名称を取得する
 function getNations(element, continentVal) {
 	$(element).empty();
 	$.ajax({
@@ -195,7 +197,7 @@ function getNations(element, continentVal) {
 	});
 }
 
-// Analyze the input name is duplicate or not.
+// 入力された名前が重複していないかを分析する
 $("#nameInput").change(
 	function() {
 		let cityName = this.value;
@@ -216,7 +218,7 @@ $("#nameInput").change(
 		});
 	});
 
-// Click, save and check the input data format.
+// クリックして保存し、入力データ形式を確認する
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputDistrict = $("#districtInput").val().trim();
 	let inputPopulation = $("#populationInput").val().trim();
@@ -226,40 +228,35 @@ $("#cityInfoSaveBtn").on('click', function() {
 		return false;
 	} else if (!regularDistrict.test(inputDistrict)
 		&& !regularPopulation.test(inputPopulation)) {
-		showValidationMsg("#districtInput", "error",
-			"Districts' name should be in 2~33 Latin alphabets.");
-		showValidationMsg("#populationInput", "error",
-			"Population should be in 4~18 numbers.");
+		showValidationMsg("#districtInput", "error", "入力した地域名称が2桁から23桁までのローマ字にしなければなりません。");
+		showValidationMsg("#populationInput", "error", "入力した人口数量が4桁から18桁までの数字にしなければなりません。");
 		return false;
 	} else if (!regularDistrict.test(inputDistrict)
 		&& regularPopulation.test(inputPopulation)) {
-		showValidationMsg("#districtInput", "error",
-			"Districts' name should be in 2~33 Latin alphabets.");
+		showValidationMsg("#districtInput", "error", "入力した地域名称が2桁から23桁までのローマ字にしなければなりません。");
 		showValidationMsg("#populationInput", "success", "√");
 		return false;
 	} else if (regularDistrict.test(inputDistrict)
 		&& !regularPopulation.test(inputPopulation)) {
 		showValidationMsg("#districtInput", "success", "√");
-		showValidationMsg("#populationInput", "error",
-			"Population should be in 4~18 numbers.");
+		showValidationMsg("#populationInput", "error", "入力した人口数量が4桁から18桁までの数字にしなければなりません。");
 		return false;
 	} else {
 		showValidationMsg("#districtInput", "success", "√");
 		showValidationMsg("#populationInput", "success", "√");
-		// Send an ajax request to commit save options.
+		// ajaxリクエストを送信して保存オプションをコミットする
 		$.ajax({
 			url: pathdeApp + '/city',
 			type: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			dataType: 'json',
-			data: JSON
-				.stringify({
-					'name': $("#nameInput").val().trim(),
-					'continent': $("#continentInput option:selected").val(),
-					'nation': $("#nationInput option:selected").val(),
-					'district': inputDistrict,
-					'population': inputPopulation
-				}),
+			data: JSON.stringify({
+				'name': $("#nameInput").val().trim(),
+				'continent': $("#continentInput option:selected").val(),
+				'nation': $("#nationInput option:selected").val(),
+				'district': inputDistrict,
+				'population': inputPopulation
+			}),
 			success: function(result) {
 				if (result.code === 200) {
 					$("#cityAddModal").modal('hide');
@@ -273,18 +270,19 @@ $("#cityInfoSaveBtn").on('click', function() {
 	}
 });
 
-// Add click function to the edit modal.
+// 編集モーダルにクリック機能を追加する
 $(document).on('click', '.edit_btn', function() {
 	let editId = $(this).attr("editId");
 	formReset("#cityEditModal form");
 	getCityInfo(editId);
 	$("#cityInfoChangeBtn").attr("editId", editId);
-	$("#cityEditModal").modal({
+	let editModal = new bootstrap.Modal(document.getElementById('cityEditModal'), {
 		backdrop: 'static'
 	});
+	editModal.show();
 });
 
-// Get the selected city infos.
+// 選択した都市情報を取得する
 function getCityInfo(id) {
 	$.ajax({
 		url: pathdeApp + '/city/' + id,
@@ -302,7 +300,7 @@ function getCityInfo(id) {
 	});
 }
 
-// Get the name of country.
+// 都市IDによって国の名称を取得する
 function getNationsById(element, id) {
 	$(element).empty();
 	$.ajax({
@@ -317,13 +315,13 @@ function getNationsById(element, id) {
 	});
 }
 
-// Add click function to select of nation.
+// 国のセレクターにクリック機能を追加する
 $("#nationEdit").on('change', function() {
 	let nationVal = $("#nationEdit option:selected").val();
 	getLanguage($("#languageEdit"), nationVal);
 })
 
-// Get the name of country.
+// 言語の名称を取得する
 function getLanguage(element, nationVal) {
 	$(element).empty();
 	$.ajax({
@@ -336,7 +334,7 @@ function getLanguage(element, nationVal) {
 	});
 }
 
-// Submit the change of city infos.
+// 都市情報の変更を送信する
 $("#cityInfoChangeBtn").on('click', function() {
 	let inputDistrict = $("#districtEdit").val().trim();
 	let inputPopulation = $("#populationEdit").val().trim();
@@ -345,24 +343,20 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let editId = $(this).attr("editId");
 	if (!regularDistrict.test(inputDistrict)
 		&& !regularPopulation.test(inputPopulation)) {
-		showValidationMsg("#districtEdit", "error",
-			"Districts' name should be in 2~33 Latin alphabets.");
-		showValidationMsg("#populationEdit", "error",
-			"Population should be in 4~18 numbers.");
+		showValidationMsg("#districtEdit", "error", "入力した地域名称が2桁から23桁までのローマ字にしなければなりません。");
+		showValidationMsg("#populationEdit", "error", "入力した人口数量が4桁から18桁までの数字にしなければなりません。");
 		return false;
 	}
 	if (!regularDistrict.test(inputDistrict)
 		&& regularPopulation.test(inputPopulation)) {
-		showValidationMsg("#districtEdit", "error",
-			"Districts' name should be in 2~33 Latin alphabets.");
+		showValidationMsg("#districtEdit", "error", "入力した地域名称が2桁から23桁までのローマ字にしなければなりません。");
 		showValidationMsg("#populationEdit", "success", "√");
 		return false;
 	}
 	if (regularDistrict.test(inputDistrict)
 		&& !regularPopulation.test(inputPopulation)) {
 		showValidationMsg("#districtEdit", "success", "√");
-		showValidationMsg("#populationEdit", "error",
-			"Population should be in 4~18 numbers.");
+		showValidationMsg("#populationEdit", "error", "入力した人口数量が4桁から18桁までの数字にしなければなりません。");
 		return false;
 	}
 	showValidationMsg("#districtEdit", "success", "√");
@@ -387,7 +381,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	});
 });
 
-// Add click function to the delete modal.
+// 削除ボタンにクリック機能を追加する
 $(document).on('click', '.delete_btn', function() {
 	let cityName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let cityId = $(this).attr("deleteId");
@@ -402,14 +396,14 @@ $(document).on('click', '.delete_btn', function() {
 	}
 });
 
-// Reset the modal form.
+// モーダルフォームをリセットする
 function formReset(element) {
 	$(element)[0].reset();
 	$(element).find("*").removeClass("has-error has-success");
 	$(element).find(".help-block").text("");
 }
 
-// Add status color to the modal form input rows.
+// モーダルフォームの入力行にステータスカラーを追加する
 function showValidationMsg(element, status, msg) {
 	$(element).parent().removeClass("has-success has-error");
 	$(element).next("span").text("");
