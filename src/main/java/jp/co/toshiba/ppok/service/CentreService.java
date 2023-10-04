@@ -14,35 +14,6 @@ import jp.co.toshiba.ppok.utils.Pagination;
 public interface CentreService {
 
 	/**
-	 * 都市IDによって都市情報を検索する
-	 *
-	 * @param id 都市ID
-	 * @return CityDto
-	 */
-	CityDto getCityInfo(Integer id);
-
-	/**
-	 * 入力した都市情報を保存する
-	 *
-	 * @param cityDto 都市情報DTO
-	 */
-	void save(CityDto cityDto);
-
-	/**
-	 * 入力した都市情報を更新する
-	 *
-	 * @param cityDto 都市情報DTO
-	 */
-	void update(CityDto cityDto);
-
-	/**
-	 * 都市IDによって都市情報を削除する
-	 *
-	 * @param id 都市ID
-	 */
-	void removeById(Integer id);
-
-	/**
 	 * 都市名が重複することを確認する
 	 *
 	 * @param cityName 都市名
@@ -56,22 +27,6 @@ public interface CentreService {
 	 * @return List<String>
 	 */
 	List<String> findAllContinents();
-
-	/**
-	 * 大陸によって全ての国の名称リストを取得する
-	 *
-	 * @param continent 大陸名称
-	 * @return List<String>
-	 */
-	List<String> findNationsByCnt(String continent);
-
-	/**
-	 * 選択された都市の大陸によって全ての国の名称リストを取得する
-	 *
-	 * @param id 都市ID
-	 * @return List<String>
-	 */
-	List<String> findNationsByCityId(Integer id);
 
 	/**
 	 * キーワードによって都市情報を検索する
@@ -90,4 +45,49 @@ public interface CentreService {
 	 * @return String
 	 */
 	String findLanguageByCty(String nation);
+
+	/**
+	 * 選択された都市の大陸によって全ての国の名称リストを取得する
+	 *
+	 * @param id 都市ID
+	 * @return List<String>
+	 */
+	List<String> findNationsByCityId(Integer id);
+
+	/**
+	 * 大陸によって全ての国の名称リストを取得する
+	 *
+	 * @param continent 大陸名称
+	 * @return List<String>
+	 */
+	List<String> findNationsByCnt(String continent);
+
+	/**
+	 * 都市IDによって都市情報を検索する
+	 *
+	 * @param id 都市ID
+	 * @return CityDto
+	 */
+	CityDto getCityInfo(Integer id);
+
+	/**
+	 * 都市IDによって都市情報を削除する
+	 *
+	 * @param id 都市ID
+	 */
+	void removeById(Integer id);
+
+	/**
+	 * 入力した都市情報を保存する
+	 *
+	 * @param cityDto 都市情報DTO
+	 */
+	void save(CityDto cityDto);
+
+	/**
+	 * 入力した都市情報を更新する
+	 *
+	 * @param cityDto 都市情報DTO
+	 */
+	void update(CityDto cityDto);
 }
