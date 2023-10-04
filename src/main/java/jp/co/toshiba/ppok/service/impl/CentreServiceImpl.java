@@ -33,6 +33,11 @@ import oracle.jdbc.driver.OracleSQLException;
 public class CentreServiceImpl implements CentreService {
 
 	/**
+	 * ナビゲーションのページ数
+	 */
+	private static final Integer NAVI_PAGES = 7;
+
+	/**
 	 * Cityマッパー
 	 */
 	private final CityMapper cityMapper;
@@ -53,10 +58,111 @@ public class CentreServiceImpl implements CentreService {
 	private final LanguageMapper languageMapper;
 
 	@Override
+	public Boolean checkDuplicated(final String cityName) {
+		return 1 <= this.cityMapper.checkDuplicatedName(cityName);
+	}
+
+	@Override
+	public List<String> findAllContinents() {
+		return this.countryMapper.getAllContinents();
+	}
+
+	@Override
+	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
+		final int offset = (pageNum - 1) * pageSize;
+		int sort = 100;
+		if (StringUtils.isNotEmpty(keyword)) {
+			final String hankakuKeyword = StringUtils.toHankaku(keyword);
+			if (hankakuKeyword.startsWith("max(pop)")) {
+				final int index = hankakuKeyword.indexOf(")");
+				final String keisan = hankakuKeyword.substring(index + 1);
+				if (StringUtils.isNotEmpty(keisan)) {
+					sort = Integer.parseInt(keisan);
+				}
+				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.toList();
+				if ((pageNum * pageSize) >= sort) {
+					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize,
+							CentreServiceImpl.NAVI_PAGES);
+				}
+				return Pagination.of(maximumRanks.subList(offset, offset + pageSize), maximumRanks.size(), pageNum,
+						pageSize, CentreServiceImpl.NAVI_PAGES);
+			}
+			if (hankakuKeyword.startsWith("min(pop)")) {
+				final int index = hankakuKeyword.indexOf(")");
+				final String keisan = hankakuKeyword.substring(index + 1);
+				if (StringUtils.isNotEmpty(keisan)) {
+					sort = Integer.parseInt(keisan);
+				}
+				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.toList();
+				if ((pageNum * pageSize) >= sort) {
+					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize,
+							CentreServiceImpl.NAVI_PAGES);
+				}
+				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum,
+						pageSize, CentreServiceImpl.NAVI_PAGES);
+			}
+			final Integer keyNationsCnt = this.cityViewMapper.getCityInfosByNationCnt(hankakuKeyword);
+			if (keyNationsCnt > 0) {
+				final List<CityDto> keyNations = this.cityViewMapper
+						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream()
+						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+								item.getDistrict(), item.getPopulation(), item.getLanguage()))
+						.toList();
+				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize, CentreServiceImpl.NAVI_PAGES);
+			}
+			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
+			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize)
+					.stream().map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(),
+							item.getNation(), item.getDistrict(), item.getPopulation(), item.getLanguage()))
+					.toList();
+			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize, CentreServiceImpl.NAVI_PAGES);
+		}
+		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
+		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream()
+				.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
+						item.getDistrict(), item.getPopulation(), item.getLanguage()))
+				.toList();
+		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize, CentreServiceImpl.NAVI_PAGES);
+	}
+
+	@Override
+	public String findLanguageByCty(final String nation) {
+		return this.languageMapper.getLanguageByNationName(nation);
+	}
+
+	@Override
+	public List<String> findNationsByCityId(final Integer id) {
+		final List<String> nationList = new ArrayList<>();
+		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
+		final String firstName = cityView.getNation();
+		nationList.add(firstName);
+		final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
+				.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
+		nationList.addAll(countries);
+		return nationList;
+	}
+
+	@Override
+	public List<String> findNationsByCnt(final String continent) {
+		return this.countryMapper.getNationsByCnt(StringUtils.toHankaku(continent));
+	}
+
+	@Override
 	public CityDto getCityInfo(final Integer id) {
 		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
 		return new CityDto(cityView.getId(), cityView.getName(), cityView.getContinent(), cityView.getNation(),
 				cityView.getDistrict(), cityView.getPopulation(), cityView.getLanguage());
+	}
+
+	@Override
+	public void removeById(final Integer id) {
+		this.cityMapper.removeById(id);
 	}
 
 	@Override
@@ -83,104 +189,5 @@ public class CentreServiceImpl implements CentreService {
 		city.setDistrict(cityDto.district());
 		city.setPopulation(cityDto.population());
 		this.cityMapper.updateById(city);
-	}
-
-	@Override
-	public void removeById(final Integer id) {
-		this.cityMapper.removeById(id);
-	}
-
-	@Override
-	public Boolean checkDuplicated(final String cityName) {
-		return 1 <= this.cityMapper.checkDuplicatedName(cityName);
-	}
-
-	@Override
-	public List<String> findAllContinents() {
-		return this.countryMapper.getAllContinents();
-	}
-
-	@Override
-	public List<String> findNationsByCnt(final String continent) {
-		return this.countryMapper.getNationsByCnt(StringUtils.toHankaku(continent));
-	}
-
-	@Override
-	public List<String> findNationsByCityId(final Integer id) {
-		final List<String> nationList = new ArrayList<>();
-		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
-		final String firstName = cityView.getNation();
-		nationList.add(firstName);
-		final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
-				.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
-		nationList.addAll(countries);
-		return nationList;
-	}
-
-	@Override
-	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
-		final int offset = (pageNum - 1) * pageSize;
-		int sort = 100;
-		if (StringUtils.isNotEmpty(keyword)) {
-			final String hankakuKeyword = StringUtils.toHankaku(keyword);
-			if (hankakuKeyword.startsWith("max(pop)")) {
-				final int index = hankakuKeyword.indexOf(")");
-				final String keisan = hankakuKeyword.substring(index + 1);
-				if (StringUtils.isNotEmpty(keisan)) {
-					sort = Integer.parseInt(keisan);
-				}
-				final List<CityDto> maximumRanks = this.cityViewMapper.getMaximumRanks(sort).stream()
-						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
-								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.toList();
-				if (pageNum * pageSize >= sort) {
-					return Pagination.of(maximumRanks.subList(offset, sort), maximumRanks.size(), pageNum, pageSize);
-				}
-				return Pagination.of(maximumRanks.subList(offset, offset + pageSize), maximumRanks.size(), pageNum,
-						pageSize);
-			}
-			if (hankakuKeyword.startsWith("min(pop)")) {
-				final int index = hankakuKeyword.indexOf(")");
-				final String keisan = hankakuKeyword.substring(index + 1);
-				if (StringUtils.isNotEmpty(keisan)) {
-					sort = Integer.parseInt(keisan);
-				}
-				final List<CityDto> minimumRanks = this.cityViewMapper.getMinimumRanks(sort).stream()
-						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
-								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.toList();
-				if (pageNum * pageSize >= sort) {
-					return Pagination.of(minimumRanks.subList(offset, sort), minimumRanks.size(), pageNum, pageSize);
-				}
-				return Pagination.of(minimumRanks.subList(offset, pageNum * pageSize), minimumRanks.size(), pageNum,
-						pageSize);
-			}
-			final Integer keyNationsCnt = this.cityViewMapper.getCityInfosByNationCnt(hankakuKeyword);
-			if (keyNationsCnt > 0) {
-				final List<CityDto> keyNations = this.cityViewMapper
-						.getCityInfosByNation(hankakuKeyword, offset, pageSize).stream()
-						.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
-								item.getDistrict(), item.getPopulation(), item.getLanguage()))
-						.toList();
-				return Pagination.of(keyNations, keyNationsCnt, pageNum, pageSize);
-			}
-			final Integer keyNamesCnt = this.cityViewMapper.getCityInfosByNameCnt(hankakuKeyword);
-			final List<CityDto> keyNames = this.cityViewMapper.getCityInfosByName(hankakuKeyword, offset, pageSize)
-					.stream().map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(),
-							item.getNation(), item.getDistrict(), item.getPopulation(), item.getLanguage()))
-					.toList();
-			return Pagination.of(keyNames, keyNamesCnt, pageNum, pageSize);
-		}
-		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
-		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream()
-				.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
-						item.getDistrict(), item.getPopulation(), item.getLanguage()))
-				.toList();
-		return Pagination.of(cityInfos, cityInfosCnt, pageNum, pageSize);
-	}
-
-	@Override
-	public String findLanguageByCty(final String nation) {
-		return this.languageMapper.getLanguageByNationName(nation);
 	}
 }
