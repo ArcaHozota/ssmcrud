@@ -405,6 +405,8 @@ function showValidationMsg(element, status, msg) {
 	$(element).removeClass("form-control");
 	$(element).removeClass("form-control is-valid");
 	$(element).removeClass("form-control is-invalid");
+	$(element).next("span").removeClass("valid-feedback");
+	$(element).next("span").removeClass("invalid-feedback");
 	$(element).next("span").text("");
 	if (status === "success") {
 		$(element).addClass("form-control is-valid");
