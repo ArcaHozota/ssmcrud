@@ -151,7 +151,7 @@ $("#cityAddModalBtn").on('click', function() {
 	formReset("#cityAddModal form");
 	getContinent("#continentInput");
 	getNations($("#nationInput"), 'Africa');
-	let addModal = new bootstrap.Modal(document.getElementById('cityAddModal'), {
+	let addModal = new bootstrap.Modal($("#cityAddModal"), {
 		backdrop: 'static'
 	});
 	addModal.show();
@@ -189,8 +189,7 @@ function getNations(element, continentVal) {
 		type: 'GET',
 		success: function(result) {
 			$.each(result.extend.nations, function() {
-				let optionElement = $("<option></option>").append(this).attr(
-					"value", this);
+				let optionElement = $("<option></option>").append(this).attr("value", this);
 				optionElement.appendTo(element);
 			});
 		}
@@ -210,8 +209,7 @@ $("#nameInput").change(
 					showValidationMsg("#nameInput", "success", "");
 					$("#cityInfoSaveBtn").attr("ajax-va", "success");
 				} else {
-					showValidationMsg("#nameInput", "error",
-						result.extend.validatedMsg);
+					showValidationMsg("#nameInput", "error", result.extend.validatedMsg);
 					$("#cityInfoSaveBtn").attr("ajax-va", "error");
 				}
 			}
@@ -248,7 +246,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 		$.ajax({
 			url: pathdeApp + '/city',
 			type: 'POST',
-			contentType: 'application/json;charset=UTF-8',
+			contentType: 'application/json',
 			dataType: 'json',
 			data: JSON.stringify({
 				'name': $("#nameInput").val().trim(),
@@ -260,7 +258,6 @@ $("#cityInfoSaveBtn").on('click', function() {
 			success: function(result) {
 				if (result.code === 200) {
 					$("#cityAddModal").modal('hide');
-					// To last page.
 					toSelectedPg(totalPages, searchName);
 				} else if (undefined !== result.extend.errorFields.name) {
 					showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
@@ -276,7 +273,7 @@ $(document).on('click', '.edit_btn', function() {
 	formReset("#cityEditModal form");
 	getCityInfo(editId);
 	$("#cityInfoChangeBtn").attr("editId", editId);
-	let editModal = new bootstrap.Modal(document.getElementById('cityEditModal'), {
+	let editModal = new bootstrap.Modal($("#cityEditModal"), {
 		backdrop: 'static'
 	});
 	editModal.show();
@@ -364,7 +361,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	$.ajax({
 		url: pathdeApp + '/city/' + editId,
 		type: 'PUT',
-		contentType: 'application/json;charset=UTF-8',
+		contentType: 'application/json',
 		dataType: 'json',
 		data: JSON.stringify({
 			'id': editId,
@@ -405,13 +402,15 @@ function formReset(element) {
 
 // モーダルフォームの入力行にステータスカラーを追加する
 function showValidationMsg(element, status, msg) {
-	$(element).parent().removeClass("has-success has-error");
+	$(element).removeClass("form-control");
+	$(element).removeClass("form-control is-valid");
+	$(element).removeClass("form-control is-invalid");
 	$(element).next("span").text("");
 	if (status === "success") {
-		$(element).parent().addClass("has-success");
-		$(element).next("span").text(msg);
+		$(element).addClass("form-control is-valid");
+		$(element).next("span").addClass("valid-feedback");
 	} else if (status === "error") {
-		$(element).parent().addClass("has-error");
-		$(element).next("span").text(msg);
+		$(element).addClass("form-control is-invalid");
+		$(element).next("span").addClass("invalid-feedback").text(msg);
 	}
 }
