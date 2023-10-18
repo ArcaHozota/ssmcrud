@@ -149,9 +149,6 @@ $("#searchBtn").on('click', function() {
 // 入力モーダルにクリック機能を追加する
 $("#cityAddModalBtn").on('click', function() {
 	formReset("#cityAddModal form");
-	$(".form-control").removeClass("is-valid is-invalid");
-	$(".form-text").removeClass("valid-feedback invalid-feedback");
-	$(".form-text").text("");
 	getContinent("#continentInput");
 	getNations($("#nationInput"), 'Africa');
 	let addModal = new bootstrap.Modal($("#cityAddModal"), {
@@ -274,9 +271,6 @@ $("#cityInfoSaveBtn").on('click', function() {
 $(document).on('click', '.edit_btn', function() {
 	let editId = $(this).attr("editId");
 	formReset("#cityEditModal form");
-	$(".form-control").removeClass("is-valid is-invalid");
-	$(".form-text").removeClass("valid-feedback invalid-feedback");
-	$(".form-text").text("");
 	getCityInfo(editId);
 	$("#cityInfoChangeBtn").attr("editId", editId);
 	let editModal = new bootstrap.Modal($("#cityEditModal"), {
@@ -402,8 +396,9 @@ $(document).on('click', '.delete_btn', function() {
 // モーダルフォームをリセットする
 function formReset(element) {
 	$(element)[0].reset();
-	$(element).find("*").removeClass("has-error has-success");
-	$(element).find(".help-block").text("");
+	$(element).find(".form-control").removeClass("is-valid is-invalid");
+	$(element).find(".form-text").removeClass("valid-feedback invalid-feedback");
+	$(element).find(".form-text").text("");
 }
 
 // モーダルフォームの入力行にステータスカラーを追加する
