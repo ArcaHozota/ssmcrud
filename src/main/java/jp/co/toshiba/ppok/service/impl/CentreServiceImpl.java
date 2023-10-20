@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
+
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityView;
@@ -137,6 +139,17 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public List<String> findNationsByCnt(final String continent) {
+		if (StringUtils.isDigital(continent)) {
+			final Integer id = Integer.parseInt(continent);
+			final List<String> nationList = Lists.newArrayList();
+			final CityView cityView = this.cityViewMapper.getCityInfoById(id);
+			final String firstName = cityView.getNation();
+			nationList.add(firstName);
+			final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
+					.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
+			nationList.addAll(countries);
+			return nationList;
+		}
 		return this.countryMapper.getNationsByCnt(StringUtils.toHankaku(continent));
 	}
 
