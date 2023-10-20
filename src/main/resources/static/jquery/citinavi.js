@@ -1,8 +1,6 @@
 const pathdeApp = "ssmcrud";
-
-let totalRecord, totalPages, currentPage;
-
-let searchName;
+let currentPage = 1;
+let totalRecord, totalPages, searchName;
 
 // ページの読み込み後、ajaxリクエストを送信してページ情報を取得する
 $(document).ready(function() {
