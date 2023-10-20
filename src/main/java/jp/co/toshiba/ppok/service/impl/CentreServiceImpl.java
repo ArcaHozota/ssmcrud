@@ -1,6 +1,5 @@
 package jp.co.toshiba.ppok.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -134,18 +133,6 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public String findLanguageByCty(final String nation) {
 		return this.languageMapper.getLanguageByNationName(nation);
-	}
-
-	@Override
-	public List<String> findNationsByCityId(final Integer id) {
-		final List<String> nationList = new ArrayList<>();
-		final CityView cityView = this.cityViewMapper.getCityInfoById(id);
-		final String firstName = cityView.getNation();
-		nationList.add(firstName);
-		final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
-				.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
-		nationList.addAll(countries);
-		return nationList;
 	}
 
 	@Override

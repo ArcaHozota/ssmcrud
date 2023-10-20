@@ -47,17 +47,9 @@ public interface CentreService {
 	String findLanguageByCty(String nation);
 
 	/**
-	 * 選択された都市の大陸によって全ての国の名称リストを取得する
-	 *
-	 * @param id 都市ID
-	 * @return List<String>
-	 */
-	List<String> findNationsByCityId(Integer id);
-
-	/**
 	 * 大陸によって全ての国の名称リストを取得する
 	 *
-	 * @param continent 大陸名称
+	 * @param continent 大陸名称或いは都市ID
 	 * @return List<String>
 	 */
 	List<String> findNationsByCnt(String continent);
