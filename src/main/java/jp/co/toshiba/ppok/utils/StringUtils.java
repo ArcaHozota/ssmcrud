@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.lang.Nullable;
 
@@ -224,6 +225,16 @@ public final class StringUtils {
 		StringUtils.HALF_FULL_CONVERTAR.put("゛", "ﾞ");
 		StringUtils.HALF_FULL_CONVERTAR.put("゜", "ﾟ");
 		StringUtils.HALF_FULL_CONVERTAR.put("\u3000", " ");
+	}
+
+	/**
+	 * ある文字列はすべて数字であるかどうかを判断する
+	 *
+	 * @param string ストリング
+	 * @return true: すべて数字, false: 文字も含める
+	 */
+	public static boolean isDigital(@Nullable final String string) {
+		return Pattern.compile("\\d*").matcher(string).matches();
 	}
 
 	/**
