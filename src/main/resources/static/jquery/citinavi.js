@@ -292,22 +292,7 @@ function getCityInfo(id) {
 			$("#languageEdit").text(cityData.language);
 			$("#districtEdit").val(cityData.district);
 			$("#populationEdit").val(cityData.population);
-			getNationsById("#nationEdit", id);
-		}
-	});
-}
-
-// 都市IDによって国の名称を取得する
-function getNationsById(element, id) {
-	$(element).empty();
-	$.ajax({
-		url: pathdeApp + '/countries/' + id,
-		type: 'GET',
-		success: function(result) {
-			$.each(result.extend.nationsByName, function() {
-				let optionElement = $("<option></option>").append(this).attr("value", this);
-				optionElement.appendTo(element);
-			});
+			getNations("#nationEdit", id);
 		}
 	});
 }

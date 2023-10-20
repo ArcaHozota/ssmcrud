@@ -131,17 +131,6 @@ public class CentreController {
 	}
 
 	/**
-	 * Get list of nations.
-	 *
-	 * @return RestMsg.success().add(data)
-	 */
-	@GetMapping(value = "/countries/{id}")
-	public RestMsg getListOfNationsById(@PathVariable("id") final Integer id) {
-		final List<String> nationList = this.centreService.findNationsByCityId(id);
-		return RestMsg.success().add("nationsByName", nationList);
-	}
-
-	/**
 	 * Save input city info.
 	 *
 	 * @param cityDto the input message of cities
