@@ -4,7 +4,7 @@ let totalRecord, totalPages, searchName;
 
 // ページの読み込み後、ajaxリクエストを送信してページ情報を取得する
 $(document).ready(function() {
-	toSelectedPg(1, searchName);
+	toSelectedPg(currentPage, searchName);
 });
 
 // クリックしたページ番号に転送する
