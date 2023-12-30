@@ -69,7 +69,7 @@ public class CentreServiceImpl implements CentreService {
 	}
 
 	@Override
-	public Pagination<CityDto> findByKeywords(final Integer pageNum, final Integer pageSize, final String keyword) {
+	public Pagination<CityDto> findByKeywords(Integer pageNum, final Integer pageSize, final String keyword) {
 		int offset = (pageNum - 1) * pageSize;
 		int sort = 100;
 		if (StringUtils.isNotEmpty(keyword)) {
@@ -127,7 +127,8 @@ public class CentreServiceImpl implements CentreService {
 		final Integer cityInfosCnt = this.cityViewMapper.getCityInfosCnt();
 		final Integer pageMax = (cityInfosCnt / pageSize) + ((cityInfosCnt % pageSize) != 0 ? 1 : 0);
 		if (pageNum > pageMax) {
-			offset = (pageMax - 1) * pageSize;
+			pageNum = pageMax;
+			offset = (pageNum - 1) * pageSize;
 		}
 		final List<CityDto> cityInfos = this.cityViewMapper.getCityInfos(offset, pageSize).stream()
 				.map(item -> new CityDto(item.getId(), item.getName(), item.getContinent(), item.getNation(),
