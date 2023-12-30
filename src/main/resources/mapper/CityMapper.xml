@@ -22,7 +22,7 @@
 		    #{countryCode,jdbcType=NCHAR}, 
 		    #{district,jdbcType=NVARCHAR}, 
 		    #{population,jdbcType=NUMERIC}, 
-		    #{logicDeleteFlg,jdbcType=NVARCHAR}
+		    #{deleteFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
 	<update id="removeById" parameterType="java.lang.Integer">
