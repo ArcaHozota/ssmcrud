@@ -256,7 +256,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			success: function(result) {
 				if (result.code === 200) {
 					$("#cityAddModal").modal('hide');
-					toSelectedPg(totalPages, searchName);
+					toSelectedPg(totalRecord, searchName);
 				} else if (undefined !== result.extend.errorFields.name) {
 					showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
 				}
