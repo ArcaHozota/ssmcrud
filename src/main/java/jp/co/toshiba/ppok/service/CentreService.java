@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.co.toshiba.ppok.dto.CityDto;
 import jp.co.toshiba.ppok.utils.Pagination;
+import jp.co.toshiba.ppok.utils.RestMsg;
 
 /**
  * サービスインターフェス
@@ -67,19 +68,19 @@ public interface CentreService {
 	 *
 	 * @param id 都市ID
 	 */
-	void removeById(Integer id);
+	RestMsg removeById(Integer id);
 
 	/**
 	 * 入力した都市情報を保存する
 	 *
 	 * @param cityDto 都市情報DTO
 	 */
-	void save(CityDto cityDto);
+	RestMsg save(CityDto cityDto);
 
 	/**
 	 * 入力した都市情報を更新する
 	 *
 	 * @param cityDto 都市情報DTO
 	 */
-	void update(CityDto cityDto);
+	RestMsg update(CityDto cityDto);
 }

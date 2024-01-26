@@ -6,12 +6,12 @@
 		<id property="id" jdbcType="NUMERIC" column="ID" />
 	</resultMap>
 	<select id="getLanguageByNation" resultType="java.lang.String">
-		SELECT
-		    WCV.LANGUAGE
+		SELECT DISTINCT
+		    WCV.LANGUAGE 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
-		    WCV.NATION = #{nation,jdbcType=NVARCHAR} 
+		    WCV.NATION = #{nation,jdbcType=NVARCHAR}
 	</select>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT

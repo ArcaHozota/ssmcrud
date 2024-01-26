@@ -17,6 +17,22 @@ import oracle.jdbc.driver.OracleSQLException;
 public interface CityMapper {
 
 	/**
+	 * 重複性をチェックする
+	 *
+	 * @param cityName 都市名
+	 * @return 0: 重複しない, 1: 重複する
+	 */
+	Integer checkDuplicatedName(@Param("cityName") String cityName);
+
+	/**
+	 * 論理削除
+	 *
+	 * @param id 都市ID
+	 */
+	@Transactional(rollbackFor = OracleSQLException.class)
+	void removeById(@Param("id") Integer id);
+
+	/**
 	 * 採番を行う
 	 *
 	 * @return 採番値
@@ -32,12 +48,12 @@ public interface CityMapper {
 	void saveById(City city);
 
 	/**
-	 * 論理削除
+	 * IDによって都市情報を取得する
 	 *
 	 * @param id 都市ID
+	 * @return City
 	 */
-	@Transactional(rollbackFor = OracleSQLException.class)
-	void removeById(@Param("id") Integer id);
+	City selectById(@Param("id") Long id);
 
 	/**
 	 * 更新
@@ -46,12 +62,4 @@ public interface CityMapper {
 	 */
 	@Transactional(rollbackFor = OracleSQLException.class)
 	void updateById(City city);
-
-	/**
-	 * 重複性をチェックする
-	 *
-	 * @param cityName 都市名
-	 * @return 0: 重複しない, 1: 重複する
-	 */
-	Integer checkDuplicatedName(@Param("cityName") String cityName);
 }

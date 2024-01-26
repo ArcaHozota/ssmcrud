@@ -15,6 +15,8 @@ import jp.co.toshiba.ppok.mapper.CityViewMapper;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Messages;
 import jp.co.toshiba.ppok.utils.Pagination;
+import jp.co.toshiba.ppok.utils.RestMsg;
+import jp.co.toshiba.ppok.utils.SecondBeanUtils;
 import jp.co.toshiba.ppok.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -157,33 +159,36 @@ public class CentreServiceImpl implements CentreService {
 	}
 
 	@Override
-	public void removeById(final Integer id) {
+	public RestMsg removeById(final Integer id) {
 		this.cityMapper.removeById(id);
+		return RestMsg.success(Messages.MSG013);
 	}
 
 	@Override
-	public void save(final CityDto cityDto) {
+	public RestMsg save(final CityDto cityDto) {
+		final City city = new City();
 		final Long saiban = this.cityMapper.saiban();
 		final String nationCode = this.cityViewMapper.getNationCode(cityDto.nation());
-		final City city = new City();
+		SecondBeanUtils.copyNullableProperties(cityDto, city);
 		city.setId(saiban);
-		city.setName(cityDto.name());
 		city.setCountryCode(nationCode);
-		city.setDistrict(cityDto.district());
-		city.setPopulation(cityDto.population());
 		city.setDeleteFlg(Messages.MSG007);
 		this.cityMapper.saveById(city);
+		return RestMsg.success(Messages.MSG011);
 	}
 
 	@Override
-	public void update(final CityDto cityDto) {
+	public RestMsg update(final CityDto cityDto) {
+		final City city = this.cityMapper.selectById(cityDto.id());
+		final City original = new City();
+		SecondBeanUtils.copyNullableProperties(city, original);
 		final String nationCode = this.cityViewMapper.getNationCode(cityDto.nation());
-		final City city = new City();
-		city.setId(cityDto.id());
-		city.setName(cityDto.name());
 		city.setCountryCode(nationCode);
-		city.setDistrict(cityDto.district());
-		city.setPopulation(cityDto.population());
+		SecondBeanUtils.copyNullableProperties(cityDto, city);
+		if (original.equals(city)) {
+			return RestMsg.failure().add("errorMsg", Messages.MSG012);
+		}
 		this.cityMapper.updateById(city);
+		return RestMsg.success(Messages.MSG010);
 	}
 }

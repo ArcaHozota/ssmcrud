@@ -68,8 +68,7 @@ public class CentreController {
 	 */
 	@DeleteMapping(value = "/city/{id}")
 	public RestMsg deleteCityDto(@PathVariable("id") final Integer id) {
-		this.centreService.removeById(id);
-		return RestMsg.success();
+		return this.centreService.removeById(id);
 	}
 
 	/**
@@ -138,8 +137,7 @@ public class CentreController {
 	 */
 	@PostMapping(value = "/city")
 	public RestMsg saveCityInfo(@RequestBody final CityDto cityDto) {
-		this.centreService.save(cityDto);
-		return RestMsg.success();
+		return this.centreService.save(cityDto);
 	}
 
 	/**
@@ -150,7 +148,6 @@ public class CentreController {
 	 */
 	@PutMapping(value = "/city/{id}")
 	public RestMsg updateCityDto(@RequestBody final CityDto cityDto) {
-		this.centreService.update(cityDto);
-		return RestMsg.success();
+		return this.centreService.update(cityDto);
 	}
 }

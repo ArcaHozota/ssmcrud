@@ -53,6 +53,20 @@
 			WCN.DELETE_FLG = 'visible'
 			AND WCN.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<select id="selectById" resultMap="BasicResultMap">
+		SELECT
+		    WC.ID
+		    , WC.NAME
+		    , WC.COUNTRY_CODE
+		    , WC.DISTRICT
+		    , WC.POPULATION
+		    , WC.DELETE_FLG 
+		FROM
+		    WORLD_CITY WC 
+		WHERE
+		    WC.DELETE_FLG = 'visible' 
+		    AND WC.ID = #{id,jdbcType=NUMERIC}
+	</select>
 	<select id="saiban" resultType="java.lang.Long">
 		SELECT
 		    COUNT(WCN.ID) + 1 
