@@ -20,23 +20,28 @@ import jp.co.toshiba.ppok.entity.CityView;
 public interface CityViewMapper {
 
 	/**
-	 * 国名によって都市情報を検索する
+	 * すべての大陸名称を取得する
 	 *
-	 * @param nation   国名
+	 * @return List<String>
+	 */
+	List<String> getAllContinents();
+
+	/**
+	 * 都市IDによって都市情報を検索する
+	 *
+	 * @param id 都市ID
+	 * @return CityView
+	 */
+	CityView getCityInfoById(@Param("id") Integer id);
+
+	/**
+	 * 都市情報を検索する
+	 *
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getCityInfosByNation(@Param("nation") String nation, @Param("offset") Integer offset,
-			@Param("pageSize") Integer pageSize);
-
-	/**
-	 * 国名によって都市情報を検索する
-	 *
-	 * @param nation 国名
-	 * @return Integer
-	 */
-	Integer getCityInfosByNationCnt(@Param("nation") String nation);
+	List<CityView> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * 都市名によって都市情報を検索する
@@ -58,13 +63,23 @@ public interface CityViewMapper {
 	Integer getCityInfosByNameCnt(@Param("name") String name);
 
 	/**
-	 * 都市情報を検索する
+	 * 国名によって都市情報を検索する
 	 *
+	 * @param nation   国名
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<CityInfo>
 	 */
-	List<CityView> getCityInfos(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<CityView> getCityInfosByNation(@Param("nation") String nation, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
+
+	/**
+	 * 国名によって都市情報を検索する
+	 *
+	 * @param nation 国名
+	 * @return Integer
+	 */
+	Integer getCityInfosByNationCnt(@Param("nation") String nation);
 
 	/**
 	 * 都市情報を検索する
@@ -74,11 +89,12 @@ public interface CityViewMapper {
 	Integer getCityInfosCnt();
 
 	/**
-	 * 人口数量昇順で都市情報を検索する
+	 * 国名によって公用語を取得する
 	 *
-	 * @return List<CityInfo>
+	 * @param nation 国名
+	 * @return String
 	 */
-	List<CityView> getMinimumRanks(@Param("sort") Integer sort);
+	String getLanguageByNation(String nation);
 
 	/**
 	 * 人口数量降順で都市情報を検索する
@@ -88,10 +104,25 @@ public interface CityViewMapper {
 	List<CityView> getMaximumRanks(@Param("sort") Integer sort);
 
 	/**
-	 * 都市IDによって都市情報を検索する
+	 * 人口数量昇順で都市情報を検索する
 	 *
-	 * @param id 都市ID
-	 * @return CityView
+	 * @return List<CityInfo>
 	 */
-	CityView getCityInfoById(@Param("id") Integer id);
+	List<CityView> getMinimumRanks(@Param("sort") Integer sort);
+
+	/**
+	 * 国名によって国家コードを取得する
+	 *
+	 * @param nation 国名
+	 * @return String
+	 */
+	String getNationCode(@Param("nation") String nation);
+
+	/**
+	 * 大陸名称によってすべての国名を取得する
+	 *
+	 * @param continent 大陸名称
+	 * @return List<String>
+	 */
+	List<String> getNationsByCnt(@Param("continent") String continent);
 }

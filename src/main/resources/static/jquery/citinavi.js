@@ -1,6 +1,6 @@
 const pathdeApp = "ssmcrud";
 let currentPage = 1;
-let totalRecord, totalPages, searchName;
+let totalRecords, totalPages, searchName;
 
 // ページの読み込み後、ajaxリクエストを送信してページ情報を取得する
 $(document).ready(function() {
@@ -34,34 +34,34 @@ function buildCityTable(result) {
 		let nationName = item.nation;
 		let districtName = item.district;
 		let languageName = item.language;
-		let idTd = $("<th scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
+		let idTd = $("<th scope='row' class='text-center table-light' style='width:70px;vertical-align:bottom;'></th>").append(item.id);
 		let nameTd;
 		if (cityName.length >= 15) {
-			nameTd = $("<td class='text-center' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(cityName);
+			nameTd = $("<td class='text-center table-light' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(cityName);
 		} else {
-			nameTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
+			nameTd = $("<td class='text-center table-light' style='width:120px;font-size:15px;vertical-align:bottom;'></td>").append(cityName);
 		}
-		let continentTd = $("<td class='text-center' style='width:100px;vertical-align:bottom;'></td>").append(item.continent);
+		let continentTd = $("<td class='text-center table-light' style='width:100px;vertical-align:bottom;'></td>").append(item.continent);
 		let nationTd;
 		if (nationName.length > 12 && nationName.length <= 15) {
-			nationTd = $("<td class='text-center' style='width:100px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
+			nationTd = $("<td class='text-center table-light' style='width:100px;font-size:12px;vertical-align:bottom;'></td>").append(nationName);
 		} else if (nationName.length > 15) {
-			nationTd = $("<td class='text-center' style='width:100px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
+			nationTd = $("<td class='text-center table-light' style='width:100px;font-size:10px;vertical-align:bottom;'></td>").append(nationName);
 		} else {
-			nationTd = $("<td class='text-center' style='width:100px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
+			nationTd = $("<td class='text-center table-light' style='width:100px;font-size:15px;vertical-align:bottom;'></td>").append(nationName);
 		}
 		let districtTd;
 		if (districtName.length >= 15) {
-			districtTd = $("<td class='text-center' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(districtName);
+			districtTd = $("<td class='text-center table-light' style='width:120px;font-size:10px;vertical-align:bottom;'></td>").append(districtName);
 		} else {
-			districtTd = $("<td class='text-center' style='width:120px;font-size:15px;vertical-align:bottom'></td>").append(districtName);
+			districtTd = $("<td class='text-center table-light' style='width:120px;font-size:15px;vertical-align:bottom'></td>").append(districtName);
 		}
-		let populationTd = $("<td class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
+		let populationTd = $("<td class='text-center table-light' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
 		let languageTd;
 		if (languageName.length >= 15) {
-			languageTd = $("<td class='text-center' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(languageName);
+			languageTd = $("<td class='text-center table-light' style='width:80px;font-size:10px;vertical-align:bottom;'></td>").append(languageName);
 		} else {
-			languageTd = $("<td class='text-center' style='width:80px;font-size:15px;vertical-align:bottom;'></td>").append(languageName);
+			languageTd = $("<td class='text-center table-light' style='width:80px;font-size:15px;vertical-align:bottom;'></td>").append(languageName);
 		}
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
 			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
@@ -69,7 +69,7 @@ function buildCityTable(result) {
 		let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 			.append($("<i class='bi bi-trash'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
-		let btnTd = $("<td class='text-center' style='width:120px;vertical-align:bottom;'></td>").append(editBtn).append(" ").append(deleteBtn);
+		let btnTd = $("<td class='text-center table-light' style='width:120px;vertical-align:bottom;'></td>").append(editBtn).append(" ").append(deleteBtn);
 		$("<tr></tr>").append(idTd).append(nameTd).append(continentTd).append(nationTd).append(districtTd).append(populationTd).append(languageTd)
 			.append(btnTd).appendTo("#cityTableBody");
 	});
@@ -81,9 +81,9 @@ function buildPageInfos(result) {
 	pageInfos.empty();
 	currentPage = result.extend.pageInfo.pageNum;
 	totalPages = result.extend.pageInfo.totalPages;
-	totalRecord = result.extend.pageInfo.totalRecords;
+	totalRecords = result.extend.pageInfo.totalRecords;
 	pageInfos.append("The " + currentPage + " page in " + totalPages
-		+ " pages, " + totalRecord + " records found.");
+		+ " pages, " + totalRecords + " records found.");
 }
 
 // ナビゲートされたページを分析して表示する
@@ -256,9 +256,12 @@ $("#cityInfoSaveBtn").on('click', function() {
 			success: function(result) {
 				if (result.code === 200) {
 					$("#cityAddModal").modal('hide');
-					toSelectedPg(totalRecord, searchName);
+					toSelectedPg(totalRecords, searchName);
+					layer.msg(result.message);
 				} else if (undefined !== result.extend.errorFields.name) {
 					showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
+				} else {
+					layer.msg(result.extend.errorMsg);
 				}
 			}
 		});
@@ -354,9 +357,14 @@ $("#cityInfoChangeBtn").on('click', function() {
 			'district': inputDistrict,
 			'population': inputPopulation
 		}),
-		success: function() {
-			$("#cityEditModal").modal('hide');
-			toSelectedPg(currentPage, searchName);
+		success: function(result) {
+			if (result.code === 200) {
+				$("#cityEditModal").modal('hide');
+				toSelectedPg(currentPage, searchName);
+				layer.msg(result.message);
+			} else {
+				layer.msg(result.extend.errorMsg);
+			}
 		}
 	});
 });
@@ -365,15 +373,24 @@ $("#cityInfoChangeBtn").on('click', function() {
 $(document).on('click', '.delete_btn', function() {
 	let cityName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let cityId = $(this).attr("deleteId");
-	if (confirm("この" + cityName + "という都市の情報を削除する、よろしいでしょうか。")) {
-		$.ajax({
-			url: pathdeApp + "/city/" + cityId,
-			type: "DELETE",
-			success: function() {
-				toSelectedPg(currentPage, searchName);
-			}
-		});
-	}
+	layer.confirm(
+		'この「' + cityName + '」という都市の情報を削除する、よろしいでしょうか。',
+		{
+			title: '警告',
+			icon: 0,
+			skin: 'layui-layer-molv',
+			btn: '確定'
+		}, function() {
+			$.ajax({
+				url: pathdeApp + "/city/" + cityId,
+				type: "DELETE",
+				success: function(result) {
+					toSelectedPg(currentPage, searchName);
+					layer.msg(result.message);
+				}
+			});
+		}
+	);
 });
 
 // モーダルフォームをリセットする

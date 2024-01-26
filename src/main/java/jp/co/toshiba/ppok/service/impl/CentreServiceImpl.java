@@ -12,8 +12,6 @@ import jp.co.toshiba.ppok.entity.City;
 import jp.co.toshiba.ppok.entity.CityView;
 import jp.co.toshiba.ppok.mapper.CityMapper;
 import jp.co.toshiba.ppok.mapper.CityViewMapper;
-import jp.co.toshiba.ppok.mapper.CountryMapper;
-import jp.co.toshiba.ppok.mapper.LanguageMapper;
 import jp.co.toshiba.ppok.service.CentreService;
 import jp.co.toshiba.ppok.utils.Messages;
 import jp.co.toshiba.ppok.utils.Pagination;
@@ -44,19 +42,9 @@ public class CentreServiceImpl implements CentreService {
 	private final CityMapper cityMapper;
 
 	/**
-	 * Countryマッパー
-	 */
-	private final CountryMapper countryMapper;
-
-	/**
 	 * CityViewマッパー
 	 */
 	private final CityViewMapper cityViewMapper;
-
-	/**
-	 * Languageマッパー
-	 */
-	private final LanguageMapper languageMapper;
 
 	@Override
 	public Boolean checkDuplicated(final String cityName) {
@@ -65,7 +53,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public List<String> findAllContinents() {
-		return this.countryMapper.getAllContinents();
+		return this.cityViewMapper.getAllContinents();
 	}
 
 	@Override
@@ -142,7 +130,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public String findLanguageByCty(final String nation) {
-		return this.languageMapper.getLanguageByNationName(nation);
+		return this.cityViewMapper.getLanguageByNation(nation);
 	}
 
 	@Override
@@ -153,12 +141,12 @@ public class CentreServiceImpl implements CentreService {
 			final CityView cityView = this.cityViewMapper.getCityInfoById(id);
 			final String firstName = cityView.getNation();
 			nationList.add(firstName);
-			final List<String> countries = this.countryMapper.getNationsByCnt(cityView.getContinent()).stream()
+			final List<String> countries = this.cityViewMapper.getNationsByCnt(cityView.getContinent()).stream()
 					.filter(item -> StringUtils.isNotEqual(firstName, item)).toList();
 			nationList.addAll(countries);
 			return nationList;
 		}
-		return this.countryMapper.getNationsByCnt(StringUtils.toHankaku(continent));
+		return this.cityViewMapper.getNationsByCnt(StringUtils.toHankaku(continent));
 	}
 
 	@Override
@@ -176,7 +164,7 @@ public class CentreServiceImpl implements CentreService {
 	@Override
 	public void save(final CityDto cityDto) {
 		final Long saiban = this.cityMapper.saiban();
-		final String nationCode = this.countryMapper.getNationCode(cityDto.nation());
+		final String nationCode = this.cityViewMapper.getNationCode(cityDto.nation());
 		final City city = new City();
 		city.setId(saiban);
 		city.setName(cityDto.name());
@@ -189,7 +177,7 @@ public class CentreServiceImpl implements CentreService {
 
 	@Override
 	public void update(final CityDto cityDto) {
-		final String nationCode = this.countryMapper.getNationCode(cityDto.nation());
+		final String nationCode = this.cityViewMapper.getNationCode(cityDto.nation());
 		final City city = new City();
 		city.setId(cityDto.id());
 		city.setName(cityDto.name());

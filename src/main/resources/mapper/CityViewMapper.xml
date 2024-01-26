@@ -5,15 +5,17 @@
 		type="jp.co.toshiba.ppok.entity.CityView" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
 	</resultMap>
+	<select id="getLanguageByNation" resultType="java.lang.String">
+		SELECT
+		    WCV.LANGUAGE
+		FROM
+		    WORLD_CITY_VIEW WCV 
+		WHERE
+		    WCV.NATION = #{nation,jdbcType=NVARCHAR} 
+	</select>
 	<select id="getCityInfos" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.* 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		ORDER BY
@@ -27,13 +29,7 @@
 	</select>
 	<select id="getCityInfosByNation" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.*
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
@@ -52,20 +48,13 @@
 	</select>
 	<select id="getCityInfosByName" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.* 
 		FROM
 		    WORLD_CITY_VIEW WCV 
         WHERE
             WCV.NAME LIKE CONCAT('%', CONCAT(#{name,jdbcType=NVARCHAR}, '%')) 
-        ORDER BY WCV.ID ASC
-        OFFSET #{offset,jdbcType=INTEGER} ROWS 
-        FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+        ORDER BY 
+        	WCV.ID ASC OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getCityInfosByNameCnt" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -78,28 +67,15 @@
 	</select>
 	<select id="getMinimumRanks" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.* 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		ORDER BY
-		    WCV.POPULATION ASC 
-		FETCH FIRST #{sort,jdbcType=INTEGER} ROWS ONLY
+		    WCV.POPULATION ASC FETCH FIRST #{sort,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="getMaximumRanks" resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.* 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		ORDER BY
@@ -109,16 +85,51 @@
 	<select id="getCityInfoById" parameterType="java.lang.Integer"
 		resultMap="BasicResultMap">
 		SELECT
-		    WCV.ID
-		    , WCV.CONTINENT
-		    , WCV.NATION
-		    , WCV.NAME
-		    , WCV.DISTRICT
-		    , WCV.POPULATION
-		    , WCV.LANGUAGE 
+		    WCV.* 
 		FROM
 		    WORLD_CITY_VIEW WCV 
 		WHERE
 		    WCV.ID = #{id,jdbcType=NUMERIC}
+	</select>
+	<select id="getAllContinents" resultType="java.lang.String">
+		SELECT
+		    WCY.CONTINENT 
+		FROM
+		    WORLD_COUNTRY WCY 
+		WHERE
+			WCY.DELETE_FLG = 'visible'
+		    AND NOT EXISTS ( 
+		        SELECT
+		            1 
+		        FROM
+		            WORLD_COUNTRY CTY 
+		        WHERE
+		            CTY.CONTINENT = WCY.CONTINENT 
+		            AND CTY.CODE > WCY.CODE
+		    ) 
+		ORDER BY
+		    WCY.CONTINENT
+	</select>
+	<select id="getNationsByCnt" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT
+		    WCY.NAME 
+		FROM
+		    WORLD_COUNTRY WCY 
+		WHERE
+		    WCY.DELETE_FLG = 'visible'
+		    AND WCY.CONTINENT = #{continent,jdbcType=NVARCHAR} 
+		ORDER BY
+		    WCY.NAME
+	</select>
+	<select id="getNationCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT
+		    WCY.CODE 
+		FROM
+		    WORLD_COUNTRY WCY 
+		WHERE
+			WCY.DELETE_FLG = 'visible'
+		    AND WCY.NAME = #{nation,jdbcType=NVARCHAR}
 	</select>
 </mapper>
