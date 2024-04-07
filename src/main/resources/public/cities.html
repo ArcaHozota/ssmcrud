@@ -6,14 +6,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CityList</title>
-	<!--フレームワークjQueryを導入-->
-	<script type="text/javascript" src="../static/jquery/jquery-3.6.2.min.js"></script>
-	<!--フレームワークBootstrapを導入-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/customize.css">
 	<link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="../static/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+	<script type="text/javascript" src="../static/js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../static/layer/layer.js"></script>
-	<script type="text/javascript" src="../static/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -32,13 +32,13 @@
 					<span class="input-group-text">@</span>
 					<input id="keywordInput" class="form-control" type="text" placeholder="検索条件を入力してください">
 					<button id="searchBtn" class="btn btn-warning my-2 my-sm-0" type="button">
-						<i class="bi bi-search"></i> 検索
+						<i class="fa-solid fa-magnifying-glass"></i> 検索
 					</button>
 				</div>
 			</form>
 			<div class="col-lg-2 offset-lg-5">
 				<button class="btn btn-success" id="cityAddModalBtn">
-					<i class="bi bi-calendar2-plus-fill"></i> 情報追加
+					<i class="fa-solid fa-tree-city"></i> 情報追加
 				</button>
 			</div>
 		</div>
@@ -80,33 +80,33 @@
 					<form class="form-horizontal">
 						<div class="form-group row">
 							<label for="nameInput" class="col-sm-3 col-form-label text-end">都市名</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<input type="text" class="form-control" id="nameInput" placeholder="都市の正式的な名称">
 								<span class="form-text" style="font-size: 12px;"></span>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="continentInput" class="col-sm-3 col-form-label text-end">大陸</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<select id="continentInput" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="nationInput" class="col-sm-3 col-form-label text-end">国家</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<select id="nationInput" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="districtInput" class="col-sm-3 col-form-label text-end">地域</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<input type="text" class="form-control" id="districtInput" placeholder="都市の地域">
 								<span class="form-text" style="font-size: 12px;"></span>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="populationInput" class="col-sm-3 col-form-label text-end">人口数量</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<input type="text" class="form-control" id="populationInput" placeholder="都市の人口数量">
 								<span class="form-text" style="font-size: 12px;"></span>
 							</div>
@@ -131,38 +131,38 @@
 					<form class="form-horizontal">
 						<div class="form-group row">
 							<label for="nameEdit" class="col-sm-3 col-form-label text-end">都市名</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<p class="form-control" id="nameEdit"></p>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="continentEdit" class="col-sm-3 col-form-label text-end">大陸</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<p class="form-control" id="continentEdit"></p>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="nationEdit" class="col-sm-3 col-form-label text-end">国家</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<select id="nationEdit" class="form-select"></select>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="languageEdit" class="col-sm-3 col-form-label text-end">公用語</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<p class="form-control" id="languageEdit"></p>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="districtEdit" class="col-sm-3 col-form-label text-end">地域</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<input type="text" class="form-control" id="districtEdit" placeholder="都市の地域">
 								<span class="form-text" style="font-size: 12px;"></span>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="populationEdit" class="col-sm-3 col-form-label text-end">人口数量</label>
-							<div class="col-sm-9" style="height: 40px;">
+							<div class="col-sm-9" style="height: 60px;">
 								<input type="text" class="form-control" id="populationEdit" placeholder="都市の人口数量">
 								<span class="form-text" style="font-size: 12px;"></span>
 							</div>
@@ -176,7 +176,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../static/jquery/citinavi.js"></script>
+	<script type="text/javascript" src="../static/js/citinavi.js"></script>
 </body>
 
 </html>
