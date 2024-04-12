@@ -173,7 +173,11 @@ public class CentreServiceImpl implements CentreService {
 		city.setId(saiban);
 		city.setCountryCode(nationCode);
 		city.setDeleteFlg(Messages.MSG007);
-		this.cityMapper.saveById(city);
+		try {
+			this.cityMapper.saveById(city);
+		} catch (final Exception e) {
+			return RestMsg.failure().add("errorMsg", Messages.MSG009);
+		}
 		return RestMsg.success(Messages.MSG011);
 	}
 

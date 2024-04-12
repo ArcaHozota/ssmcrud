@@ -258,8 +258,6 @@ $("#cityInfoSaveBtn").on('click', function() {
 					$("#cityAddModal").modal('hide');
 					toSelectedPg(totalRecords, searchName);
 					layer.msg(result.message);
-				} else if (undefined !== result.extend.errorFields.name) {
-					showValidationMsg("#nameInput", "error", result.extend.errorFields.name);
 				} else {
 					layer.msg(result.extend.errorMsg);
 				}
